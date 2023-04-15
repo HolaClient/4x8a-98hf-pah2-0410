@@ -37,7 +37,7 @@
 <p dir="auto">Using Pterodactyl Panel:</p>
 <ul dir="auto">
 <li>Download Dashboard files and install 'hclient.json' egg into your panel.</li>
-<li>Upload the files onto your Pterodactyl server in which 'hclient.json' egg is installed.</li>
+<li>Upload the files onto your Pterodactyl server in which 'holaclient-egg-pterodactyl.json' egg is installed.</li>
 <li>Configure settings.json and start the server.</li>   
 <li>You can also set-up a domain to HClient by following below methods
 <br><br><br></li>
