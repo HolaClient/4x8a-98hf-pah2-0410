@@ -61,6 +61,12 @@
     certbot certonly -d <domain>
    
     nano /etc/nginx/sites-enabled/hclient.conf
+    
+    after pasting Nginx config run this code
+    
+    systemctl restart nginx
+    
+    If it throws any error, feel free to contact us on our Discord server.
                
 <strong>3</strong>  Copy this config and paste it to hclient.conf, make sure to edit this using your information.
 ```Nginx
