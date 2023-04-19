@@ -104,10 +104,10 @@ location / {
 <img src="https://media.discordapp.net/attachments/1021629122109263902/1096670704767877130/image.png">
                <br>
 <p dir="auto">Dashboard:</p>
-<img src="https://media.discordapp.net/attachments/1021629122109263902/1096671315722784798/image.png">
+<img src="https://media.discordapp.net/attachments/1021629122109263902/1098239696569643138/image.png">
 <br/>
    <p dir="auto">Deploy server:</p>
-<img src="https://media.discordapp.net/attachments/1021629122109263902/1096671869043744818/image.png">
+<img src="https://media.discordapp.net/attachments/1021629122109263902/1098240368568434728/image.png">
                <br>
       <p dir="auto">Account:</p>
 <img src="https://media.discordapp.net/attachments/1021629122109263902/1096673752324001842/image.png">
