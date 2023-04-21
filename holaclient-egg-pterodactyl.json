@@ -34,11 +34,11 @@
     "variables": [
         {
             "name": "Git Repo Address",
-            "description": "GitHub Repo to clone\r\n\r\nI.E. https:\/\/github.com\/parkervcp\/repo_name",
+            "description": "",
             "env_variable": "GIT_ADDRESS",
-            "default_value": "",
+            "default_value": "https://github.com/CR072/HolaClient",
             "user_viewable": true,
-            "user_editable": true,
+            "user_editable": false,
             "rules": "nullable|string"
         },
         {
