@@ -1,0 +1,76 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2023-04-25T18:52:54+00:00",
+    "name": "HolaClient Egg V2",
+    "author": "client@holasmp.cf",
+    "description": "An egg for Pterodactyl panel usually used to install HolaClient, now updated with \u2764 by amogus#6200",
+    "features": null,
+    "docker_images": {
+        "Node.JS 17": "ghcr.io\/parkervcp\/yolks:nodejs_17",
+        "Node.JS 16": "ghcr.io\/parkervcp\/yolks:nodejs_16",
+        "Node.JS 15": "ghcr.io\/parkervcp\/yolks:nodejs_15",
+        "Node.JS 14": "ghcr.io\/parkervcp\/yolks:nodejs_14",
+        "Node.JS 12": "ghcr.io\/parkervcp\/yolks:nodejs_12"
+    },
+    "file_denylist": [],
+    "startup": "if [[ ! -z ${NODE_PACKAGES} ]]; then \/usr\/local\/bin\/npm install ${NODE_PACKAGES}; fi; if [[ ! -z ${UNNODE_PACKAGES} ]]; then \/usr\/local\/bin\/npm uninstall ${UNNODE_PACKAGES}; fi; if [ -f \/home\/container\/package.json ]; then \/usr\/local\/bin\/npm install; fi; \/usr\/local\/bin\/node \/home\/container\/{{BOT_JS_FILE}}",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"=================================================\"\r\n}",
+        "logs": "{}",
+        "stop": "^^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n# NodeJS Bot Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\necho -e \"Starting installation! \ud83d\ude00\"\r\necho -e \"Installing packages...\"\r\napt update > \/dev\/null\r\napt install -y git curl jq file unzip make gcc g++ python python-dev libtool wget > \/dev\/null\r\n\r\necho -e \"Creating server files...\"\r\nmkdir -p \/mnt\/server\r\ncd \/mnt\/server\r\n\r\n## pull git js bot repo\r\nif [ \"$(ls -A \/mnt\/server)\" ]; then\r\n    echo -e \"\u26a0 Warning: The \/mnt\/server directory is not empty.\"\r\n    echo -e \"To prevent issues, this script has been automatically halted.\"\r\n    echo -e \"If you want to update the version, download database.sqlite and settings.json, delete ALL the files, change the `Version of HolaClient` variable to a newer version of HolaClient, reinstall the server, delete the settings.json from the server and upload database.sqlite and settings.json and restart the server (optional: also change the version in the setting.json)!\"\r\n    echo -e \"Frequent updates will be posted on the GitHub or announcements channel. Thanks for using my egg! -amogus\"\r\n    echo -e \"=====================SOCIAL======================\"\r\n    echo -e \"[+] [Discord]  https:\/\/discord.gg\/CvqRH9TrYK \" \r\n    echo -e \"[+] [GitHub]  https:\/\/github.com\/CR072\/HolaClient \"\r\n    echo -e \"[+] [HolaSMP]  https:\/\/discord.gg\/Dms5dsmVAs \"\r\n    echo -e \"=================================================\"\r\n    exit 10\r\nelse\r\n    echo -e \"\u2714 \/mnt\/server is empty.\\nDownloading and unzipping the zip...\"\r\n    wget -q https:\/\/github.com\/CR072\/HolaClient\/releases\/download\/v${VERSION}\/HolaClient.v${VERSION}.zip\r\n    unzip -qq HolaClient.v${VERSION}.zip\r\n    rm -rf HolaClient.v${VERSION}.zip\r\n    echo -e \"\u2714 Successfully downloaded HolaClient!\"\r\nfi\r\n\r\necho \"Installing additional Node.JS packages...\"\r\nif [[ ! -z ${NODE_PACKAGES} ]]; then\r\n    \/usr\/local\/bin\/npm install ${NODE_PACKAGES} --silent\r\nfi\r\n\r\necho \"Installing required Node.JS packages...\"\r\nif [ -f \/mnt\/server\/package.json ]; then\r\n    \/usr\/local\/bin\/npm install --production --silent\r\nfi\r\n\r\necho -e \"\u2714 Successfully installed HolaClient!\"\r\necho -e \"If you want to update the version, download database.sqlite and settings.json, delete ALL the files, reinstall the server, delete the settings.json from the server and upload database.sqlite and settings.json and restart the server (optional: also change the version in the setting.json)!\"\r\necho -e \"Frequent updates will be posted on the GitHub or announcements channel. Thanks for using my egg! -amogus\"\r\necho -e \"=====================SOCIAL======================\"\r\necho -e \"[+] [Discord]  https:\/\/discord.gg\/CvqRH9TrYK \" \r\necho -e \"[+] [GitHub]  https:\/\/github.com\/CR072\/HolaClient \"\r\necho -e \"[+] [HolaSMP]  https:\/\/discord.gg\/Dms5dsmVAs \"\r\necho -e \"=================================================\"\r\nexit 0",
+            "container": "node:17-buster-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Version of HolaClient",
+            "description": "The version of HolaClient to use while installing\/update HolaClient.\r\nDefault: 1.3 (might be changed in a newer version of the egg)\r\n\u26a0 If you want to update the version, download database.sqlite and settings.json, delete ALL the files, change this variable to a newer version of HolaClient, reinstall the server, delete the settings.json from the server and upload database.sqlite and settings.json and restart the server (optional: also change the version in the setting.json)!",
+            "env_variable": "VERSION",
+            "default_value": "1.3",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Install additional Node.JS packages",
+            "description": "Use this when you want to install additional Node.JS packages.\r\nDefault: empty\r\n\u2753 Use spaces to separate packages.",
+            "env_variable": "NODE_PACKAGES",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Uninstall additional Node.JS packages",
+            "description": "Use this when you don't need a Node.JS package currently installed in your node_modules folder on the server.\r\nDeafult: empty\r\n\u26a0 Make sure that the packages you are uninstalling is not a essential part of HolaClient!\r\n\u2753 Use spaces to separate packages.",
+            "env_variable": "UNNODE_PACKAGES",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Index file of HolaClient",
+            "description": "The index.js file used to run HolaClient.\r\nDefault: index.js\r\n\u26a0 Do not modify thing variable unless you know what are you doing!",
+            "env_variable": "BOT_JS_FILE",
+            "default_value": "index.js",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        }
+    ]
+}
