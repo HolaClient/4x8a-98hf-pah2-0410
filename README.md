@@ -10,27 +10,25 @@
 <hr>
 <h2 tabindex="-1" dir="auto"><a id="user-content-star-what-features-" class="anchor" aria-hidden="true" href="#star-what-features-"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><g-emoji class="g-emoji" alias="star" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png">🪶</g-emoji> Features</h2>
 <ul dir="auto">
-<li>Bandwidth Sharing</li>
-<li>Background Wallpaper</li>
-<li>Resource Management</li>
-<li>Mobile Optimized</li>
-<li>Coins</li>
-<li>Coupons</li>
-<li>Servers</li>
-<li>User Settings</li>
-<li>Store</li>
-<li>Discord Oauth2</li>
-<li>Google Oauth2</li>
-<li>Email Auth</li>
-<li>Dashboard</li>
-<li>Join for Rewards</li>
-<li>Admin</li>
-<li>Webhook</li>
-<li>Gift Coins</li>
-<li>Stripe API</li>
-<li>Linkvertise Earning</li>
-<li>Role Packages</li>
-<li>Dark-mode/White-mode
+<li>Bandwidth Sharing (Arc.io)</li>
+<li>Background Wallpaper (Customizeable)</li>
+<li>Resource Management (View, Buy and Gift Coins)</li>
+<li>Mobile Optimized (Optimized webview for all types of devices)</li>
+<li>Coins (Your host's own economy)</li>
+<li>Coupons (Create, edit and manage coupons)</li>
+<li>Servers (View, Edit, Delete and Create Servers)</li>
+<li>User Settings (User editable settings)</li>
+<li>Store (buy resources using coins)</li>
+<li>Discord Oauth2 (Login using Discord)</li>
+<li>Databases and Ports (create servers with additional resources)</li>
+<li>Dashboard (user friendly management client)</li>
+<li>Join for Rewards (Earn money by joining a server)</li>
+<li>Admin (The admin management area)</li>
+<li>Webhook (Log actions to webhooks)</li>
+<li>Gift resources (Transfer your resources or coins)</li>
+<li>Stripe API (Billing system using stripe)</li>
+<li>Linkvertise Earning (Earn coins by completing a link)</li>
+<li>Role Packages (Give a package to users who has the role)
 <br><br><br></li>
 </ul>
                <hr>
