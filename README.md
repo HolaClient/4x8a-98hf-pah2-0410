@@ -18,6 +18,7 @@
 <li>Coupons (Create, edit and manage coupons)</li>
 <li>Servers (View, Edit, Delete and Create Servers)</li>
 <li>User Settings (User editable settings)</li>
+<li>API (API is often used by bots to control the client)</li>
 <li>Store (buy resources using coins)</li>
 <li>Discord Oauth2 (Login using Discord)</li>
 <li>Databases and Ports (create servers with additional resources)</li>
@@ -27,6 +28,7 @@
 <li>Webhook (Log actions to webhooks)</li>
 <li>Gift resources (Transfer your resources or coins)</li>
 <li>Stripe API (Billing system using stripe)</li>
+<li>Legal (Built-IN TOS and PP)</li>
 <li>Linkvertise Earning (Earn coins by completing a link)</li>
 <li>Role Packages (Give a package to users who has the role)
 <br><br><br></li>
