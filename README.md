@@ -25,6 +25,7 @@
 <li>Dashboard (user friendly management client)</li>
 <li>Join for Rewards (Earn money by joining a server)</li>
 <li>Admin (The admin management area)</li>
+<li>Landing Page with updated informations</li>
 <li>Webhook (Log actions to webhooks)</li>
 <li>Gift resources (Transfer your resources or coins)</li>
 <li>Stripe API (Billing system using stripe)</li>
