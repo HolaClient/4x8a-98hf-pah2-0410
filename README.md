@@ -18,6 +18,7 @@
 <li>Resource Management (View, Buy and Gift Coins)</li>
 <li>Mobile Optimized (Optimized webview for all types of devices)</li>
 <li>Coins (Your host's own economy)</li>
+<li>Store (Buy/Sell resources)</li>
 <li>Coupons (Create, edit and manage coupons)</li>
 <li>Servers (View, Edit, Delete and Create Servers)</li>
 <li>User Settings (User editable settings)</li>
