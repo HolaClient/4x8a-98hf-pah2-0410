@@ -78,19 +78,19 @@
    
     ufw allow 443
    
-    certbot certonly --nginx -d <domain>
+    certbot certonly -d <domain>
    
-    nano /etc/nginx/sites-available/hclient.conf
+    nano /etc/nginx/sites-enabled/hclient.conf
     
-    # after pasting Nginx config run this command
+    after pasting the Nginx config run theses commands
     
-   ln /etc/nginx/sites-available/hclient.conf /etc/nginx/sites-enabled/hclient.conf
+    sudo nginx -t
    
-   sudo nginx -t
+    if theres no errors execute the last command
    
-   # If it throws any error, feel free to contact us on our Discord server. If there's no errors, restart NGINX:
-   
-   systemctl restart nginx
+    systemctl restart nginx
+    
+    If it throws any error, feel free to contact us on our Discord server.
                
 <strong>3</strong>  Copy this config and paste it to hclient.conf, make sure to edit this using your information.
 ```Nginx
