@@ -13,7 +13,7 @@
 <hr>
 <h2 tabindex="-1" dir="auto"><a id="user-content-star-what-features-" class="anchor" aria-hidden="true" href="#star-what-features-"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><g-emoji class="g-emoji" alias="star" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png">🪶</g-emoji> Features</h2>
 <ul dir="auto">
-   <li><b>Anti-PteroVM</b> (automatically suspends the servers using PteroVM</li>
+   <li><b>Anti-PteroVM</b> (automatically suspends the servers using PteroVM)</li>
 <li>Bandwidth Sharing (Arc.io)</li>
 <li>Background Wallpaper (Customizeable)</li>
 <li>Resource Management (View, Buy and Gift Coins)</li>
@@ -25,7 +25,7 @@
 <li>User Settings (User editable settings)</li>
 <li>API (API is often used by bots to control the client)</li>
 <li>Store (buy resources using coins)</li>
-<li>Discord Oauth2 (Login using Discord)</li>
+<li>Discord oAuth2 (Login using Discord)</li>
 <li>Databases and Ports (create servers with additional resources)</li>
 <li>Dashboard (user friendly management client)</li>
 <li>Join for Rewards (Earn money by joining a server)</li>
@@ -36,7 +36,7 @@
 <li>Webhook (Log actions to webhooks)</li>
 <li>Gift resources (Transfer your resources or coins)</li>
 <li>Stripe API (Billing system using stripe)</li>
-<li>Legal (Built-IN TOS and PP)</li>
+<li>Legal (Built-IN Terms and Service and Privacy Policy)</li>
 <li>Linkvertise Earning (Earn coins by completing a link)</li>
 <li>Role Packages (Give a package to users who has the role)
 <br><br><br></li>
@@ -57,10 +57,8 @@
 <p dir="auto">Using Pterodactyl Panel:</p>
 <ul dir="auto">
    <li>Download and install <a href="https://github.com/ItzBenoitXD/holaclient-installer">HolaClient</a> egg into your panel.</li>
-<li>You will notice that there are some files in your server's home directory.</li>
-<li>HolaClient's versions will automatically be downloaded once you install the egg.</li>
-<li>Unarchive the version you want to use, simple as that!</li>
-<li>Configure settings.json and start the server.</li>   
+<li>Create a server and wait until the latest version is downloaded! Isn't it simple?</li>
+<li>Configure the settings.json and start the server.</li>   
 <li>You can also set-up a domain to HClient by following Configuring SSL section.
 <br><br><br></li>
 </ul>
@@ -69,9 +67,9 @@
 <p dir="auto">Using Certbot:</p>
 <ul dir="auto">
 
-<strong>1</strong>  Point the domain to your VPS IP address using DNS manager.(Ex. point client.example.com  to 127.0.0.0).
+<strong>1</strong>  Point the domain to your VPS IP address using your DNS manager.(Ex. point client.example.com to 127.0.0.0).
    <br>
-<strong>2</strong>  Run these codes on your vps.
+<strong>2</strong>  Run these commands on your Linux server:
    </ul>
 
     apt install nginx && apt install certbot
@@ -84,8 +82,12 @@
    
     nano /etc/nginx/sites-enabled/hclient.conf
     
-    after pasting Nginx config run this code
+    after pasting the Nginx config run theses commands
     
+    sudo nginx -t
+   
+    if theres no errors execute the last command
+   
     systemctl restart nginx
     
     If it throws any error, feel free to contact us on our Discord server.
