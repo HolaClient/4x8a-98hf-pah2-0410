@@ -1,0 +1,229 @@
+<head>
+  <%- include('./parts/head') %>
+    <!-- Vector CSS -->
+    <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+  body {
+    background-image: url('<%= settings.background %>');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: poppins;
+  }
+  </style>
+    <body>
+      <!-- Start wrapper-->
+ <div id="wrapper">
+  <%- include('./parts/sidebar') %>
+  <%- include('./parts/topnav') %>
+  <div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!---- ALERTS ----->
+    <%- include('./parts/alert') %>
+    <br>
+    <% if (req.query.err) { %>
+      <div style="border-radius: 15px; color:white" class="alert">
+        <% if (req.query.err == "MISSINGFIELDS") { %>
+          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+            <strong>Fill at least one field!</strong>
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        <% } else if (req.query.err == "CANNOTGIFTYOURSELF") { %>
+          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+            <strong>You cannot gift yourself!</strong>
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        <% } else if (req.query.err == "MUSTCOMPLETECAPTCHA") { %>
+          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+            <strong>Please answer the captcha!</strong>
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        <% } else if (req.query.err == "INVALIDCAPTCHARESPONSE") { %>
+          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+            <strong>Invalid captcha responce, please try again!</strong>
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        <% } else if (req.query.err == "CANTAFFORD") { %>
+          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+            <strong>You do not have enough coins!</strong>
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        <% } else if (req.query.err == "USERDOESNTEXIST") { %>
+          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+            <strong>User ID not found!</strong>
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        <% } else if (req.query.err == "TOOLOWCOINS") { %>
+          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+            <strong>You must gift more than a coin!</strong>
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        <% } %>
+      </div>
+    <% } else if (req.query.success) { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+        <strong>The coins has been successfully sent!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    <% } %>
+
+        <div class="clearfix"></div>
+	
+
+          <div class="container-fluid">
+      
+          <div class="row mt-3">
+            <div class="col-lg-6">
+               <div class="card">
+                 <div class="card-body">
+                 <div class="card-title">Gift Resources</div>
+                 <hr>
+                 <form>
+                  <div class="form-group">
+                   <label for="input-6">Discord ID:</label>
+                   <input type="number" class="form-control form-control-rounded" id="InputID" placeholder="1012993829192">
+                  </div>
+                  <div class="form-group">
+                   <label for="input-7">RAM:</label>
+                   <input type="number" class="form-control form-control-rounded" id="InputRAM" placeholder="1024">
+                  </div>
+                  <div class="form-group">
+                   <label for="input-8">DISK:</label>
+                   <input type="number" class="form-control form-control-rounded" id="InputDisk" placeholder="1024">
+                  </div>
+                  <div class="form-group">
+                   <label for="input-9">CPU:</label>
+                   <input type="number" class="form-control form-control-rounded" id="InputCPU" placeholder="100">
+                  </div>
+                  <div class="form-group">
+                    <label for="input-9">SLOTS:</label>
+                    <input type="number" class="form-control form-control-rounded" id="InputServers" placeholder="100">
+                   </div>
+                  <div class="form-group">
+                   <a type="submit" onclick="submitResources()" class="btn btn-light btn-round px-5"><i class="bi bi-gift"></i> Gift</a>
+                 </div>
+                 </form>
+               </div>
+               </div>
+            </div>
+      
+            <div class="col-lg-6">
+              <div class="card">
+                 <div class="card-body">
+                 <div class="card-title">Gift Coins</div>
+                 <hr>
+                  <form>
+                 <div class="form-group">
+                  <label for="input-6">Discord ID:</label>
+                  <input type="text" class="form-control form-control-rounded" id="InputID1" placeholder="1012993829192">
+                 </div>
+                 <div class="form-group">
+                  <label for="input-7">Coins:</label>
+                  <input type="text" class="form-control form-control-rounded" id="InputCoins" placeholder="100">
+                 </div>
+                 <div class="form-group">
+                  <a type="submit" onclick="submitCoins()" class="btn btn-light btn-round px-5"><i class="bi bi-gift"></i> Gift</a>
+                </div>
+                </form>
+               </div>
+               </div>
+            </div>
+          </div>
+          <!--End Row-->
+
+  </body>
+  <script>
+    function submitCoins() {
+      let id1 = encodeURIComponent(document.getElementById("InputID1").value);
+      let coins = encodeURIComponent(document.getElementById("InputCoins").value);
+      document.location.href = `/giftcoins?id=${id1}&coins=${coins}`;
+    };
+    function submitResources() {
+      let id = encodeURIComponent(document.getElementById("InputID").value);
+      let ram = encodeURIComponent(document.getElementById("InputRAM").value);
+      let disk = encodeURIComponent(document.getElementById("InputDisk").value);
+      let cpu = encodeURIComponent(document.getElementById("InputCPU").value);
+      let servers = encodeURIComponent(document.getElementById("InputServers").value);
+      document.location.href = `/giftres?id=${id}&ram=${ram}&disk=${disk}&cpu=${cpu}&servers=${servers}`;
+    };
+  </script>
+  	<!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+  <!--start color switcher-->
+  <div class="right-sidebar">
+    <div style="background-color: rgba(0,0,0,.2);" class="switcher-icon">
+      <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
+    </div>
+    <div class="right-sidebar-content">
+
+      <p class="mb-0">Gaussion Texture</p>
+      <hr>
+      
+      <ul class="switcher">
+        <li id="theme1"></li>
+        <li id="theme2"></li>
+        <li id="theme3"></li>
+        <li id="theme4"></li>
+        <li id="theme5"></li>
+        <li id="theme6"></li>
+      </ul>
+
+      <p class="mb-0">Gradient Background</p>
+      <hr>
+      
+      <ul class="switcher">
+        <li id="theme7"></li>
+        <li id="theme8"></li>
+        <li id="theme9"></li>
+        <li id="theme10"></li>
+        <li id="theme11"></li>
+        <li id="theme12"></li>
+		    <li id="theme13"></li>
+        <li id="theme14"></li>
+        <li id="theme15"></li>
+      </ul>
+      
+     </div>
+   </div>
+  <!--end color switcher-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="../../../assets/js/jquery.min.js"></script>
+    <script src="../../../assets/js/popper.min.js"></script>
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    
+   <!-- simplebar js -->
+    <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+    <!-- sidebar-menu js -->
+    <script src="../../../assets/js/sidebar-menu.js"></script>
+    <!-- loader scripts -->
+    <script src="../../../assets/js/jquery.loading-indicator.js"></script>
+    <!-- Custom scripts -->
+    <script src="../../../assets/js/app-script.js"></script>
+    <!-- Chart js -->
+    
+    <script src="../../../assets/plugins/Chart.js/Chart.min.js"></script>
+   
+    <!-- Index js -->
+    <script src="../../../assets/js/index.js"></script>
+    <footer>
+      <%- include('./parts/footer') %>
+    </footer>

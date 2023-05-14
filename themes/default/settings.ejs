@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./parts/head') %>
+        <!-- Vector CSS -->
+        <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+        <!-- simplebar CSS-->
+        <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+        <!-- Bootstrap core CSS-->
+        <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- animate CSS-->
+        <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+        <!-- Icons CSS-->
+        <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+        <!-- Sidebar CSS-->
+        <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+        <!-- Custom Style-->
+        <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  </head>
+<style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      font-family: poppins;
+    }
+    </style>
+       <body style="font-size: poppins; background-color: #1b1c1d;" background="<%= settings.background %>"; background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;>
+        <%- include('./parts/topnav') %>
+        <%- include('./parts/sidebar') %>
+        <div class="clearfix"></div>
+      
+        <div class="content-wrapper">
+          <div class="container-fluid">
+            <div class="row mt-3">
+              <div class="col-lg-6">
+                 <div class="card">
+                   <div class="card-body">
+                    <div class="form-group">
+                     <label for="input-6">First name:</label>
+                     <input class="form-control form-control-rounded" value="<%= userinfo.username %>" id="name" readonly>
+                    </div>
+                    <div class="form-group">
+                     <label for="input-7">Email:</label>
+                     <input class="form-control form-control-rounded" value="<%= pterodactyl.email %>" id="userid" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="input-7">Username:</label>
+                      <input class="form-control form-control-rounded" value="<%= pterodactyl.username %>" id="uuid" readonly>
+                     </div>
+                 </div>
+                 </div>
+              </div>
+        
+              <div class="col-lg-6">
+                <div class="card">
+                   <div class="card-body">
+                    <div class="form-group">
+                     <label for="input-6">Last name:</label>
+                     <input class="form-control form-control-rounded" value="user" id="email" readonly>
+                    </div>
+                    <div class="form-group">
+                     <label for="input-7">Admin:</label>
+                     <input class="form-control form-control-rounded" value="<% if (pterodactyl.root_admin == true) { %>Yes<% } else { %>No<% } %>" id="fullname" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="input-7">Password:</label>
+                      <p><%= req.session.password %><button class="btn btn-light btn-round px-5" onclick="location.href = '/regen';">Regenerate</button></p>
+                     </div>
+                 </div>
+                 </div>
+              </div>
+            </div>
+            <%- include('./parts/resources') %>
+<script>
+            async function idk() {
+              let referid = encodeURIComponent(document.getElementById("referid").value);
+              document.location.href = `/client/api/referal/use?userid=<%=req.session.userinfo.id%>&referid=${referid}`;
+          };
+            </script>
+                     </div>
+                     </div>
+                  </div>
+                </div>
+            
+                  </div>
+              </div>
+            </div>
+                      </div>
+                  </div>
+                </div>
+<footer style="font-size: larger;">
+      	<!--start overlay-->
+          <div class="overlay toggle-menu"></div>
+          <!--end overlay-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+    <!--start color switcher-->
+    <div class="right-sidebar">
+      <div style="background-color: rgba(0,0,0,.2);" class="switcher-icon">
+        <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
+      </div>
+      <div class="right-sidebar-content">
+  
+        <p class="mb-0">Gaussion Texture</p>
+        <hr>
+        
+        <ul class="switcher">
+          <li id="theme1"></li>
+          <li id="theme2"></li>
+          <li id="theme3"></li>
+          <li id="theme4"></li>
+          <li id="theme5"></li>
+          <li id="theme6"></li>
+        </ul>
+  
+        <p class="mb-0">Gradient Background</p>
+        <hr>
+        
+        <ul class="switcher">
+          <li id="theme7"></li>
+          <li id="theme8"></li>
+          <li id="theme9"></li>
+          <li id="theme10"></li>
+          <li id="theme11"></li>
+          <li id="theme12"></li>
+              <li id="theme13"></li>
+          <li id="theme14"></li>
+          <li id="theme15"></li>
+        </ul>
+        
+       </div>
+     </div>
+    <!--end color switcher-->
+        <!-- Bootstrap core JavaScript-->
+        <script src="../../../assets/js/jquery.min.js"></script>
+        <script src="../../../assets/js/popper.min.js"></script>
+        <script src="../../../assets/js/bootstrap.min.js"></script>
+        
+       <!-- simplebar js -->
+        <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+        <!-- sidebar-menu js -->
+        <script src="../../../assets/js/sidebar-menu.js"></script>
+        <!-- loader scripts -->
+        <script src="../../../assets/js/jquery.loading-indicator.js"></script>
+        <!-- Custom scripts -->
+        <script src="../../../assets/js/app-script.js"></script>
+        <!-- Chart js -->
+        
+        <script src="../../../assets/plugins/Chart.js/Chart.min.js"></script>
+       
+        <!-- Index js -->
+        <script src="../../../assets/js/index.js"></script>
+
+</footer>

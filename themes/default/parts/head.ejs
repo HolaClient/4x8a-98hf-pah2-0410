@@ -1,0 +1,36 @@
+<head>
+    <!-- Normal Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Create your own server now at <%= settings.name %> | Powered by HolaClient.">
+    <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC">
+    <meta name="author" content="HolaLLC">
+    <meta name="copyright" content="HolaLLC">
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="<%= settings.api.client.oauth2.link + "/" %>">
+    <meta property="og:type" content="dashboard">
+    <meta property="og:title" content="<%= settings.name %>">
+    <meta property="og:description" content="Create your own server now at <%= settings.name %> | Powered by HolaClient.">
+    <meta property="og:image" content="<%= settings.logo %>">
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="<%= settings.logo %>">
+    <meta property="twitter:domain" content="<%= settings.api.client.oauth2.link + "/" %>">
+    <meta property="twitter:url" content="<%= settings.api.client.oauth2.link + "/" %>">
+    <meta name="twitter:title" content="<%= settings.name %>">
+    <meta name="twitter:description" content="Create your own server now at <%= settings.name %> | Powered by HolaClient.">
+    <meta name="twitter:image" content="<%= settings.logo %>">
+    <meta name="twitter:image:src" content="<%= settings.logo %>">
+    <meta property="og:image" content="<%= settings.logo %>">
+    <meta name="twitter:title" content="<%= settings.name %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <!-- End Meta Tags -->
+    <link rel="shortcut icon" href="<%= settings.logo %>" type="image/x-icon">
+    <title><%= settings.name %></title>
+    <link rel="icon" type="image/png" href="<%= settings.logo %>">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <% if (settings.api.arcio.enabled == true) { %>
+    <script async src="https://arc.io/widget.min.js#<%= settings.api.arcio.widgetid %>"></script>
+    <% } %>
+</head>

@@ -1,0 +1,96 @@
+<head>
+  <%- include('./parts/head') %>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+  body {
+    background-image: url('<%= settings.background %>');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: poppins;
+  }
+  </style>
+    <body>
+      <!-- Start wrapper-->
+ <div id="wrapper">
+  <%- include('./parts/sidebar') %>
+  <%- include('./parts/topnav') %>
+  <div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!---- ALERTS ----->
+      <%- include('./parts/alert') %>
+      <br>
+      <% if (req.query.arcioerr == "ADBLOCKER") { %>
+        <div style="border-radius: 15px; text-align: center;" class="alert alert_error w-full">
+          <strong>Please disable your AD Blocker for AFK to work!</strong>
+          <button aria-hidden="true" class="close" type="button">&times;</button>
+        </div>
+      <% } else if (req.query.arcioerr == "WEBSOCKET_DISCONNECTED") { %>
+        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+          <strong>Something wrong with your connection or configuration!</strong>
+          <button aria-hidden="true" class="close" type="button">&times;</button>
+        </div>
+      <% } else if (req.query.arcioerr == "OPTOUT") { %>
+        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+          <strong>Please Opt-In to Arc.Io for AFK Page to work!</strong>
+          <button aria-hidden="true" class="close" type="button">&times;</button>
+        </div>
+      <% } %>
+
+    <div class="row mt-3">
+      <div class="col-lg-6">
+        <div class="card">
+           <div class="card-body">
+           <div class="card-title">Away From Keyboard</div>
+           <hr>
+           <div class="form-group">
+            <p>Every <% if (settings.api.arcio["afk page"].every !== 1) { %><%= settings.api.arcio["afk page"].every %> seconds<% } else { %>second<% } %>, you will get <%= settings.api.arcio["afk page"].coins == 1 ? "a" : settings.api.arcio["afk page"].coins %> coin<%= settings.api.arcio["afk page"].coins == 1 ? "" : "s" %>.</p>
+            <p>You will gain coins again in <span id="arciotimer"><%= settings.api.arcio["afk page"].every %></span> seconds.</p>
+            <p>You have gained <span id="arciogainedcoins">0</span> coins in this session</p>
+            <p>You have <%= coins %> coins in total.</p>
+           </div>
+          </div>
+          </div>
+ </div><script>
+  <%- arcioafktext %>
+</script>
+  </body>
+  	<!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="../../../assets/js/jquery.min.js"></script>
+    <script src="../../../assets/js/popper.min.js"></script>
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    
+   <!-- simplebar js -->
+    <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+    <!-- sidebar-menu js -->
+    <script src="../../../assets/js/sidebar-menu.js"></script>
+    <!-- loader scripts -->
+    <script src="../../../assets/js/jquery.loading-indicator.js"></script>
+    <!-- Custom scripts -->
+    <script src="../../../assets/js/app-script.js"></script>  
+    <!-- Index js -->
+    <script src="../../../assets/js/index.js"></script>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <footer>
+      <%- include('./parts/footer') %>
+    </footer>
