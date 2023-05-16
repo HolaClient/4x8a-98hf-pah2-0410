@@ -1,0 +1,332 @@
+<head>
+  <%- include('./parts/head') %>
+    <!-- Vector CSS -->
+    <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+  body {
+    background-image: url('<%= settings.background %>');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: poppins;
+  }
+  </style>
+    <body>
+      <!-- Start wrapper-->
+ <div id="wrapper">
+  <%- include('./parts/sidebar') %>
+  <%- include('./parts/topnav') %>
+  <div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <% if (settings.api.client.coins.store.enabled == true) { %>
+      <!---- ALERTS ----->
+    <%- include('./parts/alert') %>
+    <br>
+    <% if (req.query.err) { %>
+      <div style="border-radius: 15px; color:white;" class="alert">
+          <% if (req.query.err == "MISSINGVARIABLE") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC1] You have not filled up all of the information, please fill up in order to create a server!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>            
+          <% } else if (req.query.err == "NOTANUMBER") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC2] RAM, CPU and DISK must be a number!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "ERRORONCREATE") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC3] The panel does not have enough space to create your server!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "BIGSERVERNAME") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC4] Your server's name cannot be more than 191 characters!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "TOOMUCHSERVERS") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC5] Too much servers!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "PREMIUMLOCATION") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC6] Please select a valid location!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "TOOLITTLECOINS") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC7] You do not have enough coins to create this server!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "CREATEDSERVER") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                      <strong id="servername">Successfully created a server.</strong>
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                    </div>
+          <% } else if (req.query.err == "MUSTCOMPLETECAPTCHA") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC8] Please complete the captcha to prove you're a human!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "INVALIDCAPTCHARESPONSE") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC9] You didn't solve that captcha correctly, please try again!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+                <% } else if (req.query.err == "STRIPEDOWN") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                      <strong>Stripe API is down, please try again later!</strong>
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                    </div>
+                <% } else if (req.query.err == "MAXIMUMLIMIT") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                      <strong>[HCOCLOL] Maximum limit resource limit exceeded, please lower it!</strong>
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                    </div>
+          <% } else if (req.query.err == "MAXCPUEXCEETED") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                      <strong>[HCOC15] You can't buy these much cpu at a time!</strong>
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                    </div>
+                    <% } else if (req.query.err == "MAXRAMEXCEETED") { %>
+                      <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                          <strong>[HCOC15] You can't buy these much ram at a time!</strong>
+                          <button aria-hidden="true" class="close" type="button">&times;</button>
+                        </div>
+                        <% } else if (req.query.err == "MAXDISKEXCEETED") { %>
+                          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                              <strong>[HCOC15] You can't buy these much disk at a time!</strong>
+                              <button aria-hidden="true" class="close" type="button">&times;</button>
+                            </div>
+                            <% } else if (req.query.err == "MAXSERVERSEXCEETED") { %>
+                              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                                  <strong>[HCOC15] You can't buy these much slots at a time!</strong>
+                                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                                </div>
+          <% } else if (req.query.err == "CANNOTAFFORD") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                      <strong>[HCOC14] You do not have enough coins to buy this!</strong>
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                    </div>
+          <% } else { %>
+              <% if (req.query.num) { %>
+                  <% if (!isNaN(parseFloat(req.query.num))) { %>
+                      <% if (req.query.err == "TOOLITTLERAM" || req.query.err == "TOOLITTLEDISK" || req.query.err == "TOOLITTLECPU") { %>
+                          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                              <strong>[HCOC10] You must make a server with at least <b><%= req.query.num %></b>!</strong>
+                              <button aria-hidden="true" class="close" type="button">&times;</button>
+                            </div>
+                          <% if (req.query.err.slice(-3) == "RAM") { %>
+                              MB RAM
+                          <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                              MB disk
+                          <% } else { // CPU %>
+                              % CPU
+                          <% } %>
+                          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                              <strong>if you want to create a server with the server type you have selected.</strong>
+                              <button aria-hidden="true" class="close" type="button">&times;</button>
+                            </div>
+                      <% } else if (req.query.err == "TOOMUCHRAM" || req.query.err == "TOOMUCHDISK" || req.query.err == "TOOMUCHCPU") { %>
+                          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                              <strong>[HCOC11] With the selected server type, you can have a maximum of <b><%= req.query.num %></b></strong>
+                              <button aria-hidden="true" class="close" type="button">&times;</button>
+                            </div>
+                          <% if (req.query.err.slice(-3) == "RAM") { %>
+                              MB RAM
+                          <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                              MB disk
+                          <% } else { // CPU %>
+                              % CPU
+                          <% } %>
+                          on the server.
+                      <% } else if (req.query.err == "EXCEEDRAM" || req.query.err == "EXCEEDDISK" || req.query.err == "EXCEEDCPU") { %>
+                          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                              <strong>[HCOC12] You do not have enough resources to make this server!</strong>
+                              <button aria-hidden="true" class="close" type="button">&times;</button>
+                            </div>
+                      <% } else { %>
+                          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                              <strong>[HCOC13] Aw man! Your modification won't work here.</strong>
+                              <button aria-hidden="true" class="close" type="button">&times;</button>
+                            </div>
+                      <% } %>
+                  <% } else { %>
+                      <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                          <strong>[HCOC14] Aw man! Your modification won't work here.</strong>
+                          <button aria-hidden="true" class="close" type="button">&times;</button>
+                        </div>
+                  <% } %>
+              <% } else { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                      <strong>Successfully added those resources to your account!</strong>
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                    </div>
+              <% } %>
+          <% } %>
+      </div>
+  <% } %>
+      <%- include('./parts/resources') %>
+      <body className='snippet-body' style="font-size: poppins; background-color: #1b1c1d;" background="<%= settings.background %>"; background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;>
+
+        <div class="row mt-3">
+          <div class="col-lg-6">
+             <div class="card">
+               <div class="card-body">
+               <div class="card-title">Buy CPU</div>
+               <hr>
+                <div class="form-group">
+                 <label for="input-6"><%= settings.api.client.coins.store.cpu.per %>% CPU - <%= settings.api.client.coins.store.cpu.cost %> coins</label>
+                 <input type="number" id="cpuAmount" name="id" class="form-control form-control-rounded" placeholder="CPU TO BUY IN '%'">
+                </div>
+                <div class="form-group">
+                 <button onclick="buyCPU()" role="button" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> Buy CPU</button>
+               </div>
+             </div>
+             </div>
+          </div>
+    
+          <div class="col-lg-6">
+            <div class="card">
+               <div class="card-body">
+               <div class="card-title">Buy RAM</div>
+               <hr>
+                <div class="form-group">
+                 <label for="input-6"><%= settings.api.client.coins.store.ram.per %>MB RAM - <%= settings.api.client.coins.store.ram.cost %> coins</label>
+                 <input type="number" id="ramAmount" class="form-control form-control-rounded" placeholder="RAM TO BUY IN MB">
+                </div>
+                <div class="form-group">
+                 <button onclick="buyRAM()" role="button" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> Buy RAM</button>
+               </div>
+             </div>
+             </div>
+          </div>
+        </div>
+    
+        <div class="row mt-3">
+          <div class="col-lg-6">
+             <div class="card">
+               <div class="card-body">
+               <div class="card-title">Buy DISK</div>
+               <hr>
+                <div class="form-group">
+                 <label for="input-6"><%= settings.api.client.coins.store.disk.per %>MB Disk - <%= settings.api.client.coins.store.disk.cost %> coins</label>
+                 <input type="number" id="diskAmount" class="form-control form-control-rounded" placeholder="DISK TO BUY IN MB">
+                </div>
+                <div class="form-group">
+                 <a onclick="buyDisk()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> buy disk</a>
+               </div>
+             </div>
+             </div>
+          </div>
+    
+          <div class="col-lg-6">
+            <div class="card">
+               <div class="card-body">
+               <div class="card-title">Buy SLOTS</div>
+               <hr>
+                <div class="form-group">
+                 <label for="input-6"><%= settings.api.client.coins.store.servers.per %> slot - <%= settings.api.client.coins.store.servers.cost %> coins</label>
+                 <input type="number" id="serversAmount" class="form-control form-control-rounded" placeholder="SERVER SLOTS TO BUY">
+                </div>
+                <div class="form-group">
+                 <a onclick="buyServers()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> buy slots</a>
+               </div>
+             </div>
+             </div>
+          </div>
+        </div>
+
+  </body>
+  <script>
+    async function buyCPU() {
+    let cpu = encodeURIComponent(document.getElementById("cpuAmount").value) / 10;
+    document.location.href = `/buycpu?amount=${cpu}`;
+    };
+    
+    async function buyRAM() {
+    let ram = encodeURIComponent(document.getElementById("ramAmount").value) / 1024;
+    document.location.href = `/buyram?amount=${ram}`;
+    };
+    
+    async function buyDisk() {
+    let disk = encodeURIComponent(document.getElementById("diskAmount").value) / 1024;
+    document.location.href = `/buydisk?amount=${disk}`;
+    };
+    
+    async function buyServers() {
+    let servers = encodeURIComponent(document.getElementById("serversAmount").value);
+    document.location.href = `/buyservers?amount=${servers}`;
+    };
+
+    async function buyBackups() {
+    let backups = encodeURIComponent(document.getElementById("backupsAmount").value);
+    document.location.href = `/buybackups?amount=${backups}`;
+    };
+
+    async function buyDatabases() {
+    let databases = encodeURIComponent(document.getElementById("databasesAmount").value);
+    document.location.href = `/buydatabases?amount=${databases}`;
+    };
+
+    async function buyPorts() {
+    let ports = encodeURIComponent(document.getElementById("portsAmount").value);
+    document.location.href = `/buyports?amount=${ports}`;
+    };
+
+    async function buyCoins() {
+    let coins = encodeURIComponent(document.getElementById("coinsAmount").value);
+    document.location.href = `?err=STRIPEDOWN`;
+    };
+    </script>
+    <% } else { %>
+      <h1>NICE<br> TRY<br> KIDDO! <br><br> NOW GO BACK TO DASHBOARD OR GET WRECKED. <br><br>STORE IS CURRENTLY DISABLED!</h1>
+      <audio controls hidden id="song">
+        <source src="../../../assets/audios/roll.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <script>
+        var audio = document.getElementById("song");
+        var playButton = document.getElementById("roll");
+          document.body.style.backgroundImage = "url('../../../assets/audios/rick.gif')"
+          window.onload = function() {
+          audio.play();
+    };
+      </script>
+      <% } %>
+  	<!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="../../../assets/js/jquery.min.js"></script>
+    <script src="../../../assets/js/popper.min.js"></script>
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    
+   <!-- simplebar js -->
+    <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+    <!-- sidebar-menu js -->
+    <script src="../../../assets/js/sidebar-menu.js"></script>
+    <!-- Custom scripts -->
+    <script src="../../../assets/js/app-script.js"></script>
+    <footer>
+      <%- include('./parts/footer') %>
+    </footer>

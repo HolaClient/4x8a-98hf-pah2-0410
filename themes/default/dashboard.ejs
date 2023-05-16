@@ -1,0 +1,370 @@
+<head>
+  <%- include('./parts/head') %>
+    <!-- Vector CSS -->
+    <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+  body {
+    background-image: url('<%= settings.background %>');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: poppins;
+  }
+  </style>
+    <body>
+      <!-- Start wrapper-->
+ <div id="wrapper">
+  <%- include('./parts/sidebar') %>
+  <%- include('./parts/topnav') %>
+  <div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!---- ALERTS ----->
+    <%- include('./parts/alert') %>
+    <% if (settings.news.enabled == true) { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_info">
+        <strong><%= settings.news.content %></strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+      <% } %>
+    <% if (req.query.err == "MISSINGCOUPONCODE") { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+        <strong>Please enter a coupon code and try again.</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    <% } else if (req.query.err == "INVALIDCOUPONCODE") { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+        <strong>This doesn't seem to work, check it it's already redeemed!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    <% } else if (req.query.err == "SUCCESSCOUPONCODE") { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+        <strong>Successfully redeemed that coupon code.</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    <% } %>
+            <% if (req.query.err == "ALREADY_OPEN") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button> <strong>You can't open these much tabs at once!</strong> </div>
+                </div>
+                </div>
+            <% } else if (req.query.err === "CANNOTAFFORDRENEWAL") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                <strong>Error: You will need at least <%= settings.renewals.cost %> to renew your Server!</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>
+            <% } if (req.query.success === 'RENEWED') { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                <strong>Successfully renewed your Server!</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>
+            <% } if (req.session.newaccount || req.session.password) { %>
+            <div style="background-color: #1b1c1d; border-radius: 15px" class="alert">
+                <% if (req.session.newaccount) { %>
+                    
+                <% } %>
+                <% if (req.session.password) { %>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+    body {
+        font-family: poppins;
+    }
+    .modal-confirm {		
+        color: #434e65;
+        width: 525px;
+    }
+    .modal-confirm .modal-content {
+        padding: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+    }
+    .modal-confirm .modal-header {
+        background: #47c9a2;
+        border-bottom: none;   
+        position: relative;
+        text-align: center;
+        margin: -20px -20px 0;
+        border-radius: 5px 5px 0 0;
+        padding: 35px;
+    }
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 36px;
+        margin: 10px 0;
+    }
+    .modal-confirm .form-control, .modal-confirm .btn {
+        min-height: 40px;
+        border-radius: 3px; 
+    }
+    .modal-confirm .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #fff;
+        text-shadow: none;
+        opacity: 0.5;
+    }
+    .modal-confirm .close:hover {
+        opacity: 0.8;
+    }
+    .modal-confirm .icon-box {
+        color: #fff;		
+        width: 95px;
+        height: 95px;
+        display: inline-block;
+        border-radius: 50%;
+        z-index: 9;
+        border: 5px solid #fff;
+        padding: 15px;
+        text-align: center;
+    }
+    .modal-confirm .icon-box i {
+        font-size: 64px;
+        margin: -4px 0 0 -4px;
+    }
+    .modal-confirm.modal-dialog {
+        margin-top: 80px;
+    }
+    .modal-confirm .btn, .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #eeb711 !important;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        border-radius: 30px;
+        margin-top: 10px;
+        padding: 6px 20px;
+        border: none;
+    }
+    .modal-confirm .btn:hover, .modal-confirm .btn:focus {
+        background: #eda645 !important;
+        outline: none;
+    }
+    .modal-confirm .btn span {
+        margin: 1px 3px 0;
+        float: left;
+    }
+    .modal-confirm .btn i {
+        margin-left: 1px;
+        font-size: 20px;
+        float: right;
+    }
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+    </style>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Great!</h4>	
+                    <p>Your account has been created successfully. Use <p style="color: rgba(252, 80, 80, 0.747); font-weight: bold;" id="textToCopy"><%= req.session.password %></p> as your panel password!</p>
+                    <button id="copyButton" class="btn btn-success" data-dismiss="modal"><span>Copy & Close</span> <i class="material-icons">&#xE5C8;</i></button>
+                </div>
+            </div>
+        </div>
+    </div>     
+<script>
+    $(document).ready(function() {
+  $('#myModal').modal('toggle');
+});
+
+$(document).ready(function() {
+  setTimeout(function() {
+    $('#myModal').modal('toggle');
+  }, 60000); // 1000 milliseconds = 1 second
+});
+</script>
+<script>
+document.getElementById('copyButton').addEventListener('click', function() {
+  var text = document.getElementById('textToCopy').textContent;
+  var tempTextArea = document.createElement('textarea');
+  tempTextArea.value = text;
+  document.body.appendChild(tempTextArea);
+  tempTextArea.select();
+  tempTextArea.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(text).then(function() {
+    document.body.removeChild(tempTextArea);
+    alert('Password has been copied to clipboard: ' + text);
+  }).catch(function(err) {
+    console.error('Unable to copy to clipboard', err);
+  });
+});
+
+</script>
+                <% } %>
+            </div>
+        <% } %>
+        <% if (req.query.err) { %>
+          <% if (req.query.err !== "none") { %>
+            <div class="flex items-center space-x-2" style="background-color: transparent; border-radius: 15px; color: white;">
+            <% if (req.query.err == "CREATEDSERVER") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                <strong>Successfully created your Server!</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>            
+            <% } %>
+            <% if (req.query.err == "DELETEDSERVER") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                <strong>Successfully deleted your Server!</strong>
+                <button style="align-self: center;" aria-hidden="true" class="close" type="button">&times;</button>
+              </div> 
+                        <% } %>
+            <% if (req.query.err == "MODIFYSERVER") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                <strong>Successfully changed your Server's Resources!</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>
+                        <% } %>
+            </div>
+          <% } %>
+        <% } %>
+      <%- include('./parts/resources') %>
+
+    <div class="row mt-3">
+      <div class="col-lg-6">
+        <div class="card">
+           <div class="card-body">
+           <div class="card-title">Coupon</div>
+           <hr>
+            <form action="/coupon_redeem">
+           <div class="form-group">
+            <label for="input-6">Coupon:</label>
+            <input type="text" class="form-control form-control-rounded" name="code" placeholder="1012993829192">
+           </div>
+           <div class="form-group">
+            <button role="button" class="btn btn-light btn-round px-5"><i class="bi bi-credit-card-2-back-fill"></i> Redeem</button>
+          </div>
+          </form>
+          </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+          <form>
+            <center>
+            <div class="form-group">
+             <button id="roll" onclick="toggleroll()" class="btn btn-light btn-round px-5"><i class="bi bi-box-arrow-up-right"></i> This does nothing tbh</button>
+           </div>
+           <audio controls hidden id="song">
+            <source src="../../../assets/audios/roll.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <script>
+            var audio = document.getElementById("song");
+            var playButton = document.getElementById("roll");
+            playButton.addEventListener("click", function() {
+              event.preventDefault();
+              document.body.style.backgroundImage = "url('../../../assets/audios/rick.gif')"
+              audio.play();
+            });
+
+  function toggleroll() {
+    if (audio.paused) {
+      audio.play();
+      playButton.textContent = "GOTCHA BOI";
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+      playButton.textContent = "nahhh get rickrolled";
+    }
+  }
+          </script>
+           </center>
+           </form>
+           </div>
+           </div>
+      </div>
+
+    <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+           <div class="card-title">Account Info</div>
+           <hr>
+            <form>
+           <div class="form-group">
+            <label for="input-6">Username [Click to copy]</label>
+            <input type="button" onclick="copyToClipboard()"  class="form-control form-control-rounded" value="<%= pterodactyl.username %>" type="hidden">
+           </div>
+           <div class="form-group">
+            <label for="input-7">Email [Click to copy]</label>
+            <input type="button" onclick="copyToClipboard1()" class="form-control form-control-rounded" value="<%= pterodactyl.email %>">
+           </div>
+           <div class="form-group">
+            <p>Please click the button below to view your password.</p>
+           </div>
+           <script>
+            function copyToClipboard() {
+  const textToCopy = "<%= pterodactyl.username %>";
+  navigator.clipboard.writeText(textToCopy)
+    .then(() => {
+      console.log("Text copied to clipboard");
+    })
+    .catch((error) => {
+      console.error("Failed to copy text: ", error);
+    });
+}
+function copyToClipboard1() {
+  const textToCopy = "<%= pterodactyl.email %>";
+  navigator.clipboard.writeText(textToCopy)
+    .then(() => {
+      console.log("Text copied to clipboard");
+    })
+    .catch((error) => {
+      console.error("Failed to copy text: ", error);
+    });
+}
+           </script>
+             <div class="icheck-material-white">
+              <a type="submit" onclick="location.href = '../settings';" class="btn btn-light btn-round px-5"><i class="bi bi-key"></i> Password</a>
+            </div>
+           </div>
+          </form>
+         </div>
+         </div>
+      </div>
+      
+    <%- include('./parts/servers') %>
+ </div>
+  </body>
+  	<!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="../../../assets/js/jquery.min.js"></script>
+    <script src="../../../assets/js/popper.min.js"></script>
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    
+   <!-- simplebar js -->
+    <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+    <!-- sidebar-menu js -->
+    <script src="../../../assets/js/sidebar-menu.js"></script>
+    <!-- Custom scripts -->
+    <script src="../../../assets/js/app-script.js"></script>
+    <footer>
+      <%- include('./parts/footer') %>
+    </footer>

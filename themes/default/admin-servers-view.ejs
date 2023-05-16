@@ -1,0 +1,197 @@
+<head>
+    <%- include('./parts/header') %>
+      <!-- Vector CSS -->
+      <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+      <!-- simplebar CSS-->
+      <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+      <!-- Bootstrap core CSS-->
+      <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+      <!-- animate CSS-->
+      <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+      <!-- Icons CSS-->
+      <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+      <!-- Sidebar CSS-->
+      <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+      <!-- Custom Style-->
+      <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  </head>
+  <style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      font-family: poppins;
+    }
+    </style>
+      <body>
+        <!-- Start wrapper-->
+   <div id="wrapper">
+    <%- include('./parts/menu') %>
+    <%- include('./parts/topnav') %>
+    <div class="clearfix"></div>
+      
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <!---- ALERTS ----->
+      <%- include('./parts/alert') %>
+      <br>
+              <% if (req.query.err == "MISSINGID") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>Please fill in the correct Discord user ID</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+              <% } else if (req.query.err == "CREATECOUPONINVALIDCHARACTERS") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>Invalid characters has been found in your coupon code, please change it!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+              <% } else if (req.query.err == "REVOKECOUPONCANNOTFINDCODE") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>Couldn't find that coupon in our database!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+              <% } else if (req.query.err == "MISSINGVARIABLES") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                  <strong>No value has been given, coupon creation failed!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+              <% } %>
+              <% if (req.query.err == "CREATECOUPONEMPTY") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button> <strong>Please specify at least one field to create a coupon with!</strong> </div>
+                  </div>
+                  </div>
+              <% } else if (req.query.err === "CREATECOUPONLESSTHANONE") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>We don't support coupon creation with resources less than 1!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+              <% } if (req.query.err === 'INVALIDID') { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>Make sure this user is signedup on this Dashboard or check if the ID belongs to a valid person!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+              <% } if (req.query.err === 'none') { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                  <strong>Successful!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+              <% } if (req.query.err == "RAMSIZE" || req.query.err == "DISKSIZE" || req.query.err == "CPUSIZE" || req.query.err == "SERVERSIZE") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>We don't support coupon creation with resources less than 1!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+              <% } if (req.query.code) { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                  <strong>Successfully created the coupon "<%= req.query.code %>"</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+               <% } if (req.query.err === 'NOIP') { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>User IP not stored in database!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+               <% } if (req.query.err === 'REMOVEACCOUNT') { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                  <strong>User has been successfully deleted from the database.</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+          <% } %>
+
+                <div class="card">
+                  <div class="card-body">
+                  <div class="card-title">&nbsp;Showing Server Info Of <span id="title"></span></div>
+                   </div>
+                   </div>
+                
+                   <div class="row mt-3">
+            <div class="col-lg-6">
+               <div class="card">
+                 <div class="card-body">
+                  <div class="form-group">
+                   <label for="input-6">Server Name:</label>
+                   <input class="form-control form-control-rounded" id="name" readonly>
+                  </div>
+                  <div class="form-group">
+                   <label for="input-7">UUID:</label>
+                   <input class="form-control form-control-rounded" id="uuid" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="input-7">Node:</label>
+                    <input class="form-control form-control-rounded" id="node" readonly>
+                   </div>
+                  <div class="form-group">
+                    <label for="input-7">Suspended:</label>
+                    <input class="form-control form-control-rounded" id="suspend" readonly>
+                   </div>
+               </div>
+               </div>
+            </div>
+      
+            <div class="col-lg-6">
+              <div class="card">
+                 <div class="card-body">
+                  <div class="form-group">
+                   <label for="input-6">Server ID:</label>
+                   <input class="form-control form-control-rounded" id="serverid" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="input-7">Memory:</label>
+                    <input class="form-control form-control-rounded" id="memory" readonly>
+                   </div>
+                   <div class="form-group">
+                    <label for="input-7">Disk:</label>
+                    <input class="form-control form-control-rounded" id="disk" readonly>
+                   </div>
+                   <div class="form-group">
+                    <label for="input-7">Cpu:</label>
+                    <input class="form-control form-control-rounded" id="cpu" readonly>
+                   </div>
+               </div>
+               </div>
+            </div>
+          </div>
+          <script>
+            async function get() {
+                const query = new URLSearchParams(window.location.search)
+                const title = document.getElementById("title");
+                await fetch('/api/admin/servers/details?id=' + parseInt(query.get('id')))
+          .then(response => response.json())
+          .then(json => {
+            title.textContent = json.name;
+            document.getElementById('name').value=json.name
+            document.getElementById('serverid').value=json.id
+            document.getElementById('uuid').value=json.uuid
+            document.getElementById('suspend').value=json.suspend
+            document.getElementById('memory').value=json.memory
+            document.getElementById('disk').value=json.disk
+            document.getElementById('cpu').value=json.cpu
+            document.getElementById('node').value=json.node
+            document.getElementById('egg').value=json.egg
+            })
+            }
+            get()
+          </script>
+
+        <!--start overlay-->
+      <div class="overlay toggle-menu"></div>
+          <!--end overlay-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+      <!-- Bootstrap core JavaScript-->
+      <script src="../../../assets/js/jquery.min.js"></script>
+      <script src="../../../assets/js/popper.min.js"></script>
+      <script src="../../../assets/js/bootstrap.min.js"></script>
+      
+     <!-- simplebar js -->
+      <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+      <!-- sidebar-menu js -->
+      <script src="../../../assets/js/sidebar-menu.js"></script>
+      <!-- Custom scripts -->
+      <script src="../../../assets/js/app-script.js"></script>
+        <br>
+        <br><br>
+        <br><br>
+        <%- include('./parts/footer') %>
+      </footer>

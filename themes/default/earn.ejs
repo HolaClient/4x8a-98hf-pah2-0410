@@ -1,0 +1,234 @@
+<head>
+  <%- include('./parts/head') %>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+  body {
+    background-image: url('<%= settings.background %>');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: poppins;
+  }
+  </style>
+    <body>
+      <!-- Start wrapper-->
+ <div id="wrapper">
+  <%- include('./parts/sidebar') %>
+  <%- include('./parts/topnav') %>
+  <div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!---- ALERTS ----->
+    <%- include('./parts/alert') %>
+    <br>
+    <% if (req.query.arcioerr == "ADBLOCKER") { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_error w-full">
+        <strong>Please disable your AD Blocker for AFK to work!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    <% } else if (req.query.arcioerr == "WEBSOCKET_DISCONNECTED") { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+        <strong>Something wrong with your connection or configuration!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    <% } else if (req.query.arcioerr == "OPTOUT") { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+        <strong>Please Opt-In to Arc.Io for AFK Page to work!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    <% } %>
+    <% if (req.query.err) { %>
+      <div style="border-radius: 15px;" class="alert">
+          <% if (req.query.err == "MUSTCOMPLETECAPTCHA") { %>
+            <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+              <strong>[HCOE1] You must complete the captcha before proceeding!</strong>
+              <button aria-hidden="true" class="close" type="button">&times;</button>
+            </div>
+    <% } else if (req.query.err == "ADBLOCKER") { %>
+       <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+          <strong>[HCOE2] You have answered the captcha wrongly!</strong>
+          <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+          <% } %>
+      </div>
+    <% } %>
+    <% if (req.query.success) { %>
+      <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+        <strong>You earned <%= settings.linkvertise.coins%> coins by completing a Linkvertise link!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    <% } %>
+    <div class="row mt-3">
+      <div class="col-lg-6">
+        <div class="card">
+           <div class="card-body">
+           <div class="card-title"><h3>Away From Keyboard</h3></div>
+           <hr>
+           <div class="form-group">
+            <p>You're earning <%= settings.api.arcio["afk page"].coins == 1 ? "a" : settings.api.arcio["afk page"].coins %> coin<%= settings.api.arcio["afk page"].coins == 1 ? "" : "s" %> per <% if (settings.api.arcio["afk page"].every !== 1) { %><%= settings.api.arcio["afk page"].every %> seconds<% } else { %>second<% } %>.</p>
+            <p>Countdown&nbsp; : <span id="arciotimer"><%= settings.api.arcio["afk page"].every %></span> s</p>
+            <p>Collected &nbsp;&nbsp;&nbsp;&nbsp;: <span id="arciogainedcoins">0</span> coins</p>
+            <p>Total Coins&nbsp; : <%= coins %></p>
+           </div>
+          </div>
+          </div>
+ </div><script>
+  <%- arcioafktext %>
+</script>
+</div>
+<% if (settings.linkvertise.enabled == true) { %>
+  <div class="row mt-3">
+    <div class="col-lg-6">
+       <div class="card">
+         <div class="card-body">
+          <h3 style="color: white; text-align: start;">Linkvertise</h3><hr>
+          <div>
+            <div>
+                <div>
+                <div style="display: none;" id="generate-panel">
+                  <p style="color:white; text-align: start;">You will get <%= settings.linkvertise.coins%> coins after you succesfully complete a linkvertise link!<br>
+                    <br><button class="btn btn-light btn-round px-5" onclick="generate()">
+                        Generate Link
+                    </button></p>
+                                  </div>
+                <div class="card-body" id="loading-panel">
+                  <h3 style="color:white">Loading...</h3>
+                </div>
+                <script type="text/javascript">
+                  const loadingPanel = document.getElementById('loading-panel')
+                  fetch(`/api/lvcooldown`).then(res => res.json())
+                  .then(json => {
+                    if (json.cooldown === null) {
+                      const genPanel = document.getElementById('generate-panel')
+                      loadingPanel.style.display = 'none'
+                      return genPanel.style.display = ''
+                    } else if (json.dailyLimit) {
+                      const dailyPanel = document.getElementById('dailylimit-panel')
+                      dailyPanel.style.display = ''
+                      loadingPanel.style.display = 'none'
+                      const timeLeft = document.getElementById('daily-timeleft')
+                      timeLeft.innerHTML = json.readable
+                    } else if (json.error) {
+                      const errorPanel = document.getElementById('error-panel')
+                      loadingPanel.style.display = 'none'
+                      errorPanel.style.display = ''
+                    } else {
+                      loadingPanel.style.display = 'none'
+                      const cooldownPanel = document.getElementById('cooldown-panel')
+                      const cooldownTimer = document.getElementById('cooldown-seconds')
+          
+                      setInterval(() => {
+                        const timeLeft = json.cooldown - Date.now()
+                        if (timeLeft < 0) return window.location.replace('/earn')
+                        cooldownTimer.innerHTML = Math.floor(timeLeft / 1000)
+                      }, 1000)
+          
+                      cooldownPanel.style.display = ''
+                    }
+                  })
+                  .catch(() => {
+                    loadingPanel.style.display = 'none'
+                    const errorPanel = document.getElementById('error-panel')
+                    errorPanel.style.display = ''
+                  })
+                </script>
+              <script type="text/javascript">
+                function generate() {
+                  window.location.replace(`/earn/gen`)
+                }
+              </script>
+       </div>
+       </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <% if (settings.ads.enabled == true) { %>
+    <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+         <div style="cursor: pointer;" onclick="location.href = '<%= settings.ads.ads[0].redirect %>';" class="card-title"><%= settings.ads.ads[0].title %></div>
+         <hr>
+          <img onclick="location.href = '<%= settings.ads.ads[0].redirect %>';" style="border-radius: 15px; cursor: pointer;" src="<%= settings.ads.ads[0].image %>">
+       </div>
+       </div>
+    </div>
+    <% } %>
+  </div>
+<% } %>
+<div class="row mt-3">
+  <div class="col-lg-6">
+    <div class="card">
+       <div class="card-body">
+<h3 style="color: white; text-align: start;">Join For Rewards</h3><hr>
+<p style="color: white;">Please re-login to claim your rewards.</p>
+  <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Coins</th>
+              <th scope="col">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let i = 0, len = settings.api.client.j4r.ads.length; i < len; i++) { %>
+            <tr>
+              <td><%= settings.api.client.j4r.ads[i].name %></td>
+              <td><%= settings.api.client.j4r.ads[i].coins %></td>
+              <td><a style="color: aqua;" href="<%= settings.api.client.j4r.ads[i].invite %>">Link</a></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+  </div>
+  <% if (settings.ads.enabled == true) { %>
+    <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+         <div style="cursor: pointer;" onclick="location.href = '<%= settings.ads.ads[1].redirect %>';" class="card-title"><%= settings.ads.ads[1].title %></div>
+         <hr>
+          <img onclick="location.href = '<%= settings.ads.ads[1].redirect %>';" style="border-radius: 15px; cursor: pointer;" src="<%= settings.ads.ads[1].image %>">
+       </div>
+       </div>
+    <% } %>
+  </div>
+</div>
+    </div>
+  </body>
+  	<!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="../../../assets/js/jquery.min.js"></script>
+    <script src="../../../assets/js/popper.min.js"></script>
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    
+   <!-- simplebar js -->
+    <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+    <!-- sidebar-menu js -->
+    <script src="../../../assets/js/sidebar-menu.js"></script>
+    <!-- Custom scripts -->
+    <script src="../../../assets/js/app-script.js"></script>
+    <footer>
+      <%- include('./parts/footer') %>
+    </footer>

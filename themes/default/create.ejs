@@ -1,0 +1,281 @@
+<head>
+  <%- include('./parts/head') %>
+    <!-- Vector CSS -->
+    <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+  body {
+    background-image: url('<%= settings.background %>');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: poppins;
+  }
+  </style>
+    <body>
+      <!-- Start wrapper-->
+ <div id="wrapper">
+  <%- include('./parts/sidebar') %>
+  <%- include('./parts/topnav') %>
+  <%- include('./parts/alert') %>
+  <div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+    <!-- Start Alerts -->
+    <% if (req.query.err) { %>
+      <div style="border-radius: 15px; color:white;" class="alert">
+          <% if (req.query.err == "MISSINGVARIABLE") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC1] You have not filled up all of the information, please fill up in order to create a server!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>            
+          <% } else if (req.query.err == "NOTANUMBER") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC2] RAM, CPU and DISK must be a number!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "ERRORONCREATE") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC3] The panel does not have enough space to create your server!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "BIGSERVERNAME") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC4] Your server's name cannot be more than 191 characters!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "TOOMUCHSERVERS") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC5] Too much servers!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "PREMIUMLOCATION") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC6] Please select a valid location!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "TOOLITTLECOINS") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC7] You do not have enough coins to create this server!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "CREATEDSERVER") { %>
+                  <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                      <strong id="servername">Successfully created a server.</strong>
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                    </div>
+          <% } else if (req.query.err == "MUSTCOMPLETECAPTCHA") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC8] Please complete the captcha to prove you're a human!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else if (req.query.err == "INVALIDCAPTCHARESPONSE") { %>
+              <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                  <strong>[HCOC9] You didn't solve that captcha correctly, please try again!</strong>
+                  <button aria-hidden="true" class="close" type="button">&times;</button>
+                </div>
+          <% } else { %>
+              <% if (req.query.num) { %>
+                  <% if (!isNaN(parseFloat(req.query.num))) { %>
+                      <% if (req.query.err == "TOOLITTLERAM" || req.query.err == "TOOLITTLEDISK" || req.query.err == "TOOLITTLECPU") { %>
+                          <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                              <strong>[HCOC10] You must make a server with at least <b><%= req.query.num %></b>
+                          <% if (req.query.err.slice(-3) == "RAM") { %>
+                              MB RAM
+                          <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                              MB disk
+                          <% } else { // CPU %>
+                              % CPU
+                          <% } %>
+                        </strong>
+                        if you want to create a server with the server type you have selected.
+                        <button aria-hidden="true" class="close" type="button">&times;</button>
+                      </div>
+                    <% } else if (req.query.err == "TOOMUCHRAM" || req.query.err == "TOOMUCHDISK" || req.query.err == "TOOMUCHCPU") { %>
+                        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                            <strong>[HCOC11] With the selected server type, you can have a maximum of <b><%= req.query.num %></b> 
+                        <% if (req.query.err.slice(-3) == "RAM") { %>
+                            MB RAM
+                        <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                            MB disk
+                        <% } else { // CPU %>
+                            % CPU
+                        <% } %>
+                        on the server.
+                      </strong>
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                    </div>
+                    <% } else if (req.query.err == "EXCEEDRAM" || req.query.err == "EXCEEDDISK" || req.query.err == "EXCEEDCPU") { %>
+                        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                            <strong>[HCOC12] You do not have enough resources to make this server!</strong>
+                            <button aria-hidden="true" class="close" type="button">&times;</button>
+                          </div>
+                    <% } else { %>
+                        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                            <strong>[HCOC13] Aw man! Your modification won't work here.</strong>
+                            <button aria-hidden="true" class="close" type="button">&times;</button>
+                          </div>
+                    <% } %>
+                <% } else { %>
+                    <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                        <strong>[HCOC14] Aw man! Your modification won't work here.</strong>
+                        <button aria-hidden="true" class="close" type="button">&times;</button>
+                      </div>
+                <% } %>
+            <% } else { %>
+                <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                    <strong>[HCOC15] Invalid Locaton! Contact <%= settings.name %>'s staff</strong>
+                    <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+            <% } %>
+        <% } %>
+    </div>
+<% } %>
+    <!-- End Alerts -->
+      <%- include('./parts/resources') %>
+<!-- Start Server creator -->
+<%
+let ram = 0;
+let disk = 0;
+let cpu = 0;
+let backups = 0;
+let databases = 0;
+let servers = pterodactyl.relationships.servers.data.length;
+for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) {
+    ram = ram + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.memory == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.memory : 0);
+    disk = disk + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.disk == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.disk : 0);
+    cpu = cpu + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.cpu == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.cpu : 0);
+    backups = backups + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.backups == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.backups : 0);
+    databases = databases + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.databases == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.databases : 0);
+}
+%>
+      <div class="card mt-3">
+        <div class="card-content">
+            <div class="row row-group m-0">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-alt"></i></span></h5>
+                      <h6 style="color:white">Enter your server name</h6>
+                      <p>
+                      <input id="InputName" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" type="text" placeholder="Server name" oninput="this.className = ''" name="fname"></p>                      
+                    </div>
+                </div>
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-memory"></i></span></h5>
+                      <h6 style="color:white">Enter your server's ram to be allocated in MB (1GB = 1024MB)</h6>
+                      <p><input id="InputRAM" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.ram + extraresources.ram - ram %>" type="number" placeholder="Server ram" oninput="this.className = ''" name="fname"></p>                      
+                    </div>
+                <div class="card-body">
+                  <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-hdd"></i></span></h5>
+                  <h6 style="color:white">Enter your server's disk to be allocated in MB (1GB = 1024MB)</h6>
+                  <p><input id="InputDisk" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.disk + extraresources.disk - disk %>" type="number" placeholder="Server disk" oninput="this.className = ''" name="fname"></p>                  
+                </div>
+            <div class="card-body">
+              <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
+              <h6 style="color:white">Enter your server's cpu in "%" to be allocated</h6>
+              <p><input id="InputCPU" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.cpu + extraresources.cpu - cpu %>" type="number" placeholder="Server cpu" oninput="this.className = ''" name="fname"></p>                      
+            </div>
+            <div class="card-body">
+              <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
+              <h6 style="color:white">How much backups should to be allocated to this server?</h6>
+              <p><input id="InputBackups" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.backups + extraresources.backups - backups %>" type="number" placeholder="Server Backups" oninput="this.className = ''" name="fname"></p>                      
+            </div>
+            <div class="card-body">
+              <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
+              <h6 style="color:white">How many databases should to be allocated to this server?</h6>
+              <p><input id="InputDatabases" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.databases + extraresources.databases - databases %>" type="number" placeholder="Server databases" oninput="this.className = ''" name="fname"></p>                      
+            </div>
+
+            <div class="card-body">
+              <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-plugin"></i></span></h5>
+            <h6 style="color:white">Select your server software</h6>
+            <select class="btn btn-secondary dropdown-toggle" style="width: 250px; padding: 8px; background-color: #2a3038; border: 1px solid #2c2e33; color: #e4eaec; border-radius: 15px; padding: 8px;" id="InputEgg">
+            <% for (let [name, value] of Object.entries(settings.api.client.eggs)) { %>
+              <option value="<%= name %>"><%= value.display %></option>
+            <% } %>
+            </select>
+            </div>
+        
+            <div class="card-body">
+              <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-geo-alt"></i></span></h5>
+        <h6 style="color:white">Where your server should be deployed?</h6>
+        <ull role="list" class="grid gap-5 sm:gap-6 lg:grid-cols-4">
+          <% for (let [name, value, location, banner] of Object.entries(settings.api.client.locations)) { %>
+            <link href="../../../assets/css/creator.css" rel="stylesheet"/>
+              <li value="<%= name %>" class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex-shrink-0 flex items-center justify-center w-16 bg-hola-700 cursor-pointer border-t border-b border-l border-hola-600 text-white text-sm font-medium rounded-l-md"><img src="<%= value.banner %>" style="border-radius: 18px;" class="cursor-pointer"></div>
+                <div class="flex-1 flex items-center justify-between border-t border-r border-b cursor-pointer border-hola-600 bg-hola-700 rounded-r-md truncate">
+                    <input type="radio" style="background-color: #2f2e30;" name="InputLoc" value="<%= name %>" onclick="setINPLOC(<%= name %>)">
+                    <div class="flex-1 px-1 py-1 text-sm truncate"></div>
+                    <a class="text-white font-medium hover:text-sky-400 cursor-pointer"><%= value.name %></a>
+                    <div class="flex-1 px-4 py-2 text-sm truncate"></div>
+                </div>
+              </li>
+          <% } %>
+          </ul>
+          </div>
+        <script>
+          let inputLOCC = ""
+          function setINPLOC(num) {
+            inputLOCC = num;
+            console.log(num)
+          }
+          </script>
+          <script>
+            async function submitNew() {
+              let name = encodeURIComponent(document.getElementById("InputName").value);
+              let egg = encodeURIComponent(document.getElementById("InputEgg").value);
+              let ram = encodeURIComponent(document.getElementById("InputRAM").value);
+              let disk = encodeURIComponent(document.getElementById("InputDisk").value);
+              let cpu = encodeURIComponent(document.getElementById("InputCPU").value);
+              let databases = encodeURIComponent(document.getElementById("InputDatabases").value);
+              let backups = encodeURIComponent(document.getElementById("InputBackups").value);
+              let location = inputLOCC;
+              document.location.href = `/create?name=${name}&egg=${egg}&ram=${ram}&disk=${disk}&cpu=${cpu}&backups=${backups}&databases=${databases}&location=${location}`;
+            };
+          </script>
+        
+        <div style="width: 250px;" class="card-body">
+        <a style="width: 250px; background-color: #2a3038; border: 1px solid #2c2e33; border-radius: 15px; padding: 8px;" role="button" id="create-btn" class="button" href="javascript: submitNew()"><span style="color:white">Create Server
+            </span></a>
+        </li>
+        <br/> </section>
+        </div>
+        </div>
+        </form>
+        </div>
+        </div>
+        </div>
+
+  </body>
+  	<!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="../../../assets/js/jquery.min.js"></script>
+    <script src="../../../assets/js/popper.min.js"></script>
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    
+   <!-- simplebar js -->
+    <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+    <!-- sidebar-menu js -->
+    <script src="../../../assets/js/sidebar-menu.js"></script>
+    <!-- Custom scripts -->
+    <script src="../../../assets/js/app-script.js"></script>
+      <%- include('./parts/footer') %>
+    </footer>

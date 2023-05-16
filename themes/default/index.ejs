@@ -1,0 +1,297 @@
+<!-- WARNING USERS -->
+
+
+<!-- I HAVE MADE THIS WEBSITE IN THE MEANING TO USE IT ONLY WITH HOLACLIENT, IF YOU TRIED TO COPY AND USE THIS WEBSITE 
+ON AN EXTERNAL FORM WITHOUT HOLACLIENT, THAT WEBSITE WILL BE TAKEN DOWN BY DMCA TAKEDOWN. SO BETTER NOT USE THIS WEBSITE 
+WITHOUT HOLACLIENT. THIS IS JUST A WARNING MESSAGE IGNORE IF YOU JUST CAME HERE TO MODIFY THE LANDING PAGE -->
+
+<!-- FEEL FREE TO MODIFY THE LANDING PAGE AS YOUR WISH. WE WON'T ASK ANYTHING BUT YOU'RE NOT ALLOWED TO REMOVE OR 
+CHANGE THE FOOTER. IF YOU REMOVE HOLACLIENT'S CREDITS, YOUR SITE WILL BE TAKEN DOWN BY DMCA TAKEDOWN -->
+
+<!-- GET MORE INFO ABOUT OUR LANDING PAGE ON YOUR DISCORD, DON'T FORGET TO JOIN IT! -->
+<!-- Discord: https://discord.gg/CvqRH9TrYK -->
+<!-- GitHub: https://github.com/CR072/HolaClient -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="dark [--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem] js-focus-visible" data-js-focus-visible>
+<%- include('./parts/head') %>
+<body class="bg-gradient-to-r from-slate-900 to-slate-700">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- component -->
+<!-- Gogole Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;1,100;1,200&display=swap"
+    rel="stylesheet" />
+
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+    }
+</style>
+
+<!-- Page Main -->
+<main class="flex flex-col items-center justify-center mt-32 ">
+    <header class="container">
+        <!-- Navbar -->
+        <nav
+            class="flex justify-between md:justify-around py-4 bg-white/10 backdrop-blur-md shadow-md w-full px-10 fixed top-0 left-0 right-0 z-10 px-8 md:px-3 w-full backdrop-blur flex-none transition-colors duration-500 bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
+            <!-- Logo Container -->
+            <div class="flex items-center">
+                <!-- Logo -->
+                <a class="cursor-pointer">
+                    <h3 class="bg-[radial-gradient(138.06%_1036.51%_at_95.25%_-2.54%,_#7ED4FD_14.06%,#709DF7_51.02%,#4D78EF_79.09%)] bg-clip-text text-3xl font-medium font-bold leading-[1.2] tracking-tighter text-transparent">
+                            <%= settings.name %>
+                    </h3>
+                </a>
+            </div>
+            <div
+                class="items-center md:space-x-8 justify-center justify-items-start md:justify-items-center md:flex md:pt-2 w-full left-0 top-16 px-5 md:px-10 py-3 md:py-0 border-t md:border-t-0"></div>
+
+            <!-- Links -->
+            <div class="flex items-center space-x-5 hidden md:flex">
+                              <!-- Discord -->
+                              <a href="<%= settings.discord %>"
+                              class="bi bi-discord flex text-white cursor-pointer transition-colors duration-300 font-semibold text-blue-600 "
+                              onpointerenter="this.setAttribute('style', 'color: aquamarine; transform: scale(1.7);')" onpointerleave="this.setAttribute('style', 'color: gray; transform: scale(1.6);')" style="transform: scale(1.6);">
+
+                          </a>
+                          <span class="mx-2">|</span>
+                <!-- Login -->
+                <a href="./dashboard"
+                    class="bi bi-box-arrow-in-right flex text-white cursor-pointer transition-colors duration-300 font-semibold text-blue-600" onpointerenter="this.setAttribute('style', 'color: aquamarine; transform: scale(1.7);')" onpointerleave="this.setAttribute('style', 'color: gray; transform: scale(1.6);')" style="transform: scale(1.6);">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section
+        class="flex flex-wrap items-center -mx-3 font-sans px-4 mx-auto w-full lg:max-w-screen-lg sm:max-w-screen-sm md:max-w-screen-md pb-20">
+        <!-- Column-1 -->
+        <div class="px-3 w-full lg:w-2/5">
+            <div
+                class="mx-auto mb-8 max-w-lg text-center lg:mx-0 lg:max-w-md lg:text-left">
+                <h2 class="mb-4 text-3xl font-bold text-white text-left lg:text-5xl">
+                    Get powerful gameservers for free & paid on<br>
+
+                    <span class="bg-[radial-gradient(138.06%_1036.51%_at_95.25%_-2.54%,_#7ED4FD_14.06%,#709DF7_51.02%,#4D78EF_79.09%)] bg-clip-text text-5xl leading-[1.2] tracking-tighter text-transparent sm:text-center sm:text-[4rem] sm:leading-[4.75rem] lg:text-left"
+                        ><%= settings.name %>
+                    </span>
+                </h2>
+
+                <p
+                    class="visible mx-0 mt-3 mb-0 text-sm leading-relaxed text-left text-slate-400">
+                    Empowering hundreads of powerful Minecraft servers!
+                </p>
+            </div>
+
+            <div class="text-center lg:text-left">
+                <a href="./dashboard"
+                    class="transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in block visible py-4 px-8 mb-4 text-xs font-semibold tracking-wide leading-none text-white bg-blue-500 rounded cursor-pointer sm:mr-3 sm:mb-0 sm:inline-block"
+                    >Get Started</a
+                >
+
+                <a href="<%= settings.pterodactyl.domain %>"
+                class="transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in block visible py-4 px-8 mb-4 text-xs font-semibold tracking-wide leading-none text-white bg-blue-500 rounded cursor-pointer sm:mr-3 sm:mb-0 sm:inline-block"
+                >Panel</a
+                >
+            </div>
+        </div>
+
+        <div class="px-3 mb-12 w-full lg:mb-0 lg:w-3/5">
+            <div class="flex justify-center items-center">
+              <img src="<%= settings.logo %>">
+            </div>
+        </div>
+    </section>
+      <div class="bg-transparent text-gray-400 font-poppins grid grid-cols-1 md:lg:xl:grid-cols-3 group  shadow-xl  ">
+
+
+          <div
+              class="bg-transparent text-gray-400 font-poppins p-10 flex flex-col items-center text-center group">
+              <span class="p-5 rounded-full bg-green-500 text-white shadow-lg shadow-red-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="h-10 w-10 bi bi-shield-check" viewBox="0 0 16 16">
+                  <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/>
+                  <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+              </span>
+              <p class="text-xl font-medium text-slate-700 text-white mt-3">Primary Anti-DDoS</p>
+              <p class="mt-2 text-sm text-slate-500">Your servers are protected by our Anti-DDoS system.</p>
+          </div>
+
+          <div
+              class="bg-transparent text-gray-400 font-poppins p-10 flex flex-col items-center text-center group">
+              <span class="p-5 rounded-full bg-orange-500 text-white shadow-lg shadow-orange-200"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="h-10 w-10 bi bi-clock" viewBox="0 0 16 16">
+                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+              </svg></span>
+              <p class="text-xl font-medium text-slate-700 text-white mt-3">24/7 Online</p>
+              <p class="mt-2 text-sm text-slate-500">Your servers are 24/7 online on eco friendly vms.</p>
+          </div>
+
+          <div class="bg-transparent text-gray-400 font-poppins p-10 flex flex-col items-center text-center group">
+              <span class="p-5 rounded-full bg-yellow-500 text-white shadow-lg shadow-yellow-200"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="h-10 w-10 bi bi-globe" viewBox="0 0 16 16">
+                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+              </svg></span>
+              <p class="text-xl font-medium text-slate-700 text-white mt-3">Global Locations</p>
+              <p class="mt-2 text-sm text-slate-500">We have our VMs on different countries that gives you a good ping.</p>
+          </div>
+
+
+          <div class="bg-transparent text-gray-400 font-poppins p-10 flex flex-col items-center text-center group">
+              <span class="p-5 rounded-full bg-lime-500 text-white shadow-lg shadow-lime-200"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="h-10 w-10 bi bi-headset" viewBox="0 0 16 16">
+                <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z"/>
+              </svg></span>
+              <p class="text-xl font-medium text-slate-700 text-white mt-3">Quick Support</p>
+              <p class="mt-2 text-sm text-slate-500">You will be guided by our staffs under 6 hours on your problems.</p>
+          </div>
+
+          <div class="bg-transparent text-gray-400 font-poppins p-10 flex flex-col items-center text-center group">
+              <span class="p-5 rounded-full bg-teal-500 text-white shadow-lg shadow-teal-200"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="h-10 w-10 bi bi-hdd-network" viewBox="0 0 16 16">
+                <path d="M4.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8.5v3a1.5 1.5 0 0 1 1.5 1.5h5.5a.5.5 0 0 1 0 1H10A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5H.5a.5.5 0 0 1 0-1H6A1.5 1.5 0 0 1 7.5 10V7H2a2 2 0 0 1-2-2V4zm1 0v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1zm6 7.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5z"/>
+              </svg></span>
+              <p class="text-xl font-medium text-slate-700 text-white mt-3">Powerful Servers</p>
+              <p class="mt-2 text-sm text-slate-500">We use the best performance VMs to give you a powerful experience.</p>
+          </div>
+
+          <div class="bg-transparent text-gray-400 font-poppins p-10 flex flex-col items-center text-center group">
+              <span class="p-5 rounded-full bg-indigo-500 text-white shadow-lg shadow-indigo-200">
+                <img class="h-10 w-10" src="https://media.discordapp.net/attachments/1074689223250153513/1081090224408510575/hsw.png">
+              </span>
+              <p class="text-xl font-medium text-slate-700 text-white mt-3">HolaClient for Dashboard</p>
+              <p class="mt-2 text-sm text-slate-500">We use one of the powerful client for our Dashboard, It's <a style="color: aquamarine;" href="https://github.com/CR072/HolaClient">HolaClient</a>.
+              </p>
+          </div>
+      </div>
+  </div>
+    <section
+        class="flex flex-col w-full h-[560px] bg-cover bg-fixed bg-center flex justify-center items-center"
+        style="
+            background-image: url(https://c4.wallpaperflare.com/wallpaper/546/630/456/minecraft-creeper-video-games-realistic-wallpaper-preview.jpg);
+        ">
+        <h1 class="text-white text-5xl font-semibold mt-20 mb-10">
+            No more interuptions...
+        </h1>
+    </section>
+    <div class="antialiased w-full h-full bg-transparent text-gray-400 font-poppins p-10">
+      <div class="container px-4 mx-auto">
+        <div>
+          <div id="title" class="text-center my-10">
+            <h1 class="font-bold text-4xl text-white"><%= settings.name %> Statistics</h1>
+            <p class="text-light text-gray-500 text-xl">
+              Statistics are updated automatically by HolaClient's advanced APIs
+            </p>
+          </div>
+      <div class="flex flex-row m-auto  p-6 gap-8 rounded-lg">
+        <div class="flex flex-row m-auto p-6 gap-8 rounded-lg border-2 border-blue-500 transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+          <div class="my-auto">
+            <div class="text-lg text-blue-300">Users</div>
+            <div class="text-4xl text-blue-100"><span id="users">Loading...</span></div>
+          </div>
+          <div class="text-blue-300 my-auto bg-gradient-to-l from-blue-700 via-blue-800 to-blue-900 rounded-full p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-12 h-12 bi bi-people-fill" viewBox="0 0 16 16">
+              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex flex-row m-auto p-6 gap-8 rounded-lg border-2 border-blue-500 transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+          <div class="my-auto">
+            <div class="text-lg text-blue-300">Servers</div>
+            <div class="text-4xl text-blue-100"><span id="servers">Loading...</span></div>
+          </div>
+          <div class="text-blue-300 my-auto bg-gradient-to-l from-blue-700 via-blue-800 to-blue-900 rounded-full p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z" />
+            </svg>
+          </div>
+        </div>
+        <div class="flex flex-row m-auto p-6 gap-8 rounded-lg border-2 border-blue-500 transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+          <div class="my-auto">
+            <div class="text-lg text-blue-300">Locations</div>
+            <div class="text-4xl text-blue-100"><span id="locations">Loading</span></div>
+          </div>
+          <div class="text-blue-300 my-auto bg-gradient-to-l from-blue-700 via-blue-800 to-blue-900 rounded-full p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-12 h-12 bi bi-geo-alt-fill" viewBox="0 0 16 16">
+              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+            </svg>
+          </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <script>
+          async function servers() {
+            const serverInfo = document.getElementById("servers");
+            const response = await fetch('/api/servers');
+            const json = await response.json();
+            const infoString = `${json.totalServers}`;
+            serverInfo.innerText = infoString;
+          }
+          servers();
+          async function users() {
+            const users = document.getElementById("users");
+            const response = await fetch('/api/users');
+            const json = await response.json();
+            const usersr = `${json.totalUsers}`;
+            users.innerText = usersr;
+          }
+          users();
+          async function locations() {
+            const locations = document.getElementById("locations");
+            const response = await fetch('/api/locations');
+            const json = await response.json();
+            const location = `${json.totalLocations}`;
+            locations.innerText = location;
+          }
+          locations();
+          </script>
+    <script>
+      async function getUptime() {
+        const uptime = document.getElementById("uptime");
+        const response = await fetch("/uptime");
+        const json = await response.json();
+        let html = "";
+        json.uptime.forEach((entry) => {
+          const [time, status] = entry.split(" - ");
+          html += `<p text-white>${time} - ${status}</p>`;
+        });
+        uptime.innerHTML = html;
+      }
+      getUptime();
+      setInterval(getUptime, 5000);
+    </script>
+            
+</body>
+        <!-- Copyright Bar -->
+        <div class="pt-2">
+          <div
+              class="flex pb-5 px-3 m-auto pt-5 border-t border-gray-500 text-gray-400 text-sm flex-col md:flex-row max-w-6xl">
+              <div class="mt-2">© <script>document.write(new Date().getFullYear());</script> <%= settings.name %> | All Rights Reserved.<br><center>Powered by <a href="https://github.com/CR072/HolaClient" style="color: aquamarine;" target="_blank">HolaClient</a>.</center></div>
+          </div>
+      </div>
+  </footer>
+</html>

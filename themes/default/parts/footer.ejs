@@ -1,0 +1,19 @@
+  <footer style="background-color: rgba(0,0,0,.2);" class="footer">
+    <center>
+    <!-- WARNING: REMOVING HOLA CLIENT CREDITS OR HYPERLINK WILL END UP IN A DMCA TAKE DOWN AGAINST THE HOST -->
+      <small style="color: white; font-weight: 100;">Copyright &copy; <script>document.write(new Date().getFullYear());</script> <a style="color: aquamarine; font-weight: 100;" href="<%= settings.discord %>"><%= settings.name %></a> | Powered by <a style="color: aquamarine; font-weight: 100;" href="https://github.com/CR072/holaclient">Hola Client</a></a></small>
+      <code style="color: #007fcc;"">v<%= settings.version.replace(/"/g, `\\\\"`) %></code></span>
+    </center>
+  </footer>
+  <script type="text/javascript">  
+    var before_loadtime = new Date().getTime();
+    window.onload = Pageloadtime;  
+    function Pageloadtime() {  
+        var aftr_loadtime = new Date().getTime();  
+        // Time calculating in seconds  
+        pgloadtime = (aftr_loadtime - before_loadtime) / 1000  
+ 
+        document.getElementById("loadtime").innerHTML = pgloadtime + "s";
+    }  
+</script>
+<!-- EDITING ANYTHING HERE WILL BE SENT TO HOLACLIENT's TEAM TO VERIFY, IF WE FIND THAT YOU REMOVED OUR CREDITS THEN A DMCA TAKEDOWN ACTION WILL BE EXECUTED ON THE HOST -->
