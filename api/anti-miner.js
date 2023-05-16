@@ -37,7 +37,7 @@ module.exports.load = async function (app, db) {
           })
             .then((response) => {
               if (!response.ok) {
-                throw new Error(`Failed to get server utilization for ${server.attributes.name}: ${response.status} ${response.statusText}`);
+                throw new Error(`Looks like ${server.attributes.name} is not running a miner.`);
               }
               return response.json();
             })
