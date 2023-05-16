@@ -1,0 +1,365 @@
+{
+  "version": "1.5.4",
+  "name": "HolaClient",
+  "logo": "https://media.discordapp.net/attachments/1074689223250153513/1081090224408510575/hsw.png",
+  "rotatelogo": true,
+  "rotatespeed": "6s",
+  "background": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+  "defaulttheme": "default",
+  "discord": "https://discord.gg/Dms5dsmVAs",
+  "website": {
+    "port": 2000,
+    "websitelinkenabled": true,
+    "websitelink": "https://web.holasmp.cf/",
+    "secret": "SUPER SECRET (jk)"
+  },
+  "pterodactyl": {
+    "domain": "https://panel.ezample.com",
+    "key": ""
+  },
+  "news": {
+    "enabled": true,
+    "content": "Hi, HolaClient v1.5.3 is out! Configure this news at settings!"
+  },
+  "anti_vm": {
+    "scan_every": "100",
+    "note": "The above value must be in minutes"
+  },
+  "purge": {
+    "enabled": true,
+    "keyword": "[Active]"
+  },
+  "ads": {
+    "enabled": false,
+    "ads": [
+      {
+        "name": "AD-1",
+        "title": "BUY AD-1",
+        "redirect": "https://dsc.gg/holasmp",
+        "image": "https://dummyimage.com/470x130",
+        "note": "recommened image size is 470x130"
+      },
+      {
+        "name": "AD-2",
+        "title": "BUY AD-2",
+        "redirect": "https://dsc.gg/holasmp",
+        "image": "https://dummyimage.com/470x230",
+        "note": "recommened image size is 470x230"
+      },
+      {
+        "name": "AD-3",
+        "title": "BUY AD-3",
+        "redirect": "https://dsc.gg/holasmp",
+        "image": "https://dummyimage.com/470x100",
+        "note": "recommened image size is 470xUNLIMITED"
+      }
+    ]
+  },
+  "linkvertise": {
+    "enabled": true,
+    "userid": "641981",
+    "coins": 5
+  },
+  "storelimits": {
+    "ram": "10240",
+    "disk": "20480",
+    "cpu": "800",
+    "servers": "10",
+    "backups": "10",
+    "databases": "10",
+    "ports": "10"
+  },
+  "stripe": {
+    "enabled": false,
+    "key": "100000000000000",
+    "coins": 100
+  },
+  "database": "sqlite://database.sqlite",
+  "api": {
+    "client": {
+      "api": {
+        "enabled": true,
+        "code": "RANDOM"
+      },
+      "j4r": {
+        "enabled": true,
+        "ads": [
+          {
+            "name": "Holasmp",
+            "invite": "https://discord.gg/Dms5dsmVAs",
+            "id": "977112336873697310",
+            "coins": 500
+          },
+          {
+            "name": "HolaClient",
+            "invite": "https://discord.gg/CvqRH9TrYK",
+            "id": "1038719273658499072",
+            "coins": 500
+          },
+          {
+            "name": "SLOT 3",
+            "invite": "https://discord.gg/",
+            "id": "000000000000000000",
+            "logo": "https://media.discordapp.net/attachments/1074689223250153513/1081090224408510575/hsw.png",
+            "coins": 500
+          }
+        ]
+      },
+      "bot": {
+        "_comment": "Set this to true if you want to make users forcefully join your server.",
+        "token": "Discord Bot Token",
+        "joinguild": {
+          "enabled": false,
+          "guildid": [
+            "Discord_Server_ID"
+          ]
+        }
+      },
+      "passwordgenerator": {
+        "signup": true,
+        "_comment2": "Set it to false if you want to stop users from signup on dashboard",
+        "length": 8
+      },
+      "allow": {
+        "newusers": true,
+        "regen": true,
+        "overresourcessuspend": false,
+        "server": {
+          "create": true,
+          "modify": true,
+          "delete": true
+        }
+      },
+      "oauth2": {
+        "id": "",
+        "secret": "",
+        "link": "",
+        "callbackpath": "/callback",
+        "_comment3": "do not change callbackpath unless you know what you're doing!",
+        "prompt": true,
+        "ip": {
+          "trust x-forwarded-for": false,
+          "block": [],
+          "duplicate check": false
+        }
+      },
+      "ratelimits": {
+        "/callback": 2,
+        "/create": 1,
+        "/delete": 1,
+        "/modify": 1,
+        "/updateinfo": 1,
+        "/setplan": 2,
+        "/admin": 1,
+        "/regen": 1,
+        "/renew": 1,
+        "/api/userinfo": 1
+      },
+      "packages": {
+        "default": "default",
+        "list": {
+          "default": {
+            "ram": 3072,
+            "disk": 10240,
+            "cpu": 100,
+            "servers": 1,
+            "databases": 1,
+            "backups": 1,
+            "allocations": 2
+          }
+        },
+        "rolePackages": {
+          "roleServer": "Discord Server ID",
+          "roles": {
+            "Role ID": "Package Name"
+          }
+        }
+      },
+      "locations": {
+        "1": {
+          "name": "FR",
+          "banner": "https://flagsapi.com/FR/flat/48.png",
+          "note": "Remove 'IN' and put your country code for its flag! For example, put DE for Germany!",
+          "package": null
+        }
+      },
+      "eggs": {
+        "2": {
+          "display": "Bungeecord",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 2,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar",
+              "BUNGEE_VERSION": "latest"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "3": {
+          "display": "Vanilla Minecraft",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 3,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "4": {
+          "display": "Paper",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 4,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar",
+              "BUILD_NUMBER": "latest"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        }
+      },
+      "coins": {
+        "enabled": true,
+        "store": {
+          "enabled": true,
+          "ram": {
+            "cost": 100,
+            "per": 1024
+          },
+          "disk": {
+            "cost": 100,
+            "per": 5120
+          },
+          "cpu": {
+            "cost": 100,
+            "per": 75
+          },
+          "servers": {
+            "cost": 1,
+            "per": 1
+          },
+          "databases": {
+            "cost": 1,
+            "per": 1
+          },
+          "ports": {
+            "cost": 1,
+            "per": 1
+          },
+          "backups": {
+            "cost": 1,
+            "per": 1
+          },
+          "coins": {
+            "cost": "$1",
+            "per": 100
+          }
+        }
+      }
+    },
+    "arcio": {
+      "enabled": true,
+      "widgetid": "none",
+      "afk page": {
+        "enabled": true,
+        "path": "afk",
+        "every": 60,
+        "coins": 1,
+        "_comment4": "By default every 60 seconds you will get a coin."
+      }
+    }
+  },
+  "whitelist": {
+    "status": false,
+    "users": [
+      "Discord User ID"
+    ]
+  },
+  "servercreation": {
+    "note": "Set it to 0 for free server creation",
+    "cost": 0
+  },
+  "renewals": {
+    "status": false,
+    "cost": 0,
+    "delay": 14
+  },
+  "logging": {
+    "status": false,
+    "webhook": "Webhook URL",
+    "actions": {
+      "user": {
+        "signup": true,
+        "create server": true,
+        "gifted coins": true,
+        "modify server": true,
+        "buy servers": true,
+        "buy ram": true,
+        "buy cpu": true,
+        "buy disk": true
+      },
+      "admin": {
+        "set coins": true,
+        "add coins": true,
+        "set resources": true,
+        "set plan": true,
+        "create coupon": true,
+        "revoke coupon": true,
+        "remove account": true,
+        "view ip": true
+      }
+    }
+  },
+  "antivpn": {
+    "note": "For antivpn to work, generate an apikey on https://proxycheck.io/.",
+    "status": false,
+    "APIKey": "Proxycheck APIKey",
+    "whitelistedIPs": [
+      "IP address"
+    ]
+  }
+}

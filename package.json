@@ -1,0 +1,40 @@
+{
+  "name": "holaclient",
+  "version": "1.5.4",
+  "main": "index.js",
+  "author": "Hola LLC",
+  "github": "https://github.com/CR072/HolaClient",
+  "discord": "https://discord.gg/CvqRH9TrYK",
+  "license": "MIT",
+  "dependencies": {
+    "@fullcalendar/core": "^6.1.4",
+    "@keyv/mongo": "^1.2.1",
+    "@keyv/mysql": "^1.1.5",
+    "@keyv/postgres": "^1.0.17",
+    "@keyv/redis": "^2.2.1",
+    "@keyv/sqlite": "^3.5.2",
+    "chalk": "^4.1.0",
+    "credit-card-validate": "^0.9.3",
+    "cron": "^1.8.2",
+    "discord.js": "^12.5.3",
+    "ejs": "^3.1.6",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "express-ws": "^4.0.0",
+    "googleapis": "^111.0.0",
+    "javascript-obfuscator": "^4.0.2",
+    "keyv": "^4.0.4",
+    "mongoose": "^7.1.0",
+    "node-cache": "^5.1.2",
+    "node-cron": "^3.0.2",
+    "node-fetch": "^2.6.6",
+    "nodeactyl": "^3.3.0",
+    "nodemon": "^2.0.15",
+    "stripe": "^9.4.0",
+    "warn": "^1.0.1"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  }
+}
