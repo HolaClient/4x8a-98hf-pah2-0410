@@ -1,4 +1,4 @@
-
+<p align="center">
 <img src="https://media.discordapp.net/attachments/1082632266506850344/1108449684709703770/image.png" alt="Gray shape shifter" height="120" style="max-width: 100%;"></a></p>
 <h1 align="center" tabindex="-1" dir="auto">Hola Client</h1>
 <p align="center" dir="auto">A modern client area for Pterodactyl and Jexactyl.</p>
