@@ -10,7 +10,7 @@
 <a  href="https://github.com/CR072/HolaClient/stargazers"><img src="https://img.shields.io/github/stars/CR072/HolaClient?label=%E2%AD%90" height="20"/></a>
 <a title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_sml_120l.png?ID=e9d599e3-a4a0-4254-a47c-2c7767465532"  alt="DMCA.com Protection Status" /></a>
 <hr>
-<h2 tabindex="-1" dir="auto"><g-emoji class="g-emoji" alias="star" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png">🪶</g-emoji> Features</h2>
+<h2 tabindex="-1" dir="auto">🪶 Features</h2>
 <ul dir="auto">
 <li><b>Anti-PteroVM</b> (automatically suspends the servers using PteroVM)</li>
 <li><b>Anti-Miner</b> (automatically deletes the server using mining script</li>
@@ -42,7 +42,7 @@
 <br><br><br></li>
 </ul>
 <hr>
-   <h2 tabindex="-1" dir="auto"><a id="user-content-zap--fast-implementation" class="anchor" aria-hidden="true" href="#zap--fast-implementation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><g-emoji class="g-emoji" alias="zap" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a1.png">👀</g-emoji>  Preview</h2>
+<h2 tabindex="-1" dir="auto">👀 Preview</h2>
 <p dir="auto">Landing Page (v1.5.2):</p>
 <img src="https://media.discordapp.net/attachments/1082636619804323860/1105976516346662933/image.png">
 <br/>
@@ -53,11 +53,11 @@
 <img src="https://media.discordapp.net/attachments/1082636619804323860/1105976030814011453/image.png">
 <br/>
 <hr>
-   <h2 tabindex="-1" dir="auto"><a id="user-content-zap--fast-implementation" class="anchor" aria-hidden="true" href=""><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><g-emoji class="g-emoji" alias="zap" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a1.png">👁️</g-emoji>  Demo</h2>
+<h2 tabindex="-1" dir="auto">👁️ Demo</h2>
 <p dir="auto">HolaClient Demo</p>
-   <li> https://demo.holaclient.tech/ </li>
-   <br></hr>
-<h2 tabindex="-1" dir="auto"><a id="user-content-zap--fast-implementation" class="anchor" aria-hidden="true" href="#zap--fast-implementation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><g-emoji class="g-emoji" alias="zap" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a1.png">⬇️</g-emoji>  Installation</h2>
+<li> https://demo.holaclient.tech/ </li>
+<br></hr>
+<h2 tabindex="-1" dir="auto">⬇️ Installation</h2>
 <p dir="auto">Using Pterodactyl Panel:</p>
 <ul dir="auto">
    <li>Download and install <a href="https://github.com/ItzBenoitXD/holaclient-installer">HolaClient</a> egg into your panel.</li>
@@ -67,7 +67,7 @@
 <br><br><br></li>
 </ul>
                <hr>
-               <h2 tabindex="-1" dir="auto"><a id="user-content-zap--fast-implementation" class="anchor" aria-hidden="true" href="#zap--fast-implementation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><g-emoji class="g-emoji" alias="zap" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a1.png">💠</g-emoji>  Configuring SSL</h2>
+               <h2 tabindex="-1" dir="auto">💠 Configuring SSL</h2>
 <p dir="auto">Using Certbot:</p>
 <ul dir="auto">
 
@@ -127,5 +127,5 @@ location / {
 }
 ```
 <hr>               
-<h2 tabindex="-1" dir="auto"><a id="user-content-zap--fast-implementation" class="anchor" aria-hidden="true" href="#zap--fast-implementation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><g-emoji class="g-emoji" alias="zap" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/26a1.png">⚖️</g-emoji>  Legal</h2>
+<h2 tabindex="-1" dir="auto">⚖️  Legal</h2>
 <p dir="auto">You shall not remove HolaClient credits from the footer, if removed your host will be taken down by DMCA take down if used in public. You can change the position if you're using a theme. HolaClient is licensed under MIT License.</p>
