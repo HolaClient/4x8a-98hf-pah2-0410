@@ -1,0 +1,732 @@
+{
+  "version": "1.5.5",
+  "name": "HolaClient",
+  "logo": "https://media.discordapp.net/attachments/1074689223250153513/1081090224408510575/hsw.png",
+  "rotatelogo": true,
+  "rotatespeed": "6s",
+  "background": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+  "defaulttheme": "default",
+  "discord": "https://discord.gg/Dms5dsmVAs",
+  "website": {
+    "port": 2000,
+    "websitelinkenabled": true,
+    "websitelink": "https://web.holasmp.cf/",
+    "secret": "SUPER SECRET (jk)"
+  },
+  "pterodactyl": {
+    "domain": "https://panel.example.com",
+    "key": ""
+  },
+  "news": {
+    "enabled": true,
+    "content": "Welcome to HolaClient!"
+  },
+  "purge": {
+    "enabled": true,
+    "keyword": "[Active]"
+  },
+  "anti_pteroVM": {
+    "interval": "10"
+  },
+  "maintenance": {
+    "status": false,
+    "admins": [
+      "Discord ID"
+    ]
+  },
+  "ads": {
+    "enabled": false,
+    "ads": [
+      {
+        "name": "AD-1",
+        "title": "BUY AD-1",
+        "redirect": "https://dsc.gg/holasmp",
+        "image": "https://dummyimage.com/470x130",
+        "note": "recommened image size is 470x130"
+      },
+      {
+        "name": "AD-2",
+        "title": "BUY AD-2",
+        "redirect": "https://dsc.gg/holasmp",
+        "image": "https://dummyimage.com/470x230",
+        "note": "recommened image size is 470x230"
+      },
+      {
+        "name": "AD-3",
+        "title": "BUY AD-3",
+        "redirect": "https://dsc.gg/holasmp",
+        "image": "https://dummyimage.com/470x100",
+        "note": "recommened image size is 470xUNLIMITED"
+      }
+    ]
+  },
+  "linkvertise": {
+    "enabled": true,
+    "userid": "641981",
+    "coins": 5
+  },
+  "storelimits": {
+    "ram": "10240",
+    "disk": "20480",
+    "cpu": "800",
+    "servers": "10",
+    "backups": "10",
+    "databases": "10",
+    "ports": "10"
+  },
+  "stripe": {
+    "enabled": false,
+    "key": "100000000000000",
+    "coins": 100
+  },
+  "database": "sqlite://database.sqlite",
+  "api": {
+    "client": {
+      "api": {
+        "enabled": true,
+        "code": "RANDOM"
+      },
+      "j4r": {
+        "enabled": true,
+        "ads": [
+          {
+            "name": "Holasmp",
+            "invite": "https://discord.gg/Dms5dsmVAs",
+            "id": "977112336873697310",
+            "coins": 500
+          },
+          {
+            "name": "HolaClient",
+            "invite": "https://discord.gg/CvqRH9TrYK",
+            "id": "1038719273658499072",
+            "coins": 500
+          },
+          {
+            "name": "SLOT 3",
+            "invite": "https://discord.gg/",
+            "id": "000000000000000000",
+            "logo": "https://media.discordapp.net/attachments/1074689223250153513/1081090224408510575/hsw.png",
+            "coins": 500
+          }
+        ]
+      },
+      "bot": {
+        "_comment": "Set this to true if you want to make users forcefully join your server.",
+        "token": "Discord Bot Token",
+        "joinguild": {
+          "enabled": false,
+          "guildid": [
+            "Discord_Server_ID"
+          ]
+        }
+      },
+      "passwordgenerator": {
+        "signup": true,
+        "_comment2": "Set it to false if you want to stop users from signup on dashboard",
+        "length": 8
+      },
+      "allow": {
+        "newusers": true,
+        "regen": true,
+        "overresourcessuspend": false,
+        "server": {
+          "create": true,
+          "modify": true,
+          "delete": true
+        }
+      },
+      "oauth2": {
+        "id": "",
+        "secret": "",
+        "link": "https://client.example.com",
+        "callbackpath": "/callback",
+        "_comment3": "do not change callbackpath unless you know what you're doing!",
+        "prompt": true,
+        "ip": {
+          "trust x-forwarded-for": false,
+          "block": [],
+          "duplicate check": false
+        }
+      },
+      "ratelimits": {
+        "/callback": 2,
+        "/create": 1,
+        "/delete": 1,
+        "/modify": 1,
+        "/updateinfo": 1,
+        "/setplan": 2,
+        "/admin": 1,
+        "/regen": 1,
+        "/renew": 1,
+        "/api/userinfo": 1
+      },
+      "packages": {
+        "default": "default",
+        "list": {
+          "default": {
+            "ram": 3072,
+            "disk": 10240,
+            "cpu": 100,
+            "servers": 1,
+            "databases": 1,
+            "backups": 1,
+            "allocations": 2
+          }
+        },
+        "rolePackages": {
+          "roleServer": "Discord Server ID",
+          "roles": {
+            "Role ID": "Package Name"
+          }
+        }
+      },
+      "locations": {
+        "1": {
+          "name": "India | Free",
+          "banner": "https://flagsapi.com/IN/flat/48.png",
+          "note": "Remove 'IN' and put your country code for its flag! For example, put DE for Germany!",
+          "package": null
+        },
+        "2": {
+          "name": "Singapore | Free",
+          "banner": "https://flagsapi.com/SG/flat/48.png",
+          "note": "Remove 'IN' and put your country code for its flag! For example, put DE for Germany!",
+          "package": null
+        },
+        "3": {
+          "name": "Germany | Free",
+          "banner": "https://flagsapi.com/DE/flat/48.png",
+          "note": "Remove 'IN' and put your country code for its flag! For example, put DE for Germany!",
+          "package": null
+        },
+        "4": {
+          "name": "France | Free",
+          "banner": "https://flagsapi.com/FR/flat/48.png",
+          "note": "Remove 'IN' and put your country code for its flag! For example, put DE for Germany!",
+          "package": null
+        }
+      },
+      "eggs": {
+        "1": {
+          "display": "Sponge (SpongeVanilla)",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 1,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_16",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "2": {
+          "display": "Paper",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 2,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar",
+              "BUILD_NUMBER": "latest"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "3": {
+          "display": "Vanilla Minecraft",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 3,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "4": {
+          "display": "Bungeecord",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 4,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar",
+              "BUNGEE_VERSION": "latest"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "5": {
+          "display": "Forge Minecraft",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 5,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true $( [[  ! -f unix_args.txt ]] && printf %s \"-jar {{SERVER_JARFILE}}\" || printf %s \"@unix_args.txt\" )",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "6": {
+          "display": "Insurgency",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 6,
+            "docker_image": "ghcr.io/pterodactyl/games:source",
+            "startup": "./srcds_run -game insurgency -console -port {{SERVER_PORT}} +map {{SRCDS_MAP}} +ip 0.0.0.0 -strictportbind -norestart",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "7": {
+          "display": "Custom Source Engine Game",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 7,
+            "docker_image": "ghcr.io/pterodactyl/games:source",
+            "startup": "./srcds_run -game {{SRCDS_GAME}} -console -port {{SERVER_PORT}} +map {{SRCDS_MAP}} +ip 0.0.0.0 -strictportbind -norestart",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "8": {
+          "display": "Garrys Mod",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 8,
+            "docker_image": "ghcr.io/pterodactyl/games:source",
+            "startup": "./srcds_run -game garrysmod -console -port {{SERVER_PORT}} +ip 0.0.0.0 +host_workshop_collection {{WORKSHOP_ID}} +map {{SRCDS_MAP}} +gamemode {{GAMEMODE}} -strictportbind -norestart +sv_setsteamaccount {{STEAM_ACC}} +maxplayers {{MAX_PLAYERS}}  -tickrate {{TICKRATE}}  $( [ \"$LUA_REFRESH\" == \"1\" ] || printf %s '-disableluarefresh' )",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "9": {
+          "display": "Ark: Survival Evolved",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 9,
+            "docker_image": "quay.io/parkervcp/pterodactyl-images:debian_source",
+            "startup": "rmv() { echo -e \"stopping server\"; rcon -t rcon -a 127.0.0.1:${RCON_PORT} -p ${ARK_ADMIN_PASSWORD} -c saveworld && rcon -a 127.0.0.1:${RCON_PORT} -p ${ARK_ADMIN_PASSWORD} -c DoExit; }; trap rmv 15; cd ShooterGame/Binaries/Linux && ./ShooterGameServer {{SERVER_MAP}}?listen?SessionName=\"{{SESSION_NAME}}\"?ServerPassword={{ARK_PASSWORD}}?ServerAdminPassword={{ARK_ADMIN_PASSWORD}}?Port={{SERVER_PORT}}?RCONPort={{RCON_PORT}}?QueryPort={{QUERY_PORT}}?RCONEnabled=True$( [ \"$BATTLE_EYE\" == \"1\" ] || printf %s ' -NoBattlEye' ) -server {{ARGS}} -log & until echo \"waiting for rcon connection...\"; rcon -t rcon -a 127.0.0.1:${RCON_PORT} -p ${ARK_ADMIN_PASSWORD}; do sleep 5; done",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "10": {
+          "display": "Team Fortress 2",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 10,
+            "docker_image": "ghcr.io/pterodactyl/games:source",
+            "startup": "./srcds_run -game tf -console -port {{SERVER_PORT}} +map {{SRCDS_MAP}} +ip 0.0.0.0 -strictportbind -norestart +sv_setsteamaccount {{STEAM_ACC}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "11": {
+          "display": "Counter-Strike: Global Offensive",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 11,
+            "docker_image": "ghcr.io/pterodactyl/games:source",
+            "startup": "./srcds_run -game csgo -console -port {{SERVER_PORT}} +ip 0.0.0.0 +map {{SRCDS_MAP}} -strictportbind -norestart +sv_setsteamaccount {{STEAM_ACC}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "12": {
+          "display": "Mumble Server",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 12,
+            "docker_image": "ghcr.io/parkervcp/yolks:voice_mumble",
+            "startup": "mumble-server -fg -ini murmur.ini",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "13": {
+          "display": "Teamspeak3 Server",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 13,
+            "docker_image": "ghcr.io/pterodactyl/yolks:debian",
+            "startup": "./ts3server default_voice_port={{SERVER_PORT}} query_port={{QUERY_PORT}} filetransfer_ip=0.0.0.0 filetransfer_port={{FILE_TRANSFER}} query_http_port={{QUERY_HTTP}} query_ssh_port={{QUERY_SSH}} query_protocols={{QUERY_PROTOCOLS_VAR}} license_accepted=1",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "14": {
+          "display": "Rust",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 14,
+            "docker_image": "quay.io/pterodactyl/core:rust",
+            "startup": "./RustDedicated -batchmode +server.port {{SERVER_PORT}} +server.identity \"rust\" +rcon.port {{RCON_PORT}} +rcon.web true +server.hostname \\\"{{HOSTNAME}}\\\" +server.level \\\"{{LEVEL}}\\\" +server.description \\\"{{DESCRIPTION}}\\\" +server.url \\\"{{SERVER_URL}}\\\" +server.headerimage \\\"{{SERVER_IMG}}\\\" +server.logoimage \\\"{{SERVER_LOGO}}\\\" +server.maxplayers {{MAX_PLAYERS}} +rcon.password \\\"{{RCON_PASS}}\\\" +server.saveinterval {{SAVEINTERVAL}} +app.port {{APP_PORT}}  $( [ -z ${MAP_URL} ] && printf %s \"+server.worldsize \\\"{{WORLD_SIZE}}\\\" +server.seed \\\"{{WORLD_SEED}}\\\"\" || printf %s \"+server.levelurl {{MAP_URL}}\" ) {{ADDITIONAL_ARGS}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "15": {
+          "display": "Multi-egg",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 15,
+            "docker_image": "quay.io/chirag350/multi-egg",
+            "startup": "./t.sh",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "16": {
+          "display": "HolaClient Egg V2.3",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 16,
+            "docker_image": "ghcr.io/parkervcp/yolks:nodejs_19",
+            "startup": "if [[ ! -z ${NODE_PACKAGES} ]]; then /usr/local/bin/npm install ${NODE_PACKAGES}; fi; if [[ ! -z ${UNNODE_PACKAGES} ]]; then /usr/local/bin/npm uninstall ${UNNODE_PACKAGES}; fi; if [ -f /home/container/package.json ]; then /usr/local/bin/npm install; fi; /usr/local/bin/node /home/container/{{BOT_JS_FILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "17": {
+          "display": "node.js generic",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 17,
+            "docker_image": "ghcr.io/parkervcp/yolks:nodejs_19",
+            "startup": "if [[ -d .git ]] && [[ {{AUTO_UPDATE}} == \"1\" ]]; then git pull; fi; if [[ ! -z ${NODE_PACKAGES} ]]; then /usr/local/bin/npm install ${NODE_PACKAGES}; fi; if [[ ! -z ${UNNODE_PACKAGES} ]]; then /usr/local/bin/npm uninstall ${UNNODE_PACKAGES}; fi; if [ -f /home/container/package.json ]; then /usr/local/bin/npm install; fi; /usr/local/bin/node /home/container/{{JS_FILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        }
+      },
+      "coins": {
+        "enabled": true,
+        "store": {
+          "enabled": true,
+          "ram": {
+            "cost": 100,
+            "per": 1024
+          },
+          "disk": {
+            "cost": 100,
+            "per": 5120
+          },
+          "cpu": {
+            "cost": 100,
+            "per": 75
+          },
+          "servers": {
+            "cost": 1,
+            "per": 1
+          },
+          "databases": {
+            "cost": 1,
+            "per": 1
+          },
+          "ports": {
+            "cost": 1,
+            "per": 1
+          },
+          "backups": {
+            "cost": 1,
+            "per": 1
+          },
+          "coins": {
+            "cost": "$1",
+            "per": 100
+          }
+        }
+      }
+    },
+    "arcio": {
+      "enabled": true,
+      "widgetid": "none",
+      "afk page": {
+        "enabled": true,
+        "path": "afkwspath",
+        "every": 60,
+        "coins": 1,
+        "_comment4": "By default every 60 seconds you will get a coin."
+      }
+    }
+  },
+  "servercreation": {
+    "note": "Set it to 0 for free server creation",
+    "cost": 0
+  },
+  "renewals": {
+    "status": false,
+    "cost": 0,
+    "delay": 14
+  },
+  "logging": {
+    "status": false,
+    "webhook": "Webhook URL",
+    "actions": {
+      "user": {
+        "signup": true,
+        "create server": true,
+        "gifted coins": true,
+        "modify server": true,
+        "buy servers": true,
+        "buy ram": true,
+        "buy cpu": true,
+        "buy disk": true
+      },
+      "admin": {
+        "set coins": true,
+        "add coins": true,
+        "set resources": true,
+        "set plan": true,
+        "create coupon": true,
+        "revoke coupon": true,
+        "remove account": true,
+        "view ip": true
+      }
+    }
+  },
+  "antivpn": {
+    "note": "For antivpn to work, generate an apikey on https://proxycheck.io/.",
+    "status": false,
+    "APIKey": "Proxycheck APIKey",
+    "whitelistedIPs": [
+      "IP address"
+    ]
+  }
+}
