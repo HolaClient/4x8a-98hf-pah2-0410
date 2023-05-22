@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./parts/head') %>
+        <!-- Vector CSS -->
+        <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+        <!-- simplebar CSS-->
+        <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+        <!-- Bootstrap core CSS-->
+        <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- animate CSS-->
+        <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+        <!-- Icons CSS-->
+        <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+        <!-- Sidebar CSS-->
+        <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+        <!-- Custom Style-->
+        <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    </style>
+   <body style="background-color: #1b1c1d;" background="<%= settings.background %>"; background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;>
+    <%- include('./parts/sidebar') %>
+    <%- include('./parts/topnav') %>
+    <%- include('./parts/alert') %>
+    <br>
+    <center>
+        <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' rel='stylesheet'>
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
+        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <style>::-webkit-scrollbar {
+          width: 8px;
+        }
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: #f1f1f1; 
+        }
+         
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #888; 
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #555; 
+        } body {
+background: #eee;
+font-family: poppins
+}
+
+#regForm {
+background-color: rgba(0,0,0,.2);
+margin: 0px auto;
+font-family: poppins;
+padding: 40px;
+border-radius: 10px
+}
+
+#register{
+
+color: #fff;
+}
+
+h1 {
+text-align: center
+}
+
+input {
+padding: 10px;
+width: 100%;
+font-size: 17px;
+font-family: poppins;
+border: 1px solid #aaaaaa;
+border-radius: 10px;
+}
+
+
+
+.tab input:focus{
+
+border:1px solid #70cff5 !important;
+outline: none;
+}
+
+input.invalid {
+
+border:1px solid #e03a0666;
+}
+
+.tab {
+display: none
+}
+
+button {
+background-color: #2f2e30;
+color: #ffffff;
+border: none;
+border-radius: 50%;
+padding: 10px 20px;
+font-size: 17px;
+font-family: poppins;
+cursor: pointer
+}
+
+button:hover {
+opacity: 0.8
+}
+
+button:focus{
+
+outline: none !important;
+}
+
+#prevBtn {
+background-color: #eeacac
+}
+
+
+.all-steps{
+text-align: center;
+margin-top: 30px;
+margin-bottom: 30px;
+width: 100%;
+display: inline-flex;
+justify-content: center;
+}
+
+.step {
+height: 40px;
+width: 40px;
+margin: 0 2px;
+background-color: #bbbbbb;
+border: none;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 15px;
+color: #2f2e30;
+opacity: 0.5;
+}
+
+.step.active {
+opacity: 1
+}
+
+
+.step.finish {
+color: #fff;
+background: #8ae46e;
+opacity: 1;
+
+}
+
+
+
+.all-steps {
+text-align: center;
+margin-top: 30px;
+margin-bottom: 30px
+}
+
+.thanks-message {
+display: none
+}</style>
+        </head>
+        <style>
+body {
+background-image: url('<%= settings.background %>');
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 100% 100%;
+font-family: poppins;
+}
+</style>
+<div class="clearfix"></div>
+	
+<div class="content-wrapper">
+  <div class="container-fluid">
+<% if (req.query.err) { %>
+    <div style="border-radius: 15px;" class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <% if (req.query.err == "MISSINGVARIABLE") { %>
+            <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                <strong>You have not filled up all of the server information!</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>
+        <% } else if (req.query.err == "ERRORONMODIFY") { %>
+            <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                <strong><div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                                <strong>[HCOC13] Aw man! Your modification won't work here.</strong>
+                                <button aria-hidden="true" class="close" type="button">&times;</button>
+                              </div>There has been an error while attempting to modifying your server. Please alert an administrator to fix this problem.</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>
+        <% } else if (req.query.err == "MISSINGEGG") { %>
+            <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                <strong>This server's egg is no longer available in the panel, so you cannot modify this server!</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>
+        <% } else if (req.query.err == "MUSTCOMPLETECAPTCHA") { %>
+            <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                <strong>You have to complete the captcha!</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>
+        <% } else if (req.query.err == "INVALIDCAPTCHARESPONSE") { %>
+            <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                <strong>You submitted an invalid captcha responce!</strong>
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+              </div>
+        <% } else { %>
+            <% if (req.query.num) { %>
+                <% if (!isNaN(parseFloat(req.query.num))) { %>
+                    <% if (req.query.err == "TOOLITTLERAM" || req.query.err == "TOOLITTLEDISK" || req.query.err == "TOOLITTLECPU") { %>
+                        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                            <strong>You must make a server with at least <b><%= req.query.num %></b></strong>
+                            <button aria-hidden="true" class="close" type="button">&times;</button>
+                          </div>
+                        <% if (req.query.err.slice(-3) == "RAM") { %>
+                            MB RAM
+                        <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                            MB disk
+                        <% } else { // CPU %>
+                            % CPU
+                        <% } %>
+                        if you want to modified a server with the server type you have selected.
+                    <% } else if (req.query.err == "TOOMUCHRAM" || req.query.err == "TOOMUCHDISK" || req.query.err == "TOOMUCHCPU") { %>
+                        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                            <strong>With this server type you can have a maximum of <b><%= req.query.num %></b></strong>
+                            <button aria-hidden="true" class="close" type="button">&times;</button>
+                          </div>
+                        <% if (req.query.err.slice(-3) == "RAM") { %>
+                            MB RAM
+                        <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                            MB disk
+                        <% } else { // CPU %>
+                            % CPU
+                        <% } %>
+                        on the server.
+                    <% } else if (req.query.err == "EXCEEDRAM" || req.query.err == "EXCEEDDISK" || req.query.err == "EXCEEDCPU") { %>
+                        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                            <strong>The server could not be modified because you have requested to modified a server that exceeds your resources.</strong>
+                            <button aria-hidden="true" class="close" type="button">&times;</button>
+                          </div>
+                    <% } else { %>
+                        <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                            <strong>Aw man! Your modification won't work here.</strong>
+                            <button aria-hidden="true" class="close" type="button">&times;</button>
+                          </div>
+                    <% } %>
+                <% } else { %>
+                    <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                        <strong>Aw man! Your modification won't work here.</strong>
+                        <button aria-hidden="true" class="close" type="button">&times;</button>
+                      </div>
+                <% } %>
+            <% } else { %>
+                <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                    <strong>Successfully modified your server.</strong>
+                    <button aria-hidden="true" class="close" type="button">&times;</button>
+                  </div>
+            <% } %>
+        <% } %>
+    </div>
+<% } %>
+<% if (req.query.id) { %>
+    <% if (pterodactyl.relationships.servers.data.filter(name => name.attributes.id == req.query.id).length == 1) {
+        let serverinfo = pterodactyl.relationships.servers.data.filter(name => name.attributes.id == req.query.id)[0];
+        let attemptegg = null;
+        let attemptname = null;
+        for (let [name, value] of Object.entries(settings.api.client.eggs)) {
+            if (settings.api.client.eggs[name].info.egg == serverinfo.attributes.egg) {
+                attemptegg = settings.api.client.eggs[name];
+                attemptname = name;
+            };
+        };
+        let egginfo = attemptegg ? attemptegg.display : "???";
+    %>
+<body className='snippet-body' style="font-size: poppins; background-color: #1b1c1d;" background="<%= settings.background %>"; background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;>
+        <div class="container mt-5">
+<div class="row d-flex justify-content-center align-items-center">
+<div class="col-md-8">
+<form id="regForm">
+<h1 id="register">Modify Server</h1>
+<div class="all-steps" id="all-steps"> 
+<span class="step"><i class="bi bi-memory"></i></span>
+<span class="step"><i class="bi bi-device-ssd"></i></span>
+<span class="step"><i class="bi bi-cpu"></i></span>
+<span class="step"><i class="bi bi-usb-c"></i></span>
+<span class="step"><i class="bi bi-layer-backward"></i></span>
+<span class="step"><i class="bi bi-database"></i></span>
+</div>
+
+<div class="tab">
+<h6 style="color:white">Enter your server's ram to be allocated in MB (1GB = 1024MB)</h6>
+<p><input id="InputRAM" style="background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.ram + extraresources.ram %>" type="number" placeholder="Server ram" oninput="this.className = ''" name="fname"></p>
+
+</div>
+<div class="tab">
+<h6 style="color:white">Enter your server's disk to be allocated in MB (1GB = 1024MB)</h6>
+<p><input id="InputDisk" style="background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.disk + extraresources.disk %>" type="number" placeholder="Server disk" oninput="this.className = ''" name="fname"></p>
+
+</div>
+<div class="tab">
+<h6 style="color:white">Enter your server's cpu in "%" to be allocated</h6>
+<p><input id="InputCPU" style="background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.cpu + extraresources.cpu %>" type="number" placeholder="Server cpu" oninput="this.className = ''" name="fname"></p>
+
+</div>
+<div class="tab">
+<h6 style="color:white">Enter your server's ports to be allocated</h6>
+<p><input id="InputPORTS" style="background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.allocations + extraresources.allocations %>" type="number" placeholder="Server ports" oninput="this.className = ''" name="fname"></p>
+
+</div>
+<div class="tab">
+<h6 style="color:white">Enter your server's backups to be allocated</h6>
+<p><input id="InputBACKUPS" style="background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.backups + extraresources.backups %>" type="number" placeholder="Server backups" oninput="this.className = ''" name="fname"></p>
+
+</div>
+<div class="tab">
+<h6 style="color:white">Enter your server's databases to be allocated</h6>
+<p><input id="InputDATABASES" style="background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.databases + extraresources.databases %>" type="number" placeholder="Server databases" oninput="this.className = ''" name="fname"></p>
+
+
+</div>
+<div class="thanks-message text-center" id="text-message">
+<h3 style="color:white">All Your Records Has been Carfully Recorded!</h3> <span style="color:white">Are you sure want to modify your server using these resources?</span>
+<section class="info"><br/><br>
+<a role="button" id="create-btn" class="button"  href="javascript: submitChanges()"><span style="color:white">Modify Server
+    </span></a>
+</li>
+<br/> </section>
+</div>
+<div style="overflow:auto;" id="nextprevious">
+<div style="float:right;">
+<button type="button" id="prevBtn" onclick="nextPrev(-1)"><i class="fa fa-angle-double-left"></i></button> 
+<button type="button" id="nextBtn" onclick="nextPrev(1)"><i class="fa fa-angle-double-right"></i></button> </div>
+</div>
+</form>
+</div>
+</div>
+<% } else { %>
+    <center>
+        <body bgcolor="black">
+    <p style="margin-left: 5%; color: white;">Could not find server with the provided ID.</p>
+    </body>
+    </center>
+<% } %>
+<% } else { %>
+    <center>
+        <body bgcolor="black">
+    <p style="margin-left: 5%; color: white;">Missing Server ID!</p>
+    </body>
+    </center>
+<% } %>
+</div>
+        <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js'></script>
+        <script type='text/javascript' src='#'></script>
+        <script type='text/javascript' src='#'></script>
+        <script type='text/javascript' src='#'></script>
+        <script type='text/javascript'>var currentTab = 0;
+document.addEventListener("DOMContentLoaded", function(event) {
+
+
+showTab(currentTab);
+
+});
+
+function showTab(n) {
+var x = document.getElementsByClassName("tab");
+x[n].style.display = "block";
+if (n == 0) {
+document.getElementById("prevBtn").style.display = "none";
+} else {
+document.getElementById("prevBtn").style.display = "inline";
+}
+if (n == (x.length - 1)) {
+document.getElementById("nextBtn").innerHTML = '<i class="fa fa-angle-double-right"></i>';
+} else {
+document.getElementById("nextBtn").innerHTML = '<i class="fa fa-angle-double-right"></i>';
+}
+fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+var x = document.getElementsByClassName("tab");
+if (n == 1 && !validateForm()) return false;
+x[currentTab].style.display = "none";
+currentTab = currentTab + n;
+if (currentTab >= x.length) {
+
+document.getElementById("nextprevious").style.display = "none";
+document.getElementById("all-steps").style.display = "none";
+document.getElementById("register").style.display = "none";
+document.getElementById("text-message").style.display = "block";
+
+
+
+
+}
+showTab(currentTab);
+}
+
+function validateForm() {
+var x, y, i, valid = true;
+x = document.getElementsByClassName("tab");
+y = x[currentTab].getElementsByTagName("input");
+for (i = 0; i < y.length; i++) {
+if (y[i].value == "") {
+   y[i].className += " invalid";
+   valid = false;
+}
+
+
+}
+if (valid) {
+document.getElementsByClassName("step")[currentTab].className += " finish";
+}
+return valid;
+}
+
+function fixStepIndicator(n) {
+var i, x = document.getElementsByClassName("step");
+for (i = 0; i < x.length; i++) {
+x[i].className = x[i].className.replace(" active", "");
+}
+x[n].className += " active";
+}</script>
+        <script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
+        myLink.addEventListener('click', function(e) {
+          e.preventDefault();
+        });</script>
+            <!-- container-scroller -->
+<!-- plugins:js -->
+<script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="../../assets/vendors/select2/select2.min.js"></script>
+<script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+<script>
+    async function submitChanges() {
+      let ram = encodeURIComponent(document.getElementById("InputRAM").value);
+      let disk = encodeURIComponent(document.getElementById("InputDisk").value);
+      let cpu = encodeURIComponent(document.getElementById("InputCPU").value);
+      let backups = encodeURIComponent(document.getElementById("InputBACKUPS").value);
+      let databases = encodeURIComponent(document.getElementById("InputDATABASES").value);
+      let allocations = encodeURIComponent(document.getElementById("InputPORTS").value);
+      document.location.href = `/modify?id=<%= req.query.id %>&ram=${ram}&disk=${disk}&cpu=${cpu}&backups=${backups}&allocations=${allocations}&databases=${databases}`;
+    };
+  </script>
+
+        </center>
+</body>
+  	<!--start overlay-->
+      <div class="overlay toggle-menu"></div>
+      <!--end overlay-->
+<!--Start Back To Top Button-->
+<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+<!--End Back To Top Button-->
+  <!-- Bootstrap core JavaScript-->
+  <script src="../../../assets/js/jquery.min.js"></script>
+  <script src="../../../assets/js/popper.min.js"></script>
+  <script src="../../../assets/js/bootstrap.min.js"></script>
+  
+ <!-- simplebar js -->
+  <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+  <!-- sidebar-menu js -->
+  <script src="../../../assets/js/sidebar-menu.js"></script>
+  <!-- loader scripts -->
+  <script src="../../../assets/js/jquery.loading-indicator.js"></script>
+  <!-- Custom scripts -->
+  <script src="../../../assets/js/app-script.js"></script>
+  <!-- Chart js -->
+  
+  <script src="../../../assets/plugins/Chart.js/Chart.min.js"></script>
+ 
+  <!-- Index js -->
+  <script src="../../../assets/js/index.js"></script>
+<footer><br>
+    <%- include('./parts/footer') %>
+</footer>
+</html>

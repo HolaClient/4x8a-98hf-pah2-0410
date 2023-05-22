@@ -1,0 +1,79 @@
+<%
+let ram = 0;
+let disk = 0;
+let cpu = 0;
+let backups = 0;
+let allocations = 0;
+let databases = 0;
+let servers = 0;
+
+if (pterodactyl && pterodactyl.relationships && pterodactyl.relationships.servers && pterodactyl.relationships.servers.data) {
+  servers = pterodactyl.relationships.servers.data.length;
+
+  pterodactyl.relationships.servers.data.forEach(server => {
+    const limits = server.attributes.limits;
+
+    if (limits && typeof limits.memory === "number") {
+      ram += limits.memory;
+    }
+    if (limits && typeof limits.disk === "number") {
+      disk += limits.disk;
+    }
+    if (limits && typeof limits.cpu === "number") {
+      cpu += limits.cpu;
+    }
+    if (limits && typeof limits.backups === "number") {
+      backups += limits.backups;
+    }
+    if (limits && typeof limits.allocations === "number") {
+      allocations += limits.allocations;
+    }
+    if (limits && typeof limits.databases === "number") {
+      databases += limits.databases;
+    }
+  });
+}
+%>
+
+<div class="card mt-3">
+  <div class="card-content">
+      <div class="row row-group m-0">
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0"><%= ram %> / <%= packages.ram + extraresources.ram %> <span class="float-right"><i class="bi bi-memory"></i></span></h5>
+                  <div class="progress my-3" style="height:3px;">
+                     <div class="progress-bar" style="width:100%"></div>
+                  </div>
+                <p class="mb-0 text-white small-font">MB RAM Available</p>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0"><%= disk %> / <%= packages.disk + extraresources.disk %> <span class="float-right"><i class="bi bi-hdd"></i></span></h5>
+                  <div class="progress my-3" style="height:3px;">
+                     <div class="progress-bar" style="width:100%"></div>
+                  </div>
+                <p class="mb-0 text-white small-font">MB DISK Available</p>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0"><%= cpu %> / <%= packages.cpu + extraresources.cpu %> <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
+                  <div class="progress my-3" style="height:3px;">
+                     <div class="progress-bar" style="width:100%"></div>
+                  </div>
+                <p class="mb-0 text-white small-font">% CPU Available</p>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0"><%= servers %> / <%= packages.servers + extraresources.servers %> <span class="float-right"><i class="bi bi-pc"></i></span></h5>
+                  <div class="progress my-3" style="height:3px;">
+                     <div class="progress-bar" style="width:100%"></div>
+                  </div>
+                <p class="mb-0 text-white small-font">SLOTS Available</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

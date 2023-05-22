@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-body">
+<div style="border-radius: 15px;" class="table-responsive">
+  <div class="card-title">&nbsp; Your Servers</div>
+<div style="border-radius: 15px;" class="table-responsive">
+  <table class="table" id="table-1">
+    <thead>
+      <tr>
+        <th style="color: white;">Name</th>
+        <th style="color: white;">Ram</th>
+        <th style="color: white;">Disk</th>
+        <th style="color: white;">Cpu</th>
+        <% if (settings.renewals.status == true) { %>
+        <th style="color: white;">Renew</th>
+        <% } %>
+        <th style="color: white;">Edit</th>
+        <th style="color: white;">Delete</th>
+        <th style="color: white;">Link</th>
+      </tr>
+    </thead>
+    <% for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) { %>
+      <tr style="font-size: large;">
+        <td><p><%= pterodactyl.relationships.servers.data[i].attributes.name.length > 15 ? pterodactyl.relationships.servers.data[i].attributes.name.slice(0, 12) + "..." : pterodactyl.relationships.servers.data[i].attributes.name %></p></td>
+        <td><p><%= pterodactyl.relationships.servers.data[i].attributes.limits.memory %>MB</p></td>
+        <td><p><%= pterodactyl.relationships.servers.data[i].attributes.limits.disk %>MB</p></td>
+        <td><p><%= pterodactyl.relationships.servers.data[i].attributes.limits.cpu %>%</p></td>
+          <% if (settings.renewals.status == true) { %>
+            <td>
+                <a href="/renew?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>">
+                    <button class="btn btn-icon btn-warning" type="button">
+                        <span class="btn-inner--icon"><i class="bi bi-arrow-repeat"></i></span>
+                    </button>
+                </a>
+              </td>
+            <% } %>
+        <td>
+          <a href="/servers/edit?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>">
+              <button class="btn btn-icon btn-primary" type="button">
+                  <span class="btn-inner--icon"><i class="bi bi-pencil-square"></i></span>
+              </button>
+          </a>
+      </td>
+      <td>
+        <a style="cursor: pointer;" class="btn btn-icon btn-danger" onclick="if (confirm('Please confirm you want to delete this server, the data cannot be retrieved after it has been deleted.')) { window.location.href='/delete?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>' }"><i class="bi bi-trash3"></i></a>
+      </td>
+          <td>
+          <a href="<%= settings.pterodactyl.domain %>/server/<%= pterodactyl.relationships.servers.data[i].attributes.identifier %>" target="_blank" rel="noopener noreferrer" class="btn btn-icon btn-success"><i class="bi bi-link-45deg"></i></a>
+            </td>
+      </tr>
+    <% } %>
+  </table>
+  </div>
+  </div>
+  </div>
+<!-- Include Bootstrap 5 JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+  <!-- Include Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+
+</body>
+</html>
