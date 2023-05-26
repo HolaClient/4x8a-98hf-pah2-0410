@@ -44,7 +44,7 @@
 <hr>
 <h2 tabindex="-1" dir="auto">👀 Preview</h2>
 <p dir="auto">Landing Page (v1.5.2):</p>
-<img src="https://media.discordapp.net/attachments/1082636619804323860/1105976516346662933/image.png">
+<img src="https://github.com/CR072/HolaClient/assets/102372274/27cf01f0-31e9-46c4-a9a8-55e99a971f3e">
 <br/>
 <p dir="auto">Admin Home (v1.5.2):</p>
 <img src="https://media.discordapp.net/attachments/1082636619804323860/1105974686338257037/image.png">
