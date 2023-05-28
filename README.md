@@ -4,6 +4,7 @@
 <p align="center" dir="auto">A modern client area for Pterodactyl and Jexactyl.</p>
 <p align="center">
 <a><img src="https://img.shields.io/github/downloads/CR072/HolaClient/total"/>
+<img src="https://img.shields.io/github/downloads/CR072/HolaClient/latest/total"/>
 <a href="https://discord.gg/CvqRH9TrYK"><img src="https://img.shields.io/discord/1038719273658499072?color=blue&label=Discord&logo=HolaClient&logoColor=blue" alt="discord" />
 <a href="https://discord.gg/Dms5dsmVAs"><img src="https://img.shields.io/discord/977112336873697310?color=blue&label=Holasmp&logoColor=blue" alt="discord" />
 <a href="https://holaclient.tech/docs"><img alt="Website" src="https://img.shields.io/website?down_color=lightred&down_message=Offline&label=Docs&up_color=green&up_message=Online&url=https%3A%2F%2Fholaclient.tech%2F">
