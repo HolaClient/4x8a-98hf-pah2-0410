@@ -6,8 +6,7 @@
 <a><img src="https://img.shields.io/github/downloads/CR072/HolaClient/total?color=blue&label=Total Downloads"/>
 <img src="https://img.shields.io/github/downloads/CR072/HolaClient/latest/total?color=blue&label=Latest Doanloads"/>
 <a href="https://discord.gg/CvqRH9TrYK"><img src="https://img.shields.io/discord/1038719273658499072?color=blue&label=Discord&logo=HolaClient&logoColor=blue" alt="discord" />
-<a href="https://discord.gg/Dms5dsmVAs"><img src="https://img.shields.io/discord/977112336873697310?color=blue&label=Holasmp&logoColor=blue" alt="discord" />
-<a href="https://holaclient.tech/docs"><img alt="Website" src="https://img.shields.io/website?down_color=lightred&down_message=Offline&label=Docs&up_color=blue&up_message=Online&url=https%3A%2F%2Fholaclient.tech%2F">
+<a href="https://docs.holaclient.tech"><img alt="Website" src="https://img.shields.io/website?down_color=lightred&down_message=Offline&label=Docs&up_color=blue&up_message=Online&url=https%3A%2F%2Fholaclient.tech%2F">
 <a  href="https://github.com/CR072/HolaClient/stargazers"><img src="https://img.shields.io/github/stars/CR072/HolaClient?label=Stars %E2%AD%90" height="20"/></a>
 <a title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_sml_120l.png?ID=e9d599e3-a4a0-4254-a47c-2c7767465532"  alt="DMCA.com Protection Status" /></a>
 <hr>
