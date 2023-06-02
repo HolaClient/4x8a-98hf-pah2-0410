@@ -42,7 +42,7 @@
 </ul>
 <hr>
 <h2 tabindex="-1" dir="auto">👀 Preview</h2>
-<p dir="auto">Landing Page (v1.5.2):</p>
+<p dir="auto">Landing Page (v1.5.5):</p>
 <img src="https://github.com/CR072/HolaClient/assets/102372274/d5b858b1-2c90-4e2b-ad28-f42688a7bc0e">
 <br/>
 <p dir="auto">Admin Home (v1.5.2):</p>
