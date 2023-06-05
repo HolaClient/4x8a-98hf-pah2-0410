@@ -13,6 +13,7 @@
 <ul dir="auto">
 <li><b>Anti-PteroVM</b> (automatically suspends the servers using PteroVM)</li>
 <li><b>Anti-Miner</b> (automatically deletes the server using mining script</li>
+<li>Subdomain Management (Assign subdomain for users' servers)</li>
 <li>Bandwidth Sharing (Arc.io)</li>
 <li>Background Wallpaper (Customizeable)</li>
 <li>Resource Management (View, Buy and Gift Coins)</li>
