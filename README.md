@@ -74,11 +74,11 @@ Using Pterodactyl Panel:
 Using Certbot:
 1. Point the domain to your VPS IP address using your DNS manager (e.g., point `client.example.com` to `127.0.0.0`).
 2. Run the following commands on your Linux server:
-    ```apt install nginx && apt install certbot```
+    ```bash
+    apt install nginx && apt install certbot
+    ```
    
-    ```ufw allow 80 && 
-   
-    ufw allow 443```
+    ```ufw allow 80 && ufw allow 443```
    
     ```certbot certonly -d <domain>```
    
