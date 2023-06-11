@@ -78,19 +78,24 @@ Using Certbot:
     apt install nginx && apt install certbot
     ```
    
-    ```ufw allow 80 && ufw allow 443```
+    ```bash
+    ufw allow 80 && ufw allow 443```
    
-    ```certbot certonly -d <domain>```
+    ```bash
+    certbot certonly -d <domain>```
    
-    ```nano /etc/nginx/sites-enabled/holaclient.conf```
+    ```bash
+    nano /etc/nginx/sites-enabled/holaclient.conf```
     
     after pasting the Nginx config run theses commands
     
-   ``` sudo nginx -t```
+   ```bash
+    sudo nginx -t```
    
     if theres no errors execute the last command
    
-    ```systemctl restart nginx```
+    ```terminal
+    systemctl restart nginx```
      If any errors occur, feel free to contact us on our Discord server.
 
 3. Copy the following config and paste it into `hclient.conf`, replacing the necessary information:
