@@ -98,7 +98,7 @@ Using Certbot:
    
     if theres no errors execute the last command
    
-    ```terminal
+    ```bash
     systemctl restart nginx
     ```
      If any errors occur, feel free to contact us on our Discord server.
