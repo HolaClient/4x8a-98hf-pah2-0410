@@ -74,14 +74,23 @@ Using Pterodactyl Panel:
 Using Certbot:
 1. Point the domain to your VPS IP address using your DNS manager (e.g., point `client.example.com` to `127.0.0.0`).
 2. Run the following commands on your Linux server:
-apt install nginx && apt install certbot
-ufw allow 80
-ufw allow 443
-certbot certonly -d <domain>
-nano /etc/nginx/sites-enabled/holaclient.conf
-     After pasting the Nginx config, run these commands:
-sudo nginx -t
-systemctl restart nginx
+    ```apt install nginx && apt install certbot```
+   
+    ```ufw allow 80 && 
+   
+    ufw allow 443```
+   
+    ```certbot certonly -d <domain>```
+   
+    ```nano /etc/nginx/sites-enabled/holaclient.conf```
+    
+    after pasting the Nginx config run theses commands
+    
+   ``` sudo nginx -t```
+   
+    if theres no errors execute the last command
+   
+    ```systemctl restart nginx```
      If any errors occur, feel free to contact us on our Discord server.
 
 3. Copy the following config and paste it into `hclient.conf`, replacing the necessary information:
