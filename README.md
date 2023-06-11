@@ -103,11 +103,11 @@ Using Certbot:
     ```
      If any errors occur, feel free to contact us on our [Discord Server](https://discord.gg/CvqRH9TrYK).
 
-3. Copy the following config and paste it into `hclient.conf`, replacing the necessary information:
+3. Copy the following config and paste it into `holaclient.conf`, replacing the necessary information:
 ```nginx
 server {
  listen 80;
- server_name <hclient domain>;
+ server_name <holaclient domain>;
  return 301 https://$server_name$request_uri;
 }
 
@@ -121,9 +121,9 @@ server {
      proxy_pass "http://<ip or domain of node>:<port>/afkwspath";
  }
 
- server_name <hclient domain>;
- ssl_certificate /etc/letsencrypt/live/<hclient domain>/fullchain.pem;
- ssl_certificate_key /etc/letsencrypt/live/<hclient domain>/privkey.pem;
+ server_name <holaclient domain>;
+ ssl_certificate /etc/letsencrypt/live/<holaclient domain>/fullchain.pem;
+ ssl_certificate_key /etc/letsencrypt/live/<holaclient domain>/privkey.pem;
  ssl_session_cache shared:SSL:10m;
  ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
  ssl_ciphers HIGH:!aNULL:!MD5;
