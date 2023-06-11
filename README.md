@@ -117,3 +117,5 @@ server {
  }
 }
 ```
+## ⚖️  Legal
+You shall not remove HolaClient credits from the footer, if removed your host will be taken down by DMCA take down if used in public. You can change the position if you're using a theme. HolaClient is licensed under MIT License.
