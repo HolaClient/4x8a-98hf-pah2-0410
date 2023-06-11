@@ -101,7 +101,7 @@ Using Certbot:
     ```bash
     systemctl restart nginx
     ```
-     If any errors occur, feel free to contact us on our Discord server.
+     If any errors occur, feel free to contact us on our [Discord Server](https://discord.gg/CvqRH9TrYK).
 
 3. Copy the following config and paste it into `hclient.conf`, replacing the necessary information:
 ```nginx
@@ -136,5 +136,8 @@ server {
  }
 }
 ```
+    
+---
+    
 ## ⚖️  Legal
 You shall not remove HolaClient credits from the footer, if removed your host will be taken down by DMCA take down if used in public. You can change the position if you're using a theme. HolaClient is licensed under MIT License.
