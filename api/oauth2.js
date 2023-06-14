@@ -302,8 +302,21 @@ body {
       );
       let userinfo = JSON.parse(await userjson.text());
 
-      if (settings.whitelist.status) {
-        if (!settings.whitelist.users.includes(userinfo.id)) return res.send('UNDER MAINTENANCE')
+      if (settings.maintenance.status) {
+        if (!settings.maintenance.admins.includes(userinfo.id)) renderFile(
+          `./themes/${newsettings.defaulttheme}/alerts/maintenance.ejs`,
+          {
+            settings: newsettings,
+            db,
+            extra: { home: { name: 'VPN Detected' } }
+          },
+          null,
+          (err, str) => {
+            if (err) return res.send('<center>ALT ACCOUNT DETECTED!</center>')
+            res.status(200);
+            res.send(str);
+          }
+        )
       }
 
       let guildsjson = await fetch(

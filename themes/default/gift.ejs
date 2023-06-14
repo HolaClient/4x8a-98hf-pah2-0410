@@ -40,7 +40,7 @@
       <div style="border-radius: 15px; color:white" class="alert">
         <% if (req.query.err == "MISSINGFIELDS") { %>
           <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-            <strong>Fill at least one field!</strong>
+            <strong>Please fill at least one field!</strong>
             <button aria-hidden="true" class="close" type="button">&times;</button>
           </div>
         <% } else if (req.query.err == "CANNOTGIFTYOURSELF") { %>
@@ -55,7 +55,7 @@
           </div>
         <% } else if (req.query.err == "INVALIDCAPTCHARESPONSE") { %>
           <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-            <strong>Invalid captcha responce, please try again!</strong>
+            <strong>Invalid captcha response, please try again!</strong>
             <button aria-hidden="true" class="close" type="button">&times;</button>
           </div>
         <% } else if (req.query.err == "CANTAFFORD") { %>
@@ -65,7 +65,7 @@
           </div>
         <% } else if (req.query.err == "USERDOESNTEXIST") { %>
           <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-            <strong>User ID not found!</strong>
+            <strong>The user's ID has not been found!</strong>
             <button aria-hidden="true" class="close" type="button">&times;</button>
           </div>
         <% } else if (req.query.err == "TOOLOWCOINS") { %>
@@ -103,7 +103,7 @@
                    <input type="number" class="form-control form-control-rounded" id="InputRAM" placeholder="1024">
                   </div>
                   <div class="form-group">
-                   <label for="input-8">DISK:</label>
+                   <label for="input-8">Disk:</label>
                    <input type="number" class="form-control form-control-rounded" id="InputDisk" placeholder="1024">
                   </div>
                   <div class="form-group">
@@ -111,7 +111,7 @@
                    <input type="number" class="form-control form-control-rounded" id="InputCPU" placeholder="100">
                   </div>
                   <div class="form-group">
-                    <label for="input-9">SLOTS:</label>
+                    <label for="input-9">Slots:</label>
                     <input type="number" class="form-control form-control-rounded" id="InputServers" placeholder="100">
                    </div>
                   <div class="form-group">

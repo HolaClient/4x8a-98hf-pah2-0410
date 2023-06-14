@@ -309,7 +309,7 @@ font-family: poppins;
 
 </div>
 <div class="tab">
-<h6 style="color:white">Enter your server's cpu in "%" to be allocated</h6>
+<h6 style="color:white">Enter your server's CPU in "%" to be allocated</h6>
 <p><input id="InputCPU" style="background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.cpu + extraresources.cpu %>" type="number" placeholder="Server cpu" oninput="this.className = ''" name="fname"></p>
 
 </div>
@@ -330,7 +330,7 @@ font-family: poppins;
 
 </div>
 <div class="thanks-message text-center" id="text-message">
-<h3 style="color:white">All Your Records Has been Carfully Recorded!</h3> <span style="color:white">Are you sure want to modify your server using these resources?</span>
+<h3 style="color:white">All your records has been carefully recorded!</h3> <span style="color:white">Are you sure want to modify your server using these resources?</span>
 <section class="info"><br/><br>
 <a role="button" id="create-btn" class="button"  href="javascript: submitChanges()"><span style="color:white">Modify Server
     </span></a>
@@ -348,14 +348,14 @@ font-family: poppins;
 <% } else { %>
     <center>
         <body bgcolor="black">
-    <p style="margin-left: 5%; color: white;">Could not find server with the provided ID.</p>
+    <p style="margin-left: 5%; color: white;">Could not find a server with the provided ID.</p>
     </body>
     </center>
 <% } %>
 <% } else { %>
     <center>
         <body bgcolor="black">
-    <p style="margin-left: 5%; color: white;">Missing Server ID!</p>
+    <p style="margin-left: 5%; color: white;">Missing server ID!</p>
     </body>
     </center>
 <% } %>

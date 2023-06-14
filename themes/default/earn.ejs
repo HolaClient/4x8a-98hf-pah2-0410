@@ -36,17 +36,17 @@
     <br>
     <% if (req.query.arcioerr == "ADBLOCKER") { %>
       <div style="border-radius: 15px; text-align: center;" class="alert alert_error w-full">
-        <strong>Please disable your AD Blocker for AFK to work!</strong>
+        <strong>Please disable your adblocker for AFK to work!</strong>
         <button aria-hidden="true" class="close" type="button">&times;</button>
       </div>
     <% } else if (req.query.arcioerr == "WEBSOCKET_DISCONNECTED") { %>
       <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-        <strong>Something wrong with your connection or configuration!</strong>
+        <strong>Something's wrong with your connection or configuration!</strong>
         <button aria-hidden="true" class="close" type="button">&times;</button>
       </div>
     <% } else if (req.query.arcioerr == "OPTOUT") { %>
       <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-        <strong>Please Opt-In to Arc.Io for AFK Page to work!</strong>
+        <strong>Please opt-in to arc.io for AFK Page to work!</strong>
         <button aria-hidden="true" class="close" type="button">&times;</button>
       </div>
     <% } %>
@@ -71,24 +71,6 @@
         <button aria-hidden="true" class="close" type="button">&times;</button>
       </div>
     <% } %>
-    <div class="row mt-3">
-      <div class="col-lg-6">
-        <div class="card">
-           <div class="card-body">
-           <div class="card-title"><h3>Away From Keyboard</h3></div>
-           <hr>
-           <div class="form-group">
-            <p>You're earning <%= settings.api.arcio["afk page"].coins == 1 ? "a" : settings.api.arcio["afk page"].coins %> coin<%= settings.api.arcio["afk page"].coins == 1 ? "" : "s" %> per <% if (settings.api.arcio["afk page"].every !== 1) { %><%= settings.api.arcio["afk page"].every %> seconds<% } else { %>second<% } %>.</p>
-            <p>Countdown&nbsp; : <span id="arciotimer"><%= settings.api.arcio["afk page"].every %></span> s</p>
-            <p>Collected &nbsp;&nbsp;&nbsp;&nbsp;: <span id="arciogainedcoins">0</span> coins</p>
-            <p>Total Coins&nbsp; : <%= coins %></p>
-           </div>
-          </div>
-          </div>
- </div><script>
-  <%- arcioafktext %>
-</script>
-</div>
 <% if (settings.linkvertise.enabled == true) { %>
   <div class="row mt-3">
     <div class="col-lg-6">
@@ -173,7 +155,7 @@
   <div class="col-lg-6">
     <div class="card">
        <div class="card-body">
-<h3 style="color: white; text-align: start;">Join For Rewards</h3><hr>
+<h3 style="color: white; text-align: start;">Join for rewards</h3><hr>
 <p style="color: white;">Please re-login to claim your rewards.</p>
   <div class="table-responsive">
         <table class="table table-hover">

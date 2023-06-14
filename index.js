@@ -9,10 +9,10 @@
 // Load packages.
 const chalk = require("chalk");
   console.clear();
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" ------+ Loading Packages... "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Packages... "));
 const fs = require("fs");
 const fetch = require('node-fetch');
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" Packages Loaded ✔️ "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Packages Loaded ✔️ "));
 console.log(" ");
 const arciotext = require('./modules/arciotext')
 global.Buffer = global.Buffer || require('buffer').Buffer;
@@ -29,9 +29,9 @@ if (typeof atob === 'undefined') {
 }
 
 // Load settings.
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" ------+ Loading Settings... "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Settings... "));
 const settings = require("./settings.json");
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" Settings Loaded ✔️ "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Settings Loaded ✔️ "));
 console.log(" ");
 const defaultthemesettings = {
   index: "index.ejs",
@@ -94,29 +94,29 @@ db.on('error', err => {
 });
 
 module.exports.db = db;
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" Database Loaded ✔️ "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Database Loaded ✔️ "));
 console.log(" ");
 
 // Load websites.
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" ------+ Loading Web Files... "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Web Files... "));
 const express = require("express");
 const app = express();
 require('express-ws')(app);
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" WebFiles Loaded ✔️ "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" WebFiles Loaded ✔️ "));
 console.log(" ");
 
 // Load express addons.
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" ------+ Loading Addons... "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Addons... "));
 const ejs = require("ejs");
 const session = require("express-session");
 const indexjs = require("./index.js");
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" Addons   Loaded ✔️ "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Addons   Loaded ✔️ "));
 console.log(" ");
 
 
 
 // Load the website.
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" ------+ Loading Website... "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Website... "));
 module.exports.app = app;
 
 app.use(session({secret: settings.website.secret, resave: false, saveUninitialized: false}));
@@ -129,10 +129,10 @@ app.use(express.json({
   type: 'application/json',
   verify: undefined
 }));
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" Web View Loaded ✔️ "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Web View Loaded ✔️ "));
 // Load the API files.
 console.log(" ");
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" ------+ Loading APIs... "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading APIs... "));
 const apifiles = fs.readdirSync('./api').filter(file => file.endsWith('.js'));
 
 apifiles.forEach(file => {
@@ -145,17 +145,17 @@ apifiles.forEach(file => {
   }
 });
 console.log(" ");
-console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" ------+ Finalizing... "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Finalizing... "));
 const listener = app.listen(settings.website.port, function() {
   console.clear();
   console.log(chalk.gray("  "));
 console.log(chalk.white("=====================SOCIAL======================"));
 console.log(chalk.gray("[+] ") + chalk.white("[") + chalk.cyan("Discord") + chalk.white("]") + chalk.white(" https://discord.gg/CvqRH9TrYK "));
-console.log(chalk.gray("[+] ") + chalk.white("[") + chalk.cyan("Github ") + chalk.white("]") + chalk.white(" https://github.com/CR072/HolaClient "));
+console.log(chalk.gray("[+] ") + chalk.white("[") + chalk.cyan("GitHub ") + chalk.white("]") + chalk.white(" https://github.com/CR072/HolaClient "));
 console.log(chalk.gray("[+] ") + chalk.white("[") + chalk.cyan("Holasmp") + chalk.white("]") + chalk.white(" https://discord.gg/Dms5dsmVAs "));
 console.log(chalk.white("================================================="));
 console.log(" ");
-console.log(chalk.gray("🔗") + chalk.cyan("[") + chalk.white("Hclient") + chalk.cyan("]") + chalk.white(" Successfully loaded Hola Client at ") + chalk.cyan(settings.api.client.oauth2.link + "/"));
+console.log(chalk.gray("🔗") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded HolaClient at ") + chalk.cyan(settings.api.client.oauth2.link + "/"));
 console.log(" ");
 });
 
@@ -221,11 +221,11 @@ if (newsettings.api.arcio.enabled == true) req.session.arcsessiontoken = Math.ra
     <body style="font-family: poppins">
     <center>
       <br><br><br>
-      <h1 style="color: white">Well, This Is Awkward</h1>
-      <h2 style="color: #ffffff">Hola Client Has Unexpectedly Crashed!</h2><br><br><br><br>
-      <div><bold><strong>If You're An User</strong></bold><br/><br>Try to contact this host's staff <br/><br>This issue may fixed soon!
+      <h1 style="color: white">Well, this is awkward...</h1>
+      <h2 style="color: #ffffff">HolaClient has unexpectedly crashed!</h2><br><br><br><br>
+      <div><bold><strong>If you're an user:</strong></bold><br/><br>Try to contact this host's staff <br/><br>This issue may fixed soon!
         <br/> </div><div></div>
-<div><bold style="color:red"><strong>If You're An Admin</strong></bold>
+<div><bold style="color:red"><strong>If you're an admin:</strong></bold>
     <br/> <br>
     Try to understand the console error<br/><br>
     Check our FAQ <br>
@@ -288,11 +288,11 @@ if (newsettings.api.arcio.enabled == true) req.session.arcsessiontoken = Math.ra
     <body style="font-family: poppins">
     <center>
       <br><br><br>
-      <h1 style="color: white">Well, This Is Awkward</h1>
-      <h2 style="color: #ffffff">Hola Client Has Unexpectedly Crashed!</h2><br><br><br><br>
-      <div><bold><strong>If You're An User</strong></bold><br/><br>Try to contact this host's staff <br/><br>This issue may fixed soon!
+      <h1 style="color: white">Well, this is awkward...</h1>
+      <h2 style="color: #ffffff">HolaClient has unexpectedly crashed!</h2><br><br><br><br>
+      <div><bold><strong>If you're an user:</strong></bold><br/><br>Try to contact this host's staff <br/><br>This issue may fixed soon!
         <br/> </div><div></div>
-<div><bold style="color:red"><strong>If You're An Admin</strong></bold>
+<div><bold style="color:red"><strong>If you're an admin:</strong></bold>
     <br/> <br>
     Try to understand the console error<br/><br>
     Check our FAQ <br>
@@ -349,11 +349,11 @@ if (newsettings.api.arcio.enabled == true) req.session.arcsessiontoken = Math.ra
     <body style="font-family: poppins">
     <center>
       <br><br><br>
-      <h1 style="color: white">Well, This Is Awkward</h1>
-      <h2 style="color: #ffffff">Hola Client Has Unexpectedly Crashed!</h2><br><br><br><br>
-      <div><bold><strong>If You're An User</strong></bold><br/><br>Try to contact this host's staff <br/><br>This issue may fixed soon!
+      <h1 style="color: white">Well, this is awkward...</h1>
+      <h2 style="color: #ffffff">HolaClient has unexpectedly crashed!</h2><br><br><br><br>
+      <div><bold><strong>If you're an user:</strong></bold><br/><br>Try to contact this host's staff <br/><br>This issue may fixed soon!
         <br/> </div><div></div>
-<div><bold style="color:red"><strong>If You're An Admin</strong></bold>
+<div><bold style="color:red"><strong>If you're an admin:</strong></bold>
     <br/> <br>
     Try to understand the console error<br/><br>
     Check our FAQ <br>
@@ -395,7 +395,7 @@ if (newsettings.api.arcio.enabled == true) req.session.arcsessiontoken = Math.ra
         if (err) {
           console.log(`[WEB SERVER] An error has occured on path ${req._parsedUrl.pathname}:`);
           console.log(err);
-          return res.send("<center>Well, This is awkward. Hola Client has crashed</center>");
+          return res.send("<center>Well, this is awkward. HolaClient has crashed</center>");
         };
         res.status(200);
         res.send(str);
@@ -433,11 +433,11 @@ if (newsettings.api.arcio.enabled == true) req.session.arcsessiontoken = Math.ra
     <body style="font-family: poppins">
     <center>
       <br><br><br>
-      <h1 style="color: white">Well, This Is Awkward</h1>
-      <h2 style="color: #ffffff">Hola Client Has Unexpectedly Crashed!</h2><br><br><br><br>
-      <div><bold><strong>If You're An User</strong></bold><br/><br>Try to contact this host's staff <br/><br>This issue may fixed soon!
+      <h1 style="color: white">Well, this is awkward...</h1>
+      <h2 style="color: #ffffff">HolaClient has unexpectedly crashed!</h2><br><br><br><br>
+      <div><bold><strong>If you're an user:</strong></bold><br/><br>Try to contact this host's staff <br/><br>This issue may fixed soon!
         <br/> </div><div></div>
-<div><bold style="color:red"><strong>If You're An Admin</strong></bold>
+<div><bold style="color:red"><strong>If you're an admin:</strong></bold>
     <br/> <br>
     Try to understand the console error<br/><br>
     Check our FAQ <br>

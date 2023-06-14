@@ -47,7 +47,6 @@ module.exports.load = async function (app, db) {
             delete cooldowns[req.session.userinfo.id]
         }
 
-        // We get the code from the paramters, eg (client.domain.com/lv/redeem/abc123) here "abc123" is the code
         const code = req.params.code
         if (!code) return res.send('<body style="background-color: #1b1c1d;"><center><h1 style="color: white">Error Code: HCLV003</h1><br><h2 style="color: white">You can get more information about this code on our <a style="color: white" href="https://discord.gg/CvqRH9TrYK">support</a> server!</h2></center>')
         if (!req.headers.referer || !req.headers.referer.includes('linkvertise.com')) return res.send('<center>Automatic reload failed! Reload the page to continue.</center>')
@@ -57,14 +56,12 @@ module.exports.load = async function (app, db) {
         if (usercode.code !== code) return res.redirect(`/earn`)
         delete lvcodes[req.session.userinfo.id]
 
-        // Checking at least the minimum allowed time passed between generation and completion
         if (((Date.now() - usercode.generated) / 1000) < settings.linkvertise.minTimeToComplete) {
             return res.send('<body style="background-color: #1b1c1d;"><center><h1 style="color: white">Error Code: HCLV005</h1><br><h2 style="color: white">You can get more information about this code on our <a style="color: white" href="https://discord.gg/CvqRH9TrYK">support</a> server!</h2></center>')
         }
 
         cooldowns[req.session.userinfo.id] = Date.now() + (settings.linkvertise.cooldown * 1000)
 
-        // Adding to daily total
         const dailyTotal = await db.get(`dailylinkvertise-${req.session.userinfo.id}`)
         if (dailyTotal && dailyTotal >= settings.linkvertise.dailyLimit) {
             return res.redirect(`/earn?err=REACHEDDAILYLIMIT`)
@@ -75,13 +72,12 @@ module.exports.load = async function (app, db) {
             await db.set(`lvlimitdate-${req.session.userinfo.id}`, Date.now(), 43200000)
         }
 
-        // Adding coins
         const coins = await db.get(`coins-${req.session.userinfo.id}`)
         await db.set(`coins-${req.session.userinfo.id}`, coins + settings.linkvertise.coins)
 
         res.redirect(`/earn?success=true`)
     })
-    
+
     app.get(`/api/lvcooldown`, async (req, res) => {
         if (!req.session.pterodactyl) return res.json({ error: true, message: 'Not logged in' })
 
@@ -120,46 +116,25 @@ module.exports.load = async function (app, db) {
 
 function linkvertise(userid, link) {
     var base_url = `https://link-to.net/${userid}/${Math.random() * 1000}/dynamic`;
-    var href = base_url + "?r=" + btoa(encodeURI(link));
+    var href = base_url + "?r=" + btoa(link) + "&id=" + userid;
+
     return href;
 }
 
-function btoa(str) {
-    var buffer;
-
-    if (str instanceof Buffer) {
-        buffer = str;
-    } else {
-        buffer = Buffer.from(str.toString(), "binary");
-    }
-    return buffer.toString("base64");
-}
-
 function makeid(length) {
-    let result = '';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
 }
 
 function msToHoursAndMinutes(ms) {
-    const msInHour = 3600000
-    const msInMinute = 60000
+    const minutes = Math.floor(ms / 60000);
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
 
-    const hours = Math.floor(ms / msInHour)
-    const minutes = Math.round((ms - (hours * msInHour)) / msInMinute * 100) / 100
-
-    let pluralHours = `s`
-    if (hours === 1) {
-        pluralHours = ``
-    }
-    let pluralMinutes = `s`
-    if (minutes === 1) {
-        pluralMinutes = ``
-    }
-
-    return `${hours} hour${pluralHours} and ${minutes} minute${pluralMinutes}`
+    return `${hours} hours ${remainingMinutes} minutes`;
 }

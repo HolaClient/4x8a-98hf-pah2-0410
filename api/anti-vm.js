@@ -1,67 +1,106 @@
-const express = require('express');
 const fetch = require('node-fetch');
 const settings = require('../settings.json');
-const apiKey = settings.pterodactyl.key;
-const apiUrl = `${settings.pterodactyl.domain}/api/application`;
+const panelUrl = settings.pterodactyl.domain;
+const panelApiKey = settings.pterodactyl.key;
+const scanInterval = settings.anti_pteroVM.interval * 1000; // Convert to milliseconds
 
-module.exports.load = async function(app, db) {
-app.get('/suspend-servers', async (req, res) => {
+module.exports.load = async function (app, db) {
+async function suspendServer(serverId) {
   try {
-    const serverListResponse = await fetch(`${apiUrl}/servers`, {
+    await fetch(`${panelUrl}/api/application/servers/${serverId}`, {
+      method: 'PATCH',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
-      }
+        Authorization: `Bearer ${panelApiKey}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.pterodactyl.v1+json',
+      },
+      body: JSON.stringify({
+        description: 'Server suspended by HolaClient due to PteroVM.',
+      }),
     });
 
-    if (!serverListResponse.ok) {
-      throw new Error(`Failed to fetch server list: ${serverListResponse.status} ${serverListResponse.statusText}`);
-    }
+    await fetch(`${panelUrl}/api/application/servers/${serverId}/suspend`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${panelApiKey}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.pterodactyl.v1+json',
+      },
+    });
 
-    const serverList = await serverListResponse.json();
-
-    for (const server of serverList.data) {
-      const serverId = server.identifier;
-      const serverName = server.attributes.name;
-
-      const utilizationResponse = await fetch(`${apiUrl}/servers/${serverId}/utilization`, {
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!utilizationResponse.ok) {
-        console.error(`Failed to fetch utilization data for server ${serverName}: ${utilizationResponse.status} ${utilizationResponse.statusText}`);
-        continue;
-      }
-
-      const utilizationData = await utilizationResponse.json();
-      const isPteroVM = utilizationData.environment === 'pterodactyl-vm';
-
-      if (isPteroVM) {
-        console.log(`Suspending server ${serverName} (${serverId})...`);
-
-        const suspendResponse = await fetch(`${apiUrl}/servers/${serverId}/suspend`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if (!suspendResponse.ok) {
-          console.error(`Failed to suspend server ${serverName} (${serverId}): ${suspendResponse.status} ${suspendResponse.statusText}`);
-        } else {
-          console.log(`Server ${serverName} (${serverId}) suspended successfully.`);
-        }
-      }
-    }
-
-    res.status(200).json({ message: 'Server scan and suspension completed.' });
+    console.log(`Server with ID ${serverId} suspended successfully.`);
   } catch (error) {
-    console.error(`Error while suspending servers: ${error}`);
-    res.status(500).json({ error: 'An error occurred while suspending servers.' });
+    console.error(`Failed to suspend server with ID ${serverId}:`, error);
   }
+}
+
+async function scanServerFiles(serverId) {
+  try {
+    const serverFilesResponse = await fetch(`${panelUrl}/api/client/servers/${serverId}/files/list`, {
+      headers: {
+        Authorization: `Bearer ${panelApiKey}`,
+        Accept: 'application/vnd.pterodactyl.v1+json',
+      },
+    });
+
+    if (!serverFilesResponse.ok) {
+      throw new Error(`Failed to retrieve files for server with ID ${serverId}: ${serverFilesResponse.status} ${serverFilesResponse.statusText}`);
+    }
+
+    const serverFilesData = await serverFilesResponse.json();
+    const files = serverFilesData.data;
+
+    const foundFiles = files.filter(file =>
+      file.attributes.name === 'st.sh' ||
+      file.attributes.name === 'lib32' ||
+      file.attributes.name === 'lib64' ||
+      file.attributes.name === 'proot' ||
+      file.attributes.name === 'sbin' ||
+      file.attributes.name === 'libx32'
+    );
+
+    if (foundFiles.length > 0) {
+      await suspendServer(serverId);
+    }
+  } catch (error) {
+    console.error(`Failed to scan files for server with ID ${serverId}:`, error);
+  }
+}
+
+async function scanServers() {
+  if (!settings.anti_pteroVM.enabled) {
+    return; // If anti_pteroVM is not enabled, don't scan for PteroVM servers
+  }
+
+  try {
+    const serversResponse = await fetch(`${panelUrl}/api/application/servers`, {
+      headers: {
+        Authorization: `Bearer ${panelApiKey}`,
+        Accept: 'application/vnd.pterodactyl.v1+json',
+      },
+    });
+
+    if (!serversResponse.ok) {
+      throw new Error(`Failed to retrieve server list: ${serversResponse.status} ${serversResponse.statusText}`);
+    }
+
+    const serversData = await serversResponse.json();
+    const servers = serversData.data;
+
+    for (const server of servers) {
+      await scanServerFiles(server.attributes.identifier);
+    }
+  } catch (error) {
+    console.error('Failed to retrieve server list:', error);
+  }
+}
+
+setInterval(scanServers, scanInterval);
+
+scanServers();
+
+app.get('/scan-vms', async (req, res) => {
+  await scanServers();
+  res.send('Server scanning initiated.');
 });
 }

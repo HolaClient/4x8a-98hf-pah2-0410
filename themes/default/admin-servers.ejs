@@ -38,7 +38,7 @@
       <br>
               <% if (req.query.err == "MISSINGID") { %>
                   <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                  <strong>Please fill in the correct Discord user ID</strong>
+                  <strong>Please fill in a correct Discord user ID!</strong>
                   <button aria-hidden="true" class="close" type="button">&times;</button>
                   </div>
               <% } else if (req.query.err == "CREATECOUPONINVALIDCHARACTERS") { %>
@@ -68,7 +68,7 @@
                   </div>
               <% } if (req.query.err === 'INVALIDID') { %>
                   <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                  <strong>Make sure this user is signedup on this Dashboard or check if the ID belongs to a valid person!</strong>
+                  <strong>Make sure this user is signed up on this Dashboard or check if the ID belongs to a valid person!</strong>
                   <button aria-hidden="true" class="close" type="button">&times;</button>
                   </div>
               <% } if (req.query.err === 'none') { %>
@@ -88,12 +88,12 @@
                   </div>
                <% } if (req.query.err === 'NOIP') { %>
                   <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                  <strong>User IP not stored in database!</strong>
+                  <strong>The user's IP is not stored in the database!</strong>
                   <button aria-hidden="true" class="close" type="button">&times;</button>
                   </div>
                <% } if (req.query.err === 'REMOVEACCOUNT') { %>
                   <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
-                  <strong>User has been successfully deleted from the database.</strong>
+                  <strong>The user has been successfully deleted from the database.</strong>
                   <button aria-hidden="true" class="close" type="button">&times;</button>
                   </div>
           <% } %>
@@ -103,12 +103,12 @@
               <input type="text" class="form-control" id="search" placeholder="Search a server by its ID or Name">
               <thead>
                 <tr>
-                  <th><h6>Id</h6></th>
+                  <th><h6>ID</h6></th>
                   <th><h6>Name</h6></th>
                   <th><h6>Node</h6></th>
                   <th><h6>Egg</h6></th>
-                  <th><h6>Ram</h6></th>
-                  <th><h6>Cpu</h6></th>
+                  <th><h6>RAM</h6></th>
+                  <th><h6>CPU</h6></th>
                   <th><h6>Disk</h6></th>
                 </tr>
               </thead>

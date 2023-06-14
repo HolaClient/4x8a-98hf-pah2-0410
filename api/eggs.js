@@ -46,7 +46,7 @@ module.exports.load = async function(app, db) {
 
       for (const nest of nests.data) {
         if (nest.attributes.name.includes('[HCNO]')) {
-          continue; // Skip nests with [HCNO] tag in their name
+          continue;
         }
 
         const nestResponse = await fetch(`${domain}/api/application/nests/${nest.attributes.id}/eggs`, {
@@ -66,7 +66,7 @@ module.exports.load = async function(app, db) {
 
         for (const egg of nestData.data) {
           if (egg.attributes.name.includes('[HCNO]')) {
-            continue; // Skip eggs with [HCNO] tag in their name
+            continue;
           }
 
           const eggDetails = await fetchEggDetails(nest.attributes.id, egg.attributes.id);
@@ -76,11 +76,10 @@ module.exports.load = async function(app, db) {
             continue;
           }
 
-          const featureLimits = eggDetails.attributes.feature_limits || {}; // Check if feature_limits object is defined
+          const featureLimits = eggDetails.attributes.feature_limits || {};
 
           const eggEnvironment = {};
 
-          // Set environment variables based on the egg type
           if (eggDetails.attributes.name.toLowerCase().includes('bungeecord')) {
             eggEnvironment.BUNGEE_VERSION = 'latest';
           } else if (eggDetails.attributes.name.toLowerCase().includes('paper')) {
@@ -105,7 +104,7 @@ module.exports.load = async function(app, db) {
             startup: eggDetails.attributes.startup,
             environment: {
             SERVER_JARFILE: 'server.jar',
-            ...eggEnvironment, // Include the egg-specific environment variables
+            ...eggEnvironment,
             },
             feature_limits: {
             databases: featureLimits.databases || 0,

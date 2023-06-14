@@ -19,13 +19,22 @@
        </a>
      </li>
 
+     <% if (settings.api.client.coins.store.enabled == true) { %>
      <li>
        <a href="../earn">
         <i class="bi bi-currency-exchange"></i> <span>Earn</span>
        </a>
      </li>
 
-     <% if (settings.api.client.coins.store.enabled == true) { %>
+     <% if (settings.api.arcio.enabled == true) { %>
+      <% if (settings.api.arcio["afk page"].enabled == true) { %>
+     <li>
+      <a href="../afk">
+       <i class="bi bi-clock"></i> <span>AFK</span>
+      </a>
+    </li>
+    <% } %>
+    <% } %>
      <li>
        <a href="../store">
         <i class="bi bi-shop"></i> <span>Store</span>

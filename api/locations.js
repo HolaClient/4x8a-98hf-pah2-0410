@@ -25,7 +25,7 @@ module.exports.load = async function(app, db) {
       for (const location of data.data) {
         if (!location.attributes.short.includes('[HCNO]')) {
           locations[location.attributes.id] = {
-            name: location.attributes.short,
+            name: location.attributes.long,
             banner: `https://flagsapi.com/${location.attributes.short}/flat/48.png`,
             note: "Remove 'IN' and put your country code for its flag! For example, put DE for Germany!",
             package: null

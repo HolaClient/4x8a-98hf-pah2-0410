@@ -41,12 +41,12 @@
       <div style="border-radius: 15px; color:white;" class="alert">
           <% if (req.query.err == "MISSINGVARIABLE") { %>
               <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                  <strong>[HCOC1] You have not filled up all of the information, please fill up in order to create a server!</strong>
+                  <strong>[HCOC1] You have not filled up all of the information, please fill the required fields in order to create a server!</strong>
                   <button aria-hidden="true" class="close" type="button">&times;</button>
                 </div>            
           <% } else if (req.query.err == "NOTANUMBER") { %>
               <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                  <strong>[HCOC2] RAM, CPU and DISK must be a number!</strong>
+                  <strong>[HCOC2] The RAM, CPU and Disk must be a number!</strong>
                   <button aria-hidden="true" class="close" type="button">&times;</button>
                 </div>
           <% } else if (req.query.err == "ERRORONCREATE") { %>
@@ -101,12 +101,12 @@
                     </div>
           <% } else if (req.query.err == "MAXCPUEXCEETED") { %>
                   <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                      <strong>[HCOC15] You can't buy these much cpu at a time!</strong>
+                      <strong>[HCOC15] You can't buy these much CPU at a time!</strong>
                       <button aria-hidden="true" class="close" type="button">&times;</button>
                     </div>
                     <% } else if (req.query.err == "MAXRAMEXCEETED") { %>
                       <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                          <strong>[HCOC15] You can't buy these much ram at a time!</strong>
+                          <strong>[HCOC15] You can't buy these much RAM at a time!</strong>
                           <button aria-hidden="true" class="close" type="button">&times;</button>
                         </div>
                         <% } else if (req.query.err == "MAXDISKEXCEETED") { %>
@@ -223,7 +223,7 @@
           <div class="col-lg-6">
              <div class="card">
                <div class="card-body">
-               <div class="card-title">Buy DISK</div>
+               <div class="card-title">Buy Disk</div>
                <hr>
                 <div class="form-group">
                  <label for="input-6"><%= settings.api.client.coins.store.disk.per %>MB Disk - <%= settings.api.client.coins.store.disk.cost %> coins</label>
@@ -239,7 +239,7 @@
           <div class="col-lg-6">
             <div class="card">
                <div class="card-body">
-               <div class="card-title">Buy SLOTS</div>
+               <div class="card-title">Buy Slots</div>
                <hr>
                 <div class="form-group">
                  <label for="input-6"><%= settings.api.client.coins.store.servers.per %> slot - <%= settings.api.client.coins.store.servers.cost %> coins</label>
@@ -296,7 +296,7 @@
     };
     </script>
     <% } else { %>
-      <h1>NICE<br> TRY<br> KIDDO! <br><br> NOW GO BACK TO DASHBOARD OR GET WRECKED. <br><br>STORE IS CURRENTLY DISABLED!</h1>
+      <h1>Oops...<br><br>The store is currently disabled.<br>Go back to the dashboard.</h1>
       <audio controls hidden id="song">
         <source src="../../../assets/audios/roll.mp3" type="audio/mpeg">
         Your browser does not support the audio element.

@@ -39,12 +39,12 @@
       <div style="border-radius: 15px; color:white;" class="alert">
           <% if (req.query.err == "MISSINGVARIABLE") { %>
               <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                  <strong>[HCOC1] You have not filled up all of the information, please fill up in order to create a server!</strong>
+                  <strong>[HCOC1] You have not filled up all of the informations required, please fill the important fields in order to create a server!</strong>
                   <button aria-hidden="true" class="close" type="button">&times;</button>
                 </div>            
           <% } else if (req.query.err == "NOTANUMBER") { %>
               <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                  <strong>[HCOC2] RAM, CPU and DISK must be a number!</strong>
+                  <strong>[HCOC2] The RAM, CPU and Disk must be a number!</strong>
                   <button aria-hidden="true" class="close" type="button">&times;</button>
                 </div>
           <% } else if (req.query.err == "ERRORONCREATE") { %>
@@ -137,7 +137,7 @@
                 <% } %>
             <% } else { %>
                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                    <strong>[HCOC15] Invalid Locaton! Contact <%= settings.name %>'s staff</strong>
+                    <strong>[HCOC15] Invalid location! Contact <%= settings.name %>'s staff to know more!</strong>
                     <button aria-hidden="true" class="close" type="button">&times;</button>
                   </div>
             <% } %>
@@ -174,7 +174,7 @@ for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i+
                 </div>
                     <div class="card-body">
                       <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-memory"></i></span></h5>
-                      <h6 style="color:white">Enter your server's ram to be allocated in MB (1GB = 1024MB)</h6>
+                      <h6 style="color:white">Enter your server's RAM to be allocated in MB (1GB = 1024MB)</h6>
                       <p><input id="InputRAM" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.ram + extraresources.ram - ram %>" type="number" placeholder="Server ram" oninput="this.className = ''" name="fname"></p>                      
                     </div>
                 <div class="card-body">
@@ -184,17 +184,17 @@ for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i+
                 </div>
             <div class="card-body">
               <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
-              <h6 style="color:white">Enter your server's cpu in "%" to be allocated</h6>
+              <h6 style="color:white">Enter your server's CPU in "%" to be allocated</h6>
               <p><input id="InputCPU" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.cpu + extraresources.cpu - cpu %>" type="number" placeholder="Server cpu" oninput="this.className = ''" name="fname"></p>                      
             </div>
             <div class="card-body">
               <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
-              <h6 style="color:white">How much backups should to be allocated to this server?</h6>
+              <h6 style="color:white">How much backups should be allocated to this server?</h6>
               <p><input id="InputBackups" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.backups + extraresources.backups - backups %>" type="number" placeholder="Server Backups" oninput="this.className = ''" name="fname"></p>                      
             </div>
             <div class="card-body">
               <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
-              <h6 style="color:white">How many databases should to be allocated to this server?</h6>
+              <h6 style="color:white">How many databases should be allocated to this server?</h6>
               <p><input id="InputDatabases" style="width: 250px; padding: 8px; background-color: #2f2e30; color:#ffffff; border-radius: 15px; border-color:transparent;" value="<%= packages.databases + extraresources.databases - databases %>" type="number" placeholder="Server databases" oninput="this.className = ''" name="fname"></p>                      
             </div>
 
@@ -210,7 +210,7 @@ for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i+
         
             <div class="card-body">
               <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-geo-alt"></i></span></h5>
-        <h6 style="color:white">Where your server should be deployed?</h6>
+        <h6 style="color:white">Where do you want your server to be deployed?</h6>
         <ull role="list" class="grid gap-5 sm:gap-6 lg:grid-cols-4">
           <% for (let [name, value, location, banner] of Object.entries(settings.api.client.locations)) { %>
             <link href="../../../assets/css/creator.css" rel="stylesheet"/>

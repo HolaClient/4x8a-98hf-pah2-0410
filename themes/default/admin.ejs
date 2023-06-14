@@ -38,7 +38,7 @@
     <br>
             <% if (req.query.err == "MISSINGID") { %>
                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                <strong>Please fill in the correct Discord user ID</strong>
+                <strong>Please fill in a correct Discord user ID!</strong>
                 <button aria-hidden="true" class="close" type="button">&times;</button>
                 </div>
             <% } else if (req.query.err == "CREATECOUPONINVALIDCHARACTERS") { %>
@@ -68,7 +68,7 @@
                 </div>
             <% } if (req.query.err === 'INVALIDID') { %>
                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                <strong>Make sure this user is signedup on this Dashboard or check if the ID belongs to a valid person!</strong>
+                <strong>Make sure this user is signed up on this Dashboard or check if the ID belongs to a valid person!</strong>
                 <button aria-hidden="true" class="close" type="button">&times;</button>
                 </div>
             <% } if (req.query.err === 'none') { %>
@@ -88,12 +88,12 @@
                 </div>
              <% } if (req.query.err === 'NOIP') { %>
                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
-                <strong>User IP not stored in database!</strong>
+                <strong>The user's IP is not stored in the database!</strong>
                 <button aria-hidden="true" class="close" type="button">&times;</button>
                 </div>
              <% } if (req.query.err === 'REMOVEACCOUNT') { %>
                 <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
-                <strong>User has been successfully deleted from the database.</strong>
+                <strong>The user has been successfully deleted from the database.</strong>
                 <button aria-hidden="true" class="close" type="button">&times;</button>
                 </div>
         <% } %>
@@ -208,7 +208,7 @@
               url: '/api/purge',
               method: 'POST',
               success: function() {
-                alert('Purge has started, check dashboard logs for more info!');
+                alert('Purge has started, check the dashboard logs for more info!');
               },
               error: function() {
                 alert('Failed to purge inactive servers.');
@@ -245,28 +245,6 @@
                   });
                 </script>
                 </div>
-                <div class="col-lg-6">
-                  <div class="card">
-                    <div class="card-body">
-                    <div class="card-title">&nbsp;Anti-Miners</div><hr>
-                  <div style="border-radius: 15px;" class="table-responsive">
-                    <button class="btn btn-light btn-round px-5" id="suspend-button">Scan and Suspend Servers</button>
-                   </div>
-                   </div>
-                </div>
-                <script>
-                  document.getElementById('suspend-button').addEventListener('click', () => {
-                    window.location.href = '?err=SCANSTARTED';
-                    fetch('/scan-servers')
-                      .then(response => response.text())
-                      .then(message => {
-                        console.log(message);
-                      })
-                      .catch(error => {
-                        console.error('Error suspending servers:', error);
-                      });
-                  });
-                </script>
                 </div>
         
 
