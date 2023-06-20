@@ -52,7 +52,8 @@ Admin Home (v1.5.6):
 ![Admin Home](https://github.com/CR072/HolaClient/assets/102372274/7a748fb0-1d6d-43ea-a1e2-4ce394d1d363)
 
 Dashboard (v1.5.6):
-![Dashboard](https://github.com/CR072/HolaClient/assets/102372274/da903395-0c60-4b4c-bd38-ab458699ba48)
+![Dashboard](https://github.com/CR072/HolaClient/assets/102372274/2fcbb24a-ef24-4c7b-880c-736beee63f6f)
+
 
 ---
 
