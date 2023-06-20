@@ -170,7 +170,7 @@ authfiles.forEach(file => {
         console.error(`'load' function not found in ${file}`);
     }
 });
-const billingfiles = fs.readdirSync('./routes/billing').filter(file => file.endsWith('.js'));
+
 const earnfiles = fs.readdirSync('./routes/earn').filter(file => file.endsWith('.js'));
 
 earnfiles.forEach(file => {
