@@ -1,0 +1,110 @@
+<head>
+  <%- include('./parts/header') %>
+  <!-- simplebar CSS-->
+  <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+  <!-- Bootstrap core CSS-->
+  <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- animate CSS-->
+  <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+  <!-- Icons CSS-->
+  <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+  <!-- Sidebar CSS-->
+  <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+  <!-- Custom Style-->
+  <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+  body {
+  background-image: url('<%= settings.background %>');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  }
+</style>
+<body>
+  <!-- Start wrapper-->
+  <div id="wrapper">
+     <%- include('./parts/menu') %>
+     <%- include('./parts/topnav') %>
+     <div class="clearfix"></div>
+     <div class="content-wrapper">
+        <div class="container-fluid">
+           <div class="card">
+              <div class="card-body">
+                 <div class="card-title">&nbsp;HolaClient Security <span class="float-right">Status:       <% if (settings.security.enabled == true) { %>
+                    <i class="bi bi-lock text-success"></i> <span>Secure</span>
+                    <% } else { %>
+                    <i class="bi bi-unlock text-warning"></i> <span>Unsecure</span>
+                    <% } %></span>
+                 </div>
+                 <hr>
+                 <div class="row row-group m-0">
+                    <div class="col-12 col-lg-6 col-xl-3 border-light">
+                       <div class="card-body">
+                          <h5 class="text-white mb-0"> Anti-DDoS</h5>
+                          <h6 class="text-white mb-0"> Status: <span style="color: aquamarine;">Undefined</span></h6>
+                       </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-3 border-light">
+                       <div class="card-body">
+                          <h5 class="text-white mb-0"> Anti-Bot</h5>
+                          <h6 class="text-white mb-0"> Status: <% if (settings.security.anti_bot == true) { %>
+                           <i class="bi bi-lock text-success"></i> <span>Secure</span>
+                           <% } else { %>
+                           <i class="bi bi-unlock text-warning"></i> <span>Unsecure</span>
+                           <% } %></h6>
+                       </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-3 border-light">
+                       <div class="card-body">
+                          <h5 class="text-white mb-0"> Anti-Downs</h5>
+                          <h6 class="text-white mb-0"> Status: <% if (settings.security.enabled == true) { %>
+                           <i class="bi bi-lock text-success"></i> <span>Secure</span>
+                           <% } else { %>
+                           <i class="bi bi-unlock text-warning"></i> <span>Unsecure</span>
+                           <% } %></h6>
+                       </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-3 border-light">
+                       <div class="card-body">
+                          <h5 class="text-white mb-0"> Anti-Crawler</h5>
+                          <h6 class="text-white mb-0"> Status: <% if (settings.security.anti_crawler == true) { %>
+                           <i class="bi bi-lock text-success"></i> <span>Secure</span>
+                           <% } else { %>
+                           <i class="bi bi-unlock text-warning"></i> <span>Unsecure</span>
+                           <% } %></h6>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="overlay toggle-menu"></div>
+        </div>
+     </div>
+     <!-- Include Bootstrap 5 JS -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+     <!-- Include Bootstrap 5 CSS -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+  </div>
+</body>
+</html>
+</body>
+<!--start overlay-->
+<!--end overlay-->
+<!--Start Back To Top Button-->
+<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+<!--End Back To Top Button-->
+<!-- Bootstrap core JavaScript-->
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/popper.min.js"></script>
+<script src="../../../assets/js/bootstrap.min.js"></script>
+<!-- simplebar js -->
+<script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+<!-- sidebar-menu js -->
+<script src="../../../assets/js/sidebar-menu.js"></script>
+<!-- Custom scripts -->
+<script src="../../../assets/js/app-script.js"></script>
+<footer>
+  <%- include('./parts/footer') %>
+</footer>

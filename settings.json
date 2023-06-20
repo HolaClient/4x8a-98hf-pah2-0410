@@ -1,0 +1,539 @@
+{
+  "version": "1.5.6 Beta",
+  "name": "HolaClient",
+  "logo": "https://media.discordapp.net/attachments/1082632266506850344/1108449684709703770/image.png",
+  "rotatelogo": "true",
+  "rotatespeed": "6s",
+  "background": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+  "defaulttheme": "default",
+  "discord": "https://discord.gg/Dms5dsmVAs",
+  "website": {
+    "port": 2000,
+    "description": "IDK what a good descrption looks like",
+    "websitelinkenabled": true,
+    "websitelink": "https://web.holasmp.cf/",
+    "secret": "SUPER SECRET (jk)"
+  },
+  "pterodactyl": {
+    "domain": "https://panel.example.com",
+    "key": "ptla_0000",
+    "account_key": "ptlc_0000"
+  },
+  "news": {
+    "enabled": true,
+    "content": "Hi, Welcome to HolaClient!"
+  },
+  "anti_pteroVM": {
+    "interval": "100",
+    "note": "The above value must be in minutes"
+  },
+  "captcha": {
+    "enabled": false,
+    "site_key": ""
+  },
+  "purge": {
+    "enabled": true,
+    "keyword": "[Active]"
+  },
+  "maintenance": {
+    "status": false,
+    "admins": [
+      "Discord ID"
+    ]
+  },
+  "linkvertise": {
+    "enabled": true,
+    "userid": "641981",
+    "coins": 5
+  },
+  "shareus": {
+    "enabled": true,
+    "apiKey": "JtPFh3glixSKXq2oM5fVDX88Snu2",
+    "coins": 25,
+    "dailyLimit": "null",
+    "minTimeToComplete": "null",
+    "timeToExpire": "null",
+    "note": "timetoExpire is in Seconds and cooldown in milliseconds",
+    "cooldown": "null"
+  },
+  "linkpays": {
+    "enabled": true,
+    "apiKey": "59d5df2f14b69d49e5a756e7e90696e2a65fe806",
+    "coins": 25,
+    "dailyLimit": "null",
+    "minTimeToComplete": "null",
+    "timeToExpire": "null",
+    "note": "timetoExpire is in Seconds and cooldown in milliseconds",
+    "cooldown": "null"
+  },
+  "gyanilinks": {
+    "enabled": true,
+    "apiKey": "f43918a0a673df8c825aba7ddc0dab82aa6087be",
+    "coins": 25,
+    "dailyLimit": "null",
+    "minTimeToComplete": "null",
+    "timeToExpire": "null",
+    "note": "timetoExpire is in Seconds and cooldown in milliseconds",
+    "cooldown": "null"
+  },
+  "subdomain": {
+    "enabled": true,
+    "limit": "2",
+    "note": "requires cloudflare details!"
+  },
+  "cloudflare": {
+    "domain": "example.com",
+    "email": "@gmail.com",
+    "api_key": "",
+    "zone_id": "",
+    "account_id": ""
+  },
+  "security": {
+    "enabled": true,
+    "anti_crawler": true,
+    "anti_bot": true,
+    "anti_ddos": false,
+    "note": "anti_ddos requires cloudflare details!"
+  },
+  "storelimits": {
+    "ram": "10240",
+    "disk": "20480",
+    "cpu": "800",
+    "servers": "1",
+    "backups": "10",
+    "databases": "10",
+    "ports": "10"
+  },
+  "smtp": {
+    "enabled": false,
+    "host": "smtp.example.com",
+    "port": 1,
+    "username": "",
+    "password": ""
+  },
+  "billing": {
+    "enabled": false,
+    "currency": "USD",
+    "symbol": "$",
+    "cycle": "monthly",
+    "methods": {
+      "paypal": {
+        "enabled": true,
+        "key": ""
+      },
+      "razorpay": {
+        "enabled": true,
+        "key": ""
+      },
+      "stripe": {
+        "enabled": true,
+        "key": ""
+      }
+    },
+    "products": [
+      {
+        "id": "1",
+        "name": "MC PLAN (COAL)",
+        "image": "https://media.discordapp.net/attachments/1082636619804323860/1115186139591102484/coal_ore.png",
+        "price": "3",
+        "ram": "4096",
+        "disk": "10240",
+        "cpu": "150",
+        "ports": "2",
+        "backups": "2",
+        "databases": "2",
+        "location": "2"
+      },
+      {
+        "id": "2",
+        "name": "MC PLAN (IRON)",
+        "image": "https://media.discordapp.net/attachments/1082636619804323860/1115185639424544798/iron_ore.png",
+        "price": "6",
+        "ram": "8192",
+        "disk": "20480",
+        "cpu": "300",
+        "ports": "4",
+        "backups": "4",
+        "databases": "4",
+        "location": "4"
+      },
+      {
+        "id": "3",
+        "name": "MC PLAN (DIAMOND)",
+        "image": "https://media.discordapp.net/attachments/1082636619804323860/1115185827727822908/diamond_ore.png",
+        "price": "9",
+        "ram": "12288",
+        "disk": "30720",
+        "cpu": "450",
+        "ports": "6",
+        "backups": "6",
+        "databases": "6",
+        "location": "6"
+      }
+    ]
+  },
+  "ads": {
+    "enabled": true,
+    "ads": [
+      {
+        "name": "HolaClient",
+        "title": "HolaClient",
+        "redirect": "https://holaclient.tech",
+        "image": "https://media.discordapp.net/attachments/1108054221456146534/1117779127680905226/Untitled.png?width=470&height=110",
+        "note": "recommened image size is 470x130"
+      },
+      {
+        "name": "HolaClient",
+        "title": "HolaClient",
+        "redirect": "https://holaclient.tech",
+        "image": "https://media.discordapp.net/attachments/1108054221456146534/1117779127680905226/Untitled.png?width=470&height=105",
+        "note": "recommened image size is 470x105"
+      },
+      {
+        "name": "HolaClient",
+        "title": "HolaClient",
+        "redirect": "https://holaclient.tech",
+        "image": "https://media.discordapp.net/attachments/1108054221456146534/1117779127680905226/Untitled.png?width=470&height=105",
+        "note": "recommened image size is 470x105"
+      },
+      {
+        "name": "HolaClient",
+        "title": "HolaClient",
+        "redirect": "https://holaclient.tech",
+        "image": "https://media.discordapp.net/attachments/1108054221456146534/1117779127680905226/Untitled.png?width=470&height=105",
+        "note": "recommened image size is 470x105"
+      },
+      {
+        "name": "HolaClient",
+        "title": "HolaClient",
+        "redirect": "https://holaclient.tech",
+        "image": "https://media.discordapp.net/attachments/1108054221456146534/1117779127680905226/Untitled.png?width=470&height=220",
+        "note": "recommened image size is 470x220"
+      },
+      {
+        "name": "HolaClient",
+        "title": "Nexorion",
+        "redirect": "https://discord.gg/nexorion",
+        "image": "https://media.discordapp.net/attachments/1116319479316623440/1120681252723359764/5dab442db912ef9ac2003fd6e068aace.webp?width=1100&height=290",
+        "note": "recommened image size is 1100x290"
+      }
+    ]
+  },
+  "api": {
+    "client": {
+      "api": {
+        "enabled": true,
+        "code": "RANDOM"
+      },
+      "j4r": {
+        "enabled": true,
+        "ads": [
+          {
+            "name": "Holasmp",
+            "invite": "https://discord.gg/Dms5dsmVAs",
+            "id": "977112336873697310",
+            "coins": 500
+          },
+          {
+            "name": "HolaClient",
+            "invite": "https://discord.gg/CvqRH9TrYK",
+            "id": "1038719273658499072",
+            "coins": 500
+          },
+          {
+            "name": "Nexorion",
+            "invite": "https://discord.gg/nexorion",
+            "id": "1119949629254009063",
+            "coins": 500
+          }
+        ]
+      },
+      "bot": {
+        "_comment": "Set this to true if you want to make users forcefully join your server.",
+        "token": "Discord Bot Token",
+        "joinguild": {
+          "enabled": false,
+          "guildid": [
+            "Discord_Server_ID"
+          ]
+        }
+      },
+      "passwordgenerator": {
+        "signup": true,
+        "_comment2": "Set it to false if you want to stop users from signup on dashboard",
+        "length": 8
+      },
+      "allow": {
+        "newusers": true,
+        "regen": true,
+        "overresourcessuspend": false,
+        "server": {
+          "create": true,
+          "modify": true,
+          "delete": true
+        }
+      },
+      "oauth2": {
+        "id": "",
+        "secret": "",
+        "link": "",
+        "callbackpath": "/callback",
+        "_comment3": "do not change callbackpath unless you know what you're doing!",
+        "prompt": true,
+        "ip": {
+          "trust x-forwarded-for": true,
+          "block": [],
+          "duplicate check": true,
+          "x-real-ip": true,
+          "x-client-ip": true,
+          "x-forwarded": false
+        }
+      },
+      "google": {
+        "enabled": false,
+        "clientid": "",
+        "clientsecret": "",
+        "link": "",
+        "prompt": true,
+        "ip": {
+          "trust x-forwarded-for": false,
+          "block": [],
+          "duplicate check": false,
+          "x-real-ip": true,
+          "x-client-ip": false,
+          "x-forwarded": false
+        }
+      },
+      "email": {
+        "enabled": false
+      },
+      "ratelimits": {
+        "/callback": 2,
+        "/create": 1,
+        "/delete": 1,
+        "/modify": 1,
+        "/updateinfo": 1,
+        "/setplan": 2,
+        "/admin": 1,
+        "/regen": 1,
+        "/renew": 1,
+        "/api/userinfo": 1
+      },
+      "packages": {
+        "default": "default",
+        "currency": "USD",
+        "symbol": "$",
+        "list": {
+          "default": {
+            "name": "Default",
+            "money": "0",
+            "note": "Set money to 0 to make the package free!",
+            "ram": 3072,
+            "disk": 10240,
+            "cpu": 100,
+            "servers": 1,
+            "databases": 1,
+            "backups": 1,
+            "allocations": 2
+          },
+          "test": {
+            "name": "Test",
+            "money": "0",
+            "note": "Set money to 0 to make the package free!",
+            "ram": 4096,
+            "disk": 10240,
+            "cpu": 100,
+            "servers": 1,
+            "databases": 1,
+            "backups": 1,
+            "allocations": 2
+          },
+          "invalid": {
+            "name": "invalid",
+            "money": "0",
+            "note": "Set money to 0 to make the package free!",
+            "ram": 10240,
+            "disk": 102400,
+            "cpu": 1000,
+            "servers": 1,
+            "databases": 1,
+            "backups": 1,
+            "allocations": 2
+          }
+        },
+        "rolePackages": {
+          "roleServer": "Discord Server ID",
+          "roles": {
+            "Role ID": "Package Name"
+          }
+        }
+      },
+      "locations": {
+        "4": {
+          "name": "Free | United Kingdom",
+          "banner": "https://flagsapi.com/GB/flat/48.png",
+          "package": null
+        }
+      },
+      "eggs": {
+        "22": {
+          "display": "Paper",
+          "banner": "https://media.discordapp.net/attachments/1108054221456146534/1119198262885351564/bc270c23058d513de5124ffea6bf9199af7a2370.png",
+          "minimum": {
+            "ram": 512,
+            "disk": 512,
+            "cpu": 50
+          },
+          "maximum": {
+            "ram": 5120,
+            "disk": 10240,
+            "cpu": 300
+          },
+          "info": {
+            "egg": 22,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar",
+              "BUILD_NUMBER": "latest"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        },
+        "24": {
+          "display": "Bungeecord",
+          "banner": "https://media.discordapp.net/attachments/1108054221456146534/1119198262885351564/bc270c23058d513de5124ffea6bf9199af7a2370.png",
+          "minimum": {
+            "ram": 256,
+            "disk": 256,
+            "cpu": 20
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 4,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar",
+              "BUNGEE_VERSION": "latest"
+            },
+            "feature_limits": {
+              "databases": 0,
+              "backups": 0
+            }
+          }
+        }
+      },
+      "coins": {
+        "enabled": true,
+        "store": {
+          "enabled": true,
+          "ram": {
+            "cost": 100,
+            "per": 1024
+          },
+          "disk": {
+            "cost": 100,
+            "per": 5120
+          },
+          "cpu": {
+            "cost": 75,
+            "per": 10
+          },
+          "servers": {
+            "cost": 1,
+            "per": 1
+          },
+          "databases": {
+            "cost": 1,
+            "per": 1
+          },
+          "allocations": {
+            "cost": 1,
+            "per": 1
+          },
+          "backups": {
+            "cost": 1,
+            "per": 1
+          },
+          "coins": {
+            "cost": "$1",
+            "per": 100
+          }
+        }
+      }
+    },
+    "arcio": {
+      "enabled": true,
+      "widgetid": "none",
+      "afk page": {
+        "enabled": true,
+        "path": "afkwspath",
+        "every": 60,
+        "coins": 1,
+        "_comment4": "By default every 60 seconds you will get a coin."
+      }
+    }
+  },
+  "servercreation": {
+    "note": "Set it to 0 for free server creation",
+    "cost": 0
+  },
+  "renewals": {
+    "status": false,
+    "cost": 0,
+    "delay": 14
+  },
+  "debug": {
+    "enabled": true,
+    "log": {
+      "admin": true,
+      "users": true
+    }
+  },
+  "logging": {
+    "status": false,
+    "webhook": "",
+    "actions": {
+      "user": {
+        "signup": true,
+        "status": true,
+        "create server": true,
+        "gifted coins": true,
+        "modify server": true,
+        "bought servers": true,
+        "bought ram": true,
+        "bought cpu": true,
+        "bought disk": true,
+        "bought allocations": true,
+        "bought databases": true,
+        "bought backups": true
+      },
+      "admin": {
+        "set coins": true,
+        "add coins": true,
+        "set resources": true,
+        "set plan": true,
+        "create coupon": true,
+        "revoke coupon": true,
+        "remove account": true,
+        "view ip": true
+      }
+    }
+  },
+  "antivpn": {
+    "note": "For antivpn to work, generate an apikey on https://proxycheck.io/.",
+    "status": false,
+    "APIKey": "Proxycheck APIKey",
+    "whitelistedIPs": [
+      "IP address"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./parts/head') %>
+        <!-- Vector CSS -->
+        <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+        <!-- simplebar CSS-->
+        <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+        <!-- Bootstrap core CSS-->
+        <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- animate CSS-->
+        <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+        <!-- Icons CSS-->
+        <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+        <!-- Sidebar CSS-->
+        <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+        <!-- Custom Style-->
+        <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  </head>
+<style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    </style>
+       <body style="font-size: poppins; background-color: #1b1c1d;" background="<%= settings.background %>"; background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;>
+        <%- include('./parts/topnav') %>
+        <%- include('./parts/sidebar') %>
+        <div class="clearfix"></div>
+	
+        <div class="content-wrapper">
+          <div class="container-fluid">
+      
+            <div class="row mt-3">
+              <div class="col-lg-4">
+                <div class="card profile-card-2">
+                  <div class="card-img-block">
+                    <img class="img-fluid" width="100%" src="https://c4.wallpaperflare.com/wallpaper/948/782/354/minecraft-minecraft-dungeons-ocean-view-minecraft-dungeons-hidden-depths-4k-hd-wallpaper-preview.jpg" alt="Card image cap">
+                  </div>
+                  <div class="card-body pt-5">
+                    <img id="avatar-image" onerror="replaceImagee()" id="profile" src="<%= userinfo.profile %>" alt="profile-image" class="profile">
+                    <h5 class="card-title"><%= userinfo.username %> <% if (pterodactyl.root_admin == true) { %> <span class="badge badge-danger"> Admin</span>
+                      <% } else { %>  <span class="badge badge-success"> Member</span><% } %></h5>
+                    <p class="card-text"><%= settings.website.description %></p>
+                  </div>
+                <div class="card-body border-top border-light">
+                    <div class="media align-items-center">
+                      <% if (userinfo.avatar) { %>
+                        <span class="bi bi-discord"> <%= userinfo.avatar %></span>
+                      <% } %>
+                      
+                    </div>
+                </div>
+              </div>
+                <script>
+                  function replaceImagee() {
+                    var image = document.querySelector('.card-body img');
+                    image.src = 'https://cdn.discordapp.com/avatars/<%= userinfo.id %>/<%= userinfo.avatar %>';
+                  }
+                </script>
+              </div>
+          
+              <div class="col-lg-8">
+                <div class="card">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
+                      <li href="./settings" class="nav-item">
+                        <a href="./settings" class="nav-link active"><i class="icon-user"></i> <span href="./settings" class="hidden-xs"><%= userinfo.username %> Account Info</span></a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3">
+                      <div class="tab-pane active" id="profile">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label class=" col-form-label form-control-label">ID</label>
+                            <input class="form-control" type="text" value="<%= pterodactyl.id %>" disabled><br>
+                            <label class=" col-form-label form-control-label">Email</label>
+                            <input class="form-control" type="text" value="<%= pterodactyl.email %>" disabled><br>
+                            <label class=" col-form-label form-control-label">Pass</label>
+                            <input class="form-control" type="text" value="<%= userinfo.password %><%= req.session.password %>" disabled><br>
+                          </div>
+                          <div class="col-md-6">
+                            <label class=" col-form-label form-control-label">Username</label>
+                            <input class="form-control" type="text" value="<%= pterodactyl.username %>" disabled><br>
+                            <label class=" col-form-label form-control-label">Host</label>
+                            <input class="form-control" type="text" value="<%= settings.name %>" disabled><br>
+                            <label class=" col-form-label form-control-label">Discord</label><br>
+                            <button class="btn btn-light btn-round px-5" onclick="location.href = '/regen';">Regenerate password</button>
+                          </div>
+                        </div>
+                        <!--/row-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <script>
+              function saveChanges() {
+                const name = document.querySelector('#name').value;
+                const username = document.querySelector('#username').value;
+                const email = document.querySelector('#email').value;
+                const password = document.querySelector('#password').value;
+                const avatarInput = document.getElementById('avatar');
+                if (avatarInput.files.length > 0) {
+                  const file = avatarInput.files[0];
+                  const reader = new FileReader();
+                  reader.onload = function(e) {
+                    const avatar = e.target.result;
+                  }
+                  reader.readAsDataURL(file);
+                } else {
+                }
+              }
+          
+              function uploadAvatar(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                  const image = document.getElementById('avatar-image');
+                  image.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+              }
+            </script>
+          
+        <!--start overlay-->
+            <div class="overlay toggle-menu"></div>
+          <!--end overlay-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+        <!-- Bootstrap core JavaScript-->
+        <script src="../../../assets/js/jquery.min.js"></script>
+        <script src="../../../assets/js/popper.min.js"></script>
+        <script src="../../../assets/js/bootstrap.min.js"></script>
+        
+       <!-- simplebar js -->
+        <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+        <!-- sidebar-menu js -->
+        <script src="../../../assets/js/sidebar-menu.js"></script>
+        <!-- loader scripts -->
+        <script src="../../../assets/js/jquery.loading-indicator.js"></script>
+        <!-- Custom scripts -->
+        <script src="../../../assets/js/app-script.js"></script>
+        <!-- Chart js -->
+        
+        <script src="../../../assets/plugins/Chart.js/Chart.min.js"></script>
+       
+        <!-- Index js -->
+        <script src="../../../assets/js/index.js"></script>

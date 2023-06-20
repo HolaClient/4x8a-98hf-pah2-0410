@@ -1,0 +1,76 @@
+{
+  "name": "holaclient",
+  "version": "1.5.6 Beta",
+  "main": "index.js",
+  "author": "Hola LLC",
+  "github": "https://github.com/CR072/HolaClient",
+  "discord": "https://discord.gg/CvqRH9TrYK",
+  "license": "MIT",
+  "publisher": "CR072",
+  "engines": {
+    "vscode": "^1.22.0"
+  },
+  "galleryBanner": {
+    "theme": "dark",
+    "color": "transparent"
+  },
+  "api": "holaclient",
+  "contributes": {
+    "contributors": {
+      "holaclient": [
+        {
+          "id": "1",
+          "name": "CR072"
+        }
+      ],
+      "holaclient-installer": [
+        {
+          "id": "2",
+          "name": "amogus"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@fullcalendar/core": "^6.1.4",
+    "@keyv/mongo": "^1.2.1",
+    "@keyv/mysql": "^1.1.5",
+    "@keyv/postgres": "^1.0.17",
+    "@keyv/redis": "^2.2.1",
+    "@keyv/sqlite": "^3.5.2",
+    "axios": "^1.4.0",
+    "chalk": "^4.1.0",
+    "cloudflare": "^0.0.8",
+    "credit-card-validate": "^0.9.3",
+    "cron": "^1.8.2",
+    "discord.js": "^12.5.3",
+    "ejs": "^3.1.6",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "express-ws": "^4.0.0",
+    "googleapis": "^111.0.0",
+    "javascript-obfuscator": "^4.0.2",
+    "keyv": "^4.0.4",
+    "mongoose": "^7.1.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cache": "^5.1.2",
+    "node-cron": "^3.0.2",
+    "node-fetch": "^2.6.6",
+    "nodeactyl": "^3.3.0",
+    "nodemailer": "^6.9.3",
+    "nodemon": "^2.0.15",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "ping": "^0.4.4",
+    "ping-monitor": "^0.8.0",
+    "request-ip": "^3.3.0",
+    "stripe": "^9.4.0",
+    "warn": "^1.0.1",
+    "ws": "^8.13.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  }
+}

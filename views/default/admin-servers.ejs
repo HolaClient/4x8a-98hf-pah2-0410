@@ -1,0 +1,209 @@
+<head>
+  <%- include('./parts/header') %>
+  <!-- Vector CSS -->
+  <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+  <!-- simplebar CSS-->
+  <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+  <!-- Bootstrap core CSS-->
+  <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- animate CSS-->
+  <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+  <!-- Icons CSS-->
+  <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+  <!-- Sidebar CSS-->
+  <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+  <!-- Custom Style-->
+  <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+</head>
+<style>
+  body {
+  background-image: url('<%= settings.background %>');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  }
+</style>
+<body>
+  <!-- Start wrapper-->
+  <div id="wrapper">
+     <%- include('./parts/menu') %>
+     <%- include('./parts/topnav') %>
+     <div class="clearfix"></div>
+     <div class="content-wrapper">
+        <div class="container-fluid">
+           <!---- ALERTS ----->
+           <%- include('./parts/alert') %>
+           <% if (req.query.err == "MISSINGID") { %>
+           <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+              <strong>Please fill in the correct Discord user ID</strong>
+              <button aria-hidden="true" class="close" type="button">&times;</button>
+           </div>
+           <% } else if (req.query.err == "CREATECOUPONINVALIDCHARACTERS") { %>
+           <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+              <strong>Invalid characters has been found in your coupon code, please change it!</strong>
+              <button aria-hidden="true" class="close" type="button">&times;</button>
+           </div>
+           <% } else if (req.query.err == "REVOKECOUPONCANNOTFINDCODE") { %>
+           <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+              <strong>Couldn't find that coupon in our database!</strong>
+              <button aria-hidden="true" class="close" type="button">&times;</button>
+           </div>
+           <% } else if (req.query.err == "MISSINGVARIABLES") { %>
+           <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+              <strong>No value has been given, coupon creation failed!</strong>
+              <button aria-hidden="true" class="close" type="button">&times;</button>
+           </div>
+           <% } %>
+           <% if (req.query.err == "CREATECOUPONEMPTY") { %>
+           <div style="border-radius: 15px; text-align: center;" class="alert alert_error"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button> <strong>Please specify at least one field to create a coupon with!</strong> </div>
+        </div>
+     </div>
+     <% } else if (req.query.err === "CREATECOUPONLESSTHANONE") { %>
+     <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+        <strong>We don't support coupon creation with resources less than 1!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+     </div>
+     <% } if (req.query.err === 'INVALIDID') { %>
+     <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+        <strong>Make sure this user is signedup on this Dashboard or check if the ID belongs to a valid person!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+     </div>
+     <% } if (req.query.err === 'none') { %>
+     <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+        <strong>Successful!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+     </div>
+     <% } if (req.query.err == "RAMSIZE" || req.query.err == "DISKSIZE" || req.query.err == "CPUSIZE" || req.query.err == "SERVERSIZE") { %>
+     <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+        <strong>We don't support coupon creation with resources less than 1!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+     </div>
+     <% } if (req.query.code) { %>
+     <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+        <strong>Successfully created the coupon "<%= req.query.code %>"</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+     </div>
+     <% } if (req.query.err === 'NOIP') { %>
+     <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+        <strong>User IP not stored in database!</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+     </div>
+     <% } if (req.query.err === 'REMOVEACCOUNT') { %>
+     <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+        <strong>User has been successfully deleted from the database.</strong>
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+     </div>
+     <% } %>
+     <div style="border-radius: 15px;" class="table-responsive">
+        <table class="table" id="table">
+           <input type="text" class="form-control" id="search" placeholder="Search a server by its ID or Name">
+           <thead>
+              <tr>
+                 <th>
+                    <h6>Id</h6>
+                 </th>
+                 <th>
+                    <h6>Name</h6>
+                 </th>
+                 <th>
+                    <h6>Node</h6>
+                 </th>
+                 <th>
+                    <h6>Egg</h6>
+                 </th>
+                 <th>
+                    <h6>Ram</h6>
+                 </th>
+                 <th>
+                    <h6>Cpu</h6>
+                 </th>
+                 <th>
+                    <h6>Disk</h6>
+                 </th>
+              </tr>
+           </thead>
+           <tbody>
+           </tbody>
+        </table>
+     </div>
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+     $(document).ready(function() {
+       $.ajax({
+         url: '/api/admin/servers',
+         method: 'GET',
+         success: function(servers) {
+           var table = $('#table').find('tbody');
+           servers.forEach(function(server) {
+             var row = $('<tr>');
+             var id = $(`<td style="cursor: pointer" onclick="location.href = '/admin/servers/view?id=${server.id}'">`).text(server.id);
+             var name = $(`<td style="cursor: pointer" onclick="location.href = '/admin/servers/view?id=${server.id}'">`).text(server.name);
+             var node = $(`<td style="cursor: pointer" onclick="location.href = '/admin/servers/view?id=${server.id}'">`).text(server.node);
+             var egg = $(`<td style="cursor: pointer" onclick="location.href = '/admin/servers/view?id=${server.id}'">`).text(server.egg);
+             var memory = $(`<td style="cursor: pointer" onclick="location.href = '/admin/servers/view?id=${server.id}'">`).text(server.ram + ' MB');
+             var cpu = $(`<td style="cursor: pointer" onclick="location.href = '/admin/servers/view?id=${server.id}'">`).text(server.cpu + '%');
+             var disk = $(`<td style="cursor: pointer" onclick="location.href = '/admin/servers/view?id=${server.id}'">`).text((server.disk / 1024) + ' GB');
+             row.append(id, name, node, egg, memory, cpu, disk);
+             table.append(row);
+           });
+         },
+         error: function(xhr, status, error) {
+           console.error(error);
+         }
+       });
+     });
+  </script>
+  <script>
+     const searchInput = document.getElementById('search');
+     const table = document.getElementById('table');
+     const rows = table.getElementsByTagName('tr');
+     
+     searchInput.addEventListener('keyup', function() {
+       const query = this.value.toLowerCase();
+       
+       for (let i = 1; i < rows.length; i++) {
+         const row = rows[i];
+         const cells = row.getElementsByTagName('td');
+         let match = false;
+         
+         for (let j = 0; j < cells.length; j++) {
+           const cell = cells[j];
+           if (cell.innerHTML.toLowerCase().includes(query)) {
+             match = true;
+             break;
+           }
+         }
+         
+         if (match) {
+           row.style.display = '';
+         } else {
+           row.style.display = 'none';
+         }
+       }
+     });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!--start overlay-->
+  <div class="overlay toggle-menu"></div>
+  <!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+  <!-- Bootstrap core JavaScript-->
+  <script src="../../../assets/js/jquery.min.js"></script>
+  <script src="../../../assets/js/popper.min.js"></script>
+  <script src="../../../assets/js/bootstrap.min.js"></script>
+  <!-- simplebar js -->
+  <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+  <!-- sidebar-menu js -->
+  <script src="../../../assets/js/sidebar-menu.js"></script>
+  <!-- Custom scripts -->
+  <script src="../../../assets/js/app-script.js"></script>
+  <footer>
+     <br>
+     <br><br>
+     <br><br>
+     <%- include('./parts/footer') %>
+  </footer>

@@ -1,0 +1,269 @@
+<head>
+    <%- include('./parts/head') %>
+      <!-- Vector CSS -->
+      <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+      <!-- simplebar CSS-->
+      <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+      <!-- Bootstrap core CSS-->
+      <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+      <!-- animate CSS-->
+      <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+      <!-- Icons CSS-->
+      <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+      <!-- Sidebar CSS-->
+      <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+      <!-- Custom Style-->
+      <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  </head>
+  <style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    </style>
+      <body>
+        <!-- Start wrapper-->
+   <div id="wrapper">
+    <%- include('./parts/sidebar') %>
+    <%- include('./parts/topnav') %>
+    <div class="clearfix"></div>
+      
+    <div class="content-wrapper">
+      <div class="container-fluid">
+                <div class="card">
+                  <div class="card-body">
+                  <div class="card-title">&nbsp;Controling server <span id="title"></span></div>
+                  <div class="row row-group m-0">
+                    <div class="col-12 col-lg-6 col-xl-3 border-light">
+                      <div class="card-body">
+                        <h5 class="text-white mb-0"> <span id="memoryUsed"></span>/<span id="ram"></span> MiB<span class="float-right"><i class="bi bi-memory"></i></span></h5>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-3 border-light">
+                      <div class="card-body">
+                        <h5 class="text-white mb-0"> <span id="diskUsed"></span>/<span id="disk"></span> MiB <span class="float-right"><i class="bi bi-hdd"></i></span></h5>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-3 border-light">
+                      <div class="card-body">
+                        <h5 class="text-white mb-0"> <span id="cpuUsed"></span>/<span id="cpu"></span> % <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
+                      </div>
+                    </div>
+                  
+
+                            <div class="col-12 col-lg-6 col-xl-3 border-light">
+                                <div class="card-body">
+                                  <h5 class="text-white mb-0 bi bi-globe"> <span id="allocation" class="clickable" onclick="copyip()"></span> </h5>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="card-body">
+                              <button class="btn btn-success" onclick="changePowerState('start')">Start</button>
+                              <button class="btn btn-primary" onclick="changePowerState('restart')">Restart</button>
+                              <button class="btn btn-info" onclick="changePowerState('stop')">Stop</button>
+                              <button class="btn btn-danger" onclick="changePowerState('kill')">Kill</button>
+                              <div id="response"></div>
+                            </div>
+                        </div>
+                        </div>
+                        <script>
+                          async function getServer() {
+                            try {
+                              const urlParams = new URLSearchParams(window.location.search);
+                              const id = urlParams.get('id');
+                              const response = await fetch('/api/admin/servers/details?id=' + parseInt(id));
+                              const serverData = await response.json();
+                              const serverIdentifier = serverData.identifier;
+                              return serverIdentifier;
+                            } catch (error) {
+                              console.error('Error:', error);
+                            }
+                          }
+                      
+                          function changePowerState(state) {
+                            getServer()
+                              .then(serverIdentifier => {
+                                const apiUrl = `/api/client/servers/${serverIdentifier}/power`;
+                      
+                                fetch(apiUrl, {
+                                  method: 'POST',
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                  },
+                                  body: JSON.stringify({
+                                    state: state,
+                                  }),
+                                })
+                                  .then(response => response.json())
+                                  .then(data => {
+                                    console.log('Power state changed successfully');
+                                  })
+                                  .catch(error => {
+                                    console.error('Error:', error);
+                                  });
+                              })
+                              .catch(error => {
+                                console.error('Error:', error);
+                              });
+                          }
+                        </script>
+                        <div class="card">
+                          <div class="card-body">
+                            <div id="console-box" style="height: 300px; border-top-left-radius: 15px; border-bottom-left-radius: 0px; border-top-right-radius: 15px; border-bottom-right-radius: 0; overflow-y: scroll;">&nbsp;[⚠️] Websocket Disconnected!<br>&nbsp;</div>
+                          </div>
+                          <div class="form-group d-flex align-items-center">
+                            <input style="border-top-left-radius: 0px; border-bottom-left-radius: 15px; border-top-right-radius: 0px; border-bottom-right-radius: 1px;" class="form-control" type="text" id="command-input" placeholder="Enter your command...">
+                            <button class="form-control-button text-white bi bi-send" id="command-button"></button>
+                          </div>
+                        </div>
+                        
+                        <script>
+                          const consoleBox = document.getElementById('console-box');
+                          const commandInput = document.getElementById('command-input');
+                          const commandButton = document.getElementById('command-button');
+                        
+                          commandButton.addEventListener('click', sendMessage);
+                          commandInput.addEventListener('keydown', function(event) {
+                            if (event.key === 'Enter') {
+                              sendMessage();
+                            }
+                          });
+                        
+                          function sendMessage() {
+                            const message = commandInput.value;
+                            displayMessage(message, '⚠️ error sending cmd', 'red');
+                            commandInput.value = '';
+                          }
+                        
+                          function displayMessage(message, errorMessage, color) {
+                            const newMessage = document.createElement('p');
+                            newMessage.textContent = message;
+                            if (errorMessage) {
+                              const errorSpan = document.createElement('span');
+                              errorSpan.innerHTML = ` ${errorMessage}`;
+                              errorSpan.style.color = color || 'red';
+                              newMessage.appendChild(errorSpan);
+                            }
+                            consoleBox.appendChild(newMessage);
+                          }
+                        </script>
+                        
+                        
+
+                  <script>
+                    async function getServerDetails() {
+                      const query = new URLSearchParams(window.location.search);
+                      const title = document.getElementById("title");
+                      const ram = document.getElementById("ram");
+                      const disk = document.getElementById("disk");
+                      const cpu = document.getElementById("cpu");
+                  
+                      const response = await fetch('/api/admin/servers/details?id=' + parseInt(query.get('id')));
+                      const serverDetails = await response.json();
+                  
+                      title.textContent = serverDetails.name;
+                      ram.textContent = serverDetails.memory;
+                      disk.textContent = serverDetails.disk;
+                      cpu.textContent = serverDetails.cpu;
+                    }
+                  
+                    getServerDetails();
+                  </script>
+                 
+                 <script>
+                   async function getSrv() {
+                     const query = new URLSearchParams(window.location.search);
+                     const response = await fetch('/api/admin/server/details?id=' + parseInt(query.get('id')));
+                     const server = await response.json();
+                     document.getElementById('allocation').textContent = `${server.clientAlias}:${server.clientPort}`;
+                   }
+                 
+                   getSrv();
+                 </script>
+<script>
+  async function getServer() {
+    try {
+      const query = new URLSearchParams(window.location.search);
+      const response = await fetch('/api/admin/servers/details?id=' + parseInt(query.get('id')));
+      const serverData = await response.json();
+      return serverData;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  async function fetchDataAndUpdateUI() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+
+      const response = await fetch('/controller/server/resources?id=' + parseInt(id));
+      const data = await response.json();
+      const serverIdentifier = data.serverIdentifier;
+      const clientAllocation = data.clientAllocation;
+      const clientPort = data.clientPort;
+      const clientAlias = data.clientAlias;
+      const cpuUsage = data.cpuUsage;
+      const memoryUsage = data.memoryUsage;
+      const diskUsage = Math.floor(data.diskUsage / 1024 / 1024);
+
+      document.getElementById('cpuUsed').textContent = `${cpuUsage}`;
+      document.getElementById('diskUsed').textContent = diskUsage;
+      document.getElementById('memoryUsed').textContent = Math.floor(memoryUsage / 1024 / 1024);
+      const ramProgress = document.getElementById('ram-progress');
+      const diskProgress = document.getElementById('disk-progress');
+      const cpuProgress = document.getElementById('cpu-progress');
+
+      const serverData = await getServer(); // Fetch server details
+      ramProgress.style.width = Math.floor((memoryUsage / serverData.memory) * 100) + '%';
+      diskProgress.style.width = Math.floor((diskUsage / serverData.disk) * 100) + '%';
+      cpuProgress.style.width = Math.floor((cpuUsage / serverData.cpu) * 100) + '%';
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  fetchDataAndUpdateUI();
+
+  setInterval(fetchDataAndUpdateUI, 4000);
+</script>
+<script>
+                  function copyip() {
+                      var allocationElement = document.getElementById('allocation');
+                      var content = allocationElement.innerText || allocationElement.textContent;
+                      var input = document.createElement('input');
+                      input.setAttribute('value', content);
+                      document.body.appendChild(input);
+                      input.select();
+                      document.execCommand('copy');
+                      document.body.removeChild(input);
+                      alert('IP has been copied to clipboard ' + content);
+                  }
+              </script>
+                 
+        <!--start overlay-->
+      <div class="overlay toggle-menu"></div>
+          <!--end overlay-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+      <!-- Bootstrap core JavaScript-->
+      <script src="../../../assets/js/jquery.min.js"></script>
+      <script src="../../../assets/js/popper.min.js"></script>
+      <script src="../../../assets/js/bootstrap.min.js"></script>
+      
+     <!-- simplebar js -->
+      <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+      <!-- sidebar-menu js -->
+      <script src="../../../assets/js/sidebar-menu.js"></script>
+      <!-- Custom scripts -->
+      <script src="../../../assets/js/app-script.js"></script>
+      </div>
+      </div>
+        <br>
+        <br><br>
+        <br><br>
+        <%- include('./parts/footer') %>
+      </footer>
