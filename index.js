@@ -171,16 +171,6 @@ authfiles.forEach(file => {
     }
 });
 const billingfiles = fs.readdirSync('./routes/billing').filter(file => file.endsWith('.js'));
-
-billingfiles.forEach(file => {
-    const billingfiles = require(`./routes/billing/${file}`);
-    if (typeof billingfiles.load === 'function') {
-        billingfiles.load(app, db);
-    } else {
-        const billingfiles1 = fs.readdirSync('./routes/billing').filter(file1 => file.endsWith('.js'));
-        console.error(`'load' function not found in ${file}`);
-    }
-});
 const earnfiles = fs.readdirSync('./routes/earn').filter(file => file.endsWith('.js'));
 
 earnfiles.forEach(file => {
