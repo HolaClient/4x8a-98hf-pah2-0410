@@ -28,6 +28,9 @@
 - User Settings: User-editable settings.
 - API: Used by bots to control the client.
 - Discord OAuth2: Login using Discord.
+- Google Oauth2: Login using Google.
+- Email authentication: Login using Email.
+- Subdomain manager using Cloudflare.
 - Databases and Ports: Create servers with additional resources.
 - Dashboard: User-friendly management client.
 - Join for Rewards: Earn money by joining a server.
