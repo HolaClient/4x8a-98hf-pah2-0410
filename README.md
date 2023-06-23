@@ -42,6 +42,9 @@
 - Stripe API: Billing system using Stripe.
 - Legal: Built-in Terms of Service and Privacy Policy.
 - Linkvertise Earning: Earn coins by completing a link.
+- ShareUs Earning: Earn coins by completing a link.
+- GyaniLinks Earning: Earn coins by completing a link.
+- LinkPays Earning: Earn coins by completing a link.
 - Role Packages: Give a package to users who have the role.
 
 ---
