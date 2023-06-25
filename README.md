@@ -68,9 +68,7 @@ HolaClient Demo: [Demo](https://demo.holaclient.tech/)
 ---
 
 ## ⬇️ Installation
-Using Pterodactyl Panel:<br>
-[HolaClient Docs](https://docs.holaclient.tech)
-Using a VPS:<br>
+Use our Installer to install HolaClient in your VPS:<br>
 ```bash
 bash <(curl -s https://installer.holaclient.tech)
 
