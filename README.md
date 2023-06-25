@@ -49,14 +49,10 @@
 
 ---
 
----
-
-## 👁️ Demo
-HolaClient Demo: [Click me](https://demo.holaclient.tech/)
-
----
 
 ## 👀 Preview
+HolaClient Demo: [Click me](https://demo.holaclient.tech/)
+
 Landing Page (v1.5.6):
 ![Landing Page](https://github.com/CR072/HolaClient/assets/102372274/8b3b0cea-1b7f-44e3-abf4-6da6c09a6e2b)
 
