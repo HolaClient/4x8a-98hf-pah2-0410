@@ -63,20 +63,18 @@ Dashboard (v1.5.6):
 ---
 
 ## 👁️ Demo
-HolaClient Demo: [https://demo.holaclient.tech/](https://demo.holaclient.tech/)
+HolaClient Demo: [Demo](https://demo.holaclient.tech/)
 
 ---
 
 ## ⬇️ Installation
-Using Pterodactyl Panel:
+Using Pterodactyl Panel:<br>
 [HolaClient Docs](https://docs.holaclient.tech)
-Using a VPS:
+Using a VPS:<br>
 ```bash
 bash <(curl -s https://installer.holaclient.tech)
+
 ```
-
----
-
     
 ---
     
