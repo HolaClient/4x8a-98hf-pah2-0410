@@ -105,6 +105,20 @@ module.exports.load = async function (app, db) {
   });
   
   app.get('/api/admin/servers', async (req, res) => {
+    if (!req.session.pterodactyl) return four0four(req, res, theme);
+        
+    let cacheaccount = await fetch(
+        settings.pterodactyl.domain + "/api/application/users/" + (await db.get("users-" + req.session.userinfo.id)) + "?include=servers",
+        {
+        method: "get",
+        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${settings.pterodactyl.key}` }
+        }
+    );
+    if (await cacheaccount.statusText == "Not Found") return four0four(req, res, theme);
+    let cacheaccountinfo = JSON.parse(await cacheaccount.text());
+
+    req.session.pterodactyl = cacheaccountinfo.attributes;
+    if (cacheaccountinfo.attributes.root_admin !== true) return four0four(req, res, theme);
     const perPage = req.query.per_page || 50;
     const response = await fetch(`${settings.pterodactyl.domain}/api/application/servers?per_page=${perPage}`, {
       method: 'GET',
@@ -132,6 +146,20 @@ module.exports.load = async function (app, db) {
   });
 
   app.get('/api/admin/servers/details', async (req,res) => {
+    if (!req.session.pterodactyl) return four0four(req, res, theme);
+        
+    let cacheaccount = await fetch(
+        settings.pterodactyl.domain + "/api/application/users/" + (await db.get("users-" + req.session.userinfo.id)) + "?include=servers",
+        {
+        method: "get",
+        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${settings.pterodactyl.key}` }
+        }
+    );
+    if (await cacheaccount.statusText == "Not Found") return four0four(req, res, theme);
+    let cacheaccountinfo = JSON.parse(await cacheaccount.text());
+
+    req.session.pterodactyl = cacheaccountinfo.attributes;
+    if (cacheaccountinfo.attributes.root_admin !== true) return four0four(req, res, theme);
     if(!req.query.id) return res.send("Invalid Id")
     let server = {}
     await fetch(settings.pterodactyl.domain + `/api/application/servers/${req.query.id}`, {
@@ -163,6 +191,20 @@ module.exports.load = async function (app, db) {
   })
   
   app.get('/api/admin/server/details', async (req, res) => {
+    if (!req.session.pterodactyl) return four0four(req, res, theme);
+        
+    let cacheaccount = await fetch(
+        settings.pterodactyl.domain + "/api/application/users/" + (await db.get("users-" + req.session.userinfo.id)) + "?include=servers",
+        {
+        method: "get",
+        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${settings.pterodactyl.key}` }
+        }
+    );
+    if (await cacheaccount.statusText == "Not Found") return four0four(req, res, theme);
+    let cacheaccountinfo = JSON.parse(await cacheaccount.text());
+
+    req.session.pterodactyl = cacheaccountinfo.attributes;
+    if (cacheaccountinfo.attributes.root_admin !== true) return four0four(req, res, theme);
     try {
       if (!req.query.id) {
         return res.status(400).json({ error: 'Invalid Id' });
