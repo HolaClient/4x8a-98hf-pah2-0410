@@ -65,7 +65,7 @@
     "ping": "^0.4.4",
     "ping-monitor": "^0.8.0",
     "request-ip": "^3.3.0",
-    "stripe": "^9.4.0",
+    "stripe": "^12.10.0",
     "warn": "^1.0.1",
     "ws": "^8.13.0",
     "xmlhttprequest": "^1.8.0"
