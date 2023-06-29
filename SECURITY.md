@@ -12,4 +12,4 @@ Our maintained and support version to submit a security vulnerability.
 ## Reporting a Vulnerability
 
 If you find a vulnerabilty or an exploit, you may report it on our
-[Discord Server](https://discord.gg/CvqRH9TrYK) or in `Security tab` present in our GitHub repo.
+[Discord Server](https://discord.gg/CvqRH9TrYK) or in [Security Tab](https://github.com/CR072/HolaClient/security) present in our GitHub repo.
