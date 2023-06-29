@@ -39,7 +39,7 @@
     "@keyv/redis": "^2.2.1",
     "@keyv/sqlite": "^3.5.2",
     "axios": "^1.4.0",
-    "chalk": "^4.1.0",
+    "chalk": "^5.2.0",
     "cloudflare": "^2.9.1",
     "credit-card-validate": "^0.9.3",
     "cron": "^2.3.1",
