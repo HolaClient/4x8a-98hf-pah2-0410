@@ -14,7 +14,7 @@
     "theme": "dark",
     "color": "transparent"
   },
-  "api": "holaclient",
+  "api": "none",
   "contributes": {
     "contributors": {
       "holaclient": [
@@ -39,17 +39,17 @@
     "@keyv/redis": "^2.2.1",
     "@keyv/sqlite": "^3.5.2",
     "axios": "^1.4.0",
-    "chalk": "^5.2.0",
-    "cloudflare": "^2.9.1",
+    "chalk": "^4.1.0",
+    "cloudflare": "^0.0.8",
     "credit-card-validate": "^0.9.3",
-    "cron": "^2.3.1",
+    "cron": "^1.8.2",
     "discord.js": "^12.5.3",
     "ejs": "^3.1.6",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "express-ws": "^4.0.0",
-    "googleapis": "^120.0.0",
+    "googleapis": "^111.0.0",
     "javascript-obfuscator": "^4.0.2",
     "keyv": "^4.0.4",
     "mongoose": "^7.1.0",
@@ -65,7 +65,7 @@
     "ping": "^0.4.4",
     "ping-monitor": "^0.8.0",
     "request-ip": "^3.3.0",
-    "stripe": "^12.10.0",
+    "stripe": "^9.4.0",
     "warn": "^1.0.1",
     "ws": "^8.13.0",
     "xmlhttprequest": "^1.8.0"
