@@ -48,7 +48,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "express-ws": "^4.0.0",
+    "express-ws": "^5.0.2",
     "googleapis": "^120.0.0",
     "javascript-obfuscator": "^4.0.2",
     "keyv": "^4.0.4",
