@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.4",
-    "@keyv/mongo": "^1.2.1",
+    "@keyv/mongo": "^2.2.8",
     "@keyv/mysql": "^1.1.5",
     "@keyv/postgres": "^1.0.17",
     "@keyv/redis": "^2.2.1",
