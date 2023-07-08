@@ -1,0 +1,39 @@
+<style>
+  .alert{padding: 15px;margin-bottom: 20px;border-radius: 4px;color: #fff;font-size: 12px;}
+  .alert_info{background-color: #4285f4;border: 2px solid #4285f4}
+  button.close{-webkit-appearance: none;padding: 0;cursor: pointer;background: 0 0;border: 0}
+  .close{font-size: 20px;color: #fff;opacity: 0.9;font-weight: normal}
+  .alert_success{background-color: #09c97f;border: 2px solid #09c97f}
+  .alert_warning{background-color: #f8b15d;border: 2px solid #f8b15d}
+  .alert_error{background-color: #f95668;border: 2px solid #f95668}
+  .fade_info{background-color: #d9e6fb;border: 1px solid #4285f4}
+  .fade_info .close{color: #4285f4}
+  .fade_info strong{color: #4285f4}
+  .fade_success{background-color: #c9ffe5;border: 1px solid #09c97f}
+  .fade_success .close{color: #09c97f}
+  .fade_success strong{color: #09c97f}
+  .fade_warning{background-color: #fff0cc;border: 1px solid #f8b15d}
+  .fade_warning .close{color: #f8b15d}
+  .fade_warning strong{color: #f8b15d}
+  .fade_error{background-color: #ffdbdb;border: 1px solid #f95668}.fade_error 
+  .close{color: #f95668}.fade_error strong{color: #f95668}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.alert .close').on('click', function() {
+      $(this).closest('.alert').fadeOut('slow');
+    });
+  
+    setTimeout(function() {
+      $('.alert_success').fadeOut('slow');
+    }, 5000);
+  });
+  setTimeout(function() {
+      $('.alert_warning').fadeOut('slow');
+    }, 5000);
+  
+    setTimeout(function() {
+      $('.alert_error').fadeOut('slow');
+    }, 5000);
+</script>

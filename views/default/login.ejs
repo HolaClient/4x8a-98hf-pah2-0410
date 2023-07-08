@@ -1,0 +1,105 @@
+<head>
+    <%- include('./parts/head') %>
+      <!-- Vector CSS -->
+      <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+      <!-- Bootstrap core CSS-->
+      <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+      <!-- animate CSS-->
+      <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+      <!-- Icons CSS-->
+      <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+      <!-- Custom Style-->
+      <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  </head>
+  <style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    </style>
+      <body>
+
+<!-- Start wrapper-->
+<div id="wrapper">
+
+<div class="loader-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+ <div class="card card-authentication1 mx-auto my-5">
+     <div class="card-body">
+      <div class="card-content p-2">
+          <div class="text-center">
+              <img width="40px" src="<%= settings.logo %>" alt="logo icon">
+          </div>
+       <div class="card-title text-uppercase text-center py-3">Sign In to <%= settings.name %></div>
+         <form>
+           <div class="form-group">
+           <label for="" class="sr-only">Email</label>
+            <div class="position-relative has-icon-right">
+               <input type="email" id="email" class="form-control input-shadow" placeholder="Enter Email">
+            </div>
+           </div>
+           <div class="form-group">
+           <label for="" class="sr-only">Password</label>
+            <div class="position-relative has-icon-right">
+               <input type="password" id="password" class="form-control input-shadow" placeholder="Enter Password">
+            </div>
+           </div>
+         <div class="form-row">
+          <div class="form-group col-6">
+          </div>
+            <% if (settings.captcha.enabled == true) { %>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                    <div class="g-recaptcha" data-sitekey="<%= settings.captcha.site_key %>"></div>
+                    </div>
+                    </div>
+                <% } %>
+         </div>
+          <button onclick="submitForm()" type="button" class="btn btn-light btn-block">Sign In</button>
+           <div class="text-center mt-3">Sign In With</div>
+           <% if (settings.api.client.google.enabled == true) { %>
+          <div class="form-row mt-4">
+           <div class="form-group mb-0 col-6">
+            <a href="./login" type="button" class="btn btn-light btn-block"><i class="bi bi-discord"></i> Discord</a>
+          </div>
+          <div class="form-group mb-0 col-6 text-right">
+           <a href="./auth/google" type="button" class="btn btn-light btn-block"><i class="bi bi-google"></i> Google</a>
+          </div>
+         </div>
+         <% } else { %>
+          <div class="form-row mt-4">
+          <a href="./login" type="button" class="btn btn-light btn-block"><i class="bi bi-discord"></i> Discord</a>
+          </div>
+          <% } %>
+         <% if (!req.session.userinfo)  { %>
+          <% } else { %>
+            <script>
+              window.addEventListener('load', function() {
+                window.location.href = "./dashboard";
+              });
+            </script>
+            
+          <% } %>
+          </form>
+        </div>
+       </div>
+       <div class="card-footer text-center py-3">
+         <p class="mb-0">New to HolaClient? <a href="./signup"> Sign Up here</a></p>
+       </div>
+      </div>
+      <script>
+        async function submitForm() {
+            let email = encodeURIComponent(document.getElementById("email").value);
+            let password = encodeURIComponent(document.getElementById("password").value);
+            document.location.href = `/auth/login?email=${email}&password=${password}`
+        };
+        </script>
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+      <!-- Bootstrap core JavaScript-->
+      <script src="../../../assets/js/jquery.min.js"></script>
+      <script src="../../../assets/js/popper.min.js"></script>
+      <script src="../../../assets/js/bootstrap.min.js"></script>
+      <script src="../../../assets/js/app-script.js"></script>

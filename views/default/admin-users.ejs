@@ -1,0 +1,304 @@
+<head>
+   <%- include('./parts/header') %>
+     <!-- Vector CSS -->
+     <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+     <!-- simplebar CSS-->
+     <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+     <!-- Bootstrap core CSS-->
+     <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+     <!-- animate CSS-->
+     <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+     <!-- Icons CSS-->
+     <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+     <!-- Sidebar CSS-->
+     <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+     <!-- Custom Style-->
+     <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+ </head>
+ <style>
+   body {
+     background-image: url('<%= settings.background %>');
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-size: 100% 100%;
+   }
+   </style>
+     <body>
+       <!-- Start wrapper-->
+  <div id="wrapper">
+   <%- include('./parts/menu') %>
+   <%- include('./parts/topnav') %>
+   <div class="clearfix"></div>
+     
+   <div class="content-wrapper">
+     <div class="container-fluid">
+       <!---- ALERTS ----->
+     <%- include('./parts/alert') %>
+     <br>
+             <% if (req.query.err == "MISSINGID") { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                 <strong>Please fill in the correct Discord user ID</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+             <% } else if (req.query.err == "CREATECOUPONINVALIDCHARACTERS") { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                 <strong>Invalid characters has been found in your coupon code, please change it!</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+             <% } else if (req.query.err == "REVOKECOUPONCANNOTFINDCODE") { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                 <strong>Couldn't find that coupon in our database!</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+             <% } else if (req.query.err == "MISSINGVARIABLES") { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                 <strong>No value has been given, coupon creation failed!</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+             <% } %>
+             <% if (req.query.err == "CREATECOUPONEMPTY") { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error"> <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button> <strong>Please specify at least one field to create a coupon with!</strong> </div>
+                 </div>
+                 </div>
+             <% } else if (req.query.err === "INVALIDPACKAGE") { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                 <strong>Invalid package!</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+             <% } if (req.query.err === 'INVALIDID') { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                 <strong>Make sure this user is signedup on this Dashboard or check if the ID belongs to a valid person!</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+             <% } if (req.query.err === 'none') { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                 <strong>Successful!</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+             <% } if (req.query.err == "RAMSIZE" || req.query.err == "DISKSIZE" || req.query.err == "CPUSIZE" || req.query.err == "SERVERSIZE") { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                 <strong>We don't support coupon creation with resources less than 1!</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+             <% } if (req.query.code) { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                 <strong>Successfully created the coupon "<%= req.query.code %>"</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+              <% } if (req.query.err === 'NOIP') { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_error">
+                 <strong>User IP not stored in database!</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+<!-- Include the necessary Swal files -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.js"></script>
+
+<script>
+  function pass() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ip = urlParams.get('ip');
+
+    if (ip) {
+      Swal.fire({
+        title: 'Success',
+        text: `IP: ${decodeURIComponent(ip)}`,
+        icon: 'success'
+      });
+    }
+  }
+
+  pass();
+</script>
+
+              <% } if (req.query.err === 'REMOVEACCOUNT') { %>
+                 <div style="border-radius: 15px; text-align: center;" class="alert alert_success">
+                 <strong>User has been successfully deleted from the database.</strong>
+                 <button aria-hidden="true" class="close" type="button">&times;</button>
+                 </div>
+         <% } %>
+
+         <div class="row mt-3">
+           <div class="col-lg-6">
+              <div class="card">
+                <div class="card-body">
+                <div class="card-title">Remove User</div>
+                <hr>
+                <form action="/remove_account">
+                 <div class="form-group">
+                  <label for="input-6">Discord ID:</label>
+                  <input type="text" name="id" class="form-control form-control-rounded" placeholder="User to remove.">
+                 </div>
+                 <div class="form-group">
+                  <button role="button" class="btn btn-light btn-round px-5"><i class="bi bi-person"></i> Remove User</button>
+                </div>
+                </form>
+              </div>
+              </div>
+              </div>
+     
+              <div class="col-lg-6">
+               <div class="card">
+                  <div class="card-body">
+                  <div class="card-title">User IP</div>
+                  <hr>
+                  <form action="/getip">
+                   <div class="form-group">
+                    <label for="input-6">Discord ID:</label>
+                    <input type="text" name="id" class="form-control form-control-rounded" placeholder="IP of user to show.">
+                   </div>
+                   <div class="form-group">
+                    <button role="button" class="btn btn-light btn-round px-5"><i class="bi bi-person"></i> Show IP</button>
+                  </div>
+                  </form>
+                </div>
+                </div>
+                </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-body">
+                    <div class="card-title">Change User's Plan</div>
+                    <hr>
+                    <div class="form-group">
+                      <label for="input-6">Discord ID:</label>
+                      <input type="number" id="IDPlan" class="form-control form-control-rounded" placeholder="161837427">
+                    </div>
+                    <div class="form-group">
+                      <label for="input-6">Plan:</label>
+                      <ul class="plan-list">
+                        <% for (let [name, value] of Object.entries(settings.api.client.packages.list)) { %>
+                        <li class="plan-item" data-package="<%= name %>">
+                          <span class="plan-name"><%= value.name %></span>
+                          <span class="plan-ram">(<%= value.ram %>MB RAM)</span>
+                        </li>
+                        <% } %>
+                      </ul>
+                    </div>
+                    <span id="plan"></span>
+                    <div class="form-group">
+                      <button onclick="submitPlan()" role="button" class="btn btn-light btn-round px-5"><i class="bi bi-credit-card-2-back-fill"></i> Change</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <style>
+                  .plan-list {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                  }
+                
+                  .plan-item {
+                    cursor: pointer;
+                    background-color: black;
+                    padding: 8px;
+                    border-radius: 15px;
+                    display: flex;
+                    align-items: center;
+                    transition: background-color 0.3s ease;
+                  }
+                
+                  .plan-item:hover {
+                    background-color: #333333;
+                  }
+                
+                  .plan-item.selected {
+                    background-color: #5e5e5e;
+                  }
+                
+                  .plan-name {
+                    color: white;
+                    font-weight: bold;
+                  }
+                
+                  .plan-ram {
+                    color: white;
+                    margin-left: 5px;
+                  }
+                
+                  @media (max-width: 768px) {
+                    .plan-list {
+                      justify-content: center;
+                    }
+                  }
+                </style>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                <script>
+                  function submitPlan() {
+                    const id = encodeURIComponent(document.getElementById("IDPlan").value);
+                    const planItems = document.getElementsByClassName("plan-item");
+                    let selectedPackage;
+                
+                    for (let i = 0; i < planItems.length; i++) {
+                      if (planItems[i].classList.contains("selected")) {
+                        selectedPackage = planItems[i].dataset.package;
+                        break;
+                      }
+                    }
+                
+                    if (!selectedPackage) {
+                     function created() {
+                      Swal.fire({
+                        title: 'Error',
+                        text: 'Please select a package!',
+                        icon: 'error'
+                      });
+                    }
+                    created();
+                      return;
+                    }
+                
+                    const planElement = document.getElementById("plan");
+                    planElement.textContent = ('Selected ' + selectedPackage + ' Plan');
+                    const redirectUrl = `/setplan?id=${id}&package=${encodeURIComponent(selectedPackage)}`;
+                    window.location.href = redirectUrl;
+                  }
+                
+                  const planItems = document.getElementsByClassName("plan-item");
+                  for (let i = 0; i < planItems.length; i++) {
+                    planItems[i].addEventListener("click", function () {
+                      for (let j = 0; j < planItems.length; j++) {
+                        planItems[j].classList.remove("selected");
+                      }
+                
+                      this.classList.add("selected");
+                    });
+                  }
+                </script>
+                
+                
+                
+                
+
+           <!-- Include Bootstrap 5 JS -->
+           <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+             <!-- Include Bootstrap 5 CSS -->
+             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+           </div>
+           </body>
+           </html>
+       <!--start overlay-->
+     <div class="overlay toggle-menu"></div>
+         <!--end overlay-->
+   <!--Start Back To Top Button-->
+   <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+   <!--End Back To Top Button-->
+     <!-- Bootstrap core JavaScript-->
+     <script src="../../../assets/js/jquery.min.js"></script>
+     <script src="../../../assets/js/popper.min.js"></script>
+     <script src="../../../assets/js/bootstrap.min.js"></script>
+     
+    <!-- simplebar js -->
+     <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+     <!-- sidebar-menu js -->
+     <script src="../../../assets/js/sidebar-menu.js"></script>
+     <!-- Custom scripts -->
+     <script src="../../../assets/js/app-script.js"></script>
+     <footer>
+       <%- include('./parts/footer') %>
+     </footer>

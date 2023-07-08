@@ -1,0 +1,113 @@
+<head>
+    <%- include('./parts/head') %>
+      <!-- simplebar CSS-->
+      <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+      <!-- Bootstrap core CSS-->
+      <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+      <!-- animate CSS-->
+      <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+      <!-- Icons CSS-->
+      <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+      <!-- Sidebar CSS-->
+      <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+      <!-- Custom Style-->
+      <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  </head>
+  <style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    </style>
+      <body>
+        <!-- Start wrapper-->
+   <div id="wrapper">
+    <%- include('./parts/sidebar') %>
+    <%- include('./parts/topnav') %>
+    <div class="clearfix"></div>
+      
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <%- include('./parts/alert') %>
+        <% if (settings.api.arcio.enabled == true) { %>
+            <% if (settings.api.arcio["afk page"].enabled == true) { %>
+        <div class="row mt-3">
+            <div class="col-lg-6">
+              <div class="card">
+                 <div class="card-body">
+                 <div class="card-title"><h3>Away From Keyboard</h3></div>
+                 <hr>
+                 <div class="form-group">
+                  <p>You're earning <%= settings.api.arcio["afk page"].coins == 1 ? "a" : settings.api.arcio["afk page"].coins %> coin<%= settings.api.arcio["afk page"].coins == 1 ? "" : "s" %> per <% if (settings.api.arcio["afk page"].every !== 1) { %><%= settings.api.arcio["afk page"].every %> seconds<% } else { %>second<% } %>.</p>
+                  <p>Countdown&nbsp; : <span id="arciotimer"><%= settings.api.arcio["afk page"].every %></span> s</p>
+                  <p>Collected &nbsp;&nbsp;&nbsp;&nbsp;: <span id="arciogainedcoins">0</span> coins</p>
+                  <p>Total Coins&nbsp; : <%= coins %></p>
+                 </div>
+                </div>
+                </div>
+       </div><script>
+        <%- arcioafktext %>
+      </script>
+      </div>
+      <% } else { %>
+        <div class="row mt-3">
+            <div class="col-lg-6">
+              <div class="card">
+                 <div class="card-body">
+                 <div class="card-title"><h3>Away From Keyboard</h3></div>
+                 <hr>
+                 <div class="form-group">
+                  <p>AFK Is currently disabled in <%= settings.name %></p>
+                  <p>Countdown&nbsp; : Disabled</p>
+                  <p>Collected &nbsp;&nbsp;&nbsp;&nbsp;: Disabled</p>
+                  <p>Total Coins&nbsp; : <%= coins %></p>
+                 </div>
+                </div>
+                </div>
+       </div>
+      </div>
+        <% } %>
+      <% } else { %>
+        <div class="row mt-3">
+            <div class="col-lg-6">
+              <div class="card">
+                 <div class="card-body">
+                 <div class="card-title"><h3>Away From Keyboard</h3></div>
+                 <hr>
+                 <div class="form-group">
+                  <p>AFK Is currently disabled in <%= settings.name %></p>
+                  <p>Countdown&nbsp; : Disabled</p>
+                  <p>Collected &nbsp;&nbsp;&nbsp;&nbsp;: Disabled</p>
+                  <p>Total Coins&nbsp; : <%= coins %></p>
+                 </div>
+                </div>
+                </div>
+       </div>
+      </div>
+        <% } %>
+      </div>
+      </div>
+   </div>
+    </body>
+        <!--start overlay-->
+      <div class="overlay toggle-menu"></div>
+          <!--end overlay-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+      <!-- Bootstrap core JavaScript-->
+      <script src="../../../assets/js/jquery.min.js"></script>
+      <script src="../../../assets/js/popper.min.js"></script>
+      <script src="../../../assets/js/bootstrap.min.js"></script>
+      
+     <!-- simplebar js -->
+      <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+      <!-- sidebar-menu js -->
+      <script src="../../../assets/js/sidebar-menu.js"></script>
+      <!-- Custom scripts -->
+      <script src="../../../assets/js/app-script.js"></script>
+      <footer>
+        <%- include('./parts/footer') %>
+      </footer>

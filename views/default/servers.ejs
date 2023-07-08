@@ -1,0 +1,210 @@
+<head>
+    <%- include('./parts/head') %>
+      <!-- Vector CSS -->
+      <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+      <!-- simplebar CSS-->
+      <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+      <!-- Bootstrap core CSS-->
+      <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+      <!-- animate CSS-->
+      <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+      <!-- Icons CSS-->
+      <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+      <!-- Sidebar CSS-->
+      <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+      <!-- Custom Style-->
+      <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  </head>
+  <style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    </style>
+<body>
+    <div id="wrapper">
+        <div class="clearfix"></div>
+        <div class="content-wrapper">
+          <div class="container-fluid">
+            <%- include('./parts/sidebar') %>
+            <%- include('./parts/topnav') %>
+            <div class="card">
+              <div class="card-body">
+                <div style="border-radius: 15px;" class="table-responsive">
+                  <% if (settings.subdomain.enabled == true) { %>
+                  <div class="card-title" id="message">&nbsp; Subdomain Creator - <span id="domain"></span></div>
+                  <hr>
+                  <div class="row mt-3">
+                    <div class="col-lg-6">
+                      <form id="createRecordForm">
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="subdomain">Subdomain:</label>
+                            <input type="text" id="subdomain" name="subdomain" class="form-control form-control-rounded" placeholder="Subdomain">
+                          </div>
+                          <div class="form-group">
+                            <label for="target">Target:</label>
+                            <input type="text" id="target" name="target" class="form-control form-control-rounded" placeholder="192.168.15.1">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="card-body">
+                        <div class="form-group">
+                          <label for="port">Port:</label>
+                          <input type="number" id="port" name="port" class="form-control form-control-rounded" placeholder="25565">
+                        </div>
+                        <input type="text" value="10" id="priority" hidden>
+                        <input type="text" value="40" id="weight" hidden>
+                      
+                        <div class="form-group">
+                          <button type="submit" role="button" class="btn btn-light btn-round px-5">Create Subdomain</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const domainElement = document.getElementById('domain');
+              const form = document.getElementById('createRecordForm');
+            
+              // Fetch domain and display it
+              fetch('/domain')
+                .then(response => response.json())
+                .then(data => {
+                  domainElement.textContent = data.domain;
+                })
+                .catch(error => {
+                  console.error('Error fetching domain:', error);
+                  domainElement.textContent = 'Error fetching domain';
+                });
+            
+              // Handle form submission
+              form.addEventListener('submit', (event) => {
+                event.preventDefault();
+            
+                const subdomain = document.getElementById('subdomain').value;
+                const target = document.getElementById('target').value;
+                const port = document.getElementById('port').value;
+                const priority = document.getElementById('priority').value;
+                const weight = document.getElementById('weight').value;
+            
+                // Create SRV record
+                fetch('/create-srv-record', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ subdomain, target, port, priority, weight }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    alert('SRV record created successfully!');
+                    // Optionally, you can update the input field with the created subdomain
+                    document.getElementById('subdomain').value = `${subdomain}.${data.domain}`;
+                  } else {
+                    alert('Failed to create subdomain!');
+                  }
+                })
+                .catch(error => {
+                  console.error('Error creating SRV record:', error);
+                  alert('Failed to create subdomain!');
+                });
+              });
+            });
+            </script>
+            
+            
+            <div class="row">
+              <% for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) { %>
+              <div class="col-12 col-lg-4 col-xl-4">
+                  <div class="card">
+                      <div class="card-header"><%= pterodactyl.relationships.servers.data[i].attributes.name.length > 15 ? pterodactyl.relationships.servers.data[i].attributes.name.slice(0, 12) + "..." : pterodactyl.relationships.servers.data[i].attributes.name %>
+                        <div class="card-action">
+                          <div class="dropdown">
+                          <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
+                           <i class="icon-options"></i>
+                          </a>
+                           <div class="dropdown-menu dropdown-menu-right">
+                            <% if (settings.renewals.status == true) { %>
+                           <a class="dropdown-item bi bi-arrow-repeat" href="/renew?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>"> Renew</a><% } %>
+                           <a class="dropdown-item bi bi-pencil-fill" href="/servers/edit?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>"> Edit</a>
+                           <a target="_blank" class="dropdown-item bi bi-link-45deg" href="<%= settings.pterodactyl.domain %>/server/<%= pterodactyl.relationships.servers.data[i].attributes.identifier %>"> Link</a>
+                           <a class="dropdown-item bi bi-speedometer2" href="/server?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>"> Control</a>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item bi bi-trash3" style="cursor: pointer; color: red;" onclick="if (confirm('Please confirm if you want to delete this server, the data cannot be retrieved after it has been deleted.')) { window.location.href='/delete?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>' }"> Delete</a>
+                            </div>
+                           </div>
+                          </div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table align-items-center">
+                          <tbody>
+                            <tr>
+                              <td><i class="bi bi-memory text-white mr-2"></i> RAM</td>
+                              <td>-</td>
+                              <td><%= pterodactyl.relationships.servers.data[i].attributes.limits.memory %>MB</td>
+                            </tr>
+                            <tr>
+                              <td><i class="bi bi-hdd text-light-1 mr-2"></i> DISK</td>
+                              <td>-</td>
+                              <td><%= pterodactyl.relationships.servers.data[i].attributes.limits.disk %>MB</td>
+                            </tr>
+                            <tr>
+                              <td><i class="bi bi-cpu text-light-2 mr-2"></i> CPU</td>
+                              <td>-</td>
+                              <td><%= pterodactyl.relationships.servers.data[i].attributes.limits.cpu %>%</td>
+                            </tr>
+                            <tr>
+                              <td><i class="bi bi-usb-c text-light-3 mr-2"></i> PORTS</td>
+                              <td>-</td>
+                              <td><%= pterodactyl.relationships.servers.data[i].attributes.feature_limits.allocations %></td>
+                            </tr>
+                            <tr>
+                              <td><i class="bi bi-database text-light-3 mr-2"></i> DATABASES</td>
+                              <td>-</td>
+                              <td><%= pterodactyl.relationships.servers.data[i].attributes.feature_limits.databases %></td>
+                            </tr>
+                            <tr>
+                              <td><i class="bi bi-database text-light-3 mr-2"></i> BACKUPS</td>
+                              <td>-</td>
+                              <td><%= pterodactyl.relationships.servers.data[i].attributes.feature_limits.backups %></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                </div>
+                <% } %> 
+             </div>
+          </div>
+          </div>
+                 
+</body>
+        <!--start overlay-->
+      <div class="overlay toggle-menu"></div>
+          <!--end overlay-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+      <!-- Bootstrap core JavaScript-->
+      <script src="../../../assets/js/jquery.min.js"></script>
+      <script src="../../../assets/js/popper.min.js"></script>
+      <script src="../../../assets/js/bootstrap.min.js"></script>
+      
+     <!-- simplebar js -->
+      <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+      <!-- sidebar-menu js -->
+      <script src="../../../assets/js/sidebar-menu.js"></script>
+      <!-- Custom scripts -->
+      <script src="../../../assets/js/app-script.js"></script>
+        <%- include('./parts/footer') %>

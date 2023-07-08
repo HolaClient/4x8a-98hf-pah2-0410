@@ -1,0 +1,115 @@
+<head>
+    <%- include('./parts/head') %>
+      <!-- Vector CSS -->
+      <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+      <!-- simplebar CSS-->
+      <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+      <!-- Bootstrap core CSS-->
+      <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+      <!-- animate CSS-->
+      <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+      <!-- Icons CSS-->
+      <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+      <!-- Sidebar CSS-->
+      <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+      <!-- Custom Style-->
+      <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  </head>
+  <style>
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    </style>
+      <body>
+        <!-- Start wrapper-->
+   <div id="wrapper">
+    <%- include('./parts/sidebar') %>
+    <%- include('./parts/topnav') %>
+    <div class="clearfix"></div>
+      
+    <div class="content-wrapper">
+      <div class="container-fluid">
+
+        <div class="row">
+            <% for (let i = 0, len = settings.billing.products.length; i < len; i++) { %>
+            <div class="col-12 col-lg-4 col-xl-4">
+                <div class="card">
+                    <div class="card-header"><%= settings.billing.products[i].name %> - <%= settings.billing.symbol %><%= settings.billing.products[i].price %> <%= settings.billing.cycle %>
+                      <div class="card-action">
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-container-2">
+                        <center>
+                        <img style="max-width: 190px; border-radius: 15px;" src="<%= settings.billing.products[i].image %>">
+                        </center>
+                       </div>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table align-items-center">
+                        <tbody>
+                          <tr>
+                            <td><i class="bi bi-memory text-white mr-2"></i> RAM</td>
+                            <td>-</td>
+                            <td><%= settings.billing.products[i].ram %></td>
+                          </tr>
+                          <tr>
+                            <td><i class="bi bi-hdd text-light-1 mr-2"></i> DISK</td>
+                            <td>-</td>
+                            <td><%= settings.billing.products[i].disk %></td>
+                          </tr>
+                          <tr>
+                            <td><i class="bi bi-cpu text-light-2 mr-2"></i> CPU</td>
+                            <td>-</td>
+                            <td><%= settings.billing.products[i].cpu %></td>
+                          </tr>
+                          <tr>
+                            <td><i class="bi bi-usb-c text-light-3 mr-2"></i> PORTS</td>
+                            <td>-</td>
+                            <td><%= settings.billing.products[i].ports %></td>
+                          </tr>
+                          <tr>
+                            <td><i class="bi bi-database text-light-3 mr-2"></i> DATABASES</td>
+                            <td>-</td>
+                            <td><%= settings.billing.products[i].databases %></td>
+                          </tr>
+                          <tr>
+                            <td><i class="bi bi-database text-light-3 mr-2"></i> BACKUPS</td>
+                            <td>-</td>
+                            <td><%= settings.billing.products[i].backups %></td>
+                          </tr><center>
+                            <a role="button" href="https://billing.holaclient.tech/<%= settings.name %>/billing/<%= settings.billing.products[i].name %>?id=<%= settings.billing.products[i].id %>" class="btn btn-light btn-round px-5">Buy Now <i class="bi bi-caret-right"></i></a><br><br>
+                            </center>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+              </div>
+              <% } %>
+
+
+             
+           </div>
+</div>
+</div>
+   <%- include('./parts/footer') %>
+        <!--start overlay-->
+      <div class="overlay toggle-menu"></div>
+          <!--end overlay-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+      <!-- Bootstrap core JavaScript-->
+      <script src="../../../assets/js/jquery.min.js"></script>
+      <script src="../../../assets/js/popper.min.js"></script>
+      <script src="../../../assets/js/bootstrap.min.js"></script>
+      
+     <!-- simplebar js -->
+      <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+      <!-- sidebar-menu js -->
+      <script src="../../../assets/js/sidebar-menu.js"></script>
+      <!-- Custom scripts -->
+      <script src="../../../assets/js/app-script.js"></script>

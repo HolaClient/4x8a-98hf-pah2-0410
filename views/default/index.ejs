@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="a">
+  <head>
+    <%- include('./parts/head') %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./assets/css/landing.css" rel="stylesheet" />
+  </head>
+  <body onload="load()" class="sj">
+    <header class="header d f g yb">
+      <div class="hb yb md lf tn un fo tp 2xl:ud-px-20">
+        <div class="flex items-center w-full">
+          <!-- Logo -->
+          <a class="cursor-pointer">
+            <img class="w-10" src="<%= settings.logo %>">
+          </a>
+          <a class="cursor-pointer">
+            <h3 class="bg-[radial-gradient(138.06%_1036.51%_at_95.25%_-2.54%,_#7ED4FD_14.06%,#709DF7_51.02%,#4D78EF_79.09%)] bg-clip-text text-4xl font-bold leading-[1.2] tracking-tighter text-transparent">
+                   &nbsp;<%= settings.name %>
+            </h3>
+        </a>
+      </div>
+        <div class="menu-wrapper c f g ba lb yb pd re kf sj vm xm gn in vn co eo gp mp">
+          <div class="yb zd"></div>
+        </div>
+      </div>
+    </header>
+    <section id="home" class="e fa _d ug vg _k po qo">
+      <div class="of op">
+        <div class="ja hb md od">
+          <div class="yb yf pn/2">
+            <div class="ia wa qc kh bn cn _o">
+              <h1 class="wow 
+                fadeInUp oa lh qh wh _j dl qm um" data-wow-delay=".3s"> Host your powerful <span class="txt-type text-blue-600" data-wait="3000" data-words='["Minecraft", "NodeJS", "Website", "Python"]'></span>
+                <span class="txt-type"> Server on</span> <%= settings.name %>
+              </h1>
+              <p class="wow fadeInUp wa mh bi" data-wow-delay=".4s"><%= settings.website.description %> </p>
+              <div class="wow fadeInUp hb md od pd vn" data-wow-delay=".5s">
+                <a href="../dashboard" class="ib od de se zf nf lh mh ci yi em fm"> Client </a>
+                <span class="dg"></span>
+                <a href="<%= settings.pterodactyl.domain %>" class="ib od de se zf nf lh mh ci yi em fm"> Panel </a>
+              </div>
+            </div>
+          </div>
+          <div class="yb of pn/2">
+            <div class="wow fadeInRight e ga ia sb yb rc bn" data-wow-delay=".3s">
+              <div class="f k qn/12">
+                <img src="https://media.discordapp.net/attachments/1108054221456146534/1111622319408959579/clipart1422163.png" alt="hero-image" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d f k ea">
+        <svg width="1356" height="860" viewBox="0 0 1356 860" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.5" filter="url(#filter0_f_201_2181)">
+            <rect x="450.088" y="-126.709" width="351.515" height="944.108" transform="rotate(-34.6784 450.088 -126.709)" fill="url(#paint0_linear_201_2181)" />
+          </g>
+          <defs>
+            <filter id="filter0_f_201_2181" x="0.0878906" y="-776.711" width="1726.24" height="1876.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+              <feGaussianBlur stdDeviation="225" result="effect1_foregroundBlur_201_2181" />
+            </filter>
+            <linearGradient id="paint0_linear_201_2181" x1="417.412" y1="59.4717" x2="966.334" y2="603.857" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ABBCFF" />
+              <stop offset="0.859375" stop-color="#4A6CF7" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="d h g ea">
+        <svg width="1469" height="498" viewBox="0 0 1469 498" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.3" filter="url(#filter0_f_201_2182)">
+            <rect y="450" width="1019" height="261" fill="url(#paint0_linear_201_2182)" />
+          </g>
+          <defs>
+            <filter id="filter0_f_201_2182" x="-450" y="0" width="1919" height="1161" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+              <feGaussianBlur stdDeviation="225" result="effect1_foregroundBlur_201_2182" />
+            </filter>
+            <linearGradient id="paint0_linear_201_2182" x1="-94.7239" y1="501.47" x2="-65.8058" y2="802.2" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ABBCFF" />
+              <stop offset="0.859375" stop-color="#4A6CF7" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </section>
+    <section id="features" class="ig zk oo">
+      <div class="of op">
+        <div class="wow fadeInUp e ia wa sc hg kh ml ro" data-wow-delay=".2s">
+          <h2 class="oa lh oh wh di _j dl qm um"><%= settings.name %> Features </h2>
+        </div>
+        <div class="ja hb md pd">
+          <div class="yb of yl/2 pn/3">
+            <div class="wow fadeInUp bj ia pa tc kh nl" data-wow-delay=".2s">
+              <div class="ia ra hb tb fc od pd ee se af ei ti dj ej fj vj zj _j hk ik ol tl zl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="white" class="bi bi-puzzle-fill" viewBox="0 0 16 16">
+                  <path d="M3.112 3.645A1.5 1.5 0 0 1 4.605 2H7a.5.5 0 0 1 .5.5v.382c0 .696-.497 1.182-.872 1.469a.459.459 0 0 0-.115.118.113.113 0 0 0-.012.025L6.5 4.5v.003l.003.01c.004.01.014.028.036.053a.86.86 0 0 0 .27.194C7.09 4.9 7.51 5 8 5c.492 0 .912-.1 1.19-.24a.86.86 0 0 0 .271-.194.213.213 0 0 0 .036-.054l.003-.01v-.008a.112.112 0 0 0-.012-.025.459.459 0 0 0-.115-.118c-.375-.287-.872-.773-.872-1.469V2.5A.5.5 0 0 1 9 2h2.395a1.5 1.5 0 0 1 1.493 1.645L12.645 6.5h.237c.195 0 .42-.147.675-.48.21-.274.528-.52.943-.52.568 0 .947.447 1.154.862C15.877 6.807 16 7.387 16 8s-.123 1.193-.346 1.638c-.207.415-.586.862-1.154.862-.415 0-.733-.246-.943-.52-.255-.333-.48-.48-.675-.48h-.237l.243 2.855A1.5 1.5 0 0 1 11.395 14H9a.5.5 0 0 1-.5-.5v-.382c0-.696.497-1.182.872-1.469a.459.459 0 0 0 .115-.118.113.113 0 0 0 .012-.025L9.5 11.5v-.003l-.003-.01a.214.214 0 0 0-.036-.053.859.859 0 0 0-.27-.194C8.91 11.1 8.49 11 8 11c-.491 0-.912.1-1.19.24a.859.859 0 0 0-.271.194.214.214 0 0 0-.036.054l-.003.01v.002l.001.006a.113.113 0 0 0 .012.025c.016.027.05.068.115.118.375.287.872.773.872 1.469v.382a.5.5 0 0 1-.5.5H4.605a1.5 1.5 0 0 1-1.493-1.645L3.356 9.5h-.238c-.195 0-.42.147-.675.48-.21.274-.528.52-.943.52-.568 0-.947-.447-1.154-.862C.123 9.193 0 8.613 0 8s.123-1.193.346-1.638C.553 5.947.932 5.5 1.5 5.5c.415 0 .733.246.943.52.255.333.48.48.675.48h.238l-.244-2.855z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="ab lh th xh di _j el pl"> Unlimited Possibilities </h3>
+                <p class="mh bi"> Explore a boundless Minecraft universe with our free hosting service, where the only limit is your imagination. </p>
+              </div>
+            </div>
+          </div>
+          <div class="yb of yl/2 pn/3">
+            <div class="wow fadeInUp bj ia pa tc kh nl" data-wow-delay=".25s">
+              <div class="ia ra hb tb fc od pd ee se af ei ti dj ej fj vj zj _j hk ik ol tl zl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="white" class="bi bi-speedometer2" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z" />
+                  <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="ab lh th xh di _j el pl"> Reliable Performance </h3>
+                <p class="mh bi"> Enjoy seamless gameplay with our servers that deliver exceptional performance, ensuring a lag-free and immersive gaming experience. </p>
+              </div>
+            </div>
+          </div>
+          <div class="yb of yl/2 pn/3">
+            <div class="wow fadeInUp bj ia pa tc kh nl" data-wow-delay=".3s">
+              <div class="ia ra hb tb fc od pd ee se af ei ti dj ej fj vj zj _j hk ik ol tl zl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="white" class="bi bi-cloud-check-fill" viewBox="0 0 16 16">
+                  <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 4.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="ab lh th xh di _j el pl"> High Uptime Guarantee </h3>
+                <p class="mh bi"> Stay connected to your virtual world without interruption, thanks to our robust infrastructure that guarantees maximum uptime. </p>
+              </div>
+            </div>
+          </div>
+          <div class="yb of yl/2 pn/3">
+            <div class="wow fadeInUp bj ia pa tc kh nl" data-wow-delay=".35s">
+              <div class="ia ra hb tb fc od pd ee se af ei ti dj ej fj vj zj _j hk ik ol tl zl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="white" class="bi bi-brush-fill" viewBox="0 0 16 16">
+                  <path d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="ab lh th xh di _j el pl"> Customization Made Easy </h3>
+                <p class="mh bi"> Tailor your server to your heart's content, effortlessly customizing every aspect to create a unique and personalized gaming environment. </p>
+              </div>
+            </div>
+          </div>
+          <div class="yb of yl/2 pn/3">
+            <div class="wow fadeInUp bj ia pa tc kh nl" data-wow-delay=".4s">
+              <div class="ia ra hb tb fc od pd ee se af ei ti dj ej fj vj zj _j hk ik ol tl zl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="white" class="bi bi-headset" viewBox="0 0 16 16">
+                  <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="ab lh th xh di _j el pl"> Dedicated Support </h3>
+                <p class="mh bi"> Our friendly support team is here to assist you every step of the way, ensuring your Minecraft journey is smooth, hassle-free, and filled with excitement. </p>
+              </div>
+            </div>
+          </div>
+          <div class="yb of yl/2 pn/3">
+            <div class="wow fadeInUp bj ia tc kh nl" data-wow-delay=".45s">
+              <div class="ia ra hb tb fc od pd ee se af ei ti dj ej fj vj zj _j hk ik ol tl zl">
+                <img width="44" src="https://media.discordapp.net/attachments/1082632266506850344/1108449684709703770/image.png">
+              </div>
+              <div>
+                <h3 class="ab lh th xh di _j el pl"> HolaClient </h3>
+                <p class="mh bi"> HolaClient is an exceptional modern themed dashboard designed specifically for Pterodactyl, a popular game server management platform. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="team" class="ig zk oo">
+      <div class="of op">
+        <div class="wow fadeInUp e ia wa hg kh ml ro" data-wow-delay=".2s">
+          <h2 class="ia oa sc lh oh wh di _j dl qm um"><%= settings.name %> Statistics </h2>
+        </div>
+        <div class="ja hb md pd">
+          <div class="yb of yl/2 pn/4">
+            <div class="wow fadeInUp bj ia pa wc kh fq" data-wow-delay=".2s">
+              <div class="e na _d de">
+                <div class="duration-300 d w o/2 dd/2 ed ki ti cj gj"></div>
+              </div>
+              <div>
+                <h3 class="bb lh th xh di _j el">
+                  <span id="users">---</span>
+                </h3>
+                <p class="font-heading mh bi"> Active Users </p>
+              </div>
+            </div>
+          </div>
+          <div class="yb of yl/2 pn/4">
+            <div class="wow fadeInUp bj ia pa wc kh fq" data-wow-delay=".25s">
+              <div class="e na _d de">
+                <div class="duration-300 d w o/2 dd/2 ed ki ti cj gj"></div>
+              </div>
+              <div>
+                <h3 class="bb lh th xh di _j el">
+                  <span id="servers">---</span>
+                </h3>
+                <p class="font-heading mh bi"> Active Servers </p>
+              </div>
+            </div>
+          </div>
+          <div class="yb of yl/2 pn/4">
+            <div class="wow fadeInUp bj ia pa wc kh fq" data-wow-delay=".3s">
+              <div class="e na _d de">
+                <div class="duration-300 d w o/2 dd/2 ed ki ti cj gj"></div>
+              </div>
+              <div>
+                <h3 class="bb lh th xh di _j el">
+                  <span id="locations">---</span>
+                </h3>
+                <p class="font-heading mh bi"> Global Locations </p>
+              </div>
+            </div>
+          </div>
+          <div class="yb of yl/2 pn/4">
+            <div class="wow fadeInUp bj ia pa wc kh fq" data-wow-delay=".25s">
+              <div class="e na _d de">
+                <div class="duration-300 d w o/2 dd/2 ed ki ti cj gj"></div>
+              </div>
+              <div>
+                <h3 class="bb lh th xh di _j el">
+                  <span id="nodes">---</span>
+                </h3>
+                <p class="font-heading mh bi"> Total Nodes </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="wow fadeInUp ig zk oo" data-wow-delay=".2s">
+      <div class="of op">
+        <div class="jj bm">
+          <div class="ja hb md tf dm">
+            <div class="yb of yl/2 on/3">
+              <div class="oa hb od pd td ie lg jj ll _l am im">
+                <a href="../pp" class="lh mh bi _i"> Privacy Policy </a>
+                <a href="../tos" class="lh mh bi _i"> Terms Of Service </a>
+              </div>
+            </div>
+            <div class="yb of yl/2 pn/3">
+              <div>
+                <p class="kh lh mh bi ap"> © <script>
+                    document.write(new Date().getFullYear());
+                  </script> <%= settings.name %> | Powered By <a href="https://github.com/CR072/HolaClient/" class="lh mh bi _i"> HolaClient </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <a href="javascript:void(0)" class="kq back-to-top c l m n ca jb pb cc od pd fe se ci ni ti">
+      <span class="ua qb dc hd ke je me"></span>
+    </a>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+      function onScroll(event) {
+        const sections = document.querySelectorAll(".menu-scroll");
+        const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        for (let i = 0; i < sections.length; i++) {
+          const currLink = sections[i];
+          const val = currLink.getAttribute("href");
+          const refElement = document.querySelector(val);
+          const scrollTopMinus = scrollPos + 73;
+          if (refElement.offsetTop <= scrollTopMinus && refElement.offsetTop + refElement.offsetHeight > scrollTopMinus) {
+            document.querySelector(".menu-scroll").classList.remove("active");
+            currLink.classList.add("active");
+          } else {
+            currLink.classList.remove("active");
+          }
+        }
+      }
+      window.document.addEventListener("scroll", onScroll);
+      const tabButtons = document.querySelectorAll(".tabButtons button");
+      const tabPanels = document.querySelectorAll(".tabPanel");
+
+      function showPanel(panelIndex) {
+        tabButtons.forEach(function(node) {
+          node.classList.remove("ei", "ne", "qj");
+        });
+        tabButtons[panelIndex].classList.add("ei", "_j", "ne", "qj");
+        tabPanels.forEach(function(node) {
+          node.style.display = "none";
+        });
+        tabPanels[panelIndex].style.display = "flex";
+      }
+      showPanel(0);
+    </script>
+    <script>
+      async function servers() {
+        const serverInfo = document.getElementById("servers");
+        const response = await fetch('/api/servers');
+        const json = await response.json();
+        const infoString = `${json.totalServers}`;
+        serverInfo.innerText = infoString;
+      }
+      servers();
+      async function users() {
+        const users = document.getElementById("users");
+        const response = await fetch('/api/users');
+        const json = await response.json();
+        const usersr = `${json.totalUsers}`;
+        users.innerText = usersr;
+      }
+      users();
+      async function locations() {
+        const locations = document.getElementById("locations");
+        const response = await fetch('/api/locations');
+        const json = await response.json();
+        const location = `${json.totalLocations}`;
+        locations.innerText = location;
+      }
+      locations();
+      async function nodes() {
+        const node = document.getElementById("nodes");
+        const response = await fetch('/api/nodes');
+        const json = await response.json();
+        const nodes = `${json.totalNodes}`;
+        node.innerText = nodes;
+      }
+      nodes();
+    </script>
+    <script defer src="bundle.js"></script>
+    <script>
+      (function() {
+        var js = "window['__CF$cv$params']={r:'7cd56d582ef80c53',m:'ks_fdV7Tk8CIwiSgMeRt3U0CdbDnRwl8NDGSOAOSPT0-1685097911-0-Afc5eHpqGMYLSCg0NBjLhcFp+j5Gyuy7do+yyA9pCrIN',u:'/cdn-cgi/challenge-platform/h/b'};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/invisible.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";
+        var _0xh = document.createElement('iframe');
+        _0xh.height = 1;
+        _0xh.width = 1;
+        _0xh.style.position = 'absolute';
+        _0xh.style.top = 0;
+        _0xh.style.left = 0;
+        _0xh.style.border = 'none';
+        _0xh.style.visibility = 'hidden';
+        document.body.appendChild(_0xh);
+
+        function handler() {
+          var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;
+          if (_0xi) {
+            var _0xj = _0xi.createElement('script');
+            _0xj.nonce = '';
+            _0xj.innerHTML = js;
+            _0xi.getElementsByTagName('head')[0].appendChild(_0xj);
+          }
+        }
+        if (document.readyState !== 'loading') {
+          handler();
+        } else if (window.addEventListener) {
+          document.addEventListener('DOMContentLoaded', handler);
+        } else {
+          var prev = document.onreadystatechange || function() {};
+          document.onreadystatechange = function(e) {
+            prev(e);
+            if (document.readyState !== 'loading') {
+              document.onreadystatechange = prev;
+              handler();
+            }
+          };
+        }
+      })();
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7cd56d582ef80c53","version":"2023.4.0","r":1,"token":"9a6015d415bb4773a0bff22543062d3b","si":100}' crossorigin="anonymous"></script>
+    <script src="../../assets/js/landing.js"></script>
+  </body>
+</html>
