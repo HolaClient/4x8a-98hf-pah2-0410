@@ -49,7 +49,10 @@
 
 ---
 
+
 ## 👀 Preview
+HolaClient Demo: [Click me](https://demo.holaclient.tech/)
+
 Landing Page (v1.5.6):
 ![Landing Page](https://github.com/CR072/HolaClient/assets/102372274/8b3b0cea-1b7f-44e3-abf4-6da6c09a6e2b)
 
@@ -59,91 +62,15 @@ Admin Home (v1.5.6):
 Dashboard (v1.5.6):
 ![Dashboard](https://github.com/CR072/HolaClient/assets/102372274/2fcbb24a-ef24-4c7b-880c-736beee63f6f)
 
-
----
-
-## 👁️ Demo
-HolaClient Demo: [https://demo.holaclient.tech/](https://demo.holaclient.tech/)
-
 ---
 
 ## ⬇️ Installation
-Using Pterodactyl Panel:
-1. Download and install the [HolaClient](https://github.com/ItzBenoitXD/holaclient-installer) egg into your panel.
-2. Create a server and wait until the latest version is downloaded.
-3. Configure the `settings.json` file and start the server.
-4. Optionally, set up a domain for HolaClient by following the "Configuring SSL" section.
-
----
-
-## 💠 Configuring SSL
-Using Certbot:
-1. Point the domain to your VPS IP address using your DNS manager (e.g., point `client.example.com` to `127.0.0.0`).
-2. Run the following commands on your Linux server:
-    ```bash
-    apt install nginx && apt install certbot
-    ```
-   
-    ```bash
-    ufw allow 80 && ufw allow 443
-    ```
-   
-    ```bash
-    certbot certonly -d <domain>
-    ```
-   
-    ```bash
-    nano /etc/nginx/sites-enabled/holaclient.conf
-    ```
-    
-    after pasting the Nginx config run theses commands
-    
-   ```bash
-    sudo nginx -t
-    ```
-   
-    if theres no errors execute the last command
-   
-    ```bash
-    systemctl restart nginx
-    ```
-     If any errors occur, feel free to contact us on our [Discord Server](https://discord.gg/CvqRH9TrYK).
-
-3. Copy the following config and paste it into `holaclient.conf`, replacing the necessary information:
-```nginx
-server {
- listen 80;
- server_name <holaclient domain>;
- return 301 https://$server_name$request_uri;
-}
-
-server {
- listen 443 ssl http2;
-
- location /afkwspath {
-     proxy_http_version 1.1;
-     proxy_set_header Upgrade $http_upgrade;
-     proxy_set_header Connection "upgrade";
-     proxy_pass "http://<ip or domain of node>:<port>/afkwspath";
- }
-
- server_name <holaclient domain>;
- ssl_certificate /etc/letsencrypt/live/<holaclient domain>/fullchain.pem;
- ssl_certificate_key /etc/letsencrypt/live/<holaclient domain>/privkey.pem;
- ssl_session_cache shared:SSL:10m;
- ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
- ssl_ciphers HIGH:!aNULL:!MD5;
- ssl_prefer_server_ciphers on;
-
- location / {
-     proxy_pass http://<ip or domain of node>:<port>/;
-     proxy_buffering off;
-     proxy_set_header X-Real-IP $remote_addr;
- }
-}
+Use our Installer to install HolaClient in your VPS:<br>
+```bash
+bash <(curl -s https://installer.holaclient.tech)
 ```
     
 ---
     
 ## ⚖️  Legal
-You shall not remove HolaClient credits from the footer, if removed your host will be taken down by DMCA take down if used in public. You can change the position if you're using a theme. HolaClient is licensed under MIT License.
+Please refer "LICENSE" and "CREDITS" files for better understability.
