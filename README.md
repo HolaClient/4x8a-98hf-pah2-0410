@@ -15,28 +15,25 @@
 
 ## 🪶 Features
 - **Anti-PteroVM:** Automatically suspends servers using PteroVM.
-- **Anti-Miner:** Automatically deletes servers using mining scripts.
 - Subdomain Management: Assign subdomains for users' servers.
+- Plugin Manager: Install plugins easily.
 - Bandwidth Sharing: Arc.io integration.
 - Background Wallpaper: Customizable.
-- Resource Management: View, buy, and gift coins.
+- Resource Management: View, buy, sell and gift coins.
 - Mobile Optimized: Optimized webview for all devices.
 - Coins: Host's own economy system.
-- Store: Buy/sell resources.
 - Coupons: Create, edit, and manage coupons.
 - Servers: View, edit, delete, and create servers.
-- User Settings: User-editable settings.
+- Web Settings: Edit settings from the frontend.
 - API: Used by bots to control the client.
 - Discord OAuth2: Login using Discord.
 - Google Oauth2: Login using Google.
 - Email authentication: Login using Email.
-- Databases and Ports: Create servers with additional resources.
-- Dashboard: User-friendly management client.
+- Databases, Backups and Ports: Create servers with additional resources.
 - Join for Rewards: Earn money by joining a server.
 - Admin: Admin management area.
 - Landing Page with updated information.
 - Purge System: Purge inactive servers easily.
-- Edit settings from the admin page.
 - Webhook: Log actions to webhooks.
 - Gift resources: Transfer resources or coins.
 - Stripe API: Billing system using Stripe.
@@ -46,6 +43,7 @@
 - GyaniLinks Earning: Earn coins by completing a link.
 - LinkPays Earning: Earn coins by completing a link.
 - Role Packages: Give a package to users who have the role.
+- Different pages for Admins & Moderators.
 
 ---
 
@@ -69,6 +67,7 @@ Use our Installer to install HolaClient in your VPS:<br>
 ```bash
 bash <(curl -s https://installer.holaclient.tech)
 ```
+Or Refer our docs for manual Installation: [https://docs.holaclient.tech](Link)
     
 ---
     
