@@ -70,6 +70,10 @@ bash <(curl -s https://installer.holaclient.tech)
 Or Refer our docs for manual Installation: [https://docs.holaclient.tech](Link)
     
 ---
+
+## 📝 Authors
+- [https://github.com/CR072](**CR072**) | Made HolaClient
+- [https://github.com/ItzBenoitXD](**ItzBenoitXD**) | Made HolaClient Installer & Docs
     
 ## ⚖️  Legal
 Please refer "LICENSE" and "CREDITS" files for better understability.
