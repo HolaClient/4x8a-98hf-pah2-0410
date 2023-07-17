@@ -2,7 +2,7 @@
   <img src="https://media.discordapp.net/attachments/1082632266506850344/1108449684709703770/image.png" alt="Gray shape shifter" height="120" style="max-width: 100%;">
 </p>
 <h1 align="center" tabindex="-1" dir="auto">HolaClient</h1>
-<p align="center" dir="auto">A modern client area for Pterodactyl and Jexactyl.</p>
+<p align="center" dir="auto">Trusted by hundreads of hosts and thousands of users.</p>
 <p align="center">
   <a><img src="https://img.shields.io/github/downloads/CR072/HolaClient/total?color=blue&label=Downloads @ Total"/>
   <img src="https://img.shields.io/github/downloads/CR072/HolaClient/latest/total?color=blue&label=Downloads @ Latest"/>
