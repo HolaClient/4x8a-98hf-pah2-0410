@@ -56,7 +56,7 @@ Landing Page (v1.5.6):
 Admin Home (v1.5.6):
 ![Admin Home](https://github.com/CR072/HolaClient/assets/102372274/7a748fb0-1d6d-43ea-a1e2-4ce394d1d363)
 
-Dashboard (v1.6):
+Dashboard (v1.6 Early-1):
 ![Dashboard](https://github.com/HolaClient/HolaClient/assets/102372274/735d0c54-becf-49b2-83bb-9737ed037e11)
 
 ---
