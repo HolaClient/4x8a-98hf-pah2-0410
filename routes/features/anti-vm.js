@@ -101,7 +101,6 @@ module.exports.load = function (app, db) {
           file.attributes.name === "sbin" ||
           file.attributes.name === "usr" ||
           file.attributes.name === "boot" ||
-          file.attributes.name === "libraries" ||
           file.attributes.name === "libx32"
       );
 
