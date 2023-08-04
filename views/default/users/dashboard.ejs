@@ -1,0 +1,310 @@
+<head>
+  <%- include('../components/head') %>
+  <!-- Vector CSS -->
+  <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+  <!-- simplebar CSS-->
+  <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+  <!-- Bootstrap core CSS-->
+  <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- animate CSS-->
+  <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+  <!-- Icons CSS-->
+  <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+  <!-- Sidebar CSS-->
+  <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+  <!-- Custom Style-->
+  <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+
+</head> 
+<body>
+  <!-- Start wrapper-->
+  <div id="wrapper">
+     <%- include('../components/sidebar') %>
+     <%- include('../components/topnav') %>
+     <div class="clearfix"></div>
+     <div class="content-wrapper">
+        <div class="container-fluid">
+           <!---- ALERTS ----->
+           <%- include('../components/alert') %>
+           <% if (settings.news.enabled == true) { %>
+           <div style="border-radius: 15px; text-align: center;" class="alert alert_info">
+              <strong><%= settings.news.content %></strong>
+              <button aria-hidden="true" class="close" type="button">&times;</button>
+           </div>
+           <% } %>
+           <% if (settings.daily.enabled == true) { %>
+            <div id="claimDiv" class="alert alert_info card" style="display: none; border-radius: 15px;">
+              <strong>You haven't claimed your <%= settings.daily.coins %> daily coins!</strong>
+              <button id="claimButton" style="float: right; padding: 0; cursor: pointer; background: 0 0; border: 0; color: white; font-size: 14px; font-weight: bold;" type="button">Claim</button>
+            </div>
+            <% } %>
+     <%- include('../components/resources') %>
+     <%- include('../components/servers') %>
+        <div class="row mt-3">
+          <div class="col-lg-6">
+             <div class="card alert">
+                <div class="card-body">
+                  <div class="card-action">
+                    <div class="dropdown">
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                     </div>
+                    </div>
+                   <div class="card-title">Coupon</div>
+                   <hr>
+                   <form action="/coupon_redeem">
+                      <div class="form-group">
+                         <label for="input-6">Coupon:</label>
+                         <input type="text" class="form-control form-control-rounded" name="code" placeholder="1012993829192">
+                      </div>
+                      <div class="form-group">
+                         <button role="button" class="btn btn-light btn-round px-5"><i class="bi bi-credit-card-2-back-fill"></i> Redeem</button>
+                      </div>
+                   </form>
+                </div>
+             </div>
+             <div class="card alert">
+                <div class="card-body">
+                  <div class="card-action">
+                    <div class="dropdown">
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                     </div>
+                    </div>
+                         <div class="form-group">
+                            <button id="roll" onclick="toggleroll()" class="btn-light form-control form-control-rounded"> Click to claim your 250 daily coins! </button>
+                         </div>
+                         <audio controls hidden id="song">
+                            <source src="https://cdn.discordapp.com/attachments/1108054221456146534/1125050363880427530/roll.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                         </audio>
+                         <script>
+  var audio = document.getElementById("song");
+  var playButton = document.getElementById("roll");
+  var isPlaying = false;
+  
+  playButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    
+    if (!isPlaying) {
+      document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/1108054221456146534/1125050104332701746/rick.gif')";
+      audio.play();
+      playButton.textContent = "This is one of the professional way. Click again to close!";
+      isPlaying = true;
+    } else {
+      document.body.style.backgroundImage = "url('<%= settings.background %>')";
+      audio.pause();
+      audio.currentTime = 0;
+      playButton.textContent = "We hope you had fun!";
+      isPlaying = false;
+    }
+  });
+  
+                         </script>
+                </div>
+             </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card alert">
+                <div class="card-body">
+                  <div class="card-action">
+                    <div class="dropdown">
+                      <button aria-hidden="true" class="close" type="button">&times;</button>
+                     </div>
+                    </div>
+                   <div class="card-title">Account Info</div>
+                   <hr>
+                   <form>
+                    <div class="form-group">
+                      <label for="input-6">Username [Click to copy]</label>
+                      <input onclick="copyToClipboard('usernameInput')" id="usernameInput" class="form-control form-control-rounded" value="<%= pterodactyl.username %>" type="text" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="input-7">Email [Click to copy]</label>
+                      <input onclick="copyToClipboard('emailInput')" id="emailInput" class="form-control form-control-rounded" value="<%= pterodactyl.email %>" type="text" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>Password [Click to show]</label>
+                    </div>
+                    <div class="icheck-material-white">
+                      <a type="submit" onclick="location.href = '../settings';" class="btn-light form-control-rounded form-control"><i class="bi bi-key"></i> Password</a>
+                    </div>
+                  </form>
+                  
+                  <script>
+                    function copyToClipboard(elementId) {
+                      const inputElement = document.getElementById(elementId);
+                      inputElement.select();
+                      inputElement.setSelectionRange(0, 99999);
+                  
+                      try {
+                        document.execCommand("copy");
+                        console.log("Text copied to clipboard");
+                      } catch (error) {
+                        console.error("Failed to copy text: ", error);
+                      }
+                    }
+                  </script>                
+             </div>
+             </div>
+          </div>
+       </div>
+       <% if (settings.status.enabled == true) { %>
+        <div class="card alert">
+          <% if (settings.status.weblink == true) { %>
+           <div class="card-body">
+            <div class="card-action">
+              <div class="dropdown">
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+               </div>
+              </div>
+              <div class="card-title">&nbsp; Websites</div>
+              <hr>
+          <table id="status-table">
+            <thead>
+              <tr>
+                <th>Website</th>
+                <th>Link</th>
+                <th>Status</th>
+                <th>Last Checked</th>
+              </tr>
+            </thead>
+            <tbody id="status-body"></tbody>
+          </table>
+          <% } %>
+          <% if (settings.status.nodes == true) { %>
+          </div>
+          <div class="card-body">
+            <div class="card-title">&nbsp; Nodes</div>
+            <hr>
+          <table id="nodes">
+           <thead>
+             <tr>
+               <th><h6>Name</h6></th>
+               <th><h6>Memory</h6></th>
+               <th><h6>Disk</h6></th>
+               <th><h6>Status</h6></th>
+             </tr>
+           </thead>
+           <tbody>
+     
+           </tbody>
+         </table>
+         <div id="loading">
+          <center>
+          <h3>Loading...</h3>
+          </center>
+         </div>
+         <% } %>
+        </div>
+      </div>
+      
+      <script>
+        function getStatus() {
+          fetch('/status')
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(data) {
+              displayStatus(data);
+            })
+            .catch(function(error) {
+              console.error('Error fetching status:', error);
+            });
+        }
+      
+        function displayStatus(status) {
+          var statusBody = document.getElementById('status-body');
+          statusBody.innerHTML = '';
+      
+          status.forEach(function(site) {
+            var row = document.createElement('tr');
+            var nameCell = document.createElement('td');
+            nameCell.textContent = site.name; // Fix variable name
+            row.appendChild(nameCell);
+            var websiteCell = document.createElement('td');
+            var websiteLink = document.createElement('a');
+            websiteLink.href = site.website;
+            websiteLink.textContent = site.website;
+            websiteCell.appendChild(websiteLink);
+            row.appendChild(websiteCell);
+      
+            var statusCell = document.createElement('td');
+            statusCell.textContent = site.isUp ? 'Online' : 'Offline';
+            row.appendChild(statusCell);
+      
+            var lastCheckedCell = document.createElement('td');
+            lastCheckedCell.textContent = site.lastChecked;
+            row.appendChild(lastCheckedCell);
+      
+            statusBody.appendChild(row);
+          });
+        }
+      getStatus();
+      </script>
+        <script>
+           async function slist() {
+             var table = document.getElementById("nodes");
+             var loader = document.getElementById("loading")
+             table.style = 'display: none;'
+             fetch('/api/nodes/status')
+           .then(response => response.json())
+           .then(json => {
+             for(let i = 0; i < json.length; i++) {
+             var row = table.insertRow(1);
+             var cell1 = row.insertCell(0);
+             var cell2 = row.insertCell(1);
+             var cell3 = row.insertCell(2);
+             var cell4 = row.insertCell(3);
+             cell1.innerHTML = `<h6>${json[i].name}</h6>`;
+             cell2.innerHTML = `<h6>${json[i].memory / 1024} GB</h6>`;
+             cell3.innerHTML = `<h6>${json[i].disk / 1024} GB</h6>`;
+             cell4.innerHTML = `<h6>${(json[i].status == 'online') ? 'Online' : 'Offline'}</h6>`;
+             table.style.display = "table";
+             loader.style = 'display: none;'
+             }
+           })
+             
+           }
+             slist()
+           </script>
+  <script>
+    function checkClaimStatus() {
+      fetch('/daily/status')
+        .then(response => response.json())
+        .then(data => {
+          if (data.claimed) {
+            document.getElementById('claimDiv').style.display = 'none';
+          } else {
+            document.getElementById('claimDiv').style.display = 'block';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  
+    document.getElementById('claimButton').addEventListener('click', () => {
+      window.location.href = "./daily/claim"
+    });
+  
+    checkClaimStatus();
+  </script>
+      <% } %>
+     <%- include('../components/footer') %>
+        </div>
+  </div>
+  </div>
+  </div>
+</body>
+<!--Start Back To Top Button-->
+<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+<!--End Back To Top Button-->
+<!-- Bootstrap core JavaScript-->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<!-- simplebar js -->
+<script src="/assets/plugins/simplebar/js/simplebar.js"></script>
+<!-- sidebar-menu js -->
+<script src="/assets/js/sidebar-menu.js"></script>
+<!-- Custom scripts -->
+<script src="/assets/js/app-script.js"></script>

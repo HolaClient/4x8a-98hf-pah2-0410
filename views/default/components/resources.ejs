@@ -1,0 +1,96 @@
+<%
+let ram = 0;
+let disk = 0;
+let cpu = 0;
+let backups = 0;
+let allocations = 0;
+let databases = 0;
+let servers = 0;
+
+if (pterodactyl && pterodactyl.relationships && pterodactyl.relationships.servers && pterodactyl.relationships.servers.data) {
+  servers = pterodactyl.relationships.servers.data.length;
+
+  pterodactyl.relationships.servers.data.forEach(server => {
+    const limits = server.attributes.limits;
+    const feature_limits = server.attributes.feature_limits; // Fetching feature_limits
+
+    if (limits && typeof limits.memory === "number") {
+      ram += limits.memory;
+    }
+    if (limits && typeof limits.disk === "number") {
+      disk += limits.disk;
+    }
+    if (limits && typeof limits.cpu === "number") {
+      cpu += limits.cpu;
+    }
+    if (feature_limits && typeof feature_limits.backups === "number") {
+      backups += feature_limits.backups;
+    }
+    if (feature_limits && typeof feature_limits.allocations === "number") {
+      allocations += feature_limits.allocations;
+    }
+    if (feature_limits && typeof feature_limits.databases === "number") {
+      databases += feature_limits.databases;
+    }
+  });
+}
+%>
+
+<div class="card mt-3">
+  <div class="card-content">
+      <div class="row row-group m-0">
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0"><%= ram %> / <%= packages.ram + extraresources.ram %> <span class="float-right"><i class="bi bi-memory"></i></span></h5>
+                <p class="mb-0 text-white small-font">MB RAM Available</p>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0"><%= disk %> / <%= packages.disk + extraresources.disk %> <span class="float-right"><i class="bi bi-hdd"></i></span></h5>
+                <p class="mb-0 text-white small-font">MB DISK Available</p>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0"><%= cpu %> / <%= packages.cpu + extraresources.cpu %> <span class="float-right"><i class="bi bi-cpu"></i></span></h5>
+
+                <p class="mb-0 text-white small-font">% CPU Available</p>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <h5 class="text-white mb-0"><%= servers %> / <%= packages.servers + extraresources.servers %> <span class="float-right"><i class="bi bi-pc"></i></span></h5>
+                <p class="mb-0 text-white small-font">SLOTS Available</p>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+              <h5 class="text-white mb-0"><%= allocations %> / <%= packages.allocations + extraresources.allocations %> <span class="float-right"><i class="bi bi-usb-c"></i></span></h5>
+
+              <p class="mb-0 text-white small-font">Allocations Available</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+              <h5 class="text-white mb-0"><%= backups %> / <%= packages.backups + extraresources.backups %> <span class="float-right"><i class="bi bi-layer-backward"></i></span></h5>
+
+              <p class="mb-0 text-white small-font">Backups Available</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+              <h5 class="text-white mb-0"><%= databases %> / <%= packages.databases + extraresources.databases %> <span class="float-right"><i class="bi bi-database"></i></span></h5>
+
+              <p class="mb-0 text-white small-font">Databases Available</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+              <h5 class="text-white mb-0"><%= coins %> <span class="float-right"><i class="bi bi-coin"></i></span></h5>
+              <p class="mb-0 text-white small-font">Coins</p>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

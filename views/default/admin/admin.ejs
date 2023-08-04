@@ -1,0 +1,336 @@
+<head>
+  <%- include('../components/header') %>
+    <!-- Vector CSS -->
+    <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet" />
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Start wrapper-->
+  <div id="wrapper">
+    <%- include('../components/menu') %>
+      <%- include('../components/topnav') %>
+        <div class="clearfix"></div>
+
+        <div class="content-wrapper">
+          <div class="container-fluid">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">&nbsp;<%= settings.name %> Statistics</div>
+                <hr>
+                <div class="row row-group m-0">
+                  <div class="col-12 col-lg-6 col-xl-3 border-light">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"><span id="users">---</span><span class="float-right"><i
+                            class="bi bi-people"></i></span></h5>
+                      <p class="mb-0 text-white small-font">Users Registered</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6 col-xl-3 border-light">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"><span id="servers">---</span><span class="float-right"><i
+                            class="bi bi-hdd-network"></i></span></h5>
+                      <p class="mb-0 text-white small-font">Servers Active</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6 col-xl-3 border-light">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"><span id="locations">---</span><span class="float-right"><i
+                            class="bi bi-geo"></i></span></h5>
+                      <p class="mb-0 text-white small-font">Locations</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6 col-xl-3 border-light">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"><span id="nodes">---</span><span class="float-right"><i
+                            class="bi bi-hdd-rack"></i></span></h5>
+                      <p class="mb-0 text-white small-font">Nodes</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-group m-0">
+                  <div class="col-12 col-lg-6 col-xl-3 border-light">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"><span id="tram">---</span><span class="float-right"><i
+                            class="bi bi-memory"></i></span></h5>
+                      <p class="mb-0 text-white small-font">Total RAM Available</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6 col-xl-3 border-light">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"><span id="tdisk">---</span><span class="float-right"><i
+                            class="bi bi-hdd"></i></span></h5>
+                      <p class="mb-0 text-white small-font">Total Disk Available</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6 col-xl-3 border-light">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"><span id="uram">---</span><span class="float-right"><i
+                            class="bi bi-memory"></i></span></h5>
+                      <p class="mb-0 text-white small-font">Total RAM Used</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6 col-xl-3 border-light">
+                    <div class="card-body">
+                      <h5 class="text-white mb-0"><span id="udisk">---</span><span class="float-right"><i
+                            class="bi bi-hdd"></i></span></h5>
+                      <p class="mb-0 text-white small-font">Total Disk Used</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              async function servers() {
+                const serverInfo = document.getElementById("servers");
+                const response = await fetch('/api/servers');
+                const json = await response.json();
+                const infoString = `${json.totalServers}`;
+                serverInfo.innerText = infoString;
+              }
+              servers();
+              async function users() {
+                const users = document.getElementById("users");
+                const response = await fetch('/api/users');
+                const json = await response.json();
+                const usersr = `${json.totalUsers}`;
+                users.innerText = usersr;
+              }
+              users();
+              async function locations() {
+                const locations = document.getElementById("locations");
+                const response = await fetch('/api/locations');
+                const json = await response.json();
+                const location = `${json.totalLocations}`;
+                locations.innerText = location;
+              }
+              locations();
+              async function nodes() {
+                const node = document.getElementById("nodes");
+                const response = await fetch('/api/nodes');
+                const json = await response.json();
+                const nodes = `${json.totalNodes}`;
+                node.innerText = nodes;
+              }
+              nodes();
+              function tram() {
+      const apiKey = '<%= settings.api.client.api.code %>';
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/api/total/ram', true);
+      xhr.setRequestHeader('Authorization', apiKey);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            document.getElementById('tram').textContent =  response.ram/1024 + ' GB';
+          } else {
+            console.error('Error fetching RAM:', xhr.statusText);
+          }
+        }
+      };
+      xhr.send();
+    }
+    tram()
+    function tdisk() {
+      const apiKey = '<%= settings.api.client.api.code %>';
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/api/total/disk', true);
+      xhr.setRequestHeader('Authorization', apiKey);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            document.getElementById('tdisk').textContent =  response.disk/1024 + ' GB';
+          } else {
+            console.error('Error fetching Disk:', xhr.statusText);
+          }
+        }
+      };
+      xhr.send();
+    }
+    tdisk()
+    function udisk() {
+      const apiKey = '<%= settings.api.client.api.code %>';
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/api/used/disk', true);
+      xhr.setRequestHeader('Authorization', apiKey);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            document.getElementById('udisk').textContent =  response.disk/1024 + ' GB';
+          } else {
+            console.error('Error fetching Disk:', xhr.statusText);
+          }
+        }
+      };
+      xhr.send();
+    }
+    udisk()
+    function uram() {
+      const apiKey = '<%= settings.api.client.api.code %>';
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/api/used/ram', true);
+      xhr.setRequestHeader('Authorization', apiKey);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            document.getElementById('uram').textContent =  response.ram/1024 + ' GB';
+          } else {
+            console.error('Error fetching RAM:', xhr.statusText);
+          }
+        }
+      };
+      xhr.send();
+    }
+    uram()
+            </script>
+            <div class="row mt-3">
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="card-title">HolaClient</div>
+                    <hr>
+                    <div class="form-group">
+                      <p>HolaClient by CR072</p><br>
+                      <span id="latest">Fetching...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <script>
+                async function getversion() {
+                  let latestversion = await fetch("/api/version")
+                    .then(response => response.json())
+                    .then(json => {
+                      const isUpToDate = json.latest === json.current;
+                      document.getElementById("latest").innerHTML = `Current Version: v<%= settings.version %> <br>Latest Version: ${json.latest}<br>${isUpToDate ? 'HolaClient is up-to-date.' : '<b>HolaClient is not up-to-date!</b>'}`;
+
+                      if (!isUpToDate) {
+                        alertAdmin();
+                      }
+                    });
+                }
+
+                function alertAdmin() {
+                  toastr.warning('Please keep your HolaClient up-to-date, as using older versions could potentially pose a security threat.', 'Update Available!');
+                }
+
+                getversion();
+              </script>
+
+              <% if (settings.purge.enabled==true) { %>
+                <div class="col-lg-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card-title">&nbsp;Purge Servers</div>
+                      <hr>
+                      <div style="border-radius: 15px;" class="table-responsive">
+                        <div class="form-group">
+                          <label for="input-6">&nbsp;Keyword: edit keyword in settings</label>
+                          <input class="form-control form-control-rounded" value="<%= settings.purge.keyword %>"
+                            disabled>
+                        </div>
+                        <button class="btn btn-light btn-round px-5"
+                          onclick="if (confirm('Are you sure that you want to purge inactive servers?')) { purge() }">Purge
+                          Inactive Servers</button>
+
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                          function purge() {
+                            $.ajax({
+                              url: '/api/purge',
+                              method: 'POST',
+                              success: function () {
+                                alert('Purge has started, check dashboard logs for more info!');
+                              },
+                              error: function () {
+                                alert('Failed to purge inactive servers.');
+                              }
+                            });
+                          }
+                        </script>
+
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+            </div>
+            </div>
+            <%- include('../components/footer') %>
+          </div>
+
+
+  <!-- Include Bootstrap 5 JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+  <!-- Include Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+  </div>
+</body>
+
+</html>
+
+
+<script>
+  async function submitPlan() {
+    let id = encodeURIComponent(document.getElementById("IDPlan").value);
+    let packagename = encodeURIComponent(document.getElementById("package").value);
+    window.location.href = "/setplan?id=" + id + "&package=" + packagename
+  }
+  async function submitSet() {
+    let id = encodeURIComponent(document.getElementById("IDSet").value);
+    let cpu = encodeURIComponent(document.getElementById("SetCPU").value);
+    let ram = encodeURIComponent(document.getElementById("SetRAM").value);
+    let disk = encodeURIComponent(document.getElementById("SetDisk").value);
+    let servers = encodeURIComponent(document.getElementById("SetServers").value);
+    window.location.href = "/setresources?id=" + id + "&cpu=" + cpu + "&ram=" + ram + "&disk=" + disk + "&servers=" + servers
+  }
+  async function submitAdd() {
+    let id = encodeURIComponent(document.getElementById("IDAdd").value);
+    let cpu = encodeURIComponent(document.getElementById("AddCPU").value);
+    let ram = encodeURIComponent(document.getElementById("AddRAM").value);
+    let disk = encodeURIComponent(document.getElementById("AddDisk").value);
+    let servers = encodeURIComponent(document.getElementById("AddServers").value);
+
+    window.location.href = "/addresources?id=" + id + "&cpu=" + cpu + "&ram=" + ram + "&disk=" + disk + "&servers=" + servers
+  }
+  async function submitRemove() {
+    let id = encodeURIComponent(document.getElementById("IDRemove").value);
+    let cpu = encodeURIComponent(document.getElementById("RemoveCPU").value);
+    let ram = encodeURIComponent(document.getElementById("RemoveRAM").value);
+    let disk = encodeURIComponent(document.getElementById("RemoveDisk").value);
+    let servers = encodeURIComponent(document.getElementById("RemoveServers").value);
+    window.location.href = "/removeresources?id=" + id + "&cpu=" + cpu + "&ram=" + ram + "&disk=" + disk + "&servers=" + servers
+  }
+</script>
+<!--start overlay-->
+<div class="overlay toggle-menu"></div>
+<!--end overlay-->
+<!--Start Back To Top Button-->
+<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+<!--End Back To Top Button-->
+<!-- Bootstrap core JavaScript-->
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/popper.min.js"></script>
+<script src="../../../assets/js/bootstrap.min.js"></script>
+
+<!-- simplebar js -->
+<script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+<!-- sidebar-menu js -->
+<script src="../../../assets/js/sidebar-menu.js"></script>
+<!-- Custom scripts -->
+<script src="../../../assets/js/app-script.js"></script>
