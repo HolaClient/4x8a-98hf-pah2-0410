@@ -24,13 +24,13 @@ module.exports.load = async function(app, db) {
           let theme = indexjs.get(req);
           let failedcallback = "/blackmart";
       
-          let usercoins = await db.get("coins-" + req.session.userinfo.id);
+          let usercoins = await db.get("coins-" + req.session.userinfo.email);
           usercoins = usercoins ? usercoins : 0;
       
-          let ramcap = await db.get("ram-" + req.session.userinfo.id);
+          let ramcap = await db.get("ram-" + req.session.userinfo.email);
           ramcap = ramcap ? ramcap : 0;
       
-          let extra = await db.get("extra-" + req.session.userinfo.id);
+          let extra = await db.get("extra-" + req.session.userinfo.email);
           extra = extra ? extra : {
             ram: 0,
             disk: 0,
@@ -50,22 +50,22 @@ module.exports.load = async function(app, db) {
           let newusercoins = usercoins + cost;
           let newram = ramcap - amount;
           if (newusercoins == 0) {
-            await db.delete("coins-" + req.session.userinfo.id);
-            await db.set("ram-" + req.session.userinfo.id, newram);
+            await db.delete("coins-" + req.session.userinfo.email);
+            await db.set("ram-" + req.session.userinfo.email, newram);
           } else {
-            await db.set("coins-" + req.session.userinfo.id, newusercoins);
-            await db.set("ram-" + req.session.userinfo.id, newram);
+            await db.set("coins-" + req.session.userinfo.email, newusercoins);
+            await db.set("ram-" + req.session.userinfo.email, newram);
           }
       
           extra.ram = extra.ram - per;
       
           if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0 && extra.databases == 0 && extra.backups == 0 && extra.allocations == 0) {
-            await db.delete("extra-" + req.session.userinfo.id);
+            await db.delete("extra-" + req.session.userinfo.email);
           } else {
-            await db.set("extra-" + req.session.userinfo.id, extra);
+            await db.set("extra-" + req.session.userinfo.email, extra);
           }
       
-          adminjs.suspend(req.session.userinfo.id);
+          adminjs.suspend(req.session.userinfo.email);
       
           log(`sold ram`, `${req.session.userinfo.username} sold ${per} MB ram to the store for ${cost} Credits.`);
           console.log(`${req.session.userinfo.username} sold ${per} MB ram to the store for ${cost} Credits.`);
@@ -93,10 +93,10 @@ module.exports.load = async function(app, db) {
           let theme = indexjs.get(req);
           let failedcallback = "/blackmart";
       
-          let usercoins = await db.get("coins-" + req.session.userinfo.id);
+          let usercoins = await db.get("coins-" + req.session.userinfo.email);
           usercoins = usercoins ? usercoins : 0;
       
-          let diskcap = await db.get("disk-" + req.session.userinfo.id);
+          let diskcap = await db.get("disk-" + req.session.userinfo.email);
           diskcap = diskcap ? diskcap : 0;
       
           if (diskcap < amount) return res.redirect(failedcallback + "?err=INSUFFICIENT");
@@ -111,14 +111,14 @@ module.exports.load = async function(app, db) {
           let newdisk = diskcap - amount;
       
           if (newusercoins == 0) {
-            await db.delete("coins-" + req.session.userinfo.id);
-            await db.set("disk-" + req.session.userinfo.id, newdisk);
+            await db.delete("coins-" + req.session.userinfo.email);
+            await db.set("disk-" + req.session.userinfo.email, newdisk);
           } else {
-            await db.set("coins-" + req.session.userinfo.id, newusercoins);
-            await db.set("disk-" + req.session.userinfo.id, newdisk);
+            await db.set("coins-" + req.session.userinfo.email, newusercoins);
+            await db.set("disk-" + req.session.userinfo.email, newdisk);
           }
       
-          let extra = await db.get("extra-" + req.session.userinfo.id);
+          let extra = await db.get("extra-" + req.session.userinfo.email);
           extra = extra ? extra : {
             ram: 0,
             disk: 0,
@@ -132,12 +132,12 @@ module.exports.load = async function(app, db) {
           extra.disk = extra.disk - per;
       
           if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0 && extra.databases == 0 && extra.backups == 0 && extra.allocations == 0) {
-            await db.delete("extra-" + req.session.userinfo.id);
+            await db.delete("extra-" + req.session.userinfo.email);
           } else {
-            await db.set("extra-" + req.session.userinfo.id, extra);
+            await db.set("extra-" + req.session.userinfo.email, extra);
           }
       
-          adminjs.suspend(req.session.userinfo.id);
+          adminjs.suspend(req.session.userinfo.email);
       
           log(`sold disk`, `${req.session.userinfo.username} sold ${per} MB disk to the store for ${earnings} Credits.`);
           console.log(`${req.session.userinfo.username} sold ${per} MB disk to the store for ${earnings} Credits.`);
@@ -165,10 +165,10 @@ module.exports.load = async function(app, db) {
           let theme = indexjs.get(req);
           let failedcallback = "/blackmart";
       
-          let usercoins = await db.get("coins-" + req.session.userinfo.id);
+          let usercoins = await db.get("coins-" + req.session.userinfo.email);
           usercoins = usercoins ? usercoins : 0;
       
-          let cpucap = await db.get("cpu-" + req.session.userinfo.id);
+          let cpucap = await db.get("cpu-" + req.session.userinfo.email);
           cpucap = cpucap ? cpucap : 0;
       
           if (cpucap < amount) return res.redirect(failedcallback + "?err=INSUFFICIENT");
@@ -183,14 +183,14 @@ module.exports.load = async function(app, db) {
           let newcpu = cpucap - amount;
       
           if (newusercoins == 0) {
-            await db.delete("coins-" + req.session.userinfo.id);
-            await db.set("cpu-" + req.session.userinfo.id, newcpu);
+            await db.delete("coins-" + req.session.userinfo.email);
+            await db.set("cpu-" + req.session.userinfo.email, newcpu);
           } else {
-            await db.set("coins-" + req.session.userinfo.id, newusercoins);
-            await db.set("cpu-" + req.session.userinfo.id, newcpu);
+            await db.set("coins-" + req.session.userinfo.email, newusercoins);
+            await db.set("cpu-" + req.session.userinfo.email, newcpu);
           }
       
-          let extra = await db.get("extra-" + req.session.userinfo.id);
+          let extra = await db.get("extra-" + req.session.userinfo.email);
           extra = extra ? extra : {
             ram: 0,
             disk: 0,
@@ -204,12 +204,12 @@ module.exports.load = async function(app, db) {
           extra.cpu = extra.cpu - per;
       
           if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0 && extra.databases == 0 && extra.backups == 0 && extra.allocations == 0) {
-            await db.delete("extra-" + req.session.userinfo.id);
+            await db.delete("extra-" + req.session.userinfo.email);
           } else {
-            await db.set("extra-" + req.session.userinfo.id, extra);
+            await db.set("extra-" + req.session.userinfo.email, extra);
           }
       
-          adminjs.suspend(req.session.userinfo.id);
+          adminjs.suspend(req.session.userinfo.email);
       
           log(`sold cpu`, `${req.session.userinfo.username} sold ${per}% cpu to the store for ${earnings} Credits.`);
           console.log(`${req.session.userinfo.username} sold ${per}% cpu to the store for ${earnings} Credits.`);
@@ -237,10 +237,10 @@ module.exports.load = async function(app, db) {
           let theme = indexjs.get(req);
           let failedcallback = "/blackmart";
       
-          let usercoins = await db.get("coins-" + req.session.userinfo.id);
+          let usercoins = await db.get("coins-" + req.session.userinfo.email);
           usercoins = usercoins ? usercoins : 0;
       
-          let serverscap = await db.get("servers-" + req.session.userinfo.id);
+          let serverscap = await db.get("servers-" + req.session.userinfo.email);
           serverscap = serverscap ? serverscap : 0;
       
           if (serverscap < amount) return res.redirect(failedcallback + "?err=INSUFFICIENT");
@@ -257,14 +257,14 @@ module.exports.load = async function(app, db) {
           if (newservers < 0) return res.redirect(failedcallback + "?err=INVALIDAMOUNT");
       
           if (newusercoins === 0) {
-            await db.delete("coins-" + req.session.userinfo.id);
-            await db.set("servers-" + req.session.userinfo.id, newservers);
+            await db.delete("coins-" + req.session.userinfo.email);
+            await db.set("servers-" + req.session.userinfo.email, newservers);
           } else {
-            await db.set("coins-" + req.session.userinfo.id, newusercoins);
-            await db.set("servers-" + req.session.userinfo.id, newservers);
+            await db.set("coins-" + req.session.userinfo.email, newusercoins);
+            await db.set("servers-" + req.session.userinfo.email, newservers);
           }
       
-          let extra = await db.get("extra-" + req.session.userinfo.id);
+          let extra = await db.get("extra-" + req.session.userinfo.email);
           extra = extra ? extra : {
             ram: 0,
             disk: 0,
@@ -278,12 +278,12 @@ module.exports.load = async function(app, db) {
           extra.servers = extra.servers - per;
       
           if (extra.ram === 0 && extra.disk === 0 && extra.cpu === 0 && extra.servers === 0 && extra.databases === 0 && extra.backups === 0 && extra.allocations === 0) {
-            await db.delete("extra-" + req.session.userinfo.id);
+            await db.delete("extra-" + req.session.userinfo.email);
           } else {
-            await db.set("extra-" + req.session.userinfo.id, extra);
+            await db.set("extra-" + req.session.userinfo.email, extra);
           }
       
-          adminjs.suspend(req.session.userinfo.id);
+          adminjs.suspend(req.session.userinfo.email);
       
           log(`sold servers`, `${req.session.userinfo.username} sold ${per} Slots to the store for ${earnings} Credits.`);
           console.log(`${req.session.userinfo.username} sold ${per} Slots to the store for ${earnings} Credits.`);
@@ -311,10 +311,10 @@ module.exports.load = async function(app, db) {
           let theme = indexjs.get(req);
           let failedcallback = "/blackmart";
       
-          let usercoins = await db.get("coins-" + req.session.userinfo.id);
+          let usercoins = await db.get("coins-" + req.session.userinfo.email);
           usercoins = usercoins ? usercoins : 0;
       
-          let databasescap = await db.get("databases-" + req.session.userinfo.id);
+          let databasescap = await db.get("databases-" + req.session.userinfo.email);
           databasescap = databasescap ? databasescap : 0;
       
           if (databasescap < amount) return res.redirect(failedcallback + "?err=INSUFFICIENT");
@@ -331,14 +331,14 @@ module.exports.load = async function(app, db) {
           if (newdatabases < 0) return res.redirect(failedcallback + "?err=INVALIDAMOUNT");
       
           if (newusercoins === 0) {
-            await db.delete("coins-" + req.session.userinfo.id);
-            await db.set("databases-" + req.session.userinfo.id, newdatabases);
+            await db.delete("coins-" + req.session.userinfo.email);
+            await db.set("databases-" + req.session.userinfo.email, newdatabases);
           } else {
-            await db.set("coins-" + req.session.userinfo.id, newusercoins);
-            await db.set("databases-" + req.session.userinfo.id, newdatabases);
+            await db.set("coins-" + req.session.userinfo.email, newusercoins);
+            await db.set("databases-" + req.session.userinfo.email, newdatabases);
           }
       
-          let extra = await db.get("extra-" + req.session.userinfo.id);
+          let extra = await db.get("extra-" + req.session.userinfo.email);
           extra = extra ? extra : {
             ram: 0,
             disk: 0,
@@ -352,12 +352,12 @@ module.exports.load = async function(app, db) {
           extra.databases = extra.databases - per;
       
           if (extra.ram === 0 && extra.disk === 0 && extra.cpu === 0 && extra.servers === 0 && extra.databases === 0 && extra.backups === 0 && extra.allocations === 0) {
-            await db.delete("extra-" + req.session.userinfo.id);
+            await db.delete("extra-" + req.session.userinfo.email);
           } else {
-            await db.set("extra-" + req.session.userinfo.id, extra);
+            await db.set("extra-" + req.session.userinfo.email, extra);
           }
       
-          adminjs.suspend(req.session.userinfo.id);
+          adminjs.suspend(req.session.userinfo.email);
       
           log(`sold databases`, `${req.session.userinfo.username} sold ${per} databases to the store for ${earnings} Credits.`);
           console.log(`${req.session.userinfo.username} sold ${per} databases to the store for ${earnings} Credits.`);
@@ -384,10 +384,10 @@ module.exports.load = async function(app, db) {
           let theme = indexjs.get(req);
           let failedcallback = "/blackmart";
       
-          let usercoins = await db.get("coins-" + req.session.userinfo.id);
+          let usercoins = await db.get("coins-" + req.session.userinfo.email);
           usercoins = usercoins ? usercoins : 0;
       
-          let backupscap = await db.get("backups-" + req.session.userinfo.id);
+          let backupscap = await db.get("backups-" + req.session.userinfo.email);
           backupscap = backupscap ? backupscap : 0;
       
           if (backupscap < amount) return res.redirect(failedcallback + "?err=INSUFFICIENT");
@@ -404,14 +404,14 @@ module.exports.load = async function(app, db) {
           if (newbackups < 0) return res.redirect(failedcallback + "?err=INVALIDAMOUNT");
       
           if (newusercoins === 0) {
-            await db.delete("coins-" + req.session.userinfo.id);
-            await db.set("backups-" + req.session.userinfo.id, newbackups);
+            await db.delete("coins-" + req.session.userinfo.email);
+            await db.set("backups-" + req.session.userinfo.email, newbackups);
           } else {
-            await db.set("coins-" + req.session.userinfo.id, newusercoins);
-            await db.set("backups-" + req.session.userinfo.id, newbackups);
+            await db.set("coins-" + req.session.userinfo.email, newusercoins);
+            await db.set("backups-" + req.session.userinfo.email, newbackups);
           }
       
-          let extra = await db.get("extra-" + req.session.userinfo.id);
+          let extra = await db.get("extra-" + req.session.userinfo.email);
           extra = extra ? extra : {
             ram: 0,
             disk: 0,
@@ -425,12 +425,12 @@ module.exports.load = async function(app, db) {
           extra.backups = extra.backups - per;
       
           if (extra.ram === 0 && extra.disk === 0 && extra.cpu === 0 && extra.servers === 0 && extra.databases === 0 && extra.backups === 0 && extra.allocations === 0) {
-            await db.delete("extra-" + req.session.userinfo.id);
+            await db.delete("extra-" + req.session.userinfo.email);
           } else {
-            await db.set("extra-" + req.session.userinfo.id, extra);
+            await db.set("extra-" + req.session.userinfo.email, extra);
           }
       
-          adminjs.suspend(req.session.userinfo.id);
+          adminjs.suspend(req.session.userinfo.email);
       
           log(`sold backups`, `${req.session.userinfo.username} sold ${per} backups to the store for ${earnings} Credits.`);
           console.log(`${req.session.userinfo.username} sold ${per} backups to the store for ${earnings} Credits.`);
@@ -458,10 +458,10 @@ module.exports.load = async function(app, db) {
           let theme = indexjs.get(req);
           let failedcallback = "/blackmart";
       
-          let usercoins = await db.get("coins-" + req.session.userinfo.id);
+          let usercoins = await db.get("coins-" + req.session.userinfo.email);
           usercoins = usercoins ? usercoins : 0;
       
-          let allocationscap = await db.get("allocations-" + req.session.userinfo.id);
+          let allocationscap = await db.get("allocations-" + req.session.userinfo.email);
           allocationscap = allocationscap ? allocationscap : 0;
       
           if (allocationscap < amount) return res.redirect(failedcallback + "?err=INSUFFICIENT");
@@ -478,14 +478,14 @@ module.exports.load = async function(app, db) {
           if (newallocations < 0) return res.redirect(failedcallback + "?err=INVALIDAMOUNT");
       
           if (newusercoins === 0) {
-            await db.delete("coins-" + req.session.userinfo.id);
-            await db.set("allocations-" + req.session.userinfo.id, newallocations);
+            await db.delete("coins-" + req.session.userinfo.email);
+            await db.set("allocations-" + req.session.userinfo.email, newallocations);
           } else {
-            await db.set("coins-" + req.session.userinfo.id, newusercoins);
-            await db.set("allocations-" + req.session.userinfo.id, newallocations);
+            await db.set("coins-" + req.session.userinfo.email, newusercoins);
+            await db.set("allocations-" + req.session.userinfo.email, newallocations);
           }
       
-          let extra = await db.get("extra-" + req.session.userinfo.id);
+          let extra = await db.get("extra-" + req.session.userinfo.email);
           extra = extra ? extra : {
             ram: 0,
             disk: 0,
@@ -499,12 +499,12 @@ module.exports.load = async function(app, db) {
           extra.allocations = extra.allocations - per;
       
           if (extra.ram === 0 && extra.disk === 0 && extra.cpu === 0 && extra.servers === 0 && extra.databases === 0 && extra.backups === 0 && extra.allocations === 0) {
-            await db.delete("extra-" + req.session.userinfo.id);
+            await db.delete("extra-" + req.session.userinfo.email);
           } else {
-            await db.set("extra-" + req.session.userinfo.id, extra);
+            await db.set("extra-" + req.session.userinfo.email, extra);
           }
       
-          adminjs.suspend(req.session.userinfo.id);
+          adminjs.suspend(req.session.userinfo.email);
       
           log(`sold allocations`, `${req.session.userinfo.username} sold ${per} allocations to the store for ${earnings} Credits.`);
           console.log(`${req.session.userinfo.username} sold ${per} allocations to the store for ${earnings} Credits.`);
