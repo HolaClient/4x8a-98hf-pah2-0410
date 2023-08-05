@@ -176,6 +176,7 @@ if (settings.api.client.api.code === 'RANDOM') {
   settings.api.client.api.code = "hcla_" + randomCode;
 }
 const listener = app.listen(settings.website.port, function() {
+    console.clear()
     console.log(chalk.gray("  "));
     console.log("  _    _       _        _____ _ _            _   ");
     console.log(" | |  | |     | |      / ____| (_)          | |  ");
