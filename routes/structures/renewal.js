@@ -35,12 +35,12 @@ module.exports.load = async function (app, db) {
 
         if (lastRenew > Date.now()) return res.redirect(`/dashboard`)
 
-        let coins = await db.get("coins-" + req.session.userinfo.id);
+        let coins = await db.get("coins-" + req.session.userinfo.email);
         coins = coins ? coins : 0;
 
         if (settings.renewals.cost > coins) return res.redirect(`/dashboard` + "?err=CANNOTAFFORDRENEWAL")
 
-        await db.set("coins-" + req.session.userinfo.id, coins - settings.renewals.cost)
+        await db.set("coins-" + req.session.userinfo.email, coins - settings.renewals.cost)
 
         const newTime = lastRenew + (settings.renewals.delay * 86400000)
         await db.set(`lastrenewal-${req.query.id}`, newTime)
