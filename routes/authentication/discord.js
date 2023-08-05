@@ -266,29 +266,6 @@ module.exports.load = async function (app, db) {
 
         if (newsettings.api.client.oauth2.ip.block.includes(ip)) return res.send("Your IP is blacklisted, You can't visit this site!")
 
-        if ((newsettings.api.client.oauth2.ip["duplicate check"] == true) && ip !== '127.0.0.1') {
-          const ipuser = await db.get(`ipuser-${ip}`)
-          if (ipuser && ipuser !== userinfo.id) {
-            renderFile(
-              `./views/${newsettings.defaulttheme}/alerts/alt.ejs`,
-              {
-                settings: newsettings,
-                db,
-                extra: { home: { name: 'VPN Detected' } }
-              },
-              null,
-              (err, str) => {
-                if (err) return res.send('<center>ALT ACCOUNT DETECTED!</center>')
-                res.status(200);
-                res.send(str);
-              }
-            )
-            return
-          } else if (!ipuser) {
-            await db.set(`ipuser-${ip}`, userinfo.email)
-          }
-        }
-
         if (newsettings.api.client.j4r.enabled) {
           if (guildsinfo.message == '401: Unauthorized') return res.send("Please allow us to know what servers you are in to let the J4R system work properly. <a href='/login'>Login again</a>")
           let userj4r = await db.get(`j4rs-${userinfo.id}`) ?? []
@@ -389,8 +366,6 @@ module.exports.load = async function (app, db) {
         if (!await db.get("users-" + userinfo.id)) {
           if (newsettings.api.client.allow.newusers == true) {
             let genpassword = null;
-            let username = userinfo.username;
-            username = username.replace(/[^a-zA-Z0-9]/g, '');
             if (newsettings.api.client.passwordgenerator.signup == true) genpassword = makeid(newsettings.api.client.passwordgenerator["length"]);
             let accountjson = await fetch(
               settings.pterodactyl.domain + "/api/application/users",
@@ -401,9 +376,9 @@ module.exports.load = async function (app, db) {
                   "Authorization": `Bearer ${settings.pterodactyl.key}`
                 },
                 body: JSON.stringify({
-                  username: username,
+                  username: userinfo.username,
                   email: userinfo.email,
-                  first_name: userinfo.global_name,
+                  first_name: userinfo.id,
                   last_name: "discord-auth",
                   password: genpassword
                 })
@@ -414,7 +389,7 @@ module.exports.load = async function (app, db) {
               let userids = await db.get("users") ? await db.get("users") : [];
               userids.push(accountinfo.attributes.id);
               await db.set("users", userids);
-              await db.set("users-" + userinfo.email, accountinfo.attributes.id);
+              await db.set("users-" + userinfo.id, accountinfo.attributes.id);
               req.session.newaccount = true;
               req.session.password = genpassword;
             } else {
@@ -437,7 +412,6 @@ module.exports.load = async function (app, db) {
                   userids.push(userid);
                   await db.set("users", userids);
                   await db.set("users-" + userinfo.id, userid);
-                  await db.set("users-" + userinfo.email, userid)
                   req.session.pterodactyl = user[0].attributes;
                 } else {
                   return res.send("We have detected your accont registered on our database but your account is missing from the panel, hence we can't log you in.");
@@ -454,7 +428,7 @@ module.exports.load = async function (app, db) {
         };
 
         let cacheaccount = await fetch(
-          settings.pterodactyl.domain + "/api/application/users/" + (await db.get("users-" + userinfo.email)) + "?include=servers",
+          settings.pterodactyl.domain + "/api/application/users/" + (await db.get("users-" + userinfo.id)) + "?include=servers",
           {
             method: "get",
             headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${settings.pterodactyl.key}` }
