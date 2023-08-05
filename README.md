@@ -50,14 +50,17 @@
 ## 👀 Preview
 HolaClient Demo: https://demo.holaclient.io/
 
-Landing Page (v1.5.6):
-![Landing Page](https://github.com/CR072/HolaClient/assets/102372274/8b3b0cea-1b7f-44e3-abf4-6da6c09a6e2b)
+Landing Page (v1.5.7):
+![Landing](https://github.com/HolaClient/HolaClient/assets/102372274/1b55d706-b4fb-41f7-a2a9-0f82d21a1a75)
 
-Admin Home (v1.5.6):
-![Admin Home](https://github.com/CR072/HolaClient/assets/102372274/7a748fb0-1d6d-43ea-a1e2-4ce394d1d363)
+Admin Home (v1.5.7):
+![Admin](https://github.com/HolaClient/HolaClient/assets/102372274/f0319979-0375-4d0b-9005-9b42bb229701)
 
-Dashboard (v1.6 Early-1):
-![Dashboard](https://github.com/HolaClient/HolaClient/assets/102372274/735d0c54-becf-49b2-83bb-9737ed037e11)
+Dashboard (v1.7):
+![Dashboard](https://github.com/HolaClient/HolaClient/assets/102372274/d0a82c16-4a72-4558-9945-bef4130145f1)
+
+Subdomain (v1.7):
+![Subdomain](https://github.com/HolaClient/HolaClient/assets/102372274/6db15761-a9a5-4c69-95d8-df6020696b37)
 
 ---
 
@@ -74,7 +77,6 @@ bash <(curl -s https://installer.holaclient.tech)
 ---
 
 ## 📝 Authors
-- **Sryden** | Made Heliactyl (The base of HolaClient)
 - [**CR072**](https://github.com/CR072) | Made HolaClient and manages the installer
 - [**ItzBenoitXD**](https://github.com/ItzBenoitXD) | Made HolaClient Docs and manages it
     
