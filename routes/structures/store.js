@@ -30,10 +30,10 @@ module.exports.load = async function(app, db) {
       let theme = indexjs.get(req);
       let failedcallback = theme.settings.redirect.failedpurchaseram ? theme.settings.redirect.failedpurchaseram : "/";
 
-      let usercoins = await db.get("coins-" + req.session.userinfo.id);
+      let usercoins = await db.get("coins-" + req.session.userinfo.email);
       usercoins = usercoins ? usercoins : 0;
         
-      let ramcap = await db.get("ram-" + req.session.userinfo.id);
+      let ramcap = await db.get("ram-" + req.session.userinfo.email);
       ramcap = ramcap ? ramcap : 0;
         
       if (ramcap + amount > settings.storelimits.ram) return res.redirect(failedcallback + "?err=MAXRAMEXCEETED");
@@ -47,14 +47,14 @@ module.exports.load = async function(app, db) {
       let newram = ramcap + amount;
       if(newram > settings.storelimits.ram) return res.send("You reached max ram limit!");
       if (newusercoins == 0) {
-        await db.delete("coins-" + req.session.userinfo.id);
-        await db.set("ram-" + req.session.userinfo.id, newram);
+        await db.delete("coins-" + req.session.userinfo.email);
+        await db.set("ram-" + req.session.userinfo.email, newram);
       } else {
-        await db.set("coins-" + req.session.userinfo.id, newusercoins);
-        await db.set("ram-" + req.session.userinfo.id, newram);
+        await db.set("coins-" + req.session.userinfo.email, newusercoins);
+        await db.set("ram-" + req.session.userinfo.email, newram);
       }
 
-      let extra = await db.get("extra-" + req.session.userinfo.id);
+      let extra = await db.get("extra-" + req.session.userinfo.email);
       extra = extra ? extra : {
         ram: 0,
         disk: 0,
@@ -68,12 +68,12 @@ module.exports.load = async function(app, db) {
       extra.ram = extra.ram + per;
 
       if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0) {
-        await db.delete("extra-" + req.session.userinfo.id);
+        await db.delete("extra-" + req.session.userinfo.email);
       } else {
-        await db.set("extra-" + req.session.userinfo.id, extra);
+        await db.set("extra-" + req.session.userinfo.email, extra);
       }
 
-      adminjs.suspend(req.session.userinfo.id);
+      adminjs.suspend(req.session.userinfo.email);
 
       log(`bought ram`, `${req.session.userinfo.username} bought ${per}\MB ram from the store for \`${cost}\` Credits.`)
       console.log(`${req.session.userinfo.username} bought ${per}\MB ram from the store for ${cost} Credits.`)
@@ -102,10 +102,10 @@ module.exports.load = async function(app, db) {
       let theme = indexjs.get(req);
       let failedcallback = theme.settings.redirect.failedpurchasedisk ? theme.settings.redirect.failedpurchasedisk : "/";
 
-      let usercoins = await db.get("coins-" + req.session.userinfo.id);
+      let usercoins = await db.get("coins-" + req.session.userinfo.email);
       usercoins = usercoins ? usercoins : 0;
         
-      let diskcap = await db.get("disk-" + req.session.userinfo.id);
+      let diskcap = await db.get("disk-" + req.session.userinfo.email);
       diskcap = diskcap ? diskcap : 0;
         
       if (diskcap + amount > settings.storelimits.disk) return res.redirect(failedcallback + "?err=MAXDISKEXCEETED");
@@ -119,14 +119,14 @@ module.exports.load = async function(app, db) {
       let newdisk = diskcap + amount;
       if(newdisk > settings.storelimits.disk) return res.send("You reached max disk limit!");
       if (newusercoins == 0) {
-        await db.delete("coins-" + req.session.userinfo.id);
-        await db.set("disk-" + req.session.userinfo.id, newdisk);
+        await db.delete("coins-" + req.session.userinfo.email);
+        await db.set("disk-" + req.session.userinfo.email, newdisk);
       } else {
-        await db.set("coins-" + req.session.userinfo.id, newusercoins);
-        await db.set("disk-" + req.session.userinfo.id, newdisk);
+        await db.set("coins-" + req.session.userinfo.email, newusercoins);
+        await db.set("disk-" + req.session.userinfo.email, newdisk);
       }
 
-      let extra = await db.get("extra-" + req.session.userinfo.id);
+      let extra = await db.get("extra-" + req.session.userinfo.email);
       extra = extra ? extra : {
         ram: 0,
         disk: 0,
@@ -140,12 +140,12 @@ module.exports.load = async function(app, db) {
       extra.disk = extra.disk + per;
 
       if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0) {
-        await db.delete("extra-" + req.session.userinfo.id);
+        await db.delete("extra-" + req.session.userinfo.email);
       } else {
-        await db.set("extra-" + req.session.userinfo.id, extra);
+        await db.set("extra-" + req.session.userinfo.email, extra);
       }
 
-      adminjs.suspend(req.session.userinfo.id);
+      adminjs.suspend(req.session.userinfo.email);
 
       log(`bought disk`, `${req.session.userinfo.username} bought ${per}MB disk from the store for \`${cost}\` Credits.`)
       console.log(`${req.session.userinfo.username} bought ${per}MB disk from the store for ${cost} Credits.`)
@@ -174,10 +174,10 @@ module.exports.load = async function(app, db) {
       let theme = indexjs.get(req);
       let failedcallback = theme.settings.redirect.failedpurchasecpu ? theme.settings.redirect.failedpurchasecpu : "/";
 
-      let usercoins = await db.get("coins-" + req.session.userinfo.id);
+      let usercoins = await db.get("coins-" + req.session.userinfo.email);
       usercoins = usercoins ? usercoins : 0;
         
-      let  cpucap = await db.get("cpu-" + req.session.userinfo.id);
+      let  cpucap = await db.get("cpu-" + req.session.userinfo.email);
       cpucap = cpucap ? cpucap : 0;
         
       if (cpucap + amount > settings.storelimits.cpu) return res.redirect(failedcallback + "?err=MAXCPUEXCEETED");
@@ -191,14 +191,14 @@ module.exports.load = async function(app, db) {
       let newcpu = cpucap + amount;
       if(newcpu > settings.storelimits.cpu) return res.send("You reached max cpu limit!");
       if (newusercoins == 0) {
-        await db.delete("coins-" + req.session.userinfo.id);
-        await db.set("cpu-" + req.session.userinfo.id, newcpu);
+        await db.delete("coins-" + req.session.userinfo.email);
+        await db.set("cpu-" + req.session.userinfo.email, newcpu);
       } else {
-        await db.set("coins-" + req.session.userinfo.id, newusercoins);
-        await db.set("cpu-" + req.session.userinfo.id, newcpu);
+        await db.set("coins-" + req.session.userinfo.email, newusercoins);
+        await db.set("cpu-" + req.session.userinfo.email, newcpu);
       }
 
-      let extra = await db.get("extra-" + req.session.userinfo.id);
+      let extra = await db.get("extra-" + req.session.userinfo.email);
       extra = extra ? extra : {
         ram: 0,
         disk: 0,
@@ -212,12 +212,12 @@ module.exports.load = async function(app, db) {
       extra.cpu = extra.cpu + per;
 
       if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0) {
-        await db.delete("extra-" + req.session.userinfo.id);
+        await db.delete("extra-" + req.session.userinfo.email);
       } else {
-        await db.set("extra-" + req.session.userinfo.id, extra);
+        await db.set("extra-" + req.session.userinfo.email, extra);
       }
 
-      adminjs.suspend(req.session.userinfo.id);
+      adminjs.suspend(req.session.userinfo.email);
 
       log(`bought cpu`, `${req.session.userinfo.username} bought ${per}% cpu from the store for \`${cost}\` Credits.`)
       console.log(`${req.session.userinfo.username} bought ${per}% cpu from the store for ${cost} Credits.`)
@@ -246,10 +246,10 @@ module.exports.load = async function(app, db) {
       let theme = indexjs.get(req);
       let failedcallback = theme.settings.redirect.failedpurchaseservers ? theme.settings.redirect.failedpurchaseservers : "/";
 
-      let usercoins = await db.get("coins-" + req.session.userinfo.id);
+      let usercoins = await db.get("coins-" + req.session.userinfo.email);
       usercoins = usercoins ? usercoins : 0;
         
-      let serverscap = await db.get("servers-" + req.session.userinfo.id);
+      let serverscap = await db.get("servers-" + req.session.userinfo.email);
       serverscap = serverscap ? serverscap : 0;
         
       if (serverscap + amount > settings.storelimits.servers) return res.redirect(failedcallback + "?err=MAXSERVERSEXCEETED");
@@ -263,14 +263,14 @@ module.exports.load = async function(app, db) {
       let newservers = serverscap + amount;
       if(newservers > settings.storelimits.servers) return res.send("Reached max server limit!");
       if (newusercoins == 0) {
-        await db.delete("coins-" + req.session.userinfo.id);
-        await db.set("servers-" + req.session.userinfo.id, newservers);
+        await db.delete("coins-" + req.session.userinfo.email);
+        await db.set("servers-" + req.session.userinfo.email, newservers);
       } else {
-        await db.set("coins-" + req.session.userinfo.id, newusercoins);
-        await db.set("servers-" + req.session.userinfo.id, newservers);
+        await db.set("coins-" + req.session.userinfo.email, newusercoins);
+        await db.set("servers-" + req.session.userinfo.email, newservers);
       }
 
-      let extra = await db.get("extra-" + req.session.userinfo.id);
+      let extra = await db.get("extra-" + req.session.userinfo.email);
       extra = extra ? extra : {
         ram: 0,
         disk: 0,
@@ -284,12 +284,12 @@ module.exports.load = async function(app, db) {
       extra.servers = extra.servers + per;
 
       if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0) {
-        await db.delete("extra-" + req.session.userinfo.id);
+        await db.delete("extra-" + req.session.userinfo.email);
       } else {
-        await db.set("extra-" + req.session.userinfo.id, extra);
+        await db.set("extra-" + req.session.userinfo.email, extra);
       }
 
-      adminjs.suspend(req.session.userinfo.id);
+      adminjs.suspend(req.session.userinfo.email);
 
       log(`bought servers`, `${req.session.userinfo.username} bought ${per} Slots from the store for \`${cost}\` Credits.`)
       console.log(`${req.session.userinfo.username} bought ${per} Slots from the store for ${cost} Credits.`)
@@ -318,10 +318,10 @@ module.exports.load = async function(app, db) {
       let theme = indexjs.get(req);
       let failedcallback = theme.settings.redirect.failedpurchaseram ? theme.settings.redirect.failedpurchaseram : "/";
 
-      let usercoins = await db.get("coins-" + req.session.userinfo.id);
+      let usercoins = await db.get("coins-" + req.session.userinfo.email);
       usercoins = usercoins ? usercoins : 0;
         
-      let databasescap = await db.get("databases-" + req.session.userinfo.id);
+      let databasescap = await db.get("databases-" + req.session.userinfo.email);
       databasescap = databasescap ? databasescap : 0;
         
       if (databasescap + amount > settings.storelimits.databases) return res.redirect(failedcallback + "?err=MAXIMUMLIMIT");
@@ -335,14 +335,14 @@ module.exports.load = async function(app, db) {
       let newdatabases = databasescap + amount;
       if(newdatabases > settings.storelimits.databases) return res.send("You reached max database limit!");
       if (newusercoins == 0) {
-        await db.delete("coins-" + req.session.userinfo.id);
-        await db.set("databases-" + req.session.userinfo.id, newdatabases);
+        await db.delete("coins-" + req.session.userinfo.email);
+        await db.set("databases-" + req.session.userinfo.email, newdatabases);
       } else {
-        await db.set("coins-" + req.session.userinfo.id, newusercoins);
-        await db.set("databases-" + req.session.userinfo.id, newdatabases);
+        await db.set("coins-" + req.session.userinfo.email, newusercoins);
+        await db.set("databases-" + req.session.userinfo.email, newdatabases);
       }
 
-      let extra = await db.get("extra-" + req.session.userinfo.id);
+      let extra = await db.get("extra-" + req.session.userinfo.email);
       extra = extra ? extra : {
         ram: 0,
         disk: 0,
@@ -356,12 +356,12 @@ module.exports.load = async function(app, db) {
       extra.databases = extra.databases + per;
 
       if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0 && extra.databases == 0 && extra.backups == 0 && extra.allocations == 0) {
-        await db.delete("extra-" + req.session.userinfo.id);
+        await db.delete("extra-" + req.session.userinfo.email);
       } else {
-        await db.set("extra-" + req.session.userinfo.id, extra);
+        await db.set("extra-" + req.session.userinfo.email, extra);
       }
 
-      adminjs.suspend(req.session.userinfo.id);
+      adminjs.suspend(req.session.userinfo.email);
 
       log(`bought databases`, `${req.session.userinfo.username} bought ${per} databases from the store for \`${cost}\` Credits.`)
       console.log(`${req.session.userinfo.username} bought ${per} databases from the store for ${cost} Credits.`)
@@ -390,10 +390,10 @@ module.exports.load = async function(app, db) {
       let theme = indexjs.get(req);
       let failedcallback = theme.settings.redirect.failedpurchaseram ? theme.settings.redirect.failedpurchaseram : "/";
 
-      let usercoins = await db.get("coins-" + req.session.userinfo.id);
+      let usercoins = await db.get("coins-" + req.session.userinfo.email);
       usercoins = usercoins ? usercoins : 0;
         
-      let backupscap = await db.get("backups-" + req.session.userinfo.id);
+      let backupscap = await db.get("backups-" + req.session.userinfo.email);
       backupscap = backupscap ? backupscap : 0;
         
       if (backupscap + amount > settings.storelimits.backups) return res.redirect(failedcallback + "?err=MAXIMUMLIMIT");
@@ -407,14 +407,14 @@ module.exports.load = async function(app, db) {
       let newbackups = backupscap + amount;
       if(newbackups > settings.storelimits.backups) return res.send("You reached max backups limit!");
       if (newusercoins == 0) {
-        await db.delete("coins-" + req.session.userinfo.id);
-        await db.set("backups-" + req.session.userinfo.id, newbackups);
+        await db.delete("coins-" + req.session.userinfo.email);
+        await db.set("backups-" + req.session.userinfo.email, newbackups);
       } else {
-        await db.set("coins-" + req.session.userinfo.id, newusercoins);
-        await db.set("backups-" + req.session.userinfo.id, newbackups);
+        await db.set("coins-" + req.session.userinfo.email, newusercoins);
+        await db.set("backups-" + req.session.userinfo.email, newbackups);
       }
 
-      let extra = await db.get("extra-" + req.session.userinfo.id);
+      let extra = await db.get("extra-" + req.session.userinfo.email);
       extra = extra ? extra : {
         ram: 0,
         disk: 0,
@@ -428,12 +428,12 @@ module.exports.load = async function(app, db) {
       extra.backups = extra.backups + per;
 
       if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0 && extra.databases == 0 && extra.backups == 0 && extra.allocations == 0) {
-        await db.delete("extra-" + req.session.userinfo.id);
+        await db.delete("extra-" + req.session.userinfo.email);
       } else {
-        await db.set("extra-" + req.session.userinfo.id, extra);
+        await db.set("extra-" + req.session.userinfo.email, extra);
       }
 
-      adminjs.suspend(req.session.userinfo.id);
+      adminjs.suspend(req.session.userinfo.email);
 
       log(`bought backups`, `${req.session.userinfo.username} bought ${per} backups from the store for \`${cost}\` Credits.`)
       console.log(`${req.session.userinfo.username} bought ${per} backups from the store for ${cost} Credits.`)
@@ -462,10 +462,10 @@ module.exports.load = async function(app, db) {
       let theme = indexjs.get(req);
       let failedcallback = theme.settings.redirect.failedpurchaseram ? theme.settings.redirect.failedpurchaseram : "/";
 
-      let usercoins = await db.get("coins-" + req.session.userinfo.id);
+      let usercoins = await db.get("coins-" + req.session.userinfo.email);
       usercoins = usercoins ? usercoins : 0;
         
-      let allocationscap = await db.get("allocations-" + req.session.userinfo.id);
+      let allocationscap = await db.get("allocations-" + req.session.userinfo.email);
       allocationscap = allocationscap ? allocationscap : 0;
         
       if (allocationscap + amount > settings.storelimits.allocations) return res.redirect(failedcallback + "?err=MAXIMUMLIMIT");
@@ -479,14 +479,14 @@ module.exports.load = async function(app, db) {
       let newallocations = allocationscap + amount;
       if(newallocations > settings.storelimits.allocations) return res.send("You reached max database limit!");
       if (newusercoins == 0) {
-        await db.delete("coins-" + req.session.userinfo.id);
-        await db.set("allocations-" + req.session.userinfo.id, newallocations);
+        await db.delete("coins-" + req.session.userinfo.email);
+        await db.set("allocations-" + req.session.userinfo.email, newallocations);
       } else {
-        await db.set("coins-" + req.session.userinfo.id, newusercoins);
-        await db.set("allocations-" + req.session.userinfo.id, newallocations);
+        await db.set("coins-" + req.session.userinfo.email, newusercoins);
+        await db.set("allocations-" + req.session.userinfo.email, newallocations);
       }
 
-      let extra = await db.get("extra-" + req.session.userinfo.id);
+      let extra = await db.get("extra-" + req.session.userinfo.email);
       extra = extra ? extra : {
         ram: 0,
         disk: 0,
@@ -500,12 +500,12 @@ module.exports.load = async function(app, db) {
       extra.allocations = extra.allocations + per;
 
       if (extra.ram == 0 && extra.disk == 0 && extra.cpu == 0 && extra.servers == 0 && extra.databases == 0 && extra.backups == 0 && extra.allocations == 0) {
-        await db.delete("extra-" + req.session.userinfo.id);
+        await db.delete("extra-" + req.session.userinfo.email);
       } else {
-        await db.set("extra-" + req.session.userinfo.id, extra);
+        await db.set("extra-" + req.session.userinfo.email, extra);
       }
 
-      adminjs.suspend(req.session.userinfo.id);
+      adminjs.suspend(req.session.userinfo.email);
 
       log(`bought allocations`, `${req.session.userinfo.username} bought ${per} allocations from the store for \`${cost}\` Credits.`)
       console.log(`${req.session.userinfo.username} bought ${per} allocations from the store for ${cost} Credits.`)
