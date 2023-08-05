@@ -31,19 +31,20 @@
 - Databases, Backups and Ports: Create servers with additional resources.
 - Join for Rewards: Earn money by joining a server.
 - Admin: Admin management area.
+- Advanced Ratelimiters and built-in Anti-DDoS.
 - Landing Page with updated information.
 - Purge System: Purge inactive servers easily.
 - Webhook: Log actions to webhooks.
 - Gift resources: Transfer resources or coins.
 - Stripe API: Billing system using Stripe.
 - Legal: Built-in Terms of Service and Privacy Policy.
+- Referral earning: Earn coins by referring your friends.
+- Daily coins: Earn coins daily.
 - Linkvertise Earning: Earn coins by completing a link.
 - ShareUs Earning: Earn coins by completing a link.
 - GyaniLinks Earning: Earn coins by completing a link.
 - LinkPays Earning: Earn coins by completing a link.
 - Role Packages: Give a package to users who have the role.
-- Different pages for Admins & Moderators.
-
 ---
 
 
