@@ -17,7 +17,7 @@ module.exports.load = async function(app, db) {
 
     await db.delete("coupon-" + code);
 
-    let extra = await db.get("extra-" + req.session.userinfo.id) || {
+    let extra = await db.get("extra-" + req.session.userinfo.email) || {
       ram: 0,
       disk: 0,
       cpu: 0,
