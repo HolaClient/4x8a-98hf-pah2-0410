@@ -154,7 +154,7 @@ module.exports.load = async function (app, db) {
             }
 
             let specs = egginfo.info;
-            specs["user"] = (await db.get("users-" + req.session.userinfo.email));
+            specs["user"] = (await db.get("users-" + req.session.userinfo.id));
             if (!specs["limits"]) specs["limits"] = {
               swap: 0,
               io: 500,
