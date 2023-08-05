@@ -12,7 +12,7 @@ if (settings.pterodactyl) if (settings.pterodactyl.domain) {
 module.exports.load = async function (app, db) {
   app.get("/updateinfo", async (req, res) => {
     if (!req.session.pterodactyl) return res.redirect("/auth");
-    const cacheaccount = await getPteroUser(req.session.userinfo.id, db)
+    const cacheaccount = await getPteroUser(req.session.userinfo.email, db)
       .catch(() => {
         return res.send("An error has occured while attempting to update your account information and server list.");
       })
@@ -33,7 +33,7 @@ module.exports.load = async function (app, db) {
       queue.addJob(async (cb) => {
         let redirectlink = theme.settings.redirect.failedcreateserver ?? "/"; // fail redirect link
 
-        const cacheaccount = await getPteroUser(req.session.userinfo.id, db)
+        const cacheaccount = await getPteroUser(req.session.userinfo.email, db)
           .catch(() => {
             cb()
             return res.send("An error has occured while attempting to update your account information and server list.");
@@ -52,11 +52,11 @@ module.exports.load = async function (app, db) {
             return res.redirect(`${redirectlink}?err=COULDNOTDECODENAME`);
           }
 
-          let packagename = await db.get("package-" + req.session.userinfo.id);
+          let packagename = await db.get("package-" + req.session.userinfo.email);
           let package = newsettings.api.client.packages.list[packagename ? packagename : newsettings.api.client.packages.default];
 
           let extra =
-            await db.get("extra-" + req.session.userinfo.id) ||
+            await db.get("extra-" + req.session.userinfo.email) ||
             {
               ram: 0,
               disk: 0,
@@ -154,7 +154,7 @@ module.exports.load = async function (app, db) {
             }
 
             let specs = egginfo.info;
-            specs["user"] = (await db.get("users-" + req.session.userinfo.id));
+            specs["user"] = (await db.get("users-" + req.session.userinfo.email));
             if (!specs["limits"]) specs["limits"] = {
               swap: 0,
               io: 500,
@@ -173,9 +173,9 @@ module.exports.load = async function (app, db) {
             specs.deploy.locations = [location];
             
             // Make sure user has enough coins
-            const createdServer = await db.get(`createdserver-${req.session.userinfo.id}`)
+            const createdServer = await db.get(`createdserver-${req.session.userinfo.email}`)
             const createdStatus = createdServer ?? false
-            const coins = await db.get("coins-" + req.session.userinfo.id) ?? 0;
+            const coins = await db.get("coins-" + req.session.userinfo.email) ?? 0;
             const cost = settings.servercreation.cost
             if (createdStatus && coins < cost) {
               cb()
@@ -203,11 +203,11 @@ module.exports.load = async function (app, db) {
             
             // Bill user if they have created a server before
             if (createdStatus) {
-              await db.set("coins-" + req.session.userinfo.id, coins - cost)
+              await db.set("coins-" + req.session.userinfo.email, coins - cost)
             }
 
             await db.set(`lastrenewal-${serverinfotext.attributes.id}`, Date.now())
-            await db.set(`createdserver-${req.session.userinfo.id}`, true)
+            await db.set(`createdserver-${req.session.userinfo.email}`, true)
 
             cb()
             log('created server', `${req.session.userinfo.username}#${req.session.userinfo.discriminator} created a new server named \`${name}\` with the following specs:\n\`\`\`Memory: ${ram} MB\nCPU: ${cpu}%\nDisk: ${disk}\`\`\``)
@@ -236,7 +236,7 @@ module.exports.load = async function (app, db) {
     if (newsettings.api.client.allow.server.modify == true) {
       if (!req.query.id) return res.send("Missing server id.");
 
-      const cacheaccount = await getPteroUser(req.session.userinfo.id, db)
+      const cacheaccount = await getPteroUser(req.session.userinfo.email, db)
         .catch(() => {
           return res.send("An error has occured while attempting to update your account information and server list.");
         })
@@ -258,7 +258,7 @@ module.exports.load = async function (app, db) {
       if (ram || disk || cpu || allocations || backups || databases) {
         let newsettings = JSON.parse(fs.readFileSync("./settings.json").toString());
 
-        let packagename = await db.get("package-" + req.session.userinfo.id);
+        let packagename = await db.get("package-" + req.session.userinfo.email);
         let package = newsettings.api.client.packages.list[packagename ? packagename : newsettings.api.client.packages.default];
 
         let pterorelationshipsserverdata = req.session.pterodactyl.relationships.servers.data.filter(name => name.attributes.id.toString() !== req.query.id);
@@ -289,8 +289,8 @@ module.exports.load = async function (app, db) {
         if (!egginfo) return res.redirect(`${redirectlink}?id=${req.query.id}&err=MISSINGEGG`);
 
         let extra =
-          await db.get("extra-" + req.session.userinfo.id) ?
-            await db.get("extra-" + req.session.userinfo.id) :
+          await db.get("extra-" + req.session.userinfo.email) ?
+            await db.get("extra-" + req.session.userinfo.email) :
             {
               ram: 0,
               disk: 0,
@@ -349,7 +349,7 @@ module.exports.load = async function (app, db) {
         pterorelationshipsserverdata.push(text);
         req.session.pterodactyl.relationships.servers.data = pterorelationshipsserverdata;
         let theme = indexjs.get(req);
-        adminjs.suspend(req.session.userinfo.id);
+        adminjs.suspend(req.session.userinfo.email);
         res.redirect("/dashboard?err=MODIFYSERVER");
       } else {
         res.redirect(`${redirectlink}?id=${req.query.id}&err=MISSINGVARIABLE`);
@@ -389,7 +389,7 @@ module.exports.load = async function (app, db) {
 
       await db.delete(`lastrenewal-${req.query.id}`)
 
-      adminjs.suspend(req.session.userinfo.id);
+      adminjs.suspend(req.session.userinfo.email);
 
       return res.redirect('/dashboard?err=DELETEDSERVER');
     } else {
@@ -400,7 +400,7 @@ module.exports.load = async function (app, db) {
   app.get(`/api/createdServer`, async (req, res) => {
     if (!req.session.pterodactyl) return res.json({ error: true, message: `You must be logged in.` });
 
-    const createdServer = await db.get(`createdserver-${req.session.userinfo.id}`)
+    const createdServer = await db.get(`createdserver-${req.session.userinfo.email}`)
     return res.json({ created: createdServer ?? false, cost: settings.renewals.cost })
   })
 };
