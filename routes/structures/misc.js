@@ -12,7 +12,7 @@ if (settings.pterodactyl) if (settings.pterodactyl.domain) {
 module.exports.load = async function (app, db) {
   app.get("/updateinfo", async (req, res) => {
     if (!req.session.pterodactyl) return res.redirect("/auth");
-    const cacheaccount = await getPteroUser(req.session.userinfo.email, db)
+    const cacheaccount = await getPteroUser(req.session.userinfo.id, db)
       .catch(() => {
         return res.send("An error has occured while attempting to update your account information and server list.");
       })
@@ -33,7 +33,7 @@ module.exports.load = async function (app, db) {
       queue.addJob(async (cb) => {
         let redirectlink = theme.settings.redirect.failedcreateserver ?? "/"; // fail redirect link
 
-        const cacheaccount = await getPteroUser(req.session.userinfo.email, db)
+        const cacheaccount = await getPteroUser(req.session.userinfo.id, db)
           .catch(() => {
             cb()
             return res.send("An error has occured while attempting to update your account information and server list.");
@@ -236,7 +236,7 @@ module.exports.load = async function (app, db) {
     if (newsettings.api.client.allow.server.modify == true) {
       if (!req.query.id) return res.send("Missing server id.");
 
-      const cacheaccount = await getPteroUser(req.session.userinfo.email, db)
+      const cacheaccount = await getPteroUser(req.session.userinfo.id, db)
         .catch(() => {
           return res.send("An error has occured while attempting to update your account information and server list.");
         })
