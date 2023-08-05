@@ -366,6 +366,8 @@ module.exports.load = async function (app, db) {
         if (!await db.get("users-" + userinfo.id)) {
           if (newsettings.api.client.allow.newusers == true) {
             let genpassword = null;
+            let username = userinfo.username;
+            username = username.replace(/[^a-zA-Z0-9]/g, '');
             if (newsettings.api.client.passwordgenerator.signup == true) genpassword = makeid(newsettings.api.client.passwordgenerator["length"]);
             let accountjson = await fetch(
               settings.pterodactyl.domain + "/api/application/users",
@@ -376,9 +378,9 @@ module.exports.load = async function (app, db) {
                   "Authorization": `Bearer ${settings.pterodactyl.key}`
                 },
                 body: JSON.stringify({
-                  username: userinfo.username,
+                  username: username,
                   email: userinfo.email,
-                  first_name: userinfo.id,
+                  first_name: userinfo.global_name,
                   last_name: "discord-auth",
                   password: genpassword
                 })
