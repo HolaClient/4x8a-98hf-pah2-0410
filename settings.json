@@ -1,6 +1,6 @@
 {
   "version": "1.5.7",
-  "note": "If you face any errors or any type of difficulties, please contact HolaClient's support @ https://discord.gg/CvqRH9TrYK",
+  "note": "If you are facing any errors or any type of difficulties, please contact HolaClient's support team at https://discord.gg/CvqRH9TrYK",
 
   "settings starts from here": "start configuring and thank-you for using HolaClient!",
   "name": "HolaClient",
@@ -14,7 +14,7 @@
   "discord": "https://discord.gg/CvqRH9TrYK",
   "website": {
     "port": 2000,
-    "description": "IDK what a good descrption looks like",
+    "description": "My Description",
     "websitelinkenabled": true,
     "websitelink": "https://holaclient.tech",
     "secret": "RANDOM",
