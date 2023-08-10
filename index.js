@@ -1,20 +1,25 @@
 "use strict";
 
 const chalk = require("chalk");
-//console.clear();
-////console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Packages... "));
+
+console.clear();
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Packages... "));
+
 const fs = require("fs");
 const fetch = require('node-fetch');
 const path = require('path');
 const log = require('./routes/handlers/webhook')
-const arciotext = require('./routes/handlers/arciotext')
 global.debuglog = require('./lib/debug');
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Packages Loaded ✔️ "));
-//console.log(" ");
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Settings... "));
+
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Packages Loaded ✔️ "));
+console.log(" ");
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Settings... "));
+
 const settings = require("./settings.json");
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Settings Loaded ✔️ "));
-//console.log(" ");
+
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Settings Loaded ✔️ "));
+console.log(" ");
+
 const defaultthemesettings = {
     index: "index.ejs",
     notfound: "index.ejs",
@@ -65,7 +70,9 @@ module.exports.renderdataeval =
 
     return renderdata;
   })();`;
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Database... "));
+
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Database... "));
+
 const Keyv = require("keyv");
 const crypto = require('crypto');
 const db = new Keyv("sqlite://storage/databases/db.sqlite");
@@ -93,21 +100,27 @@ db.on('error', err => {
 module.exports.db = db;
 module.exports.storeData = storeData;
 module.exports.retrieveData = retrieveData;
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Database Loaded ✔️ "));
+
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Database Loaded ✔️ "));
 console.log(" ");
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Web Files... "));
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Web Files... "));
+
 const express = require("express");
 const app = express();
 require('express-ws')(app);
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" WebFiles Loaded ✔️ "));
-//console.log(" ");
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Addons... "));
+
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" WebFiles Loaded ✔️ "));
+console.log(" ");
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Addons... "));
+
 const ejs = require("ejs");
 const session = require("express-session");
 const indexjs = require("./index.js");
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Addons   Loaded ✔️ "));
-//console.log(" ");
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Website... "));
+
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Addons   Loaded ✔️ "));
+console.log(" ");
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading Website... "));
+
 function generateRandomKey(length) {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -139,9 +152,11 @@ app.use(express.json({
     type: 'application/json',
     verify: undefined
 }));
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Web View Loaded ✔️ "));
-//console.log(" ");
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading APIs... "));
+
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Web View Loaded ✔️ "));
+console.log(" ");
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Loading APIs... "));
+
 function loadRoute(directory, app, db) {
     const files = fs.readdirSync(directory).filter(file => file.endsWith('.js'));
     files.forEach(file => {
@@ -163,8 +178,10 @@ loadRoute(path.join(__dirname, 'routes', 'structures'), app, db);
 loadRoute(path.join(__dirname, 'routes', 'controller'), app, db);
 loadRoute(path.join(__dirname, 'routes', 'users'), app, db);
 loadRoute(path.join(__dirname, 'routes', 'features'), app, db);
-//console.log(" ");
-//console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Finalizing... "));
+
+console.log(" ");
+console.log(chalk.gray("+ ") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" ------+ Finalizing... "));
+
 if (settings.api.client.api.code === 'RANDOM') {
   const length = 24;
   const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -195,21 +212,10 @@ const listener = app.listen(settings.website.port, function() {
     console.log(" ");
     console.log(chalk.gray("[⌚]") + chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully saved uptime status "));
     console.log(" ");
-    if (settings.security.enabled === true) {
-        if (settings.security.anti_ddos.enabled === true) {
-            const challenge = require('./security/challenge')
-        }
-        if (settings.security.rate_limiter.enabled === true) {
-            const ratelimiter = require('./security/ratelimiter')
-        }
-        if (settings.security.anti_crawler.enabled === true) {
-            const crawlers = require('./security/crawlers')
-        }
-    }
+
     setTimeout(() => {
         loadRoute(path.join(__dirname, 'lib'), app, db);
     }, 3000);
-
 });
 const newCode = `
 <footer style="background-color: rgba(0,0,0,.2);" class="card card-body">

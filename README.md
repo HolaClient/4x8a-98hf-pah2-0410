@@ -66,12 +66,12 @@ Subdomain (v1.7):
 ---
 
 ## ⬇️ Installation
-Use our installer to install HolaClient in your VPS:<br>
+Use our installer to install HolaClient onto your server:<br>
 ```bash
 bash <(curl -s https://installer.holaclient.tech)
 ```
 
-... or refer to our docs made by [**@ItzBenoitXD**](https://github.com/ItzBenoitXD) for manual installation: https://docs.holaclient.tech
+... or refer to our documentation made by [**@ItzBenoitXD**](https://github.com/ItzBenoitXD) for manual installation: https://docs.holaclient.tech
 
 ... or refer to this video install guide by Arctic Wolf (he did a great job explaining how to install): https://youtu.be/V4FnFKL3nGw
     

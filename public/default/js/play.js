@@ -1,5 +1,6 @@
+// psure this isn't even being used - ItzScripts
+
 document.addEventListener("DOMContentLoaded", function () {
-    // Wait till the browser is ready to render the game (avoids glitches)
     window.requestAnimationFrame(function () {
       var manager = new GameManager(4, KeyboardInputManager, HTMLActuator);
     });
@@ -7,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   
   function GameManager(size, InputManager, Actuator) {
-    this.size         = size; // Size of the grid
+    this.size         = size;
     this.inputManager = new InputManager;
     this.actuator     = new Actuator;
   
@@ -19,13 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
     this.setup();
   }
   
-  // Restart the game
   GameManager.prototype.restart = function () {
     this.actuator.restart();
     this.setup();
   };
   
-  // Set up the game
   GameManager.prototype.setup = function () {
     this.grid         = new Grid(this.size);
   
@@ -33,21 +32,17 @@ document.addEventListener("DOMContentLoaded", function () {
     this.over         = false;
     this.won          = false;
   
-    // Add the initial tiles
     this.addStartTiles();
   
-    // Update the actuator
     this.actuate();
   };
   
-  // Set up the initial tiles to start the game with
   GameManager.prototype.addStartTiles = function () {
     for (var i = 0; i < this.startTiles; i++) {
       this.addRandomTile();
     }
   };
   
-  // Adds a tile in a random position
   GameManager.prototype.addRandomTile = function () {
     if (this.grid.cellsAvailable()) {
       var value = Math.random() < 0.9 ? 2 : 4;
@@ -57,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
   
-  // Sends the updated grid to the actuator
   GameManager.prototype.actuate = function () {
     this.actuator.actuate(this.grid, {
       score: this.score,
@@ -66,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
   
-  // Save all tile positions and remove merger info
   GameManager.prototype.prepareTiles = function () {
     this.grid.eachCell(function (x, y, tile) {
       if (tile) {
@@ -76,19 +69,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
   
-  // Move a tile and its representation
   GameManager.prototype.moveTile = function (tile, cell) {
     this.grid.cells[tile.x][tile.y] = null;
     this.grid.cells[cell.x][cell.y] = tile;
     tile.updatePosition(cell);
   };
-  
-  // Move tiles on the grid in the specified direction
+
   GameManager.prototype.move = function (direction) {
-    // 0: up, 1: right, 2:down, 3: left
     var self = this;
   
-    if (this.over || this.won) return; // Don't do anything if the game's over
+    if (this.over || this.won) return;
   
     var cell, tile;
   
@@ -96,10 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var traversals = this.buildTraversals(vector);
     var moved      = false;
   
-    // Save the current tile positions and remove merger information
     this.prepareTiles();
   
-    // Traverse the grid in the right direction and move tiles
     traversals.x.forEach(function (x) {
       traversals.y.forEach(function (y) {
         cell = { x: x, y: y };
@@ -109,7 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
           var positions = self.findFarthestPosition(cell, vector);
           var next      = self.grid.cellContent(positions.next);
   
-          // Only one merger per row traversal?
           if (next && next.value === tile.value && !next.mergedFrom) {
             var merged = new Tile(positions.next, tile.value * 2);
             merged.mergedFrom = [tile, next];
@@ -117,20 +104,17 @@ document.addEventListener("DOMContentLoaded", function () {
             self.grid.insertTile(merged);
             self.grid.removeTile(tile);
   
-            // Converge the two tiles' positions
             tile.updatePosition(positions.next);
   
-            // Update the score
             self.score += merged.value;
   
-            // The mighty 2048 tile
             if (merged.value === 2048) self.won = true;
           } else {
             self.moveTile(tile, positions.farthest);
           }
   
           if (!self.positionsEqual(cell, tile)) {
-            moved = true; // The tile moved from its original cell!
+            moved = true;
           }
         }
       });
@@ -140,27 +124,24 @@ document.addEventListener("DOMContentLoaded", function () {
       this.addRandomTile();
   
       if (!this.movesAvailable()) {
-        this.over = true; // Game over!
+        this.over = true;
       }
   
       this.actuate();
     }
   };
   
-  // Get the vector representing the chosen direction
   GameManager.prototype.getVector = function (direction) {
-    // Vectors representing tile movement
     var map = {
-      0: { x: 0,  y: -1 }, // up
-      1: { x: 1,  y: 0 },  // right
-      2: { x: 0,  y: 1 },  // down
-      3: { x: -1, y: 0 }   // left
+      0: { x: 0,  y: -1 },
+      1: { x: 1,  y: 0 },
+      2: { x: 0,  y: 1 },
+      3: { x: -1, y: 0 } 
     };
   
     return map[direction];
   };
   
-  // Build a list of positions to traverse in the right order
   GameManager.prototype.buildTraversals = function (vector) {
     var traversals = { x: [], y: [] };
   
@@ -169,7 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
       traversals.y.push(pos);
     }
   
-    // Always traverse from the farthest cell in the chosen direction
     if (vector.x === 1) traversals.x = traversals.x.reverse();
     if (vector.y === 1) traversals.y = traversals.y.reverse();
   
@@ -179,7 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
   GameManager.prototype.findFarthestPosition = function (cell, vector) {
     var previous;
   
-    // Progress towards the vector direction until an obstacle is found
     do {
       previous = cell;
       cell     = { x: previous.x + vector.x, y: previous.y + vector.y };
@@ -188,15 +167,14 @@ document.addEventListener("DOMContentLoaded", function () {
   
     return {
       farthest: previous,
-      next: cell // Used to check if a merge is required
+      next: cell
     };
   };
   
   GameManager.prototype.movesAvailable = function () {
     return this.grid.cellsAvailable() || this.tileMatchesAvailable();
   };
-  
-  // Check for available matches between tiles (more expensive check)
+
   GameManager.prototype.tileMatchesAvailable = function () {
     var self = this;
   
@@ -216,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
   
             if (other && other.value === tile.value) {
-              return true; // These two tiles can be merged
+              return true;
             }
           }
         }
@@ -240,7 +218,6 @@ document.addEventListener("DOMContentLoaded", function () {
     this.build();
   }
   
-  // Build a grid of the specified size
   Grid.prototype.build = function () {
     for (var x = 0; x < this.size; x++) {
       var row = this.cells[x] = [];
@@ -251,7 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
   
-  // Find the first available random position
   Grid.prototype.randomAvailableCell = function () {
     var cells = this.availableCells();
   
@@ -272,7 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return cells;
   };
   
-  // Call callback for every cell
   Grid.prototype.eachCell = function (callback) {
     for (var x = 0; x < this.size; x++) {
       for (var y = 0; y < this.size; y++) {
@@ -280,13 +255,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   };
-  
-  // Check if there are any cells available
+
   Grid.prototype.cellsAvailable = function () {
     return !!this.availableCells().length;
   };
   
-  // Check if the specified cell is taken
   Grid.prototype.cellAvailable = function (cell) {
     return !this.cellOccupied(cell);
   };
@@ -303,7 +276,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
   
-  // Inserts a tile at its position
   Grid.prototype.insertTile = function (tile) {
     this.cells[tile.x][tile.y] = tile;
   };
@@ -342,8 +314,8 @@ document.addEventListener("DOMContentLoaded", function () {
   
       self.updateScore(metadata.score);
   
-      if (metadata.over) self.message(false); // You lose
-      if (metadata.won) self.message(true); // You win!
+      if (metadata.over) self.message(false);
+      if (metadata.won) self.message(true);
     });
   };
   
@@ -363,24 +335,21 @@ document.addEventListener("DOMContentLoaded", function () {
     var element   = document.createElement("div");
     var position  = tile.previousPosition || { x: tile.x, y: tile.y };
     positionClass = this.positionClass(position);
-  
-    // We can't use classlist because it somehow glitches when replacing classes
+
     var classes = ["tile", "tile-" + tile.value, positionClass];
     this.applyClasses(element, classes);
   
     element.textContent = tile.value;
   
     if (tile.previousPosition) {
-      // Make sure that the tile gets rendered in the previous position first
       window.requestAnimationFrame(function () {
         classes[2] = self.positionClass({ x: tile.x, y: tile.y });
-        self.applyClasses(element, classes); // Update the position
+        self.applyClasses(element, classes);
       });
     } else if (tile.mergedFrom) {
       classes.push("tile-merged");
       this.applyClasses(element, classes);
   
-      // Render the tiles that merged
       tile.mergedFrom.forEach(function (merged) {
         self.addTile(merged);
       });
@@ -389,7 +358,6 @@ document.addEventListener("DOMContentLoaded", function () {
       this.applyClasses(element, classes);
     }
   
-    // Put the tile on the board
     this.tileContainer.appendChild(element);
   };
   
@@ -426,8 +394,6 @@ document.addEventListener("DOMContentLoaded", function () {
   HTMLActuator.prototype.message = function (won) {
     var type    = won ? "game-won" : "game-over";
     var message = won ? "You win!" : "Game over!"
-  
-    // if (ga) ga("send", "event", "game", "end", type, this.score);
   
     this.messageContainer.classList.add(type);
     this.messageContainer.getElementsByTagName("p")[0].textContent = message;
@@ -493,7 +459,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var retry = document.getElementsByClassName("retry-button")[0];
     retry.addEventListener("click", this.restart.bind(this));
   
-    // Listen to swipe events
     var gestures = [Hammer.DIRECTION_UP, Hammer.DIRECTION_RIGHT,
                     Hammer.DIRECTION_DOWN, Hammer.DIRECTION_LEFT];
   
@@ -526,7 +491,7 @@ document.addEventListener("DOMContentLoaded", function () {
     this.value            = value || 2;
   
     this.previousPosition = null;
-    this.mergedFrom       = null; // Tracks tiles that merged together
+    this.mergedFrom       = null;
   }
   
   Tile.prototype.savePosition = function () {
