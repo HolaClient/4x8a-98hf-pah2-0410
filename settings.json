@@ -21,9 +21,9 @@
     "note": "Do not change the secret, it will automatically be updated!"
   },
   "pterodactyl": {
-    "domain": "",
-    "key": "",
-    "account_key": ""
+    "domain": "https://",
+    "key": "ptla_",
+    "account_key": "ptlc_"
   },
   "news": {
     "enabled": true,
