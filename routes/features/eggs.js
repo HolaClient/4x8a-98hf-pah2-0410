@@ -136,7 +136,19 @@ module.exports.load = async function (app, db) {
           if (eggDetails.name === "Paper") {
             newEgg.info.environment = {
               SERVER_JARFILE: "server.jar",
-              BUNGEE_VERSION: "latest",
+              MINECRAFT_VERSION: "latest",
+              BUILD_NUMBER: "latest",
+            };
+          } else if (eggDetails.name === "Vanilla Minecraft") {
+            newEgg.info.environment = {
+              SERVER_JARFILE: "server.jar",
+              VANILLA_VERSION: "latest",
+            };
+          } else if (eggDetails.name === "Forge Minecraft") {
+            newEgg.info.environment = {
+              SERVER_JARFILE: "server.jar",
+              MC_VERSION: "latest",
+              BUILD_TYPE: "recommended",
             };
           } else if (eggDetails.name === "PocketmineMP") {
             newEgg.info.environment = {
