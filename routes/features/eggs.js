@@ -160,6 +160,43 @@ module.exports.load = async function (app, db) {
               SERVER_JARFILE: "bungeecord.jar",
               BUNGEE_VERSION: "latest",
             };
+          } else if (eggDetails.name === "Garrys Mod") {
+            newEgg.info.environment = {
+              SRCDS_MAP: "gm_flatgrass",
+              GAMEMODE: "4020",
+              SRCDS_APPID: "sandbox",
+              MAX_PLAYERS: "32",
+              TICKRATE: "32",
+              LUA_REFRESH: "0",
+            };
+          } else if (eggDetails.name === "Ark: Survival Evolved") {
+            newEgg.info.environment = {
+              ARK_ADMIN_PASSWORD: "Password",
+              SERVER_MAP: "TheIsland",
+              SESSION_NAME: "A Pterodactyl Hosted ARK Server",
+              RCON_PORT: "27020",
+              QUERY_PORT: "27015",
+              AUTO_UPDATE: "0",
+              BATTLE_EYE: "1",
+              SRCDS_APPID: "376030",
+            };
+          } else if (eggDetails.name === "Counter-Strike: Global Offensive") {
+            newEgg.info.environment = {
+              SRCDS_MAP: "de_dust2",
+              STEAM_ACC: "EDIT",
+              SRCDS_APPID: "740",
+            };
+          } else if (eggDetails.name === "Insurgency") {
+            newEgg.info.environment = {
+              SRCDS_MAP: "sinjar",
+              SRCDS_APPID: "237410",
+            };
+          } else if (eggDetails.name === "Team Fortress 2") {
+            newEgg.info.environment = {
+              SRCDS_MAP: "cp_dustbowl",
+              SRCDS_APPID: "232250",
+              STEAM_ACC: "EDIT",
+            };
           }
 
           settingsData.api.client.eggs[eggId] = newEgg;
