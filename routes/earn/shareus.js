@@ -105,7 +105,7 @@ module.exports.load = async function (app, db) {
     }
     cooldowns[req.session.userinfo.email] = Date.now() + settings.shareus.cooldown * 60 * 1000;
     await db.set(`dailyshareus-${req.session.userinfo.email}`, 1);
-    const coins = await db.get(`coins-${req.session.userinfo.email}`)
+    const coins = (await db.get(`coins-${req.session.userinfo.email}`)) ?? 0
     await db.set(`coins-${req.session.userinfo.email}`, coins + settings.shareus.coins)    
     res.redirect(`/earn?err=SUCCESSSHAREUS`);
   });
