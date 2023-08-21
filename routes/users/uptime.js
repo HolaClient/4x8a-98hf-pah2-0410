@@ -8,11 +8,6 @@ module.exports.load = async function (app) {
   const settings = require('../../settings.json');
   const websites = [
     {
-      name: `Client`,
-      url: `${settings.api.client.oauth2.link}`,
-      interval: 30000,
-    },
-    {
       name: `Panel`,
       url: `${settings.pterodactyl.domain}`,
       interval: 30000,
