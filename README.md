@@ -16,6 +16,7 @@
 - **Anti-PteroVM:** Automatically suspends servers using PteroVM.
 - Subdomain Management: Assign subdomains for user's servers.
 - Plugin Manager: Install plugins easily.
+- Anti DDoS: Built in L7 Anti DDoS protection.
 - Bandwidth Sharing: Arc.io integration.
 - Background Wallpaper: Customizable.
 - Resource Management: View, buy, sell and gift coins.
@@ -31,7 +32,7 @@
 - Databases, Backups and Ports: Create servers with additional resources.
 - Join for Rewards: Earn money by joining a server.
 - Admin: Admin management area.
-- Advanced Ratelimiters and built-in Anti-DDoS.
+- Advanced Ratelimiters.
 - Landing Page with updated information.
 - Purge System: Purge inactive servers easily.
 - Webhook: Log actions to webhooks.
