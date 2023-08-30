@@ -209,9 +209,9 @@
     },
     "ads": [
       {
-        "name": "HolaClient",
-        "title": "HolaClient",
-        "redirect": "https://holaclient.tech",
+        "name": "Hostingconnect",
+        "title": "Hostingconnect",
+        "redirect": "https://discord.gg/3kbTfUbT5N",
         "image": "https://media.discordapp.net/attachments/1108054221456146534/1117779127680905226/Untitled.png?width=470&height=110",
         "note": "recommened image size is 470x130"
       },
@@ -278,6 +278,12 @@
             "name": "Nexorion",
             "invite": "https://discord.gg/nexorion",
             "id": "1119949629254009063",
+            "coins": 500
+          }
+          {
+            "name": "HostingConnect",
+            "invite": "https://discord.gg/3kbTfUbT5N",
+            "id": "1061893392503685120",
             "coins": 500
           }
         ]
