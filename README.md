@@ -58,16 +58,16 @@
 
 
 ## 👀 Preview
-HolaClient Demo: https://demo.holaclient.io/
+HolaClient Demo: https://demo.holaclient.tech/
 
 Landing Page (v1.5.7):
-![Landing](https://github.com/HolaClient/HolaClient/assets/102372274/1b55d706-b4fb-41f7-a2a9-0f82d21a1a75)
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/f9cecf3f-5e88-404c-8c8f-49c8c9f0275a)
 
 Admin Home (v1.5.7):
-![Admin](https://github.com/HolaClient/HolaClient/assets/102372274/f0319979-0375-4d0b-9005-9b42bb229701)
+![Uploading image.png…]()
 
 Dashboard (v1.7):
-![Dashboard](https://github.com/HolaClient/HolaClient/assets/102372274/d0a82c16-4a72-4558-9945-bef4130145f1)
+![Uploading image.png…]()
 
 Subdomain (v1.7):
 ![Subdomain](https://github.com/HolaClient/HolaClient/assets/102372274/6db15761-a9a5-4c69-95d8-df6020696b37)
