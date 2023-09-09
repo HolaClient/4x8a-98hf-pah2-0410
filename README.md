@@ -64,10 +64,10 @@ Landing Page (v1.5.7):
 ![image](https://github.com/HolaClient/HolaClient/assets/102372274/f9cecf3f-5e88-404c-8c8f-49c8c9f0275a)
 
 Admin Home (v1.5.7):
-![admin home](https://media.discordapp.net/attachments/1108054221456146534/1150167629726765126/image.png?width=884&height=424)
+![admin home](https://media.discordapp.net/attachments/1108054221456146534/1150167629726765126/image.png)
 
 Dashboard (v1.7):
-![dashboard](https://media.discordapp.net/attachments/1108054221456146534/1150167633472258099/image.png?width=891&height=424)
+![dashboard](https://media.discordapp.net/attachments/1108054221456146534/1150167633472258099/image.png)
 
 Subdomain (v1.7):
 ![Subdomain](https://github.com/HolaClient/HolaClient/assets/102372274/6db15761-a9a5-4c69-95d8-df6020696b37)
