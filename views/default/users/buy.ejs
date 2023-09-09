@@ -1,0 +1,371 @@
+<html class="a">
+    <head>
+        <!-- Normal Meta Tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Create your own server now at <%= settings.name %> | Powered by HolaClient.">
+        <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC">
+        <meta name="author" content="HolaLLC">
+        <meta name="copyright" content="HolaLLC">
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="<%= settings.api.client.oauth2.link + "/" %>">
+        <meta property="og:type" content="dashboard">
+        <meta property="og:title" content="<%= settings.name %>">
+        <meta property="og:description" content="Create your own server now at <%= settings.name %> | Powered by HolaClient.">
+        <meta property="og:image" content="<%= settings.logo %>">
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="<%= settings.logo %>">
+        <meta property="twitter:domain" content="<%= settings.api.client.oauth2.link + "/" %>">
+        <meta property="twitter:url" content="<%= settings.api.client.oauth2.link + "/" %>">
+        <meta name="twitter:title" content="<%= settings.name %>">
+        <meta name="twitter:description" content="Create your own server now at <%= settings.name %> | Powered by HolaClient.">
+        <meta name="twitter:image" content="<%= settings.logo %>">
+        <meta name="twitter:image:src" content="<%= settings.logo %>">
+        <meta property="og:image" content="<%= settings.logo %>">
+        <meta name="twitter:title" content="<%= settings.name %>">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        <!-- End Meta Tags -->
+        <link rel="shortcut icon" href="<%= settings.logo %>" type="image/x-icon">
+        <title><%= settings.name %></title>
+        <link rel="icon" type="image/png" href="<%= settings.logo %>">
+        <script src="https://www.paypal.com/sdk/js?client-id=<%= settings.billing.methods.paypal.clientid %>&currency=USD&components=buttons"></script>
+        <% if (settings.captcha.enabled == true) { %>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <% } %>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+        <% if (settings.api.arcio.enabled == true) { %>
+        <script async src="https://arc.io/widget.min.js#<%= settings.api.arcio.widgetid %>"></script>
+        <% } %>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link href="./assets/css/landing.css" rel="stylesheet" />
+    </head>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="./assets/css/landing.css" rel="stylesheet" />
+<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css');</style>
+<body class="sj">
+<section id="home">
+<div class="min-w-screen min-h-screen py-5">
+    <div class="px-5">
+        <div class="mb-2">
+            <a href="./dashboard" class="focus:outline-none hover:underline text-gray-500 text-sm"><i class="mdi mdi-arrow-left text-gray-400"></i>Back</a>
+        </div>
+        <div class="mb-2">
+            <h1 class="text-3xl md:text-5xl font-bold text-white">Checkout</h1>
+        </div>
+        <div class="mb-5 text-gray-400">
+            <a class="focus:outline-none hover:underline text-gray-500">Payments are securely encrypted!</a></span>
+        </div>
+    </div>
+    <div class="wow fadeInUp w-full  border-t border-b border-gray-200 px-5 py-10 text-white">
+        <div class="w-full">
+            <div class="-mx-3 md:flex items-start">
+                <div class="px-3 md:w-7/12 lg:pr-10">
+                    <div class="w-full mx-auto text-white font-light mb-6 border-b border-gray-200 pb-6">
+                        <div class="w-full flex items-center">
+                            <div class="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
+                                <img src="" alt="">
+                            </div>
+                            <div class="flex-grow pl-3">
+                                <h6 id="product" class="font-semibold uppercase text-white"></h6>
+                            </div>
+                            <div>
+                                <%= settings.billing.currency %> <span class="font-semibold text-white text-xl"><%= settings.billing.symbol %></span><span class="font-semibold text-white text-xl" id="price"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-6 pb-6 border-b border-gray-200 md:border-none text-white text-xl">
+                        <div class="w-full mx-auto rounded-lg  border border-gray-200 text-white font-light mb-6">
+                            <div class="w-full p-3 border-b border-gray-200">
+                                <div class="mb-5">
+                                  <div class="w-full flex mb-3 items-center">
+                                    <div class="w-32">
+                                        <span class="text-white font-semibold">Status</span>
+                                    </div>
+                                    <div class="flex-grow pl-3">
+                                        <span id="security-text"></span>
+                                    </div>
+                                </div>
+                                <div class="w-full flex mb-3 items-center">
+                                    <div class="w-32">
+                                        <span class="text-white font-semibold">Security</span>
+                                    </div>
+                                    <div class="flex-grow pl-3">
+                                        <span id="secure"></span>
+                                    </div>
+                                </div>
+                                    <div class="w-full flex mb-3 items-center">
+                                      <div class="w-32">
+                                          <span class="text-white font-semibold">Username</span>
+                                      </div>
+                                      <div class="flex-grow pl-3">
+                                          <span><%= userinfo.username %></span>
+                                      </div>
+                                  </div>
+                                  <div class="w-full flex items-center">
+                                      <div class="w-32">
+                                          <span class="text-white font-semibold">Email</span>
+                                      </div>
+                                      <div class="flex-grow pl-3">
+                                          <span><%= userinfo.email %></span>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="mb-5 text-gray-400">
+                                </div>
+                                
+                                <script>
+                                    const protocol = window.location.protocol;
+                                    const securityTextElement = document.getElementById('security-text');
+                                    const secure = document.getElementById('secure')
+                        
+                                    if (protocol === 'http:') {
+                                        securityTextElement.textContent = 'Payments are unsecure!';
+                                        secure.textContent = 'HTTP'
+                                    } else if (protocol === 'https:') {
+                                        securityTextElement.textContent = 'Payments are secure!';
+                                        secure.textContent = 'HTTPS'
+                                    }
+                                </script>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="wow fadeInRight px-3 md:w-5/12">
+                    <form id="payment-form">
+                    <div class="w-full mx-auto rounded-lg  border border-gray-200 text-white font-light mb-6">
+                        <div class="w-full p-3">
+                          <div id="paypal-button-container" style="max-width:1000px;"></div>
+                          <script>
+                            const params = new URLSearchParams(window.location.search);
+                            const pId = params.get('id');
+                            const endpoint = `/buy/product/info?id=${pId}`;
+                            let price;
+                          
+                            fetch(endpoint)
+                              .then(response => response.json())
+                              .then(data => {
+                                price = data.price;
+                          
+                                paypal.Buttons({
+                                  style: {
+                                    disableMaxWidth: true
+                                  },
+                                  createOrder: function(data, actions) {
+                                    return actions.order.create({
+                                      purchase_units: [{
+                                        amount: {
+                                          value: `${price}`
+                                        }
+                                      }]
+                                    });
+                                  }
+                                }).render('#paypal-button-container');
+                              });
+                          </script>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<div class="d f k ea">
+    <svg width="1356" height="860" viewBox="0 0 1356 860" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.5" filter="url(#filter0_f_201_2181)">
+        <rect x="450.088" y="-126.709" width="351.515" height="944.108" transform="rotate(-34.6784 450.088 -126.709)" fill="url(#paint0_linear_201_2181)" />
+      </g>
+      <defs>
+        <filter id="filter0_f_201_2181" x="0.0878906" y="-776.711" width="1726.24" height="1876.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="225" result="effect1_foregroundBlur_201_2181" />
+        </filter>
+        <linearGradient id="paint0_linear_201_2181" x1="417.412" y1="59.4717" x2="966.334" y2="603.857" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#ABBCFF" />
+          <stop offset="0.859375" stop-color="#4A6CF7" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <div class="d h g ea">
+    <svg width="1469" height="498" viewBox="0 0 1469 498" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.3" filter="url(#filter0_f_201_2182)">
+        <rect y="450" width="1019" height="261" fill="url(#paint0_linear_201_2182)" />
+      </g>
+      <defs>
+        <filter id="filter0_f_201_2182" x="-450" y="0" width="1919" height="1161" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="225" result="effect1_foregroundBlur_201_2182" />
+        </filter>
+        <linearGradient id="paint0_linear_201_2182" x1="-94.7239" y1="501.47" x2="-65.8058" y2="802.2" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#ABBCFF" />
+          <stop offset="0.859375" stop-color="#4A6CF7" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  </section>
+  </body>
+  <style>
+    select{
+        background-color: transparent;
+        color: white;
+        min-width: 140px;
+    }
+    option{
+        background-color: black;
+    }
+    input{
+        background-color: transparent;
+        color: white;
+    }
+    </style>
+<script>
+    const searchParams = new URLSearchParams(window.location.search);
+    const productId = searchParams.get('id');
+    const url = `/buy/product/info?id=${productId}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(productDetails => {
+        const productInfoElement = document.getElementById('product-info');
+
+        var image = document.querySelector('.overflow-hidden img');
+        image.src = productDetails.image;
+
+        const product = document.getElementById('product')
+        product.textContent = productDetails.name
+
+        const price = document.getElementById('price')
+        price.textContent = productDetails.price
+
+
+        productInfoElement.innerHTML = `
+          <h2>${productDetails.name}</h2>
+          <p>Price: ${productDetails.price}</p>
+          <p>RAM: ${productDetails.ram}</p>
+          <p>Disk: ${productDetails.disk}</p>
+          <p>CPU: ${productDetails.cpu}</p>
+          <p>Ports: ${productDetails.ports}</p>
+          <p>Backups: ${productDetails.backups}</p>
+          <p>Databases: ${productDetails.databases}</p>
+          <p>Location: ${productDetails.location}</p>
+        `;
+      })
+      .catch(error => {
+        console.error('Error fetching product details:', error);
+      });
+  </script>
+<script>
+  const search = new URLSearchParams(window.location.search);
+  const id = search.get('id');
+  const link = `/buy/product/info?id=${id}`;
+
+  fetch(link)
+    .then(response => response.json())
+    .then(data => {
+      const price = data.price;
+
+      const paymentForm = document.querySelector('#payment-form');
+      const paymentMethodRadios = document.querySelectorAll('input[name="type"]');
+
+      const handleSubmit = (event) => {
+        event.preventDefault();
+
+        let selectedMethod;
+        paymentMethodRadios.forEach((radio) => {
+          if (radio.checked) {
+            selectedMethod = radio.id;
+          }
+        });
+
+        if (selectedMethod === 'type2') {
+          window.location.href = '/pay';
+        } else {
+          alert("An error occurred!");
+        }
+      };
+
+      paymentForm.addEventListener('submit', handleSubmit);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert("An error occurred while fetching the product information.");
+    });
+</script>
+      <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+      <script>
+        function onScroll(event) {
+          const sections = document.querySelectorAll(".menu-scroll");
+          const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+          for (let i = 0; i < sections.length; i++) {
+            const currLink = sections[i];
+            const val = currLink.getAttribute("href");
+            const refElement = document.querySelector(val);
+            const scrollTopMinus = scrollPos + 73;
+            if (refElement.offsetTop <= scrollTopMinus && refElement.offsetTop + refElement.offsetHeight > scrollTopMinus) {
+              document.querySelector(".menu-scroll").classList.remove("active");
+              currLink.classList.add("active");
+            } else {
+              currLink.classList.remove("active");
+            }
+          }
+        }
+        window.document.addEventListener("scroll", onScroll);
+        const tabButtons = document.querySelectorAll(".tabButtons button");
+        const tabPanels = document.querySelectorAll(".tabPanel");
+  
+        function showPanel(panelIndex) {
+          tabButtons.forEach(function(node) {
+            node.classList.remove("ei", "ne", "qj");
+          });
+          tabButtons[panelIndex].classList.add("ei", "_j", "ne", "qj");
+          tabPanels.forEach(function(node) {
+            node.style.display = "none";
+          });
+          tabPanels[panelIndex].style.display = "flex";
+        }
+        showPanel(0);
+      </script>
+   <script defer src="bundle.js"></script>
+   <script>
+     (function() {
+       var js = "window['__CF$cv$params']={r:'7cd56d582ef80c53',m:'ks_fdV7Tk8CIwiSgMeRt3U0CdbDnRwl8NDGSOAOSPT0-1685097911-0-Afc5eHpqGMYLSCg0NBjLhcFp+j5Gyuy7do+yyA9pCrIN',u:'/cdn-cgi/challenge-platform/h/b'};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/invisible.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";
+       var _0xh = document.createElement('iframe');
+       _0xh.height = 1;
+       _0xh.width = 1;
+       _0xh.style.position = 'absolute';
+       _0xh.style.top = 0;
+       _0xh.style.left = 0;
+       _0xh.style.border = 'none';
+       _0xh.style.visibility = 'hidden';
+       document.body.appendChild(_0xh);
+
+       function handler() {
+         var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;
+         if (_0xi) {
+           var _0xj = _0xi.createElement('script');
+           _0xj.nonce = '';
+           _0xj.innerHTML = js;
+           _0xi.getElementsByTagName('head')[0].appendChild(_0xj);
+         }
+       }
+       if (document.readyState !== 'loading') {
+         handler();
+       } else if (window.addEventListener) {
+         document.addEventListener('DOMContentLoaded', handler);
+       } else {
+         var prev = document.onreadystatechange || function() {};
+         document.onreadystatechange = function(e) {
+           prev(e);
+           if (document.readyState !== 'loading') {
+             document.onreadystatechange = prev;
+             handler();
+           }
+         };
+       }
+     })();
+   </script>
+ <script src="../../assets/js/landing.js"></script>
