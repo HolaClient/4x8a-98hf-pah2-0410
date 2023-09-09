@@ -18,7 +18,7 @@
 - Plugin Manager: Install plugins easily.
 - Anti DDoS: Built in L7 Anti DDoS protection.
 - Bandwidth Sharing: Arc.io integration.
-- Background Wallpaper: Customizable.
+- Background Wallpaper: Customizable for each user.
 - Resource Management: View, buy, sell and gift coins.
 - Mobile Optimized: Optimized webview for all devices.
 - Coins: Host's own economy system.
@@ -27,8 +27,6 @@
 - Web Settings: Edit settings from the frontend.
 - API: Used by bots to control the client.
 - Discord OAuth2: Login using Discord.
-- Google Oauth2: Login using Google.
-- Email authentication: Login using Email.
 - Databases, Backups and Ports: Create servers with additional resources.
 - Join for Rewards: Earn money by joining a server.
 - Admin: Admin management area.
@@ -37,10 +35,20 @@
 - Purge System: Purge inactive servers easily.
 - Webhook: Log actions to webhooks.
 - Gift resources: Transfer resources or coins.
-- Stripe API: Billing system using Stripe.
+- Request coins: Request coins from your friends.
+- Edit profile settings: Edit info easily.
 - Legal: Built-in Terms of Service and Privacy Policy.
 - Referral earning: Earn coins by referring your friends.
 - Daily coins: Earn coins daily.
+- Choose between multiple config & database types.
+- Telemetry: Help us improve our product.
+- Debuggers: Log the action to webhook, log file and in console.
+- Auto Configurators: Config eggs & locations easily.
+- Backup system: Auto backup config and other essential files.
+- Node Status: Realtime and Total usage statistics for each node.
+- Onboarding: Interactive starting page for the users.
+- Birthdays: Auto wish on user's birthdays.
+- User Management: Easily add/remove/set resources.
 - Linkvertise Earning: Earn coins by completing a link.
 - ShareUs Earning: Earn coins by completing a link.
 - GyaniLinks Earning: Earn coins by completing a link.
