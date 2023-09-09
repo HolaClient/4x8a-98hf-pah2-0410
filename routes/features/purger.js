@@ -21,7 +21,7 @@ module.exports.load = async function (app, db) {
       const data = await response.json();
       const servers = data.data;
       const inactiveServers = servers.filter(
-        (server) => !server.attributes.name.includes(settings.purge.keyword)
+        (server) => !server.attributes.name.includes(settings.features.purge.keyword)
       );
 
       for (const server of inactiveServers) {
