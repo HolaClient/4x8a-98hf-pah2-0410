@@ -3,7 +3,7 @@
     "notfound": "errors/404.ejs",
     "unauthorized": "errors/403.ejs",
     "redirect": {
-        "callback": "/onboarding",
+        "callback": "/dashboard",
         "logout": "/",
         "deleteserver": "/dashboard",
         "updateservers": "/dashboard",
