@@ -9,7 +9,7 @@ global.api = require('../../lib/api.js')
 module.exports.load = async function (app, db) {
     app.get("/api/userinfo", async (req, res) => {
         const apiKey = req.headers.authorization;
-    
+        let settings = JSON.parse(fs.readFileSync("./settings.json").toString());
         if (!apiKey) {
           return res.status(401).json({ status: "error", message: "Missing API key" });
         }
@@ -23,7 +23,6 @@ module.exports.load = async function (app, db) {
           return res.status(400).json({ status: "error", message: "Invalid email" });
         }
       
-        let settings = JSON.parse(fs.readFileSync("./settings.json").toString());
         let packagename = await db.get("package-" + req.query.user);
         let package = settings.api.client.packages.list[packagename ? packagename : settings.api.client.packages.default];
         if (!package) {
