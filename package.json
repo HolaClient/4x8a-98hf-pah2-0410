@@ -1,6 +1,6 @@
 {
   "name": "holaclient",
-  "version": "1.5.5",
+  "version": "1.5.8",
   "main": "index.js",
   "author": "Hola LLC",
   "github": "https://github.com/CR072/HolaClient",
