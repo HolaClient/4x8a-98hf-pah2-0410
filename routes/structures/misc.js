@@ -3,7 +3,6 @@ const indexjs = require("../../index.js");
 const adminjs = require("../admin/admin.js");
 const fs = require("fs");
 const log = require('../handlers/webhook');
-const { debuglog } = require('util');
 
 module.exports.load = async function (app, db) {
   app.get("/updateinfo", async (req, res) => {
@@ -12,7 +11,7 @@ module.exports.load = async function (app, db) {
         return res.redirect("/auth");
       }
   
-      const cacheAccount = await getPteroUser(req.session.userinfo.id, db);
+      const cacheAccount = await getPteroUser(req.session.userinfo.hcid, db);
   
       if (!cacheAccount) {
         throw new Error("Error while updating account information and server list.");
@@ -47,7 +46,7 @@ module.exports.load = async function (app, db) {
     if (settings.allow.server.modify == true) {
       if (!req.query.id) return res.send("Missing server id.");
 
-      const cacheaccount = await getPteroUser(req.session.userinfo.id, db)
+      const cacheaccount = await getPteroUser(req.session.userinfo.hcid, db)
         .catch(() => {
           return res.send("An error has occured while attempting to update your account information and server list.");
         })
