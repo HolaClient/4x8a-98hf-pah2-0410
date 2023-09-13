@@ -313,14 +313,6 @@
               <input type="text" id="background" class="form-control input-shadow" required>
             </div>
           </div>
-          <% if (!userinfo.avatar) { %>
-          <div class="form-group">
-            <label for="exampleInputPassword">Profile Picture</label>
-            <div class="position-relative has-icon-right">
-              <input type="text" id="pfp" class="form-control input-shadow" required>
-            </div>
-          </div>
-          <% } %>
           <div class="form-group">
             <div class="icheck-material-white">
               <input type="checkbox" id="user-checkbox" />
@@ -372,7 +364,6 @@
         const about = document.getElementById("about").value;
         const language = document.getElementById("language").value;
         const bgimg = document.getElementById("background").value;
-        const pfp = document.getElementById("pfp").value;
         let image;
 
         if (!bgimg) {
@@ -380,22 +371,13 @@
         } else {
           image = bgimg;
         }
-        let pfpi;
-
-        if (!pfp) {
-          pfpi = "<%= settings.background %>";
-        } else {
-          pfpi = pfp;
-        }
-
 
         const formData = {
           nickname,
           birthday,
           about,
           image,
-          language,
-          pfpi,
+          language
         };
 
         try {
