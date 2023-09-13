@@ -1,0 +1,51 @@
+<div class="clearfix"></div>
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <% if (settings.features.news.enabled==true) { %>
+    <div style="border-radius: 15px; text-align: center;" class="alert alert_info">
+      <strong>
+        <%= settings.features.news.content %>
+      </strong>
+      <button aria-hidden="true" class="close" type="button">&times;</button>
+    </div>
+    <% } %>
+    <% if (settings.earn.daily.enabled==true) { %>
+    <div id="claimDiv" class="alert alert_info card" style="display: none; border-radius: 15px;">
+      <strong>You haven't claimed your <%= settings.earn.daily.coins %> daily coins!</strong>
+      <button onclick="getdailycoins()" style="float: right; padding: 0; cursor: pointer; background: 0 0; border: 0; color: white; font-size: 14px; font-weight: bold;" type="button">Claim</button>
+    </div>
+    <% } %>
+    <script>
+            function checkClaimStatus() {
+        fetch('/daily/status')
+          .then(response => response.json())
+          .then(data => {
+            if (data.claimed) {
+              document.getElementById('claimDiv').style.display = 'none';
+            } else {
+              document.getElementById('claimDiv').style.display = 'block';
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+    
+      function getdailycoins() {
+        fetch('/daily/claim')
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              document.getElementById('claimDiv').style.display = 'none';
+              toastr.success(data.message, 'Success!');
+            } else {
+              toastr.error(data.message, 'Error');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      };
+    
+      checkClaimStatus();
+    </script>

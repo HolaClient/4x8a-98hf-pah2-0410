@@ -1,0 +1,170 @@
+<script>
+    async function buyCPU() {
+        try {
+            const amount = parseFloat(document.getElementById("cpuAmount").value);
+            request("/buycpu", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    }
+
+    async function buyRAM() {
+        try {
+            const amount = parseFloat(document.getElementById("ramAmount").value);
+            request("/buyram", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function buyDisk() {
+        try {
+            const amount = parseFloat(document.getElementById("diskAmount").value);
+            request("/buydisk", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function buyServers() {
+        try {
+            const amount = parseFloat(document.getElementById("serversAmount").value);
+            request("/buyservers", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function buyBackups() {
+        try {
+            const amount = parseFloat(document.getElementById("backupsAmount").value);
+            request("/buybackups", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function buyDatabases() {
+        try {
+            const amount = parseFloat(document.getElementById("databasesAmount").value);
+            request("/buydatabases", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function buyallocations() {
+        try {
+            const amount = parseFloat(document.getElementById("allocationsAmount").value);
+            request("/buyallocations", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function sellCPU() {
+        try {
+            const amount = parseFloat(document.getElementById("cpuAmount1").value);
+            request("/sellcpu", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    }
+
+    async function sellRAM() {
+        try {
+            const amount = parseFloat(document.getElementById("ramAmount1").value);
+            request("/sellram", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function sellDisk() {
+        try {
+            const amount = parseFloat(document.getElementById("diskAmount1").value);
+            request("/selldisk", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function sellServers() {
+        try {
+            const amount = parseFloat(document.getElementById("serversAmount1").value);
+            request("/sellservers", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function sellBackups() {
+        try {
+            const amount = parseFloat(document.getElementById("backupsAmount1").value);
+            request("/sellbackups", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function sellDatabases() {
+        try {
+            const amount = parseFloat(document.getElementById("databasesAmount1").value);
+            request("/selldatabases", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function sellallocations() {
+        try {
+            const amount = parseFloat(document.getElementById("allocationsAmount1").value);
+            request("/sellallocations", amount, "POST")
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while processing your request.");
+        }
+    };
+
+    async function request(routeName, amount, method) {
+        try {
+            const response = await fetch(routeName, {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ amount: amount })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success) {
+                    toastr.success(data.message, "Success!");
+                } else {
+                    toastr.error(data.message, "Error!");
+                }
+            } else {
+                const errorMessage = `Failed to make the request. Status code: ${response.status}`;
+                console.error(errorMessage);
+                toastr.error(errorMessage, "Error!");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            toastr.error("An error occurred while processing your request.", "Error!");
+        }
+    }
+
+</script>

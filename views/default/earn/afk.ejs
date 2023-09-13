@@ -1,0 +1,62 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../components/sidebar') %>
+<%- include('../components/topnav') %>
+<%- include('../scripts/containers') %>
+<%- include('../components/alert') %>
+<% if (settings.earn.arcio["afk page"].enabled == true) { %>
+<div class="row mt-3">
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">
+               <h3>Away From Keyboard</h3>
+            </div>
+            <hr>
+            <div class="form-group">
+               <p>You're earning <%= settings.earn.arcio["afk page"].coins == 1 ? "a" : settings.earn.arcio["afk page"].coins %> coin<%= settings.earn.arcio["afk page"].coins == 1 ? "" : "s" %> per <% if (settings.earn.arcio["afk page"].every !== 1) { %><%= settings.earn.arcio["afk page"].every %> seconds<% } else { %>second<% } %>.</p>
+               <p>Countdown&nbsp; : <span id="arciotimer"><%= settings.earn.arcio["afk page"].every %></span> s</p>
+               <p>Collected &nbsp;&nbsp;&nbsp;&nbsp;: <span id="arciogainedcoins">0</span> coins</p>
+               <p>Total Coins&nbsp; : <%= coins %></p>
+               <script>
+                  <%- arcioafktext %>
+               </script>
+            </div>
+         </div>
+      </div>
+   </div>
+   <% } else { %>
+   <div class="row mt-3">
+      <div class="col-lg-6">
+         <div class="card">
+            <div class="card-body">
+               <div class="card-title">
+                  <h3>Away From Keyboard</h3>
+               </div>
+               <hr>
+               <div class="form-group">
+                  <p>AFK Is currently disabled in <%= settings.name %></p>
+                  <p>Countdown&nbsp; : Disabled</p>
+                  <p>Collected &nbsp;&nbsp;&nbsp;&nbsp;: Disabled</p>
+                  <p>Total Coins&nbsp; : <%= coins %></p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <% } %>
+   <% if (settings.ads.enabled == true) { %>
+   <% for (let i = 0, len = settings.ads.ads.length; i < len; i++) { %>
+   <div class="card">
+      <div class="card-body">
+         <div style="cursor: pointer;" onclick="location.href = '<%= settings.ads.ads[i].redirect %>';" class="card-title"><%= settings.ads.ads[i].title %></div>
+         <hr>
+         <img onclick="location.href = '<%= settings.ads.ads[i].redirect %>';" style="border-radius: 15px; cursor: pointer; max-width: 100%;" src="<%= settings.ads.ads[i].image %>">
+      </div>
+   </div>
+   <% } %>
+   <% } %>
+</div>
+<%- include('../components/footer') %>
+<%- include('../components/js') %>

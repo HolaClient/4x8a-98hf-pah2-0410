@@ -1,0 +1,123 @@
+<div class="row mt-3">
+  <div class="col-lg-6">
+    <div class="card alert">
+      <div class="card-body">
+        <div class="card-action">
+          <div class="dropdown">
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        </div>
+        <div class="card-title">Coupon</div>
+        <hr>
+        <div class="form-group">
+          <label for="input-6">Coupon:</label>
+          <input type="text" class="form-control form-control-rounded" id="coupon" placeholder="1012993829192">
+        </div>
+        <div class="form-group">
+          <button role="button" onclick="redeemCoupon()" class="btn btn-light btn-round px-5">Redeem</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      async function redeemCoupon() {
+        const couponCode = document.getElementById('coupon').value;
+        const response = await fetch(`/coupons/redeem/${couponCode}`,);
+        const data = await response.json();
+        if (data.success === true) {
+          toastr.success(data.message, `Success!`);
+          document.getElementById('coupon').value = "";
+        } else {
+          toastr.error(data.message, 'Error!');
+        }
+      }
+    </script>
+    <div class="card alert">
+      <div class="card-body">
+        <div class="card-action">
+          <div class="dropdown">
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        </div>
+        <div class="card-title">Discord ID to HCID</div>
+        <hr>
+        <div class="row">
+          <div class="card-body">
+            <input id="IDinput" class="form-control form-control-rounded" placeholder="User's Discord ID" type="text" name="fname">
+          </div>
+
+          <div class="card-body">
+            <button onclick="fetchID()" class="form-control form-control-rounded" type="button"> Fetch HCID
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card alert">
+      <div class="card-body">
+        <div class="card-action">
+          <div class="dropdown">
+            <button aria-hidden="true" class="close" type="button">&times;</button>
+          </div>
+        </div>
+        <div class="card-title">Account Info</div>
+        <hr>
+        <form>
+          <div class="form-group">
+            <label>Username [Click to copy]</label>
+            <input onclick="copyToClipboard('usernameInput')" id="usernameInput" class="form-control form-control-rounded" value="<%= pterodactyl.username %>" type="text" readonly>
+          </div>
+          <div class="form-group">
+            <label>Email [Click to copy]</label>
+            <input onclick="copyToClipboard('emailInput')" id="emailInput" class="form-control form-control-rounded" value="<%= pterodactyl.email %>" type="text" readonly>
+          </div>
+          <div class="form-group">
+            <label>HCID [Click to copy]</label>
+            <input onclick="copyToClipboard('hcid')" id="hcid" class="form-control form-control-rounded" value="<%= userinfo.hcid %>" type="text" readonly>
+          </div>
+          <div class="form-group">
+            <label>Password [Click to copy]</label>
+            <div class="input-group">
+              <input onclick="copyToClipboard('password')" id="password" class="form-control form-control-rounded" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;" value="<%= userinfo.password %><%= req.session.userpass %>" type="password" readonly>
+              <div class="input-group-append">
+                <button class="form-control form-control-rounded" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" id="togglePassword">
+                  <i class="fa fa-eye" id="toggleIcon"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const IDinput = document.getElementById("IDinput");
+
+  async function fetchID() {
+    try {
+      const response = await fetch(`/users/id/get/hcid/${IDinput.value}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const data = await response.json();
+
+      if (data.success === true) {
+        IDinput.value = data.id;
+      } else {
+        toastr.error(data.message, 'Error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toastr.error("Error occurred while getting user ID", 'Error');
+    }
+  }
+</script>

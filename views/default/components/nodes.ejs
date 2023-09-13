@@ -1,0 +1,237 @@
+<% if (settings.features.status.enabled==true) { %>
+    <% if (settings.features.status.show.nodes==true) { %>
+    <div class="card alert">
+       <div class="card-body">
+          <div class="card-action">
+             <div class="dropdown">
+                <button aria-hidden="true" class="close" type="button">&times;</button>
+             </div>
+          </div>
+          <div class="card-title">&nbsp; Nodes</div>
+          <hr>
+          <table id="nodes">
+             <thead>
+                <tr>
+                   <th>
+                      <h6>Name</h6>
+                   </th>
+                   <th>
+                      <h6>Memory</h6>
+                   </th>
+                   <th>
+                      <h6>Disk</h6>
+                   </th>
+                   <th>
+                      <h6>Used Memory</h6>
+                   </th>
+                   <th>
+                      <h6>Used Disk</h6>
+                   </th>
+                   <th>
+                      <h6>Status</h6>
+                   </th>
+                   <th>
+                      <h6>
+                         Usage
+                      </h6>
+                   </th>
+                </tr>
+             </thead>
+             <tbody>
+             </tbody>
+          </table>
+          <div id="loading">
+             <center>
+                <div class="lds-ring">
+                   <div>
+                   </div>
+                </div>
+             </center>
+          </div>
+          <% } %>
+       </div>
+    </div>
+    <% } %>
+    <script>
+      function getStatus() {
+        fetch('/status')
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            displayStatus(data);
+          })
+          .catch(function (error) {
+            console.error('Error fetching status:', error);
+          });
+      }
+    
+      function displayStatus(status) {
+        var statusBody = document.getElementById('status-body');
+        statusBody.innerHTML = '';
+    
+        status.forEach(function (site) {
+          var row = document.createElement('tr');
+          var nameCell = document.createElement('td');
+          nameCell.textContent = site.name;
+          row.appendChild(nameCell);
+          var websiteCell = document.createElement('td');
+          var websiteLink = document.createElement('a');
+          websiteLink.href = site.website;
+          websiteLink.textContent = site.website;
+          websiteCell.appendChild(websiteLink);
+          row.appendChild(websiteCell);
+    
+          var statusCell = document.createElement('td');
+          statusCell.textContent = site.isUp ? 'Online' : 'Offline';
+          row.appendChild(statusCell);
+    
+          var lastCheckedCell = document.createElement('td');
+          lastCheckedCell.textContent = site.lastChecked;
+          row.appendChild(lastCheckedCell);
+    
+          statusBody.appendChild(row);
+        });
+      }
+      getStatus();
+    
+      async function slist() {
+      var table = document.getElementById("nodes");
+      var loader = document.getElementById("loading");
+      var totalMemory = 0;
+      var totalDisk = 0;
+      var totalUsedMemory = 0;
+      var totalUsedDisk = 0;
+      var totalOnlineNodes = 0;
+      var totalPercentage = 0;
+    
+      table.style = 'display: none;';
+    
+      fetch('/status/nodes')
+        .then(response => response.json())
+        .then(json => {
+          for (let i = 0; i < json.length; i++) {
+            var row = table.insertRow(1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+            var cell7 = row.insertCell(6);
+    
+            const memory = json[i].memory > 1024000 ? `${json[i].memory / 1024 / 1024} TB` : `${json[i].memory / 1024} GB`;
+            const disk = json[i].disk > 1024000 ? `${json[i].disk / 1024 / 1024} TB` : `${json[i].disk / 1024} GB`;
+    
+            const memoryPercentage = (json[i].usedMemory / json[i].memory) * 100;
+            const diskPercentage = (json[i].usedDisk / json[i].disk) * 100;
+    
+            totalMemory += json[i].memory;
+            totalDisk += json[i].disk;
+            totalUsedMemory += json[i].usedMemory;
+            totalUsedDisk += json[i].usedDisk;
+    
+            if (json[i].status === 'online') {
+              totalOnlineNodes++;
+            }
+    
+            val1 = memoryPercentage + diskPercentage;
+            normalized = val1 / 200 * 100;
+    
+            cell1.innerHTML = `<h6>${json[i].name}</h6>`;
+            cell2.innerHTML = `<h6>${memory}</h6>`;
+            cell3.innerHTML = `<h6>${disk}</h6>`;
+            cell4.innerHTML = `<h6>${json[i].usedMemory / 1024} GB</h6>`;
+            cell5.innerHTML = `<h6>${json[i].usedDisk / 1024} GB</h6>`;
+            cell6.innerHTML = `${(json[i].status == 'online') ? '<h6 class="fa fa-fw fa-heartbeat faa-pulse animated heartbeat" style="color: #02ba5a"></h6>' : '<h6 class="fa fa-fw fa-heart-o" style="color: red"></h6>'}`;
+    
+            cell7.innerHTML = `<div class="progress my-3" style="height:3px;">
+              <div class="progress-bar" style="width:${normalized}%;"></div>
+            </div>`;
+    
+            table.style.display = "table";
+            loader.style = 'display: none;';
+          }
+    
+          totalPercentage = (totalOnlineNodes / json.length) * 100;
+    
+          var totalRow = table.insertRow();
+          var totalLabel = totalRow.insertCell(0);
+          var totalMemoryCell = totalRow.insertCell(1);
+          var totalDiskCell = totalRow.insertCell(2);
+          var totalUsedMemoryCell = totalRow.insertCell(3);
+          var totalUsedDiskCell = totalRow.insertCell(4);
+          var totalStatusCell = totalRow.insertCell(5);
+          var totalProgressBarCell = totalRow.insertCell(6);
+    
+          var totalMemoryDisplay = totalMemory > 1024000 ? `${totalMemory / 1024 / 1024} TB` : `${totalMemory / 1024} GB`;
+          var totalDiskDisplay = totalDisk > 1024000 ? `${totalDisk / 1024 / 1024} TB` : `${totalDisk / 1024} GB`;
+          var totalUsedMemoryDisplay = totalUsedMemory / 1024 > 1024000 ? `${totalUsedMemory / 1024 / 1024} TB` : `${totalUsedMemory / 1024} GB`;
+          var totalUsedDiskDisplay = totalUsedDisk / 1024 > 1024000 ? `${totalUsedDisk / 1024 / 1024} TB` : `${totalUsedDisk / 1024} GB`;
+    
+          a = totalUsedMemory + totalUsedDisk;
+          b = totalMemory + totalDisk
+          c = a / b * 100;
+    
+          totalLabel.innerHTML = '<h6>Total</h6>';
+          totalMemoryCell.innerHTML = `<h6>${totalMemoryDisplay}</h6>`;
+          totalDiskCell.innerHTML = `<h6>${totalDiskDisplay}</h6>`;
+          totalUsedMemoryCell.innerHTML = `<h6>${totalUsedMemoryDisplay}</h6>`;
+          totalUsedDiskCell.innerHTML = `<h6>${totalUsedDiskDisplay}</h6>`;
+          totalStatusCell.innerHTML = `<h6>${totalOnlineNodes} / ${json.length}</h6>`;
+    
+          totalProgressBarCell.innerHTML = `<div class="progress my-3" style="height:3px;">
+            <div class="progress-bar" style="width:${c}%;"></div>
+          </div>`;
+        })
+    }
+    
+    slist();
+  </script>
+    <style>
+      .lds-ring {
+        display: inline-block;
+        position: relative;
+        width: 30px;
+        height: 30px;
+      }
+    
+      .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        margin: 4px;
+        border: 4px solid;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: white transparent black transparent;
+      }
+    
+      .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+    
+      .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+    
+      .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+    
+      @keyframes lds-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+    
+        50% {
+          transform: rotate(180);
+        }
+    
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" class="a">
+
+<head>
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="<%= settings.website.description %> | Powered by HolaClient.">
+  <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC, Freemium Minecraft Hosting, <%= settings.name %>, Cloud, Minecraft, Servers, Free Servers, Hostings that uses HolaClient">
+  <meta name="author" content="HolaClient">
+  <meta name="copyright" content="<%= settings.name %>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="<%= settings.name %>">
+  <meta property="og:description" content="<%= settings.website.description %> | Powered by HolaClient.">
+  <meta property="og:image" content="<%= settings.logo.url %>">
+  <meta name="twitter:card" content="<%= settings.logo.url %>">
+  <meta name="twitter:title" content="<%= settings.name %>">
+  <meta name="twitter:description" content="<%= settings.website.description %> | Powered by HolaClient.">
+  <meta name="twitter:image" content="<%= settings.logo.url %>">
+  <meta name="twitter:image:src" content="<%= settings.logo.url %>">
+  <!-- End Meta Tags -->
+  <link rel="shortcut icon" href="<%= settings.logo.url %>" type="image/x-icon">
+  <title>
+    <%= settings.name %>
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine.js" integrity="sha512-nIwdJlD5/vHj23CbO2iHCXtsqzdTTx3e3uAmpTm4x2Y8xCIFyWu4cSIV8GaGe2UNVq86/1h9EgUZy7tn243qdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="icon" type="image/png" href="<%= settings.logo.url %>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <link href="https://croix.pro/static/main.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet">
+  <%- include('./components/alert') %>
+  <style>
+    .font-nunito {
+      font-family: 'Nunito sans';
+    }
+
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(10, 10, 10);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader img {
+      width: 150px;
+      height: 150px;
+      animation: fade 1s infinite;
+    }
+
+    @keyframes fade {
+      0% {
+        opacity: 0;
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .connection-error {
+      color: red;
+      font-size: 18px;
+      text-align: center;
+    }
+  </style>
+
+  <script>
+    function checkConnection() {
+      var connectionErrorElement = document.getElementById('connectionError');
+      var loader = document.getElementById('loader');
+      var online = navigator.onLine;
+
+      if (!online) {
+        connectionErrorElement.textContent = 'Connection error. Please check your network connection.';
+        connectionErrorElement.style.display = 'block';
+        return false;
+      } else {
+        connectionErrorElement.style.display = 'none';
+        return true;
+      }
+    }
+
+    $(window).on('load', function() {
+      if (checkConnection()) {
+        $('.preloader').fadeOut('slow', function() {
+          $(this).addClass('hidden');
+        });
+      }
+    });
+  </script>
+  <div class="preloader">
+    <div class="loader">
+      <img src="<%= settings.logo.url %>">
+    </div>
+    <div id="connectionError" class="connection-error"></div>
+  </div>
+</head>
+
+<body class="min-w-screen min-h-screen bg-gray-900">
+  <header class="fixed inset-x-0 top-0 z-50">
+    <nav class="flex flex-col sm:flex-row items-center justify-between p-2 lg:px-8 border-b border-gray-100 bg-white/80 backdrop-blur dark:border-gray-700/30 dark:bg-gray-900/40" aria-label="Global">
+      <div class="text-gray-600 dark:text-gray-300 lg:pr-4 flex ml-auto">
+        <% if (!settings.links.status=="" ) { %>
+        <a href="<%= settings.links.status %>" target="_blank" class="bi bi-wifi block cursor-pointer transition hover:text-primary dark:hover:text-primaryLight md:px-2">
+          <span>Status &nbsp;&nbsp;&nbsp;</span>
+        </a>
+        <% } %>
+        <a href="/discord" target="_blank" class="bi bi-discord cursor-pointer block transition hover:text-primary dark:hover:text-primaryLight md:px-2">
+          <span> Discord &nbsp;&nbsp;&nbsp;</span>
+        </a>
+        <a href="/dashboard" target="_blank" class="bi bi-person-fill cursor-pointer block transition hover:text-primary dark:hover:text-primaryLight md:px-2">
+          <span> Client &nbsp;&nbsp;&nbsp;</span>
+        </a>
+        <a href="/panel" target="_blank" class="bi bi-gear-fill cursor-pointer block transition hover:text-primary dark:hover:text-primaryLight md:px-2">
+          <span> Panel &nbsp;&nbsp;&nbsp;</span>
+        </a>
+      </div>
+    </nav>
+    <nav id="navbar" class="flex items-center justify-between p-2 lg:px-8 border-b border-gray-100 bg-white/80 backdrop-blur dark:border-gray-700/30 dark:bg-gray-900/40" aria-label="Global">
+      <div class="relative isolate rounded-3xl flex items-center gap-x-6 overflow-hidden">
+        <div class="flex lg:flex-1">
+          <a href="/" aria-label="logo" class="flex space-x-2 items-center">
+            <h1 class="font-nunito text-2xl md:text-4xl lg:text-3xl xl:text-4xl">
+              <span class="bg-gradient-to-r bg-gradient-to-r to-green-300 from-blue-500 bg-clip-text font-extrabold text-transparent font-nunito">&nbsp;<%= settings.name %>&nbsp;</span>
+            </h1>
+          </a>
+        </div>
+      </div>
+      <div id="navlinks" class="invisible absolute top-full left-0 z-20 w-full origin-top-right translate-y-1 scale-90 flex-col flex-wrap justify-end gap-6 rounded-3xl border border-gray-100 bg-white p-8 opacity-0 shadow-2xl shadow-gray-600/10 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none lg:visible lg:relative lg:flex lg:w-auto lg:translate-y-0 lg:scale-100 lg:flex-row lg:items-center lg:gap-0 lg:border-none lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none lg:peer-checked:translate-y-0 dark:lg:bg-transparent">
+        <div class="text-gray-600 dark:text-gray-300 lg:pr-4">
+          <ul class="space-y-6 text-base font-medium text-center tracking-wide lg:flex lg:space-y-0 lg:text-sm">
+            <div class="relative inline-block ">
+              <button class="relative ml-auto flex h-9 w-full items-center justify-center">
+                <span class="relative text-sm font-semibold text-white dark:text-gray-900 lg:text-primary lg:dark:text-white">
+                  Home</span>
+              </button>
+
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="relative inline-block ">
+              <button onclick="location.href='./tos'" class="relative ml-auto flex h-9 w-full items-center justify-center">
+                <span class="relative text-sm font-semibold text-white dark:text-gray-900 lg:text-primary lg:dark:text-white">
+                  ToS</span>
+              </button>
+
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="relative inline-block ">
+              <button onclick="location.href='./pp'" class="relative ml-auto flex h-9 w-full items-center justify-center">
+                <span class="relative text-sm font-semibold text-white dark:text-gray-900 lg:text-primary lg:dark:text-white">
+                  Privacy Policy</span>
+              </button>
+
+            </div>&nbsp;&nbsp;
+          </ul>
+        </div>
+
+        <div class="mt-12 flex w-full flex-col border-primary/10 dark:border-gray-700 sm:flex-row md:w-max lg:mt-0 lg:mr-6">
+          <a onclick="location.href='/dashboard'" class="cursor-pointer relative ml-auto flex h-9 w-full items-center justify-center before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition-transform before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-primaryLight sm:px-4 lg:before:border lg:before:border-gray-200 lg:before:bg-gray-100 lg:dark:before:bg-gray-800">
+            <span class="relative text-sm font-semibold text-white dark:text-gray-900 lg:text-primary lg:dark:text-white">Get
+              started</span>
+          </a>
+        </div>
+      </div>
+      <div class="lg:hidden">
+        <button aria-label="hamburger" id="hamburger" class="relative p-2 lg:hidden">
+          <div aria-hidden="true" class="m-auto h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300">
+          </div>
+          <div aria-hidden="true" class="m-auto mt-2 h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300"></div>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <section>
+    <div aria-hidden="true" class="absolute inset-0 top-60 grid grid-cols-2 -space-x-52 opacity-50 dark:opacity-30">
+      <div class="h-60 bg-gradient-to-br from-primary to-purple-400 blur-[106px] dark:from-blue-700"></div>
+      <div class="h-40 bg-gradient-to-r from-cyan-400 to-sky-300 blur-[106px] dark:to-indigo-600"></div>
+    </div>
+    <div aria-hidden="true" class="absolute inset-0 -space-x-52 opacity-50 dark:opacity-30">
+      <img class="w-full h-full" src="<%= settings.background %>">
+    </div>
+  </section>
+  <section class="min-w-screen min-h-screen flex items-center justify-center">
+    <div class="pt-32 md:py-12 xl:container items m-auto px-6 md:px-12">
+      <div aria-hidden="true" class="absolute inset-0 my-auto w-96 h-32 rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl opacity-50 dark:opacity-20">
+      </div>
+      <div class="relative lg:flex lg:items-center lg:gap-12">
+        <div class="text-center lg:text-left md:mt-12 lg:mt-0 sm:w-10/12 md:w-2/3 sm:mx-auto lg:mr-auto lg:w-6/12">
+          <h1 class="text-gray-900 font-bold text-4xl md:text-6xl lg:text-5xl xl:text-6xl dark:text-white">
+            Create a
+            <div class="relative inline-grid grid-cols-1 grid-rows-1 gap-12 overflow-hidden">
+              <span class="animate-word col-span-full row-span-full bg-gradient-to-r from-secondaryLight to-blue-500 bg-clip-text text-transparent">Minecraft</span>
+              <span class="animate-word-delay-1 col-span-full row-span-full bg-gradient-to-r from-secondaryLight to-blue-500 bg-clip-text text-transparent">NodeJS</span>
+              <span class="animate-word-delay-2 col-span-full row-span-full bg-gradient-to-r from-secondaryLight to-blue-500 bg-clip-text text-transparent">Python</span>
+              <span class="animate-word-delay-3 col-span-full row-span-full bg-gradient-to-r from-secondaryLight to-blue-500 bg-clip-text text-transparent">Rust</span>
+              <span class="animate-word-delay-4 col-span-full row-span-full bg-gradient-to-r from-secondaryLight to-blue-500 bg-clip-text text-transparent">FiveM</span>
+            </div> server
+            now at <span class="bg-gradient-to-r bg-gradient-to-r to-green-300 from-blue-500 bg-clip-text font-extrabold text-transparent font-nunito"><%= settings.name %></span>
+          </h1>
+          <p class="mt-8 sm:text-gray-100 text-gray-100 hover:bg-gradient-to-r hover:from-green-300 hover:to-blue-500 hover:bg-clip-text hover:font-extrabold hover:text-transparent font-nunito">
+            <%= settings.description%>
+          </p>
+        </div>
+        <div class="overflow-hidden w-full lg:w-7/12 lg:-mr-16">
+          <img src="https://cdni.iconscout.com/illustration/premium/thumb/server-network-analyst-computer-6287435-5219713.png" class="hidden lg:block floating">
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="py-8 lg:py-2">
+      <div class="container m-auto space-y-8 px-6 text-gray-500 md:px-12 lg:px-20">
+        <div class="items-center ">
+          <div class="mt-8 lg:mt-0">
+            <div class="-mx-6 flex flex-wrap gap-6 px-6 md:justify-between lg:gap-2">
+              <div onclick="location.href='https://hetzner.com/'" class="cursor-pointer flex items-center rounded-xl lg:p-4 ">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Logo_Hetzner.svg/220px-Logo_Hetzner.svg.png" class="w-28" alt="" />
+              </div>
+
+              <div onclick="location.href='https://contabo.com/en/'" class="cursor-pointer flex items-center rounded-xl lg:p-4 ">
+                <img src="https://www.oakleycapital.com/media/qp3df5vu/contabo-new-w.png" class="w-28" alt="" />
+              </div>
+
+              <div onclick="location.href='https://discord.com/'" class="cursor-pointer flex items-center rounded-xl lg:p-4 ">
+                <img src="https://qph.cf2.quoracdn.net/main-qimg-4d88d117cfd7a942dd5f0568f1f13e4c" class="w-32" alt="" />
+              </div>
+
+              <div onclick="location.href='https://pterodactyl.io/'" class="cursor-pointer flex items-center rounded-xl lg:p-4 ">
+                <img src="https://cdn.pterodactyl.io/logos/new/pterodactyl_logo_transparent.png" class="w-32" alt="" />
+              </div>
+
+              <div onclick="location.href='https://holaclient.tech/'" class="cursor-pointer flex items-center rounded-xl lg:p-4 ">
+                <img src="https://media.discordapp.net/attachments/1135147336771850250/1135180495072796793/holaclient.png" class="w-32" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section>
+    <section class="border-t border-gray-100 pt-16 dark:border-gray-800 md:pt-32">
+      <div class="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
+        <div class="items-center justify-center space-y-6 md:flex md:gap-6 md:space-y-0">
+          <div class="md:w-1/2 lg:w-3/5">
+            <img class="h-full rounded-3xl object-cover md:-ml-8" src="https://www.minecraft.net/content/dam/games/minecraft/marketplace/Minecraft_Landing_Desktop_1366_Creations.png" width="1399" height="1314">
+          </div>
+          <div class="md:w-1/2">
+            <span class="text-sm font-semibold uppercase tracking-widest text-primary dark:text-secondaryLight">our
+              intention</span>
+            <h2 class="my-8 text-3xl font-bold text-gray-900 dark:text-white lg:text-4xl">Empower your Game
+              Servers with <span class="bg-gradient-to-r bg-gradient-to-r to-green-300 from-blue-500 bg-clip-text font-extrabold text-transparent font-nunito"><%= settings.name %></span></h2>
+            <p class="mb-4 text-gray-600 dark:text-gray-300">Unlock the full potential of your Minecraft
+              server hosting with our advanced solutions.</p>
+            <p class="text-gray-600 dark:text-gray-300">Experience unparalleled performance, superior
+              reliability, and exceptional support for your Minecraft server hosting needs. Our services
+              are tailored to make your gaming community thrive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+  <section>
+
+    <div class="py-16">
+      <div class="xl:container m-auto px-6 text-gray-500 md:px-12">
+        <div class="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
+          <div class="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
+            <div class="relative py-12 p-8">
+
+              <div class="space-y-2 text-center">
+                <h5 id="users" class="text-5xl text-gray-700 dark:text-white transition">
+                  ...
+                </h5>
+                <h5 class="text-2xl font-medium text-gray-700 dark:text-white transition">
+                  users
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
+            <div class="relative space-y-8 py-12 p-8">
+
+              <div class="space-y-2 text-center">
+                <h5 id="servers" class="text-5xl text-gray-700 dark:text-white transition">
+                  ...
+                </h5>
+                <h5 class="text-2xl font-medium text-gray-700 dark:text-white transition">
+                  servers
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
+            <div class="relative space-y-8 py-12 p-8">
+
+              <div class="space-y-2 text-center">
+                <h5 id="locations" class="text-5xl text-gray-700 dark:text-white transition">
+                  ...
+                </h5>
+                <h5 class="text-2xl font-medium text-gray-700 dark:text-white transition">
+                  locations
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="group relative bg-gray-50 dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
+            <div class="relative space-y-8 py-12 p-8 transition duration-300">
+
+              <div class="space-y-2 text-center">
+                <h5 id="nodes" class="text-5xl text-gray-700 dark:text-white transition">
+                  ...
+                </h5>
+                <h5 class="text-2xl font-medium text-gray-700 dark:text-white transition">
+                  nodes
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <footer class="border-t border-gray-100 dark:border-gray-800">
+    <div class="container mx-auto px-6 py-8 text-gray-600 dark:text-gray-400 md:px-12 lg:px-20">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <h1>
+          <span class="text-5xl bg-gradient-to-r bg-gradient-to-r to-green-300 from-blue-500 bg-clip-text font-extrabold text-transparent font-nunito"><%= settings.name %></span>
+          <br><a href="https://cr072.holaclient.tech" class="mt-2 inline-block text-sm">Made with &hearts; by
+            CR072</a>
+        </h1>
+        <div class="flex gap-6">
+          <a href="https://github.com/CR072" target="_blank" class="hover:text-primary dark:hover:text-primaryLight">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.20-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.20-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.20-.82 2.20-.82.44 1.10.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.20 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+              </path>
+            </svg>
+          </a>
+          <a href="<%= settings.links.discord %>" target="_blank" class="hover:text-primary dark:hover:text-primaryLight">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+              <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011a.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0a8.258 8.258 0 0 0-.412-.833a.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02a.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059a.051.051 0 0 0-.018-.011a8.875 8.875 0 0 1-1.248-.595a.05.05 0 0 1-.02-.066a.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248-.195a.051.051 0 0 1-.004.085a8.254 8.254 0 0 1-1.249.594a.05.05 0 0 0-.03.03a.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019a13.235 13.235 0 0 0 4.001-2.02a.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612c0-.889.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613c0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612c0-.889.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613c0 .888-.631 1.612-1.438 1.612Z">
+              </path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 text-gray-600 dark:text-gray-400">
+        <div class="grid grid-cols-8 gap-6 md:gap-0">
+          <div class="col-span-6 md:col-span-6 lg:col-span-6">
+            <span>© <script>
+                document.write(new Date().getFullYear());
+              </script> <%= settings.name %></span>
+          </div>
+          <div onclick="location.href='https://github.com/HolaClient/HolaClient'" class="col-span-2 md:col-span-2 lg:col-span-2 flex justify-end">
+            <span>Powered by HolaClient</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+</body>
+
+<script>
+  async function servers() {
+    const serverInfo = document.getElementById("servers");
+    const response = await fetch('/api/servers');
+    const json = await response.json();
+    const infoString = `${json.servers}`;
+    serverInfo.innerText = infoString;
+  }
+  servers();
+  async function users() {
+    const users = document.getElementById("users");
+    const response = await fetch('/api/users');
+    const json = await response.json();
+    const usersr = `${json.users}`;
+    users.innerText = usersr;
+  }
+  users();
+  async function locations() {
+    const locations = document.getElementById("locations");
+    const response = await fetch('/api/locations');
+    const json = await response.json();
+    const location = `${json.locations}`;
+    locations.innerText = location;
+  }
+  locations();
+  async function nodes() {
+    const node = document.getElementById("nodes");
+    const response = await fetch('/api/nodes');
+    const json = await response.json();
+    const nodes = `${json.nodes}`;
+    node.innerText = nodes;
+  }
+  nodes();
+</script>
+<script src="https://croix.pro/static/main.js"></script>
+
+</html>

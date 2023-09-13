@@ -1,0 +1,315 @@
+<head>
+    <%- include('../components/head') %>
+    <!-- Vector CSS -->
+    <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  
+  </head> 
+  <body>
+    <!-- Start wrapper-->
+    <div id="wrapper">
+       <%- include('../components/sidebar') %>
+       <%- include('../components/topnav') %>
+       <div class="clearfix"></div>
+       <div class="content-wrapper">
+          <div class="container-fluid">
+             <!---- ALERTS ----->
+             <%- include('../components/alert') %>
+             <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <center>
+                            Links
+                        </center>
+                        <hr>
+             </div>
+             <div class="row">
+             <div class="col-lg-4">
+                <div class="">
+                  <div class="card-title"><center>Website</center>
+                  </div>
+                  <div class="table-responsive">
+                    <div class="card-body">
+                          <center>
+                          <i class="fa-solid fa-globe fa-2xl"></i>
+                          </center>
+                      </div>
+                    <table class="align-items-center">
+                      <tbody>
+                        <tr>
+                          <td><center><button onclick="location.href='<%= settings.links.website %>'" style="width: 100%;" class="btn btn-light"> Website</button></center></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="">
+                  <div class="card-title"><center>Discord</center>
+                  </div>
+                  <div class="table-responsive">
+                    <div class="card-body">
+                          <center>
+                            <i class="fa-brands fa-discord fa-2xl"></i>
+                          </center>
+                      </div>
+                    <table class="align-items-center">
+                      <tbody>
+                        <tr>
+                          <td><center><button onclick="location.href='<%= settings.links.discord %>'" style="width: 100%;" class="btn btn-light"> Discord</button></center></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="">
+                  <div class="card-title"><center>Panel</center>
+                  </div>
+                  <div class="table-responsive">
+                    <div class="card-body">
+                          <center>
+                            <i class="fa-brands fa-cpanel fa-2xl"></i>
+                          </center>
+                      </div>
+                    <table class="align-items-center">
+                      <tbody>
+                        <tr>
+                          <td><center><button onclick="location.href='<%= settings.pterodactyl.domain %>'" style="width: 100%;" class="btn btn-light"> Panel</button></center></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="">
+                  <div class="card-title"><center>TOS</center>
+                  </div>
+                  <div class="table-responsive">
+                    <div class="card-body">
+                          <center>
+                            <i class="fa-solid fa-file-lines fa-2xl"></i>
+                          </center>
+                      </div>
+                    <table class="align-items-center">
+                      <tbody>
+                        <tr>
+                          <td><center><button onclick="location.href='../tos'" style="width: 100%;" class="btn btn-light"> TOS</button></center></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="">
+                  <div class="card-title"><center>Privacy Policy</center>
+                  </div>
+                  <div class="table-responsive">
+                    <div class="card-body">
+                          <center>
+                            <i class="fa-brands fa-pied-piper-pp fa-2xl"></i>
+                          </center>
+                      </div>
+                    <table class="align-items-center">
+                      <tbody>
+                        <tr>
+                          <td><center><button onclick="location.href='../pp'" style="width: 100%;" class="btn btn-light"> Privacy Policy</button></center></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="">
+                  <div class="card-title"><center>GitHub</center>
+                  </div>
+                  <div class="table-responsive">
+                    <div class="card-body">
+                          <center>
+                            <i class="fa-brands fa-github fa-2xl"></i>
+                          </center>
+                      </div>
+                    <table class="align-items-center">
+                      <tbody>
+                        <tr>
+                          <td><center><button onclick="location.href='https://github.com/HolaClient/HolaClient'" style="width: 100%;" class="btn btn-light"> GitHub</button></center></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <center>
+                        Tools
+                    </center>
+                    <hr>
+         </div>
+         <div class="row">
+         <div class="col-lg-4">
+            <div class="">
+              <div class="card-title"><center>MOTD Creator</center>
+              </div>
+              <div class="table-responsive">
+                <div class="card-body">
+                      <center>
+                        <i class="fa-solid fa-gears fa-2xl"></i>
+                      </center>
+                  </div>
+                <table class="align-items-center">
+                  <tbody>
+                    <tr>
+                      <td><center><button onclick="location.href='https://minecraft.tools/en/motd.php'" style="width: 100%;" class="btn btn-light"> Link</button></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="">
+              <div class="card-title"><center>MC JSON</center>
+              </div>
+              <div class="table-responsive">
+                <div class="card-body">
+                      <center>
+                        <i class="fa-solid fa-gears fa-2xl"></i>
+                      </center>
+                  </div>
+                <table class="align-items-center">
+                  <tbody>
+                    <tr>
+                      <td><center><button onclick="location.href='https://minecraft.tools/en/json_text.php'" style="width: 100%;" class="btn btn-light"> Link</button></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="">
+              <div class="card-title"><center>Color Format</center>
+              </div>
+              <div class="table-responsive">
+                <div class="card-body">
+                      <center>
+                        <i class="fa-solid fa-gears fa-2xl"></i>
+                      </center>
+                  </div>
+                <table class="align-items-center">
+                  <tbody>
+                    <tr>
+                      <td><center><button onclick="location.href='https://colorize.fun/en/minecraft'" style="width: 100%;" class="btn btn-light"> Link</button></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="">
+              <div class="card-title"><center>Title creator</center>
+              </div>
+              <div class="table-responsive">
+                <div class="card-body">
+                      <center>
+                        <i class="fa-solid fa-gears fa-2xl"></i>
+                      </center>
+                  </div>
+                <table class="align-items-center">
+                  <tbody>
+                    <tr>
+                      <td><center><button onclick="location.href='https://minecraft.tools/en/title.php'" style="width: 100%;" class="btn btn-light"> Link</button></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="">
+              <div class="card-title"><center>Custom Crafting</center>
+              </div>
+              <div class="table-responsive">
+                <div class="card-body">
+                      <center>
+                        <i class="fa-solid fa-gears fa-2xl"></i>
+                      </center>
+                  </div>
+                <table class="align-items-center">
+                  <tbody>
+                    <tr>
+                      <td><center><button onclick="location.href='https://minecraft.tools/en/custom-crafting.php'" style="width: 100%;" class="btn btn-light"> Link</button></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="">
+              <div class="card-title"><center>Loot Cheats</center>
+              </div>
+              <div class="table-responsive">
+                <div class="card-body">
+                      <center>
+                        <i class="fa-solid fa-gears fa-2xl"></i>
+                      </center>
+                  </div>
+                <table class="align-items-center">
+                  <tbody>
+                    <tr>
+                      <td><center><button onclick="location.href='https://minecraft.tools/en/loots.php'" style="width: 100%;" class="btn btn-light"> Link</button></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+       </div>
+       <%- include('../components/footer') %>
+      </div>
+      </div>
+    </div>
+  </body>
+  <!--start overlay-->
+  <div class="overlay toggle-menu"></div>
+  <!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+  <!-- Bootstrap core JavaScript-->
+  <script src="../../../assets/js/jquery.min.js"></script>
+  <script src="../../../assets/js/popper.min.js"></script>
+  <script src="../../../assets/js/bootstrap.min.js"></script>
+  <!-- simplebar js -->
+  <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+  <!-- sidebar-menu js -->
+  <script src="../../../assets/js/sidebar-menu.js"></script>
+  <!-- Custom scripts -->
+  <script src="../../../assets/js/app-script.js"></script>
