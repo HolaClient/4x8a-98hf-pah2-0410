@@ -5,6 +5,10 @@
         console.log(num);
     }
     function submitNew() {
+        const cbox = document.getElementById("createBox");
+        const loading = document.getElementById("loading");
+        cbox.style.display = 'none'
+        loading.style.display='block';
         const name = encodeURIComponent(document.getElementById("SRVname").value);
         const softwareItems = document.getElementsByClassName("software-item");
         let selectedEgg;
@@ -22,6 +26,8 @@
                 text: 'Please select a server software!',
                 icon: 'error'
             });
+            cbox.style.display = 'block'
+        loading.style.display='none';
             return;
         }
 
@@ -49,6 +55,8 @@
                 text: 'Please select a server location!',
                 icon: 'error'
             });
+            cbox.style.display = 'block'
+        loading.style.display='none';
             return;
         }
 
@@ -76,9 +84,11 @@
             .then(data => {
                 if (data.success === true) {
                     toastr.success(data.message, 'Success!');
-                    window.location.reload
+                    window.location.reload();
                 } else {
                     toastr.error(data.message, 'Error!');
+                    cbox.style.display = 'block'
+        loading.style.display='none';
                 }
             })
             .catch(error => {
@@ -122,6 +132,19 @@
     }
 </script>
 <style>
+      .rotatel {
+    animation: rotation 1s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
     .location-list {
         display: flex;
         flex-wrap: wrap;
