@@ -43,7 +43,7 @@
                 });
               }
               %>
-                  <div class="card mt-3">
+                  <div id="createBox" class="card mt-3">
                     <div class="card-content">
                       <div class="row row-group m-0">
                         <div class="card-body">
@@ -152,10 +152,15 @@
                         <div class="card-body">
                           <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-check2"></i></span></h5>
                           <h6 style="color:white">Are you sure want to create a server?</h6>
-                          <input class="form-control form-control-rounded" type="button"
-                          value="Yes, Create the server." onclick="submitNew()">
+                          <button class="form-control form-control-rounded"
+                           onclick="submitNew()">Deploy new server</button>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                  <div id="loading" style="display: none;" class="card mt-3">
+                    <div class="text-center card-content p-2">
+                      <img width="40px" src="<%= settings.logo.url %>" class="rotatel">
                     </div>
                   </div>
                   <%- include('../components/footer') %>
