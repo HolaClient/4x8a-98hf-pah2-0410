@@ -85,8 +85,8 @@ Refer to our docs for manual installation: https://docs.holaclient.tech
 ---
 
 ## 📝 Authors
-- [**CR072**](https://github.com/CR072) | Made HolaClient
-- [**ItzBenoitXD**](https://github.com/ItzBenoitXD) | Made HolaClient Docs
+- [**CR072**](https://github.com/CR072)
+- [**ItzBenoitXD**](https://github.com/ItzBenoitXD)
     
 ## ⚖️  Legal
 Please refer "LICENSE" and "CREDITS" files for better understability.
