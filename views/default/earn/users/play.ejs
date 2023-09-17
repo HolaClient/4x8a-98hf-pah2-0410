@@ -1,0 +1,105 @@
+<head>
+    <%- include('../components/head') %>
+    <!-- Vector CSS -->
+    <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+    <link href="../../../assets/css/play.css" rel="stylesheet"/>
+  
+  </head> 
+  <body>
+    <!-- Start wrapper-->
+    <div id="wrapper">
+       <%- include('../components/sidebar') %>
+       <%- include('../components/topnav') %>
+       <div class="clearfix"></div>
+       <div class="content-wrapper">
+          <div class="container-fluid">
+            <div class="container">
+              <div class="heading">
+                <h1 class="title">2048</h1>
+                <div class="score-container">0</div>
+              </div>
+              <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+            
+              <div class="game-container">
+                <div class="game-message">
+                  <p></p>
+                  <div class="lower">
+                    <a class="retry-button">Try again</a>
+                  </div>
+                </div>
+            
+                <div class="grid-container">
+                  <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                  </div>
+                  <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                  </div>
+                  <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                  </div>
+                  <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                  </div>
+                </div>
+            
+                <div class="tile-container">
+            
+                </div>
+              </div>
+            
+              <p class="game-explanation">
+                <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+              </p>
+              <hr>
+              <p>
+              Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
+              </p>
+            </div>
+            
+    <%- include('../components/footer') %>
+    </div>
+    </div>
+    </div>
+  </body>
+  <!--start overlay-->
+  <div class="overlay toggle-menu"></div>
+  <!--end overlay-->
+  <!--Start Back To Top Button-->
+  <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <!--End Back To Top Button-->
+  <!-- Bootstrap core JavaScript-->
+  <script src="../../../assets/js/jquery.min.js"></script>
+  <script src="../../../assets/js/popper.min.js"></script>
+  <script src="../../../assets/js/bootstrap.min.js"></script>
+  <!-- simplebar js -->
+  <script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+  <!-- sidebar-menu js -->
+  <script src="../../../assets/js/sidebar-menu.js"></script>
+  <!-- Custom scripts -->
+  <script src="../../../assets/js/app-script.js"></script>
+  <script src="../../../assets/js/play.js"></script>

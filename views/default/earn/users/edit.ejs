@@ -1,0 +1,116 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../components/sidebar') %>
+<%- include('../components/topnav') %>
+<%- include('../components/alert') %>
+<%- include('../scripts/containers') %>
+<%- include('../components/resources') %>
+<% let ram=0; let disk=0; let cpu=0; let backups=0; let allocations=0; let databases=0;
+                                    let servers=0; if (pterodactyl && pterodactyl.relationships &&
+                                    pterodactyl.relationships.servers && pterodactyl.relationships.servers.data) {
+                                    servers=pterodactyl.relationships.servers.data.length;
+                                    pterodactyl.relationships.servers.data.forEach(server=> {
+                                    const limits = server.attributes.limits;
+                                    const feature_limits = server.attributes.feature_limits; // Fetching feature_limits
+
+                                    if (limits && typeof limits.memory === "number") {
+                                    ram += limits.memory;
+                                    }
+                                    if (limits && typeof limits.disk === "number") {
+                                    disk += limits.disk;
+                                    }
+                                    if (limits && typeof limits.cpu === "number") {
+                                    cpu += limits.cpu;
+                                    }
+                                    if (feature_limits && typeof feature_limits.backups === "number") {
+                                    backups += feature_limits.backups;
+                                    }
+                                    if (feature_limits && typeof feature_limits.allocations === "number") {
+                                    allocations += feature_limits.allocations;
+                                    }
+                                    if (feature_limits && typeof feature_limits.databases === "number") {
+                                    databases += feature_limits.databases;
+                                    }
+                                    });
+                                    }
+                                    %>
+                                    <% if (req.query.id) { %>
+                                        <% if (pterodactyl.relationships.servers.data.filter(name => name.attributes.id == req.query.id).length == 1) {
+                                            let serverinfo = pterodactyl.relationships.servers.data.filter(name => name.attributes.id == req.query.id)[0];
+                                            let attemptegg = null;
+                                            let attemptname = null;
+                                            for (let [name, value] of Object.entries(eggconfig)) {
+                                                if (eggconfig[name].info.egg == serverinfo.attributes.egg) {
+                                                    attemptegg = eggconfig[name];
+                                                    attemptname = name;
+                                                };
+                                            };
+                                            let egginfo = attemptegg ? attemptegg.display : "???";
+                                        %>
+<div class="card mt-3">
+  <div class="card-content">
+
+    <div class="row row-group m-0">
+      <div class="card-body">
+        <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-solid fa-memory"></i></span></h5>
+        <h6 style="color:white">Server Memory:</h6>
+        <input id="SRVram" class="form-control form-control-rounded" type="text" placeholder="ram in MB" value="<%= serverinfo.attributes.limits.memory %>" name="fname">
+      </div>
+
+      <div class="card-body">
+        <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-solid fa-hard-drive"></i></span></h5>
+        <h6 style="color:white">Server Disk:</h6>
+        <input id="SRVdisk" class="form-control form-control-rounded" type="text" placeholder="disk in MB" value="<%= serverinfo.attributes.limits.disk %>" name="fname">
+      </div>
+
+      <div class="card-body">
+        <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-solid fa-microchip"></i></span></h5>
+        <h6 style="color:white">Server Cpu:</h6>
+        <input id="SRVcpu" class="form-control form-control-rounded" type="text" placeholder="cpu in %" value="<%= serverinfo.attributes.limits.cpu %>" name="fname">
+      </div>
+    </div>
+
+    <div class="row row-group m-0">
+      <div class="card-body">
+        <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-solid fa-database"></i></span></h5>
+        <h6 style="color:white">Server Databases:</h6>
+        <input id="SRVdb" class="form-control form-control-rounded" type="text" placeholder="databases" value="<%= serverinfo.attributes.feature_limits.databases %>" name="fname">
+      </div>
+
+      <div class="card-body">
+        <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-brands fa-usb"></i></span></h5>
+        <h6 style="color:white">Server Allocations:</h6>
+        <input id="SRVallocations" class="form-control form-control-rounded" type="text" placeholder="allocations" value="<%= serverinfo.attributes.feature_limits.allocations %>" name="fname">
+      </div>
+
+      <div class="card-body">
+        <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-solid fa-repeat"></i></span></h5>
+        <h6 style="color:white">Server Backups:</h6>
+        <input id="SRVbackups" class="form-control form-control-rounded" type="text" placeholder="backups" value="<%= serverinfo.attributes.feature_limits.backups %>" name="fname">
+      </div>
+    </div>
+
+    <div class="row row-group m-0">
+      <div class="card-body">
+        <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-check2"></i></span></h5>
+        <input class="form-control form-control-rounded" type="button" value="Click to apply the changes" onclick="submitChanges()">
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  async function submitChanges() {
+    const ram = encodeURIComponent(document.getElementById("SRVram").value);
+    const disk = encodeURIComponent(document.getElementById("SRVdisk").value);
+    const cpu = encodeURIComponent(document.getElementById("SRVcpu").value);
+    const backups = encodeURIComponent(document.getElementById("SRVbackups").value);
+    const databases = encodeURIComponent(document.getElementById("SRVdb").value);
+    const allocations = encodeURIComponent(document.getElementById("SRVallocations").value);
+    document.location.href = `/modify?id=<%= req.query.id %>&ram=${ram}&disk=${disk}&cpu=${cpu}&backups=${backups}&allocations=${allocations}&databases=${databases}`;
+  };
+</script>
+<% } %>
+<% } %>
+<%- include('../components/footer') %>
+<%- include('../components/js') %>

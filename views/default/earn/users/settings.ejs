@@ -1,0 +1,304 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+
+<div id="wrapper">
+  <%- include('../components/topnav') %>
+  <%- include('../components/sidebar') %>
+  <div class="clearfix"></div>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <div class="row mt-3">
+        <div class="col-lg-4">
+          <div class="card profile-card-2">
+            <div class="card-img-block">
+              <img class="img-fluid" style="border-radius: 15px;" width="100%" src="<%= settings.banner %>" alt="banner">
+            </div>
+            <div class="card-body pt-5">
+              <img id="avatar-image" src="<%= userinfo.profile %>" alt="profile-image" class="profile">
+              <h5 class="card-title">
+                <%= userinfo.username %>
+              </h5>
+              <p class="card-text">Also known as:<br>
+                <%= user.nickname %>, <%= userinfo.username %>, <%= userinfo.name %>
+              </p>
+            </div>
+            <div class="card-body border-top border-light">
+              <div class="">
+                <% if (userinfo.avatar) { %>
+                <span class="bi bi-discord">
+                  <%= userinfo.username %>
+                </span><br>
+                <% } %>
+                <span class="bi bi-envelope-fill">
+                  <%= userinfo.email %>
+                </span><br>
+                <span class="">
+                  🍰 <%= user.birthday %>
+                </span>
+                <br>
+                <span class="">
+                  <% if (user.birthday) { 
+                    const birthDate = new Date(user.birthday);
+                    const currentDate = new Date();
+                    let age = currentDate.getFullYear() - birthDate.getFullYear();
+                    if (currentDate.getMonth() < birthDate.getMonth() ||
+                        (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
+                        age--;
+                    } 
+                %>
+                <%= age %> years old
+                <% } %>
+                </span>
+              </div>
+              <hr>
+              <center>
+                &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script> HolaClient | v<%= settings.version %>
+              </center>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-body">
+              <ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
+                <li class="nav-item">
+                  <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link active"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
+                </li>
+                <li class="nav-item">
+                  <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
+                </li>
+              </ul>
+              <div class="tab-content p-3">
+                <div class="tab-pane active" id="messages">
+                  <h5 class="mb-3">
+                    <%= userinfo.name %> user profile
+                  </h5>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6>About</h6>
+                      <p>
+                        <%= user.about %>
+                      </p>
+                      <h6>Birthday</h6>
+                      <p>
+                        <%= user.birthday %>
+                      </p>
+                      <h6>User since</h6>
+                      <p>
+                        <%= pterodactyl.created_at %>
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <h6>Information</h6>
+                      <% if (userinfo.avatar) { %>
+                      <a class="badge badge-dark badge-pill">Discord Oauth2</a>
+                      <% } else { %>
+                      <a class="badge badge-dark badge-pill">Email Authentication</a>
+                      <% } %>
+                      <% if (pterodactyl.id < settings.features.early_supporters) { %>
+                      <a class="badge badge-dark badge-pill">Early supporter</a>
+                      <% } %>
+                      <% if (pterodactyl.root_admin==true) { %> <span class="badge badge-dark badge-pill">Administrator</span>
+                      <% } %>
+                      <hr>
+                      <% if (pterodactyl.root_admin==true) { %> <span class="badge badge-danger">An
+                        admin
+                        of <%= settings.name %></span>
+                      <% } else { %> <span class="badge badge-success">An user of <%= settings.name
+                                                %>
+                      </span>
+                      <% } %>
+                      <% if (userinfo.id=="863452735998656512" ) { %> <span class="badge badge-primary">Creator of HolaClient</span>
+                      <% } %>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="row mt-3">
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="input-6">Email:</label>
+                            <input class="form-control form-control-rounded" value="<%= userinfo.email %>" id="email" disabled>
+                          </div>
+                          <div class="form-group">
+                            <label for="input-7">Password:</label>
+                            <input id="password" class="form-control form-control-rounded" value="<%= req.session.userpass %>" disabled>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="input-6">HCID:</label>
+                            <input id="hcid" class="form-control form-control-rounded" value="<%= userinfo.hcid %>" disabled>
+                          </div>
+                          <div class="form-group">
+                            <label for="input-7">Pterodactyl ID:</label>
+                            <input id="coins" class="form-control form-control-rounded" value="<%= pterodactyl.id %>" disabled>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <hr>
+                        <table class="table table-hover table-striped">
+                          <tbody>
+                            <% for (let i=0, len=pterodactyl.relationships.servers.data.length; i < len; i++) {
+                                      %>
+                            <tr>
+                              <%= pterodactyl.relationships.servers.data[i].attributes.name %><strong>,
+                              </strong>
+                            </tr>
+                            <% } %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="edit">
+                  <% if (!userinfo.avatar) { %>
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
+                    <div class="col-lg-9">
+                      <input class="form-control" id="fileInput" type="file" name="profileImage">
+                      <input class="form-control" id="uploadButton" type="submit" value="Submit">
+                    </div>
+                  </div>
+                  <script>
+                    document.getElementById("uploadButton").addEventListener("click", function() {
+                      const fileInput = document.getElementById("fileInput");
+                      const file = fileInput.files[0];
+
+                      if (file) {
+                        const formData = new FormData();
+                        formData.append("profileImage", file);
+
+                        fetch("/upload", {
+                            method: "POST",
+                            body: formData,
+                          })
+                          .then((response) => response.json())
+                          .then((data) => {
+                            toastr.info(data.message)
+                          })
+                          .catch((error) => {
+                            toastr.error(error)
+                          });
+                      } else {
+                        toastr.error('No file selected.', 'Error!')
+                      }
+                    });
+                  </script>
+                  <% } %>
+                  <form id="edit">
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Nickname</label>
+                      <div class="col-lg-9">
+                        <input class="form-control" id="nickname" type="text" placeholder="<%= user.nickname %>" value="<%= user.nickname %>" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Birthday</label>
+                      <div class="col-lg-9">
+                        <input class="form-control" id="birthday" type="date" placeholder="<%= user.birthday %>" value="<%= user.birthday %>" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">About</label>
+                      <div class="col-lg-9">
+                        <textarea rows="2" cols="50" id="about" class="form-control" type="text" value="<%= user.about %>" required><%= user.about %></textarea>
+                      </div>
+                    </div>
+                    <% if (!userinfo.avatar) { %>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                      <div class="col-lg-4">
+                        <input class="form-control" id="npass" type="text" value="" placeholder="New Password">
+                      </div>
+                      <div class="col-lg-5">
+                        <input class="form-control" id="cpass" type="text" value="" placeholder="Confirm Password">
+                      </div>
+                    </div>
+                    <% } else { %>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                      <div class="col-lg-9">
+                        <input class="form-control" type="button" onclick="location.href='/regen'" value="Regenerate">
+                      </div>
+                    </div>
+                    <% } %>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Background</label>
+                      <div class="col-lg-9">
+                        <input class="form-control" id="background" type="text" placeholder="<%= user.background %>" value="<%= user.background %>" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label">Save changes</label>
+                      <div class="col-lg-9">
+                        <input class="form-control" type="button" onclick="updateInfo()" value="Submit">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  async function updateInfo() {
+    event.preventDefault();
+
+    const nickname = document.getElementById("nickname").value;
+    const birthday = document.getElementById("birthday").value;
+    const about = document.getElementById("about").value;
+    const profile = document.getElementById("profile").value;
+    const image = document.getElementById("background").value;
+    let pfpi;
+
+    if (!profile) {
+      pfpi = "https://media.giphy.com/media/1hwlKt8XTAyMs6YFht/giphy.gif";
+    } else {
+      pfpi = profile;
+    }
+    const formData = {
+      nickname,
+      birthday,
+      about,
+      image,
+      pfpi,
+    };
+
+    try {
+      const response = await fetch("/onboarding/edit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        toastr.success('', 'Successfully updated your info!');
+        window.location.href = "/updateinfo"
+      } else {
+        toastr.error('', 'Failed to update settings!');
+      }
+    } catch (error) {
+      console.error("An error occurred while completing onboarding:", error);
+      toastr.error('', error);
+    }
+  };
+  const backgroundInput = document.getElementById("background");
+  backgroundInput.addEventListener("input", () => {
+    const imageUrl = backgroundInput.value;
+    document.body.style.backgroundImage = `url('${imageUrl}')`;
+  });
+</script>
+<%- include('../components/js') %>
