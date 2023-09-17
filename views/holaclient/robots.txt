@@ -1,5 +1,0 @@
-User-agent: HolaClient
-Disallow: /bots/
-
-User-agent: *
-Allow: /
