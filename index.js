@@ -19,13 +19,11 @@ const fs = require("fs");
 const { renderFile } = require('ejs')
 const ora = require('ora');
 const geoip = require('geoip-lite');
-const ipfilter = require('express-ip-filter');
 const fetch = require('node-fetch');
 const path = require('path');
 const express = require("express");
 const app = express();
 const ejs = require("ejs");
-const rateLimit = require("express-rate-limit");
 const session = require("express-session");
 
 //load settings
@@ -54,15 +52,6 @@ l.s(`Loading database...`)
 const db = require('./handlers/database').db();
 module.exports.db = db;
 
-//load globalratelimiter
-l.s(`Loading Global Ratelimiters...`)
-const globalLimiter = rateLimit({
-    windowMs: settings.ratelimits.global.time * 60 * 1000,
-    max: settings.ratelimits.global.max,
-    message: "Too many requests from this IP, please try again later.",
-});
-app.use(globalLimiter);
-
 //load website
 l.s(`Loading website...`)
 app.use(session({
@@ -84,7 +73,17 @@ const blacklistedCountry = settings.features.blacklist.country;
 app.use((req, res, next) => {
     const userCountry = geoip.lookup(req.ip);
     if (blacklistedCountry.includes(userCountry?.country)) {
-        res.status(403).send('Access denied from your country.');
+        res.status(403)
+        renderFile(
+            `./views/${settings.defaulttheme}/alerts/blacklisted.ejs`,
+            { settings: settings, db, extra: { home: { name: 'error' } } },
+            null,
+            (err, str) => {
+                if (err) return res.send('Access restriected from your country!');
+                res.status(403);
+                res.send(str);
+            }
+        );
     } else {
         next();
     }
@@ -102,188 +101,11 @@ loadRoute(path.join(__dirname, 'routes', 'structures'), app, db); l.r(`structure
 loadRoute(path.join(__dirname, 'routes', 'controller'), app, db); l.r(`controllers`)
 loadRoute(path.join(__dirname, 'routes', 'users'), app, db); l.r(`clients`)
 loadRoute(path.join(__dirname, 'routes', 'features'), app, db); l.r(`features`)
+loadRoute(path.join(__dirname, 'routes', 'router'), app, db);
 
-//load ratelimiter
-l.s(`Loading ratelimiters...`)
-var cache = false;
-app.use(function (req, res, next) {
-    let manager = {
-        "/callback": 2,
-        "/create": 1,
-        "/delete": 1,
-        "/modify": 1,
-        "/updateinfo": 1,
-        "/setplan": 2,
-        "/admin": 1,
-        "/regen": 1,
-        "/renew": 1,
-        "/api/userinfo": 1
-    };
-    if (manager[req._parsedUrl.pathname]) {
-        if (cache == true) {
-            setTimeout(async () => {
-                let allqueries = Object.entries(req.query);
-                let querystring = "";
-                for (let query of allqueries) {
-                    querystring = querystring + "&" + query[0] + "=" + query[1];
-                }
-                querystring = "?" + querystring.slice(1);
-                res.redirect((req._parsedUrl.pathname.slice(0, 1) == "/" ? req._parsedUrl.pathname : "/" + req._parsedUrl.pathname) + querystring);
-            }, 1000);
-            return;
-        } else {
-            cache = true;
-            setTimeout(async () => {
-                cache = false;
-            }, 1000 * manager[req._parsedUrl.pathname]);
-        }
-    };
-    next();
-});
-l.s(`Loading definers...`)
-app.all("*", async (req, res) => {
-    if (req.session.pterodactyl);
-    let theme = indexjs.get(req);
-    if (newsettings.earn.arcio.enabled == true) req.session.arcsessiontoken = Math.random().toString(36).substring(2, 15);
-    if (theme.settings.mustbeloggedin.includes(req._parsedUrl.pathname))
-        if (!req.session.userinfo || !req.session.pterodactyl) return res.redirect("/auth");
-    if (theme.settings.mustbeadmin.includes(req._parsedUrl.pathname)) {
-        ejs.renderFile(
-            `./views/${theme.name}/${theme.settings.unauthorized}`,
-            await eval(indexjs.renderdataeval),
-            null,
-            async function (err, str) {
-                delete req.session.newaccount;
-                delete req.session.password;
-                if (!req.session.userinfo || !req.session.pterodactyl) {
-                    if (err) {
-                        console.log(chalk.red(`[WEB SERVER] An error has occured on path ${req._parsedUrl.pathname}:`));
-                        console.log(err);
-                        return renderFile(
-                            `./views/${newsettings.defaulttheme}/errors/500.ejs`,
-                            {
-                                settings: newsettings,
-                                db,
-                                extra: { home: { name: 'error' } }
-                            },
-                            null,
-                            (err, str) => {
-                                if (err) return res.send('Error 200')
-                                res.status(200);
-                                res.send(str);
-                            }
-                        )
-                    };
-                    res.status(200);
-                    return res.send(str);
-                };
-
-                let cacheaccount = await fetch(
-                    settings.pterodactyl.domain + "/api/application/users/" + (await db.get("users-" + req.session.userinfo.id)) + "?include=servers", {
-                    method: "get",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${settings.pterodactyl.key}`
-                    }
-                }
-                );
-                if (await cacheaccount.statusText == "Not Found") {
-                    if (err) {
-                        console.log(chalk.red(`[WEB SERVER] An error has occured on path ${req._parsedUrl.pathname}:`));
-                        console.log(err);
-                        return renderFile(
-                            `./views/${newsettings.defaulttheme}/errors/500.ejs`,
-                            {
-                                settings: newsettings,
-                                db,
-                                extra: { home: { name: 'error' } }
-                            },
-                            null,
-                            (err, str) => {
-                                if (err) return res.send('Error 200')
-                                res.status(200);
-                                res.send(str);
-                            }
-                        )
-                    };
-                    return res.send(str);
-                };
-                let cacheaccountinfo = JSON.parse(await cacheaccount.text());
-
-                req.session.pterodactyl = cacheaccountinfo.attributes;
-                if (cacheaccountinfo.attributes.root_admin !== true) {
-                    if (err) {
-                        console.log(chalk.red(`[WEB SERVER] An error has occured on path ${req._parsedUrl.pathname}:`));
-                        console.log(err);
-                        return renderFile(
-                            `./views/${newsettings.defaulttheme}/errors/500.ejs`,
-                            {
-                                settings: newsettings,
-                                db,
-                                extra: { home: { name: 'error' } }
-                            },
-                            null,
-                            (err, str) => {
-                                if (err) return res.send('Error 200')
-                                res.status(200);
-                                res.send(str);
-                            }
-                        )
-                    };
-                    return res.send(str);
-                };
-
-                ejs.renderFile(
-                    `./views/${theme.name}/${theme.settings.pages[req._parsedUrl.pathname.slice(1)] ? theme.settings.pages[req._parsedUrl.pathname.slice(1)] : theme.settings.notfound}`,
-                    await eval(indexjs.renderdataeval),
-                    null,
-                    function (err, str) {
-                        delete req.session.newaccount;
-                        delete req.session.password;
-                        if (err) {
-                            console.log(`[WEBSITE] An error has occured on path ${req._parsedUrl.pathname}:`);
-                            console.log(err);
-                            return res.json(err);
-                        };
-                        res.status(200);
-                        res.send(str);
-                    });
-            });
-        return;
-    };
-    const data = await eval(indexjs.renderdataeval)
-    ejs.renderFile(
-        `./views/${theme.name}/${theme.settings.pages[req._parsedUrl.pathname.slice(1)] ? theme.settings.pages[req._parsedUrl.pathname.slice(1)] : theme.settings.notfound}`,
-        data,
-        null,
-        function (err, str) {
-            delete req.session.newaccount;
-            delete req.session.password;
-            if (err) {
-                console.log(chalk.red(`[WEB SERVER] An error has occured on path ${req._parsedUrl.pathname}:`));
-                console.log(err);
-                return renderFile(
-                    `./views/${newsettings.defaulttheme}/errors/500.ejs`,
-                    {
-                        settings: newsettings,
-                        db,
-                        extra: { home: { name: 'Error 500' } }
-                    },
-                    null,
-                    (err, str) => {
-                        if (err) return res.send('<center>Error</center>')
-                        res.status(200);
-                        res.send(str);
-                    }
-                )
-            };
-            res.status(200);
-            res.send(str);
-        });
-});
 l.s(`Loading theme settings...`)
 module.exports.get = function (req) {
-    let defaulttheme = JSON.parse(fs.readFileSync("./settings.json")).defaulttheme;
+    let defaulttheme = settings.defaulttheme;
     let tname = encodeURIComponent(getCookie(req, "theme"));
     let name = (
         tname ?
