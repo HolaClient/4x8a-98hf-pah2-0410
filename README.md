@@ -76,7 +76,7 @@ Subdomain (v1.5.7):
 ---
 
 ## ⬇️ Installation
-Refer to our docs for manual installation: https://docs.holaclient.tech
+Refer to our docs for manual installation: https://holaclient.tech/docs
 
 ... or refer to our old documentation made by [**ItzBenoitXD**](https://github.com/ItzBenoitXD): https://old-docs.holaclient.tech
 
