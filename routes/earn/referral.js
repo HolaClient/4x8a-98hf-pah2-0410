@@ -53,7 +53,7 @@ module.exports.load = async function (app, db) {
     }
     if (req.ip === referrerIP) {
       console.log(chalk.cyan("[") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.cyan(" [") + chalk.red("ALT") + chalk.cyan("] ") +  chalk.white(`${referrerHcid}(${referrerID}) is an ALT account of ${userHCID}(${userId})`));
-      return res.json({ success: false, message: 'You cannot refer yourself.' });
+      return res.json({ success: false, message: 'You cannot refer your alt!' });
     }
 
     const totalReferrerCoins = parseFloat(referrerCoins) + parseFloat(settings.earn.referral.coins);
