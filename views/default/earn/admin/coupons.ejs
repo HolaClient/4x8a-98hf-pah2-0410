@@ -1,0 +1,213 @@
+  <%- include('../components/header') %>
+  <%- include('../components/css') %>
+  <%- include('../scripts/wrapper') %>
+  <%- include('../components/menu') %>
+  <%- include('../components/topnav') %>
+  <%- include('../scripts/containers') %>
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">Create Coupons</div>
+      <hr>
+      <div class="row">
+        <div class="card-body">
+          <label for="input-6">Code:</label>
+          <input type="text" id="code" class="form-control form-control-rounded" placeholder="Coupon Code">
+        </div>
+        <div class="card-body">
+          <label for="input-6">Uses:</label>
+          <input type="text" id="uses" class="form-control form-control-rounded" placeholder="1">
+        </div>
+        <div class="card-body">
+          <label for="input-7">Coins:</label>
+          <input type="number" id="coins" class="form-control form-control-rounded" placeholder="Coupon Coins">
+        </div>
+        <div class="card-body">
+          <label for="input-6">RAM:</label>
+          <input type="number" id="ram" class="form-control form-control-rounded" placeholder="1024">
+        </div>
+        <div class="card-body">
+          <label for="input-7">Disk:</label>
+          <input type="number" id="disk" class="form-control form-control-rounded" placeholder="1024">
+        </div>
+      </div>
+      <div class="row">
+        <div class="card-body">
+          <label for="input-6">CPU:</label>
+          <input type="number" id="cpu" class="form-control form-control-rounded" placeholder="100">
+        </div>
+        <div class="card-body">
+          <label for="input-7">Slots:</label>
+          <input type="number" id="servers" class="form-control form-control-rounded" placeholder="Coupon Slots">
+        </div>
+        <div class="card-body">
+          <label for="input-7">Backups:</label>
+          <input type="number" id="backups" class="form-control form-control-rounded" placeholder="Coupon Backups">
+        </div>
+        <div class="card-body">
+          <label for="input-7">Allocations:</label>
+          <input type="number" id="allocations" class="form-control form-control-rounded" placeholder="Coupon Allocations">
+        </div>
+        <div class="card-body">
+          <label for="input-7">Databases:</label>
+          <input type="number" id="databases" class="form-control form-control-rounded" placeholder="Coupon Databases">
+        </div>
+      </div>
+      <div class="card-body">
+        <button role="button" onclick="createCoupon()" class="btn btn-light btn-round px-5">Create Coupon</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    async function createCoupon() {
+      const code = document.getElementById('code').value;
+      const uses = document.getElementById('uses').value;
+      const coins = document.getElementById('coins').value;
+      const ram = document.getElementById('ram').value;
+      const disk = document.getElementById('disk').value;
+      const cpu = document.getElementById('cpu').value;
+      const servers = document.getElementById('servers').value;
+      const databases = document.getElementById('databases').value;
+      const allocations = document.getElementById('allocations').value;
+      const backups = document.getElementById('backups').value;
+      if (!code) {
+        return tostr.error("Please provide a coupon code!", "Error!")
+      }
+      try {
+        const requestData = {
+          code: code,
+          uses: uses,
+          coins: coins,
+          ram: ram,
+          disk: disk,
+          cpu: cpu,
+          servers: servers,
+          databases: databases,
+          allocations: allocations,
+          backups: backups,
+        };
+        const response = await fetch("/coupons/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(requestData)
+        });
+
+        const data = await response.json();
+
+        if (data.success === true) {
+          toastr.success(data.message, `Success!`);
+          const code = document.getElementById('code').value = ""
+          const uses = document.getElementById('uses').value = ""
+          const coins = document.getElementById('coins').value = ""
+          const ram = document.getElementById('ram').value = ""
+          const disk = document.getElementById('disk').value = ""
+          const cpu = document.getElementById('cpu').value = ""
+          const servers = document.getElementById('servers').value = ""
+          const databases = document.getElementById('databases').value = ""
+          const allocations = document.getElementById('allocations').value = ""
+          const backups = document.getElementById('backups').value = ""
+        } else {
+          toastr.error(data.message, 'Error!');
+        }
+      } catch (error) {
+        toastr.error(error, "Error!");
+      }
+    }
+  </script>
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">Revoke Coupons</div>
+      <hr>
+      <div class="form-group">
+        <label for="searchInput">Search:</label>
+        <input type="text" id="searchInput" class="form-control form-control-rounded bottomflat" placeholder="Search coupon by code.">
+        <select id="couponSelect" class="form-control form-control-rounded topflat">
+          <option value="" disabled selected>Select a coupon</option>
+        </select>
+      </div>
+      <div class="card-body">
+        <button role="button" onclick="revokeCoupon()" class="btn btn-light btn-round px-5">Revoke Coupon</button>
+      </div>
+    </div>
+  </div>
+  <script>
+   const searchInput = document.getElementById("searchInput");
+   const couponSelect = document.getElementById("couponSelect");
+ 
+   let couponsData = [];
+   let selectedCoupon = null;
+ 
+   async function fetchCouponsData(keyword) {
+     try {
+       const response = await fetch(`/coupons/list`);
+       couponsData = await response.json();
+ 
+       couponSelect.innerHTML = '<option value="" disabled selected>Select a coupon</option>';
+ 
+       const filteredCoupons = couponsData.coupons.filter(coupon =>
+         coupon.includes(keyword)
+       );
+ 
+       filteredCoupons.forEach(coupon => {
+         const option = document.createElement("option");
+         option.value = coupon;
+         option.textContent = coupon;
+         couponSelect.appendChild(option);
+       });
+     } catch (error) {
+       console.error(error);
+     }
+   }
+ 
+   searchInput.addEventListener("input", event => {
+     const keyword = event.target.value.trim().toLowerCase();
+     fetchCouponsData(keyword);
+   });
+ 
+   couponSelect.addEventListener("change", event => {
+     selectedCoupon = couponSelect.value;
+   });
+ 
+   async function revokeCoupon() {
+     if (selectedCoupon) {
+       try {
+         const response = await fetch("/coupons/revoke", {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: JSON.stringify({ code: selectedCoupon }),
+         });
+         const data = await response.json();
+         if (data.success === true) {
+          toastr.success(data.message, `Success!`);
+          couponSelect.value = ""
+        } else {
+          toastr.error(data.message, 'Error!');
+        }
+       } catch (error) {
+         console.error("Error revoking coupon:", error);
+         toastr.error(error, "Error!")
+       }
+     } else {
+       console.error("No coupon selected");
+       toastr.error("No Coupon Selected", "Error!")
+     }
+   }
+ 
+   fetchCouponsData("");
+ </script> 
+  <style>
+    .bottomflat {
+      border-bottom-left-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
+    }
+
+    .topflat {
+      border-top-left-radius: 0px !important;
+      border-top-right-radius: 0px !important;
+    }
+  </style>
+  <%- include('../components/footer') %>
+  <%- include('../components/js') %>
