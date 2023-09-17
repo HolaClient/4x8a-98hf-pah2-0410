@@ -1,0 +1,155 @@
+<style>
+    @import url(https://fonts.googleapis.com/css2?family=Nunito&display=swap);
+
+    body {
+        font-family: "nunito";
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-image: url('https://imgs.search.brave.com/bX6_sMTL1OdYlg2menFF5rTPjW7AbIyy7t-4WOWQ9F8/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDI3NDk5/MTcuanBn');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    @media (max-width: 768px) {
+        body {
+            background-size: cover;
+        }
+    }
+
+    #overlay {
+        display: block;
+        position: fixed;
+        text-align: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: linear-gradient(315deg, rgba(249, 104, 140, 0.7) 3%, rgba(24, 24, 24, 0.874) 38%, rgba(24, 24, 24, 0.874) 46%, rgb(63, 70, 69) 68%, rgba(0, 0, 0, 0.521) 98%);
+        animation: gradient 15s ease infinite;
+        background-size: 400% 400%;
+        background-attachment: fixed;
+        opacity: 1;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 0%;
+        }
+
+        50% {
+            background-position: 100% 100%;
+        }
+
+        100% {
+            background-position: 0% 0%;
+        }
+    }
+
+    #overlay p {
+        position: absolute;
+        bottom: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 70px;
+        opacity: 0;
+        transition: opacity 0.5s, bottom 0.5s;
+    }
+
+    #overlay h4 {
+        position: absolute;
+        bottom: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 55px;
+        opacity: 0;
+        transition: opacity 0.5s, bottom 0.5s;
+    }
+
+    #overlay.active p,
+    #overlay.active h4 {
+        opacity: 1;
+        bottom: 40%;
+    }
+
+    #overlay.final p {
+        bottom: 60%;
+    }
+
+    #overlay.final h4 {
+        bottom: 10%;
+    }
+
+    @media (max-width: 768px) {
+        #overlay h4 {
+            font-size: 10px;
+        }
+
+        #overlay p {
+            font-size: 30px;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <div id="overlay">
+        <p>Hey <%= user.nickname %>,<br></p>
+        <h4>Count your life by smiles, not tears.
+            Count your age by friends, not years.<br>
+            Happy <% if (user.birthday) { const birthDate=new Date(user.birthday); const currentDate=new Date(); const
+                age=currentDate.getFullYear() - birthDate.getFullYear(); if ( currentDate.getMonth() <
+                birthDate.getMonth() || (currentDate.getMonth()===birthDate.getMonth() && currentDate.getDate() <
+                birthDate.getDate()) ) { age--; } let ageSuffix; if (age % 10===1 && age % 100 !==11) { ageSuffix="st" ;
+                } else if (age % 10===2 && age % 100 !==12) { ageSuffix="nd" ; } else if (age % 10===3 && age % 100
+                !==13) { ageSuffix="rd" ; } else { ageSuffix="th" ; } %>
+                <%= age %><%= ageSuffix %>
+                        <% } %> birthday!
+        </h4>
+    </div>
+    <script>
+        const overlay = document.getElementById("overlay");
+
+        function showOverlay() {
+            overlay.classList.add("active");
+            setTimeout(() => {
+                overlay.classList.add("final");
+            }, 1000);
+        }
+
+        overlay.addEventListener("click", () => {
+            overlay.classList.remove("active", "final");
+            setTimeout(() => {
+                overlay.style.display = "none";
+
+                fetch('/birthday/wished')
+                    .then(response => response.json())
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                    location.href = "/dashboard"
+            }, 500);
+
+        });
+
+        showOverlay();
+
+        function birthday() {
+        fetch('/birthday/status')
+            .then(response => response.json())
+            .then(data => {
+                if (data.wished == true) {
+                    window.location.href = "/dashboard"
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    birthday();
+</script>

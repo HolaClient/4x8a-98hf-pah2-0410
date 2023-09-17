@@ -1,0 +1,73 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../components/sidebar') %>
+<%- include('../components/topnav') %>
+<%- include('../scripts/containers') %>
+<div class="row mt-3">
+<div class="col-lg-6">
+   <div class="card">
+      <div class="card-body">
+         <div class="card-title">Referral Code</div>
+         <hr>
+         <div>
+            <label for="referralCodeInput">Referral Code:</label>
+            <input type="text" id="code" class="form-control form-control-rounded" disabled/>
+            <br>
+            <input type="text" onclick="copyToClipboard('link')" id="link" class="form-control form-control-rounded" disabled/>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="col-lg-6">
+   <div class="card">
+      <div class="card-body">
+         <div class="card-title">Redeem Code</div>
+         <hr>
+         <div>
+            <label for="referralCode">Redeem Code:</label>
+            <input type="text" class="form-control form-control-rounded" id="referralCode" /><br>
+            <button class="btn btn-light btn-round px-5" onclick="redeemReferralCode()">Redeem Referral Code</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   function redeemReferralCode() {
+     const referralCodeInput = document.getElementById('referralCode');
+     const referralCode = referralCodeInput.value;
+     
+     fetch(`/referral/redeem/${referralCode}`)
+     .then(response => response.json())
+     .then(data => {
+       if (data.success) {
+         toastr.success(data.message, 'Success!');
+       } else {
+         toastr.error(data.message, 'Error!');
+       }
+     })
+     .catch(error => {
+       console.error('Error:', error);
+     });
+   }
+</script>
+<script> 
+   function code() {
+     fetch('/referral/info')
+       .then(response => response.json())
+       .then(data => {
+         const referralCode = data.referralCode;
+         console.log('Referral Code:', referralCode);
+         document.getElementById('code').value = referralCode;
+         document.getElementById('link').value = `<%= settings.website.hostname %>/referral/redeem/${referralCode}`;
+       })
+       .catch(error => {
+         console.error('Error:', error);
+       });
+   }
+   
+   code();
+</script>
+</div>
+<%- include('../components/footer') %>
+<%- include('../components/js') %>

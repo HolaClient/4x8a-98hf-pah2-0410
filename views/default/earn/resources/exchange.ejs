@@ -1,0 +1,195 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../components/sidebar') %>
+<%- include('../components/topnav') %>
+<%- include('../scripts/containers') %>
+<%- include('../components/alert') %>
+<div class="row mt-3">
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">Gift Resources</div>
+            <hr>
+            <form>
+               <div class="form-group">
+                  <label for="input-6">HCID:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputID"
+                     placeholder="1099">
+               </div>
+               <div class="form-group">
+                  <label for="input-7">RAM:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputRAM"
+                     placeholder="1024">
+               </div>
+               <div class="form-group">
+                  <label for="input-8">Disk:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputDisk"
+                     placeholder="1024">
+               </div>
+               <div class="form-group">
+                  <label for="input-9">CPU:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputCPU"
+                     placeholder="100">
+               </div>
+               <div class="form-group">
+                  <label for="input-9">Slots:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputServers"
+                     placeholder="1">
+               </div>
+               <div class="form-group">
+                  <label for="input-9">Databases:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputDatabases"
+                     placeholder="1">
+               </div>
+               <div class="form-group">
+                  <label for="input-9">Backups:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputBackups"
+                     placeholder="1">
+               </div>
+               <div class="form-group">
+                  <label for="input-9">Allocations:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputAllocations"
+                     placeholder="1">
+               </div>
+               <div class="form-group">
+                  <a type="submit" onclick="submitResources()" class="btn btn-light btn-round px-5">Gift resources</a>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">Gift Coins</div>
+            <hr>
+            <form>
+               <div class="form-group">
+                  <label for="input-6">HCID:</label>
+                  <input type="number" class="form-control form-control-rounded" id="InputID1"
+                     placeholder="1099">
+               </div>
+               <div class="form-group">
+                  <label for="input-7">Coins:</label>
+                  <input type="number" min="1" class="form-control form-control-rounded" id="InputCoins"
+                     placeholder="100">
+               </div>
+               <div class="form-group">
+                  <a type="submit" onclick="submitCoins()" class="btn btn-light btn-round px-5">Gift coins</a>
+               </div>
+            </form>
+         </div>
+      </div>
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">Request Coins</div>
+            <hr>
+            <form>
+               <div class="form-group">
+                  <label for="input-6">HCID:</label>
+                  <input type="number" class="form-control form-control-rounded" id="ReqInID"
+                     placeholder="1099">
+               </div>
+               <div class="form-group">
+                  <label for="input-7">Coins:</label>
+                  <input type="number" min="1" class="form-control form-control-rounded" id="ReqInCoins"
+                     placeholder="100">
+               </div>
+               <div class="form-group">
+                  <a type="submit" onclick="requestCoins()" class="btn btn-light btn-round px-5">Request Coins</a>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<!--End Row-->
+</body>
+<script>
+   async function submitCoins() {
+     let id1 = encodeURIComponent(document.getElementById("InputID1").value);
+     let coins = encodeURIComponent(document.getElementById("InputCoins").value);
+     const requestData = {
+       user: id1,
+       coins: coins
+     };
+     try {
+       const response = await fetch("/gift/coins", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json"
+         },
+         body: JSON.stringify(requestData)
+       });
+   
+       const data = await response.json();
+   
+       if (data.success === true) {
+         toastr.success(data.message, `Success!`);
+       } else {
+         toastr.error(data.message, 'Error');
+       }
+     } catch (error) {
+       toastr.error(error, "Error!");
+     }
+   };
+   async function submitResources() {
+     let user = encodeURIComponent(document.getElementById("InputID").value);
+     let ram = encodeURIComponent(document.getElementById("InputRAM").value);
+     let disk = encodeURIComponent(document.getElementById("InputDisk").value);
+     let cpu = encodeURIComponent(document.getElementById("InputCPU").value);
+     let servers = encodeURIComponent(document.getElementById("InputServers").value);
+     let databases = encodeURIComponent(document.getElementById("InputDatabases").value);
+     let backups = encodeURIComponent(document.getElementById("InputBackups").value);
+     let allocations = encodeURIComponent(document.getElementById("InputAllocations").value);
+     try {
+       const response = await fetch("/gift/coins", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json"
+         },
+         body: JSON.stringify(user, ram, disk, cpu, servers, databases, allocations, backups)
+       });
+   
+       const data = await response.json();
+   
+       if (data.success === true) {
+         toastr.success(data.message, `Success!`);
+       } else {
+         toastr.error(data.message, 'Error');
+       }
+     } catch (error) {
+       toastr.error(error, "Error!");
+     }
+   };
+   async function requestCoins() {
+     let reqId = encodeURIComponent(document.getElementById("ReqInID").value);
+     let reqCoins = encodeURIComponent(document.getElementById("ReqInCoins").value);
+     const requestData = {
+       user: reqId,
+       coins: reqCoins
+     };
+     try {
+       const response = await fetch("/request/coins", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json"
+         },
+         body: JSON.stringify(requestData)
+       });
+   
+       const data = await response.json();
+   
+       if (data.success === true) {
+         toastr.success(data.message, `Success!`);
+       } else {
+         toastr.error(data.message, 'Error');
+       }
+     } catch (error) {
+       toastr.error(error, "Error!");
+     }
+   };
+</script>
+<%- include('../components/js') %>
+<%- include('../components/footer') %>
