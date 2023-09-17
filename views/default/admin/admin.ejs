@@ -339,10 +339,10 @@
                       url: '/api/purge',
                       method: 'POST',
                       success: function () {
-                        alert('Purge has started, check dashboard logs for more info!');
+                        toastr.success('The purger has successfully purged all servers without the appropriate keyword.', 'Purge Completed!')
                       },
                       error: function () {
-                        alert('Failed to purge inactive servers.');
+                        toastr.error('Failed to purge inactive servers.', "Error!");
                       }
                     });
                   }

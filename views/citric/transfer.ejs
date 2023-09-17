@@ -1,0 +1,197 @@
+<head>
+    <title>CitricNode</title>
+    <link rel="stylesheet" href="../assets/tailwind.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+</head>
+<body class="bg-gray-100" style="font-family: 'Inter', sans-serif;">
+<%
+let ram = 0;
+let disk = 0;
+let cpu = 0;
+let servers = pterodactyl.relationships.servers.data.length;
+for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) {
+    ram = ram + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.memory == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.memory : 0);
+    disk = disk + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.disk == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.disk : 0);
+    cpu = cpu + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.cpu == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.cpu : 0);
+}
+%>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: 0.5s;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 40px;
+        width: 30%;
+        border-radius: 16px;
+        margin-top: 12%;
+        transition: 0.5s
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 0.5s
+    }
+</style>
+<% if (req.query.success) { %>
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <h2 class="text-gray-900 text-xl font-bold mb-2">
+            Success!
+        </h2>
+        <p class="text-gray-600 font-medium">The lemons have been transferred successfully</p><br>
+        <div class="mt-1 grid grid-cols-2 gap-3">
+            <div>
+                <a href="../transfer"
+                    class="close w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 cursor-default">
+                    Dismiss
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<% } %>
+    <%- include('components/navigation') %>
+    <div class="md:pl-48 flex flex-col flex-1">
+      <main class="flex-1">
+        <div class="py-6">
+          <div class="max-w-7xl pt-8 mx-auto px-4 sm:px-6 md:px-8">
+            <!-- Replace with your content -->
+            <div class="lg:flex lg:items-center lg:justify-between mb-8">
+              <div class="min-w-0 flex-1">
+                <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Transfer</h2>
+                <p class="text-md font-medium text-gray-600">Transfer your lemons to a different user's basket.</p>
+              </div>
+            </div>
+            <% if (req.query.err) { %>
+              <div class="rounded-md bg-white shadow-md p-4 mb-8">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <!-- Heroicon name: solid/information-circle -->
+                    <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex-1 md:flex md:justify-between">
+                    <p class="text-sm text-red-500">
+                                      <% if (req.query.err == "MISSINGVARIABLE") { %>
+                                          You have not filled out all of the server information.
+                                      <% } else if (req.query.err == "ERRORONCREATE") { %>
+                                         This location is having issues right now. Please try again later or use a different location.
+                                      <% } else if (req.query.err == "TOOLITTLECOINS") { %>
+                                         Server creation denied due to remaining debt. Please ensure that your lemons balance is not in the minus. Debt must be repaid within 14 days or your account will be suspended.
+                                      <% } else if (req.query.err == "MISSINGEGG") { %>
+                                          The server type for this server is not registered as a valid server type, therefore your server's RAM, disk and/or CPU could not be changed.
+                       <% } else if (req.query.err == "TOOMUCHSERVERS") { %>
+                            Server limit per account is 2. You can upgrade your account to increase this limit.
+              
+                                      <% } else { %>
+                                          <% if (req.query.num) { %>
+                                              <% if (!isNaN(parseFloat(req.query.num))) { %>
+                                                  <% if (req.query.err == "TOOLITTLERAM" || req.query.err == "TOOLITTLEDISK" || req.query.err == "TOOLITTLECPU") { %>
+                                                      You must make a server with at least <b><%= req.query.num %></b>
+                                                      <% if (req.query.err.slice(-3) == "RAM") { %>
+                                                          MB RAM
+                                                      <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                                                          MB disk
+                                                      <% } else { // CPU %>
+                                                          % CPU
+                                                      <% } %>
+                                                      if you want to modified a server with the server type you have selected.
+                                                  <% } else if (req.query.err == "TOOMUCHRAM" || req.query.err == "TOOMUCHDISK" || req.query.err == "TOOMUCHCPU") { %>
+                                                      With the selected server type, you can have a maximum of <b><%= req.query.num %></b>
+                                                      <% if (req.query.err.slice(-3) == "RAM") { %>
+                                                          MB RAM
+                                                      <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                                                          MB disk
+                                                      <% } else { // CPU %>
+                                                          % CPU
+                                                      <% } %>
+                                                      on the server.
+                                                  <% } else if (req.query.err == "EXCEEDRAM" || req.query.err == "EXCEEDDISK" || req.query.err == "EXCEEDCPU") { %>
+                                                      The server could not be modified because you have requested to modified a server that exceeds your plan.
+                                  <% } %>
+                                
+                                <% } %>
+                              <% } else { %>
+                                Failed to transfer
+                              <% } %>
+                                                
+                                      <% } %>
+              </p>
+                  </div>
+                </div>
+              </div>
+                          <% } %>
+            <!-- This example requires Tailwind CSS v2.0+ -->
+            <div class="card">
+              <div class="card-body">
+                  <label for="ram">Discord ID:</label>
+                  <input type="text" class="focus:border-rose-400 focus:ring-rose-400 transition ease-in-out delay-100 group relative border border-gray-300 flex w-1/4 justify-center form-control rounded-md" id="dc" placeholder="00000000000000000">
+                  <br>
+                  <label for="disk">Amount:</label>
+                  <input type="text" class="focus:border-rose-400  focus:ring-rose-400 transition ease-in-out delay-100 group relative border border-gray-300 flex w-1/4 justify-center form-control rounded-md" id="amount" placeholder="<%= coins %>">
+                  <br>
+                  
+                  <button onclick="submitForm()" class="transition delay-100 group relative  justify-center rounded-md border border-transparent bg-rose-400 py-2 px-4 text-sm font-medium text-white hover:bg-rose-500 focus:outline-none">Transfer</button>
+              <br></div>
+              <script>
+                  async function submitForm() {
+                      let id = encodeURIComponent(document.getElementById("dc").value);
+                      let coins = encodeURIComponent(document.getElementById("amount").value);
+                      document.location.href = `/giftcoins?id=${id}&coins=${coins}`;
+                  };
+              </script>
+              </div>
+          </div>
+            <!-- /End replace -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.js" integrity="sha512-eOUPKZXJTfgptSYQqVilRmxUNYm0XVHwcRHD4mdtCLWf/fC9XWe98IT8H1xzBkLL4Mo9GL0xWMSJtgS5te9rQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>

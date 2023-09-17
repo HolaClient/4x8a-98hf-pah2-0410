@@ -1,0 +1,187 @@
+<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<style>
+.alertify-notifier .ajs-message.ajs-success {
+    color: black;
+    padding: 24px;
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+text-align: center;
+font-weight: semibold;
+}
+</style>
+<!-- Static sidebar for desktop -->
+<div class="hidden md:flex md:w-52 md:flex-col md:fixed md:inset-y-0">
+    <!-- Sidebar component, swap this element with another sidebar if you like -->
+    <div class="flex-1 flex flex-col min-h-0 bg-[url('https://cdn.discordapp.com/attachments/1023580894688194620/1098603123754422322/Copy_of_Copy_of_Untitled_Facebook_Cover_4.png')]">
+      <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+        <div class="flex items-center flex-shrink-0 px-4">
+          <img class="h-8 w-auto" src="https://cdn.discordapp.com/attachments/1023580894688194620/1098580466510082168/Untitled_design_53.png" alt="CitricNode">
+          <span class="text-white ml-3 font-medium tracking-widest">CITRICNODE</span>
+        </div>
+        <nav class="mt-5 flex-1 px-2 space-y-1">
+          <% if (pterodactyl.relationships.servers.data.length > 0) { %>
+          <div class="mt-6 relative mb-2">
+            <div class="relative flex">
+              <span class="px-2 bg-transparent text-gray-200 font-semibold text-sm"> Panel Servers </span>
+            </div>
+          </div>
+          <% for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) { %>  
+          <a href="<%= settings.pterodactyl.domain %>/server/<%= pterodactyl.relationships.servers.data[i].attributes.identifier %>" class="transition text-gray-300 hover:bg-dark-700/50 backdrop-blur hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <!-- Heroicon name: outline/home -->
+            <div class="flex-shrink-0 h-6 w-6 rounded-lg text-center mr-3 rounded-lg border border-gray-600 group-hover:border-rose-500 group-hover:text-rose-500 transition">
+                <span class="text-md"><%= pterodactyl.relationships.servers.data[i].attributes.name.charAt(0).toUpperCase() %></span>
+            </div>
+            <%= pterodactyl.relationships.servers.data[i].attributes.name.length > 40 ? pterodactyl.relationships.servers.data[i].attributes.name.slice(0, 40) + "..." : pterodactyl.relationships.servers.data[i].attributes.name %>
+          </a>
+          <% } %>
+          <div class="pt-6"></div> <!-- Spacer -->
+          <% } %>
+          <div class="mt-6 relative mb-2">
+              <div class="relative flex">
+                <span class="px-2 bg-transparent text-gray-200 font-semibold text-sm"> Management </span>
+              </div>
+          </div>
+          <a href="../dashboard" class="transition text-gray-300 hover:bg-dark-700/50 backdrop-blur hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <!-- Heroicon name: outline/users -->
+            <svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
+            </svg>              
+            Dashboard
+          </a>
+
+          <a href="../servers" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+              <!-- Heroicon name: outline/folder -->
+              <svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z" />
+                </svg>                          
+              Servers
+          </a>
+
+          <a href="../servers/new" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <!-- Heroicon name: outline/folder -->
+            <svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+            </svg>              
+            Deploy
+          </a>
+
+          <a href="../panel" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <!-- Heroicon name: outline/folder -->
+            <svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>                   
+            Panel
+          </a>
+
+          <div class="pt-6"></div> <!-- Spacer -->
+          <div class="mt-6 relative mb-2">
+              <div class="relative flex">
+                <span class="px-2 bg-transparent text-gray-200 font-semibold text-sm"> Account & Security </span>
+              </div>
+          </div>
+           <a href="../profile" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"> 
+            <!-- Heroicon name: outline/users -->
+            <svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>                           
+            Profile
+          </a> 
+          <a href="../settings" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+              <!-- Heroicon name: outline/users -->   
+              <svg  class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>                                       
+              Security
+            </a>
+            <a href="../logout" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+              <!-- Heroicon name: outline/users -->   
+              <svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>                                                        
+              Logout
+            </a>
+
+            <div class="pt-6"></div> <!-- Spacer -->
+          <div class="mt-6 relative mb-2">
+              <div class="relative flex">
+                <span class="px-2 bg-transparent text-gray-200 font-semibold text-sm"> Resources & Lemons </span>
+              </div>
+          </div>
+          <a href="../harvest" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <!-- Heroicon name: outline/users -->      
+            <svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+            </svg>                               
+            Harvest
+          </a>
+          <a href="../transfer" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <!-- Heroicon name: outline/users -->      
+<svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+</svg>
+                          
+            Transfer
+          </a>
+          <a href="../store" class="transition text-gray-300 hover:bg-dark-700/50 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+              <!-- Heroicon name: outline/users -->    
+                <svg class="text-gray-400 group-hover:text-rose-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>                                                    
+              Store
+            </a>
+        </nav>
+      </div>
+      <div class="flex-shrink-0 flex bg-[#0c0e1a] p-4">
+        <a href="#" class="flex-shrink-0 w-full group block">
+          <div class="flex items-center">
+            <div>
+              <img class="inline-block h-9 w-9 rounded-full shadow-xl" src="https://cdn.discordapp.com/avatars/<%= userinfo.id %>/<%= userinfo.avatar %>?size=256" alt="">
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium text-white"><%= userinfo.username %>#<%= req.session.userinfo.discriminator %></p>
+              <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">
+              <% if (typeof packagename.charAt(0) == 'number') { %>
+                <%= packagename %> plan
+              <% } else { %>
+                <%= packagename.charAt(0).toUpperCase() + packagename.slice(1) %> plan
+              <% } %></p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="flex-shrink-0 flex bg-[#131629] p-4 transition">
+        <a id="lemons" class="flex-shrink-0 w-full group block">
+          <div class="flex items-center">
+            <div class="ml-2">
+              <p class="text-xs font-medium text-white"><%= coins.toLocaleString(undefined, {maximumFractionDigits:0}) %> lemon<%= coins == 1 ? "" : "s" %> in basket 🍋</p>
+            </div>
+          </div>
+        </a>
+        <script>
+// Select the element that you want to track clicks on
+const myElement = document.getElementById('lemons');
+
+// Set a click counter to 0
+let clickCounter = 0;
+
+// Add a click event listener to the element
+myElement.addEventListener('click', function() {
+  // Increase the click counter by 1
+  clickCounter++;
+
+  // Check if the click counter is equal to 5
+  if (clickCounter === 5) {
+    // Redirect the user to the desired URL
+    window.location.href = '../lemons';
+  }
+});
+        </script>
+      </div>
+    </div>
+  </div>

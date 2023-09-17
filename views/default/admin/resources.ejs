@@ -40,7 +40,7 @@
       </div>
       <div class="card-body">
         <label for="input-7">Slots:</label>
-        <input type="text" id="slots" class="form-control form-control-rounded" placeholder="coins">
+        <input type="text" id="servers" class="form-control form-control-rounded" placeholder="coins">
       </div>
     </div>
     <div class="row">
@@ -57,7 +57,7 @@
         <input type="text" id="backups" class="form-control form-control-rounded" placeholder="coins">
       </div>
     </div>
-    <div class="form-group">
+    <div id="btnFrm" class="form-group">
       <button role="button" id="submitResources" class="btn btn-light btn-round px-5">
         Submit</button>
     </div>
@@ -68,13 +68,14 @@
   const userSelect = document.getElementById("userSelect");
   const functionSelect = document.getElementById("functionSelect");
   const submitResourcesButton = document.getElementById("submitResources");
+  const smtbtn = document.getElementById("btnFrm");
   let selectedUser;
   let userData;
 
   async function fetchUserData(keyword) {
     try {
       const response = await fetch(`/admin/users/resources/list`);
-      userData = await response.json(); // Assign userData here
+      userData = await response.json();
 
       userSelect.innerHTML = '<option value="" disabled selected>Select a user</option>';
 
@@ -125,13 +126,14 @@
     switch (selectedFunction) {
       case "check":
         updateExtraResources(selectedUser.extra);
+        updateBtnStats('none')
         break;
 
       case "add":
         const ramValue = parseInt(document.getElementById("ram").value, 10);
         const diskValue = parseInt(document.getElementById("disk").value, 10);
         const cpuValue = parseInt(document.getElementById("cpu").value, 10);
-        const slotsValue = parseInt(document.getElementById("slots").value, 10);
+        const slotsValue = parseInt(document.getElementById("servers").value, 10);
         const allocationsValue = parseInt(document.getElementById("allocations").value, 10);
         const backupsValue = parseInt(document.getElementById("backups").value, 10);
         const databasesValue = parseInt(document.getElementById("databases").value, 10);
@@ -139,18 +141,19 @@
         requestData.ram = ramValue;
         requestData.disk = diskValue;
         requestData.cpu = cpuValue;
-        requestData.slots = slotsValue;
+        requestData.servers = slotsValue;
         requestData.allocations = allocationsValue;
         requestData.backups = backupsValue;
         requestData.databases = databasesValue;
-
+        
+        updateBtnStats('block')
         break;
 
       case "set":
         const finalRamValue = parseInt(document.getElementById("ram").value, 10);
         const finalDiskValue = parseInt(document.getElementById("disk").value, 10);
         const finalCpuValue = parseInt(document.getElementById("cpu").value, 10);
-        const finalSlotsValue = parseInt(document.getElementById("slots").value, 10);
+        const finalSlotsValue = parseInt(document.getElementById("servers").value, 10);
         const finalAllocationsValue = parseInt(document.getElementById("allocations").value, 10);
         const finalBackupsValue = parseInt(document.getElementById("backups").value, 10);
         const finalDatabasesValue = parseInt(document.getElementById("databases").value, 10);
@@ -158,18 +161,19 @@
         requestData.ram = finalRamValue;
         requestData.disk = finalDiskValue;
         requestData.cpu = finalCpuValue;
-        requestData.slots = finalSlotsValue;
+        requestData.servers = finalSlotsValue;
         requestData.allocations = finalAllocationsValue;
         requestData.backups = finalBackupsValue;
         requestData.databases = finalDatabasesValue;
 
+        updateBtnStats('block')
         break;
 
       case "remove":
         const removeRamValue = parseInt(document.getElementById("ram").value, 10);
         const removeDiskValue = parseInt(document.getElementById("disk").value, 10);
         const removeCpuValue = parseInt(document.getElementById("cpu").value, 10);
-        const removeSlotsValue = parseInt(document.getElementById("slots").value, 10);
+        const removeSlotsValue = parseInt(document.getElementById("servers").value, 10);
         const removeAllocationsValue = parseInt(document.getElementById("allocations").value, 10);
         const removeBackupsValue = parseInt(document.getElementById("backups").value, 10);
         const removeDatabasesValue = parseInt(document.getElementById("databases").value, 10);
@@ -177,11 +181,12 @@
         requestData.ram = -removeRamValue;
         requestData.disk = -removeDiskValue;
         requestData.cpu = -removeCpuValue;
-        requestData.slots = -removeSlotsValue;
+        requestData.servers = -removeSlotsValue;
         requestData.allocations = -removeAllocationsValue;
         requestData.backups = -removeBackupsValue;
         requestData.databases = -removeDatabasesValue;
 
+        updateBtnStats('block')
         break;
 
       default:
@@ -196,7 +201,7 @@
     document.getElementById("ram").value = extra.ram;
     document.getElementById("disk").value = extra.disk;
     document.getElementById("cpu").value = extra.cpu;
-    document.getElementById("slots").value = extra.servers;
+    document.getElementById("servers").value = extra.servers;
     document.getElementById("allocations").value = extra.allocations;
     document.getElementById("backups").value = extra.backups;
     document.getElementById("databases").value = extra.databases;
@@ -230,6 +235,10 @@
     } catch (error) {
       toastr.error(error, "Error");
     }
+  }
+
+  function updateBtnStats(style) {
+    smtbtn.style.display = style
   }
 </script>
 

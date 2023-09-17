@@ -1,0 +1,197 @@
+<head>
+    <title>CitricNode</title>
+    <link rel="stylesheet" href="../assets/tailwind.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100" style="font-family: 'Inter', sans-serif;">
+<div>
+    <%- include('components/navigation') %>
+    <div class="md:pl-48 flex flex-col flex-1">
+      <main class="flex-1">
+        <div class="py-6">
+          <div class="max-w-7xl pt-8 mx-auto px-4 sm:px-6 md:px-8">
+            <!-- Replace with your content -->
+            <div class="lg:flex lg:items-center lg:justify-between mb-8">
+              <div class="min-w-0 flex-1">
+                <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Store</h2>
+                <p class="text-md font-medium text-gray-600">Purchase extra resources with the lemons in your basket.</p>
+              </div>
+            </div>
+            <% if (req.query.success == "CREATED") { %>
+              <div class="rounded-md bg-green-800 p-4 mb-8">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <!-- Heroicon name: solid/information-circle -->
+                    <svg class="h-5 w-5 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex-1 md:flex md:justify-between">
+                    <p class="text-sm text-green-400">The server has successfully been created.</p>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+              <% if (req.query.success == "MODIFIED") { %>
+              <div class="rounded-md bg-green-800 p-4 mb-8">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <!-- Heroicon name: solid/information-circle -->
+                    <svg class="h-5 w-5 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex-1 md:flex md:justify-between">
+                    <p class="text-sm text-green-400">The server has successfully been modified. The changes will appear on the Panel in a few seconds.</p>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+              <% if (req.query.err == "none") { %>
+              <div class="rounded-md bg-green-800 p-4 mb-8">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <!-- Heroicon name: solid/information-circle -->
+                    <svg class="h-5 w-5 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex-1 md:flex md:justify-between">
+                    <p class="text-sm text-green-400">Buy completed!</p>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+              <div>
+              <% if (req.query.err == "CANNOTAFFORD") { %>
+              <div class="rounded-md bg-red-800 p-4 mb-8">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <!-- Heroicon name: solid/information-circle -->
+                    <svg class="h-5 w-5 text-red-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex-1 md:flex md:justify-between">
+                    <p class="text-sm text-red-400">Insufficient Lemons balance!</p>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+            <!-- This example requires Tailwind CSS v2.0+ -->
+            <div>
+            <dl class="mt-5 grid grid-cols-1 rounded-lg bg-gray-100 mb-8 overflow-hidden divide-y divide-gray-200 md:grid-cols-3 md:divide-y-0 md:divide-x">
+                <div class="px-4 py-5 sm:p-6">
+                  <dt class="text-base font-normal text-pylex-400"><%= settings.api.client.coins.store.ram.per/1024 %>  GiB memory per <%= settings.api.client.coins.store.ram.cost %> lemon<%= settings.api.client.coins.store.ram.cost == 1 ? "" : "s" %>.</dt>
+                  <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
+                            <div class="mt-1 flex rounded-md">
+                              <form action="/buyram">
+                                <select name="amount" class="form-control transition ease-in-out delay-100 block w-full flex-1 text-gray-800 rounded-md bg-gray-200
+                                border-gray-200 focus:border-rose-400 focus:ring-rose-400 sm:text-sm" class="select-selected">
+                                  <option value=1><%= settings.api.client.coins.store.ram.per/1024 %>  GiB - <%= settings.api.client.coins.store.ram.cost %> lemon<%= settings.api.client.coins.store.ram.cost == 1 ? "" : "s" %></option>
+                                  <option value=2><%= settings.api.client.coins.store.ram.per/1024 * 2 %>  GiB - <%= settings.api.client.coins.store.ram.cost * 2 %> lemons</option>
+                                  <option value=3><%= settings.api.client.coins.store.ram.per/1024 * 3 %> GiB - <%= settings.api.client.coins.store.ram.cost * 3 %> lemons</option>
+                                  <option value=4><%= settings.api.client.coins.store.ram.per/1024 * 4 %> GiB - <%= settings.api.client.coins.store.ram.cost * 4 %> lemons</option>
+                                  <option value=5><%= settings.api.client.coins.store.ram.per/1024 * 5 %> GiB - <%= settings.api.client.coins.store.ram.cost * 5 %> lemons</option>
+                                  <option value=6><%= settings.api.client.coins.store.ram.per/1024* 6 %> GiB - <%= settings.api.client.coins.store.ram.cost * 6 %> lemons</option>
+                                  <option value=7><%= settings.api.client.coins.store.ram.per/1024 * 7 %> GiB - <%= settings.api.client.coins.store.ram.cost * 7 %> lemons</option>
+                                  <option value=8><%= settings.api.client.coins.store.ram.per/1024 * 8 %> GiB - <%= settings.api.client.coins.store.ram.cost * 8 %> lemons</option>
+                                  <option value=9><%= settings.api.client.coins.store.ram.per/1024 * 9 %> GiB - <%= settings.api.client.coins.store.ram.cost * 9 %> lemons</option>
+                                  <option value=10><%= settings.api.client.coins.store.ram.per/1024 * 10 %> GiB - <%= settings.api.client.coins.store.ram.cost * 10 %> lemons</option>
+                                </select>
+                                <br>
+                    <button onclick="buyRAM()"type="submit" class="transition ease-in-out delay-100 group relative flex w-32 justify-center rounded-md border border-gray-200 bg-rose-400 py-2 px-4 text-sm font-medium text-white hover:bg-rose-500 focus:outline-none ">
+                      Purchase
+                    </button>
+                    </form>
+                            </div>
+                  </dd>
+                </div>
+            
+                <div class="px-4 py-5 sm:p-6">
+                  <dt class="text-base font-normal text-pylex-400"><%= settings.api.client.coins.store.cpu.per/100 %> CPU cores per <%= settings.api.client.coins.store.cpu.cost %> lemon<%= settings.api.client.coins.store.cpu.cost == 1 ? "" : "s" %>.</dt>
+                  <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
+                            <div class="mt-1 flex rounded-md">
+                              <form action="/buycpu">
+                                                <select name="amount" class="form-control transition ease-in-out delay-100 block w-full flex-1 text-gray-800 rounded-md bg-gray-200
+                                border-gray-200 focus:border-rose-400 focus:ring-rose-400 sm:text-sm" class="select-selected">
+                                                    <option value=1><%= settings.api.client.coins.store.cpu.per/100 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost %> lemon<%= settings.api.client.coins.store.cpu.cost == 1 ? "" : "s" %></option>
+                                                    <option value=2><%= settings.api.client.coins.store.cpu.per/100 * 2 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 2 %> Lemons</option>
+                                                    <option value=3><%= settings.api.client.coins.store.cpu.per/100 * 3 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 3 %> Lemons</option>
+                                                    <option value=4><%= settings.api.client.coins.store.cpu.per/100 * 4 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 4 %> Lemons</option>
+                                                    <option value=5><%= settings.api.client.coins.store.cpu.per/100 * 5 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 5 %> Lemons</option>
+                                                    <option value=6><%= settings.api.client.coins.store.cpu.per/100* 6 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 6 %> Lemons</option>
+                                                    <option value=7><%= settings.api.client.coins.store.cpu.per/100 * 7 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 7 %> Lemons</option>
+                                                    <option value=8><%= settings.api.client.coins.store.cpu.per/100 * 8 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 8 %> Lemons</option>
+                                                    <option value=9><%= settings.api.client.coins.store.cpu.per/100 * 9 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 9 %> Lemons</option>
+                                                    <option value=10><%= settings.api.client.coins.store.cpu.per/100 * 10 %> CPU Cores - <%= settings.api.client.coins.store.cpu.cost * 10 %> Lemons</option>
+                                                </select>
+                                                <br>
+                    <button onclick="buyCPU()" type="submit" class="transition ease-in-out delay-100 group relative flex w-32 justify-center rounded-md border border-transparent bg-rose-400 py-2 px-4 text-sm font-medium text-white hover:bg-rose-500 focus:outline-none ">
+                      Purchase
+                    </button>         </form>
+                            </div>
+                  </dd>
+                </div>
+            
+                <div class="px-4 py-5 sm:p-6">
+                  <dt class="text-base font-normal text-pylex-400"><%= settings.api.client.coins.store.disk.per/1024 %> GiB storage per <%= settings.api.client.coins.store.disk.cost %> lemon<%= settings.api.client.coins.store.disk.cost == 1 ? "" : "s" %>.</dt>
+                  <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
+                            <div class="mt-1 flex rounded-md">
+                              <form action="/buydisk">
+                                                <select name="amount" class="form-control transition ease-in-out delay-100 block w-full flex-1 text-gray-800 rounded-md bg-gray-200
+                                border-gray-200 focus:border-rose-400 focus:ring-rose-400 sm:text-sm" class="select-selected">
+                                                    <option value=1><%= settings.api.client.coins.store.disk.per/1024 %> GiB - <%= settings.api.client.coins.store.disk.cost %> lemon<%= settings.api.client.coins.store.disk.cost == 1 ? "" : "s" %></option>
+                                                    <option value=2><%= settings.api.client.coins.store.disk.per/1024 * 2 %> GiB - <%= settings.api.client.coins.store.disk.cost * 2 %> Lemons</option>
+                                                    <option value=3><%= settings.api.client.coins.store.disk.per/1024 * 3 %> GiB - <%= settings.api.client.coins.store.disk.cost * 3 %> Lemons</option>
+                                                    <option value=4><%= settings.api.client.coins.store.disk.per/1024 * 4 %> GiB - <%= settings.api.client.coins.store.disk.cost * 4 %> Lemons</option>
+                                                    <option value=5><%= settings.api.client.coins.store.disk.per/1024 * 5 %> GiB - <%= settings.api.client.coins.store.disk.cost * 5 %> Lemons</option>
+                                                    <option value=6><%= settings.api.client.coins.store.disk.per/1024 * 6 %> GiB - <%= settings.api.client.coins.store.disk.cost * 6 %> Lemons</option>
+                                                    <option value=7><%= settings.api.client.coins.store.disk.per/1024 * 7 %> GiB - <%= settings.api.client.coins.store.disk.cost * 7 %> Lemons</option>
+                                                    <option value=8><%= settings.api.client.coins.store.disk.per/1024 * 8 %> GiB - <%= settings.api.client.coins.store.disk.cost * 8 %> Lemons</option>
+                                                    <option value=9><%= settings.api.client.coins.store.disk.per/1024 * 9 %> GiB - <%= settings.api.client.coins.store.disk.cost * 9 %> Lemons</option>
+                                                    <option value=10><%= settings.api.client.coins.store.disk.per/1024 * 10 %> GiB - <%= settings.api.client.coins.store.disk.cost * 10 %> Lemons</option>
+                                                </select>
+                                                <br>                                                          
+                    <button onclick="buyDisk()" type="submit" class="transition ease-in-out delay-100 group relative flex w-32 justify-center rounded-md border border-transparent bg-rose-400 py-2 px-4 text-sm font-medium text-white hover:bg-rose-500 focus:outline-none ">
+                      Purchase
+                    </button> </form>                                              
+                            </div>   
+                  </dd>     
+                </div>    
+                </div>
+              </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+              </dl>
+            </div>
+                                            <script>
+                                                async function buyRAM() {
+                                                    let amount = encodeURIComponent(document.getElementById("ram").value);
+                                                    document.location.href = `/buyram?amount=${amount}`;
+                                                };
+            
+                                                async function buyDisk() {
+                                                    let amount = encodeURIComponent(document.getElementById("disk").value);
+                                                    document.location.href = `/buydisk?amount=${amount}`;
+                                                };
+            
+                                                async function buyCPU() {
+                                                    let amount = encodeURIComponent(document.getElementById("cpu").value);
+                                                    document.location.href = `/buycpu?amount=${amount}`;
+                                                };
+                                            </script>
+
+
+  
+            <!-- /End replace -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>

@@ -127,27 +127,6 @@
         }
         showNotification()
       </script>
-          <% } else if (req.query.err=="LOGGEDOUT" ) { %>
-            <script>
-              function showNotification() {
-                toastr.success('', 'Successfully logged out!');
-              }
-              showNotification()
-            </script>
-                      <% } else if (req.query.err=="UPDATED" ) { %>
-                        <script>
-                          function showNotification() {
-                            toastr.success('', 'Successfully updated your userinfo!');
-                          }
-                          showNotification()
-                        </script>
-                                              <% } else if (req.query.err=="LOGINAGAIN" ) { %>
-                                                <script>
-                                                  function showNotification() {
-                                                    toastr.info('', 'Please login again to make HolaClient work efficiently!');
-                                                  }
-                                                  showNotification()
-                                                </script>
       <% } else if (req.query.err=="COMPLETEDONBOARDING" ) { %>
         <style>
           body {
@@ -155,9 +134,9 @@
             padding: 0;
             overflow: hidden;
           }
-        
+
           #overlay {
-            display: block;
+            display: none;
             position: fixed;
             text-align: center;
             top: 0;
@@ -169,97 +148,69 @@
             animation: gradient 15s ease infinite;
             background-size: 400% 400%;
             background-attachment: fixed;
-            opacity: 1;
           }
-        
+
           @keyframes gradient {
             0% {
               background-position: 0% 0%;
             }
-        
+
             50% {
               background-position: 100% 100%;
             }
-        
+
             100% {
               background-position: 0% 0%;
             }
           }
-        
+
           #overlay p {
             position: absolute;
-            bottom: -100%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             color: #fff;
             font-size: 70px;
-            opacity: 0;
-            transition: opacity 0.5s, bottom 0.5s;
           }
+
           #overlay h4 {
             position: absolute;
-            bottom: -100%;
+            top: 60%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             color: #fff;
-            font-size: 60px;
-            opacity: 0;
-            transition: opacity 0.5s, bottom 0.5s;
+            font-size: 50px;
           }
-        
-          #overlay.active p,
-          #overlay.active h4 {
-            opacity: 1;
-            bottom: 40%;
-          }
-        
-          #overlay.final p {
-            bottom: 50%;
-          }
-          #overlay.final h4 {
-            bottom: 30%;
-          }
-        
+
           @media (max-width: 768px) {
             #overlay h4 {
               font-size: 16px;
             }
-        
+
             #overlay p {
               font-size: 30px;
             }
           }
         </style>
         </head>
-        
+
         <body>
           <div id="overlay">
             <p>Welcome to <%= settings.name %><br></p>
             <h4>&nbsp;<br>Click to begin your journey!</h4>
           </div>
-          <% const redirectPath=req._parsedUrl.pathname; const trimmedPath=redirectPath.replace(/^\//, '' ); const
-          url=`../updateinfo?redirect=${trimmedPath}`; %>
           <script>
             const overlay = document.getElementById("overlay");
-        
             function showOverlay() {
-              overlay.classList.add("active");
-              setTimeout(() => {
-                overlay.classList.add("final");
-              }, 1000);
+              overlay.style.display = "block";
             }
-        
-            overlay.addEventListener("click", () => {
-              overlay.classList.remove("active", "final");
-              setTimeout(() => {
-                overlay.style.display = "none";
-                window.location.href = "<%= url %>"
-              }, 500);
-            });
-        
-            showOverlay();
+            function hideOverlay() {
+              overlay.style.display = "none";
+            }
+            overlay.addEventListener("click", hideOverlay);
+            toastr.info('Get your password from your profile page!', 'Password');
+            showOverlay()
           </script>
-        
           <% } else if (req.query.err=="ALTACC" ) { %>
             <script>
               function showNotification() {
@@ -267,13 +218,6 @@
               }
               showNotification()
             </script>
-<% } else if (req.query.err=="DELETEDSERVER" ) { %>
-<script>
-function showNotification() {
-toastr.success('Successfully deleted your server!', 'Success');
-}
-showNotification()
-</script>
             <% } else if (req.query.err=="INVALIDCREDENTIALS" ) { %>
               <script>
                 function showNotification() {
@@ -302,10 +246,10 @@ showNotification()
                       }
                       showNotification()
                     </script>
-                    <% } else if (req.query.err=="COULDNOTDECODENAME" ) { %>
+                    <% } else if (req.query.err=="INVALIDSERVERS" ) { %>
                       <script>
                         function showNotification() {
-                          toastr.error("", "The server's name contains invalid characters!");
+                          toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
                         }
                         showNotification()
                       </script>
@@ -361,7 +305,7 @@ showNotification()
                                     <% } else if (req.query.err=="INSUFFICIENT" ) { %>
                                       <script>
                                         function showNotification() {
-                                          toastr.error('You do not have enough resources!', 'Error!');
+                                          toastr.error('You do not have enough resources to sell!', 'Error!');
                                         }
                                         showNotification()
                                       </script>
@@ -465,6 +409,14 @@ showNotification()
                                                                     passs();
                                                                   </script>
                                                                   <% } %>
+                                                                    <% if (req.query.err=="DELETEDSERVER" ) { %>
+                                                                      <script>
+                                                                        function showNotification() {
+                                                                          toastr.success('Successfully deleted your server!', 'Success');
+                                                                        }
+                                                                        showNotification()
+                                                                      </script>
+                                                                      <% } %>
                                                                         <% if (req.query.err=="MODIFYSERVER" ) { %>
                                                                           <script>
                                                                             function showNotification() {
@@ -518,7 +470,7 @@ showNotification()
                                                                                             ) { %>
                                                                                             <script>
                                                                                               function showNotification() {
-                                                                                                toastr.error('Too much servers!', 'Error!');
+                                                                                                toastr.error('No enough slots!', 'Error!');
                                                                                               }
                                                                                               showNotification()
                                                                                             </script>
@@ -676,7 +628,7 @@ showNotification()
                                                                                                                                     %>
                                                                                                                                     <script>
                                                                                                                                       function showNotification() {
-                                                                                                                                        toastr.success('You earned <%= settings.earn.shareus.coins %> coins by completing a ShareUs Link!', 'Success!');
+                                                                                                                                        toastr.success('You earned <%= settings.shareus.coins %> coins by completing a ShareUs Link!', 'Success!');
                                                                                                                                       }
                                                                                                                                       showNotification()
                                                                                                                                     </script>
@@ -689,7 +641,7 @@ showNotification()
                                                                                                                                       %>
                                                                                                                                       <script>
                                                                                                                                         function showNotification() {
-                                                                                                                                          toastr.success('You earned <%= settings.earn.linkpays.coins %> coins by completing a LinkPays Link!', 'Success!');
+                                                                                                                                          toastr.success('You earned <%= settings.linkpays.coins %> coins by completing a LinkPays Link!', 'Success!');
                                                                                                                                         }
                                                                                                                                         showNotification()
                                                                                                                                       </script>
@@ -702,7 +654,7 @@ showNotification()
                                                                                                                                         %>
                                                                                                                                         <script>
                                                                                                                                           function showNotification() {
-                                                                                                                                            toastr.success('You earned <%= settings.earn.gyanilinks.coins %> coins by completing a GyaniLinks Link!', 'Success!');
+                                                                                                                                            toastr.success('You earned <%= settings.gyanilinks.coins %> coins by completing a GyaniLinks Link!', 'Success!');
                                                                                                                                           }
                                                                                                                                           showNotification()
                                                                                                                                         </script>
@@ -776,7 +728,7 @@ showNotification()
                                                                                                                                                               %>
                                                                                                                                                               <script>
                                                                                                                                                                 function showNotification() {
-                                                                                                                                                                  toastr.error('Please fill-up the fields!', 'Error');
+                                                                                                                                                                  toastr.error('Please fill-up all the fields!', '');
                                                                                                                                                                 }
                                                                                                                                                                 showNotification()
                                                                                                                                                               </script>

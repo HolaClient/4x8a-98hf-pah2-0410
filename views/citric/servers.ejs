@@ -1,0 +1,213 @@
+<head>
+    <title>CitricNode</title>
+    <link rel="stylesheet" href="../assets/tailwind.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100" style="font-family: 'Inter', sans-serif;">
+    <%- include('components/navigation') %>
+    <div class="md:pl-48 flex flex-col flex-1">
+      <main class="flex-1">
+        <div class="py-6">
+          <div class="max-w-7xl pt-8 mx-auto px-4 sm:px-6 md:px-8">
+            <!-- Replace with your content -->
+            <!-- This example requires Tailwind CSS v2.0+ -->
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="min-w-0 flex-1">
+                  <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Servers</h2>
+                  <p class="text-md font-medium text-gray-600">A list of all of your servers on CitricNode.</p>
+                </div>
+                <div class="mt-5 flex lg:ml-4 lg:mt-0">
+                  <span class="sm:ml-3">
+                    <a href="../servers/new" type="button" class="transition inline-flex items-center rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-rose-500/50 hover:bg-rose-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600">
+                      <svg  class="-ml-0.5 mr-1.5 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                      </svg>                                           
+                      Deploy
+                    </a>
+                  </span>
+                </div>
+              </div>
+            <% if (pterodactyl.relationships.servers.data.length == 0) { %>
+                <div class="flex flex-col items-center justify-center h-full mt-8">
+                    <img src="https://cdn.discordapp.com/attachments/1023580894688194620/1098728168069795860/Copy_of_Untitled_Design_10.png" class="w-24 h-24 bg-white p-2 rounded-lg" />
+                    <p class="text-center text-2xl font-bold text-gray-900 mt-6">No servers found</p>
+                    <p class="text-center text-gray-500">You have no servers, like a tree with no fruit.</p>
+                </div>
+                <% } else { %>
+                  <style>
+                    body {
+                        font-family: Arial, Helvetica, sans-serif;
+                    }
+                
+                    /* The Modal (background) */
+                    .modal {
+                        display: none;
+                        /* Hidden by default */
+                        position: fixed;
+                        /* Stay in place */
+                        z-index: 1;
+                        /* Sit on top */
+                        padding-top: 100px;
+                        /* Location of the box */
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        /* Full width */
+                        height: 100%;
+                        /* Full height */
+                        overflow: auto;
+                        /* Enable scroll if needed */
+                        background-color: rgb(0, 0, 0);
+                        /* Fallback color */
+                        background-color: rgba(0, 0, 0, 0.4);
+                        /* Black w/ opacity */
+                        backdrop-filter: blur(10px);
+                        -webkit-backdrop-filter: blur(10px);
+                    }
+                
+                    /* Modal Content */
+                    .modal-content {
+                        background-color: #fefefe;
+                        margin: auto;
+                        padding: 40px;
+                        width: 30%;
+                        border-radius: 16px;
+                        margin-top: 12%
+                    }
+                
+                    .close:hover,
+                    .close:focus {
+                        color: #000;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+                </style>
+                  <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <% for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) { %>        
+                   <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                    <div class="lg:flex lg:items-center lg:justify-between">
+                        <div class="min-w-0 flex-1">
+                          <h2 class="text-lg font-bold text-gray-900 sm:truncate sm:text-2xl sm:tracking-tight"><%= pterodactyl.relationships.servers.data[i].attributes.name.length > 40 ? pterodactyl.relationships.servers.data[i].attributes.name.slice(0, 40) + "..." : pterodactyl.relationships.servers.data[i].attributes.name %></h2>
+                          <p class="text-md font-medium text-gray-600">Server ID: <%= pterodactyl.relationships.servers.data[i].attributes.identifier %></p>
+                        </div>
+                        <div class="mt-5 flex lg:ml-4 lg:mt-0">
+                          <span class="sm:ml-3">
+                            <a href="../edit?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>" class="transition inline-flex items-center rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white hover:bg-rose-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600">    
+                              <svg class="-ml-0.5 mr-1.5 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                              </svg>                                               
+                              Edit
+                            </a>
+                            <a id="myBtn" class="ml-1 transition inline-flex border border-gray-200 items-center rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-red-500 hover:bg-gray-100 hover:border-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">     
+                              <svg class="-ml-0.5 mr-1.5 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                              </svg>                                                                          
+                              Delete
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                      <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <h2 class="text-gray-900 text-xl font-bold mb-2">
+                                Are you sure you want to delete your server?
+                            </h2>
+                            <p class="text-gray-600 font-medium">Once you continue:</p>
+                            <ul class="list-disc ml-5 text-gray-500 mb-8">
+                                <li>Server data will be permanently deleted</li>
+                                <li>The server will be removed from the client area & panel</li>
+                                <li>Resources will be returned to your account</li>
+                            </ul>
+                            <div class="mt-1 grid grid-cols-2 gap-3">
+                              <div>
+                                  <a href="../delete?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>"
+                                      class="cursor-pointer w-full inline-flex justify-center py-2 px-4 rounded-md shadow-sm bg-rose-500 text-sm font-medium text-white hover:bg-rose-700 transition">
+                                      Continue
+                                  </a>
+                              </div>
+
+                              <div>
+                                  <a
+                                      class="close w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 cursor-default">
+                                      Cancel
+                                  </a>
+                              </div>
+
+                          </div>
+                        </div>
+                    </div>
+                    <script>
+                      // Get the modal
+                      var modal = document.getElementById("myModal");
+
+                      // Get the button that opens the modal
+                      var btn = document.getElementById("myBtn");
+
+                      // Get the <span> element that closes the modal
+                      var span = document.getElementsByClassName("close")[0];
+
+                      // When the user clicks the button, open the modal 
+                      btn.onclick = function () {
+                          modal.style.display = "block";
+                      }
+
+                      // When the user clicks on <span> (x), close the modal
+                      span.onclick = function () {
+                          modal.style.display = "none";
+                      }
+
+                      // When the user clicks anywhere outside of the modal, close it
+                      window.onclick = function (event) {
+                          if (event.target == modal) {
+                              modal.style.display = "none";
+                          }
+                      }
+                  </script>
+                    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+                        <!-- Resources -->
+                        <div class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6">
+                            <dt class="text-sm font-medium text-gray-500 truncate">CPU Cores</dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                <%= pterodactyl.relationships.servers.data[i].attributes.limits.cpu/100 %>
+                            </dd>
+                        </div>
+                        <div class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6">
+                            <dt class="text-sm font-medium text-gray-500 truncate">Memory</dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                <%= pterodactyl.relationships.servers.data[i].attributes.limits.memory/1024 %> GiB
+                            </dd>
+                        </div>
+                        <div class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6">
+                            <dt class="text-sm font-medium text-gray-500 truncate">Storage</dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                <%= pterodactyl.relationships.servers.data[i].attributes.limits.disk/1024 %> GiB
+                            </dd>
+                        </div>
+                    </dl>
+                   </div>
+                    <% } %>
+                <% } %>
+                <% if (pterodactyl.relationships.servers.data.length == 1) { %>
+                    <div class="px-4 py-5 bg-gray-200 rounded-lg overflow-hidden sm:p-6 justify-center">
+                        <div class="flex flex-col items-center justify-center h-full">
+                            <p class="text-center text-1xl font-medium text-gray-600">Nothing here yet...</p>                            
+                        </div>
+                       </div>
+                <% } %>
+
+              </dl>
+            <!-- /End replace -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>

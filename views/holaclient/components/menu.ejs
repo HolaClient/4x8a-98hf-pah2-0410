@@ -18,61 +18,67 @@
 
      <li>
        <a href="../admin/home">
-        <i class="fa-solid fa-house"></i>
-         <span>Admin</span>
+        <i class="bi bi-house"></i> <span>Admin</span>
        </a>
      </li>
 
      <li>
        <a href="../admin/coins">
-        <i class="fa-solid fa-coins"></i>
-         <span>Coins</span>
+        <i class="bi bi-currency-exchange"></i> <span>Coins</span>
        </a>
      </li>
 
      <li>
        <a href="../admin/resources">
-        <i class="fa-solid fa-microchip"></i>
-         <span>Resources</span>
+        <i class="bi bi-memory"></i> <span>Resources</span>
        </a>
      </li>
 
      <li>
       <a href="../admin/coupons">
-        <i class="fa-solid fa-ticket"></i>
-         <span>Coupons</span>
+       <i class="bi bi-credit-card-2-back-fill"></i> <span>Coupons</span>
       </a>
     </li>
 
     <li>
         <a href="../admin/users">
-          <i class="fa-solid fa-users-gear"></i>
-           <span>Users</span>
+         <i class="bi bi-people"></i> <span>Users</span>
         </a>
       </li>
 
-      <% if (settings.features.subdomain.enabled == true) { %>
+      <li>
+        <a href="../admin/servers">
+         <i class="bi bi-hdd-network"></i> <span>Servers</span>
+        </a>
+      </li>
+
+      <% if (settings.subdomain.enabled == true) { %>
       <li>
         <a href="../admin/subdomains">
-          <i class="fa-solid fa-cloud"></i>
-           <span>Subdomains</span>
+         <i class="bi bi-cloud"></i> <span>Subdomains</span>
         </a>
       </li>
       <% } %>
 
       <li>
         <a href="../admin/settings">
-          <i class="fa-solid fa-gears"></i>
-           <span>Settings</span>
+         <i class="bi bi-gear"></i> <span>Settings</span>
         </a>
       </li>
 
+      <% if (settings.security.enabled == true) { %>
       <li>
-        <a>
-          <i class="fa-solid fa-puzzle-piece"></i>
-           <span>Addons</span>
+        <a href="../admin/security">
+         <i class="bi bi-lock"></i> <span>Security</span>
         </a>
       </li>
+      <% } else { %>
+        <li>
+          <a href="../admin/security">
+           <i class="bi bi-unlock"></i> <span>Security</span>
+          </a>
+        </li>
+        <% } %>
 
    </ul>
   

@@ -1,0 +1,349 @@
+<head>
+    <title>CitricNode</title>
+    <link rel="stylesheet" href="../assets/tailwind.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+</head>
+<body class="bg-gray-100" style="font-family: 'Inter', sans-serif;">
+<%
+let ram = 0;
+let disk = 0;
+let cpu = 0;
+let servers = pterodactyl.relationships.servers.data.length;
+for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) {
+    ram = ram + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.memory == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.memory : 0);
+    disk = disk + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.disk == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.disk : 0);
+    cpu = cpu + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.cpu == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.cpu : 0);
+}
+%>
+    <%- include('components/navigation') %>
+    <div class="md:pl-48 flex flex-col flex-1">
+      <main class="flex-1">
+        <div class="py-6">
+          <div class="max-w-7xl pt-8 mx-auto px-4 sm:px-6 md:px-8">
+            <!-- Replace with your content -->
+            <div class="lg:flex lg:items-center lg:justify-between mb-8">
+              <div class="min-w-0 flex-1">
+                <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Deploy</h2>
+                <p class="text-md font-medium text-gray-600">Deploy a brand new server on CitricNode.</p>
+              </div>
+            </div>
+            <% if (req.query.err) { %>
+              <div class="rounded-md bg-white shadow-md p-4 mb-8">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <!-- Heroicon name: solid/information-circle -->
+                    <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3 flex-1 md:flex md:justify-between">
+                    <p class="text-sm text-red-500">
+                                      <% if (req.query.err == "MISSINGVARIABLE") { %>
+                                          You have not filled out all of the server information.
+                                      <% } else if (req.query.err == "ERRORONCREATE") { %>
+                                         This location is having issues right now. Please try again later or use a different location.
+                                      <% } else if (req.query.err == "TOOLITTLECOINS") { %>
+                                         Server creation denied due to remaining debt. Please ensure that your lemons balance is not in the minus. Debt must be repaid within 14 days or your account will be suspended.
+                                      <% } else if (req.query.err == "MISSINGEGG") { %>
+                                          The server type for this server is not registered as a valid server type, therefore your server's RAM, disk and/or CPU could not be changed.
+                       <% } else if (req.query.err == "TOOMUCHSERVERS") { %>
+                            Server limit per account is 2. You can upgrade your account to increase this limit.
+              
+                                      <% } else { %>
+                                          <% if (req.query.num) { %>
+                                              <% if (!isNaN(parseFloat(req.query.num))) { %>
+                                                  <% if (req.query.err == "TOOLITTLERAM" || req.query.err == "TOOLITTLEDISK" || req.query.err == "TOOLITTLECPU") { %>
+                                                      You must make a server with at least <b><%= req.query.num %></b>
+                                                      <% if (req.query.err.slice(-3) == "RAM") { %>
+                                                          MB RAM
+                                                      <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                                                          MB disk
+                                                      <% } else { // CPU %>
+                                                          % CPU
+                                                      <% } %>
+                                                      if you want to modified a server with the server type you have selected.
+                                                  <% } else if (req.query.err == "TOOMUCHRAM" || req.query.err == "TOOMUCHDISK" || req.query.err == "TOOMUCHCPU") { %>
+                                                      With the selected server type, you can have a maximum of <b><%= req.query.num %></b>
+                                                      <% if (req.query.err.slice(-3) == "RAM") { %>
+                                                          MB RAM
+                                                      <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                                                          MB disk
+                                                      <% } else { // CPU %>
+                                                          % CPU
+                                                      <% } %>
+                                                      on the server.
+                                                  <% } else if (req.query.err == "EXCEEDRAM" || req.query.err == "EXCEEDDISK" || req.query.err == "EXCEEDCPU") { %>
+                                                      The server could not be modified because you have requested to modified a server that exceeds your plan.
+                                  <% } %>
+                                
+                                <% } %>
+                              <% } else { %>
+                                Failed to create server
+                              <% } %>
+                                                
+                                      <% } %>
+              </p>
+                  </div>
+                </div>
+              </div>
+                          <% } %>
+            <!-- This example requires Tailwind CSS v2.0+ -->
+            <div class="card">
+              <div class="card-body">
+                  <label for="location">Name:</label><br>
+                  <input type="text" class="transition focus:border-rose-400 focus:ring-rose-400 justify-center border border-gray-300 form-control rounded-md" id="name" placeholder="Name">
+                  <br><br>
+                  <label for="location">Location:</label>
+                  <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+                      <script>
+                      let inputLocation = ""
+                      function setLocation(num) {
+                      	inputLocation = num;
+                        console.log(num)
+ alertify.set('notifier','position', 'bottom-center');
+ alertify.success('Location selected!');
+                      }
+                      </script>
+                        <!-- Resources -->
+                        <div onclick="setLocation(2)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Germany
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://flagcdn.com/h20/de.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Falkenstein
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(6)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Netherlands
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://flagcdn.com/h40/nl.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Eygelshoven
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(13)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Netherlands
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://flagcdn.com/h40/nl.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Amsterdam
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(3)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Finland
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/552/552054.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Helsinki
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(1)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Turkey
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299993.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Kocaeli
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(12)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            United Kingdom
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299951.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                London
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(4)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Singapore
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299981.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Singapore City
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(7)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            India
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299965.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Mumbai
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(8)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            India
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299965.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                New Delhi
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(19)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Bangladesh
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/3015/3015772.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Dhaka
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(9)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Japan
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/300/300148.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Osaka
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(10)" class="px-4 py-5 bg-gray-50 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            South Korea
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/300/300117.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl font-semibold text-gray-900">
+                                Seoul
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(11)" class="px-4 py-5 bg-gray-50   focus:outline-none focus:ring focus:bg-rose-500 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Nepal
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/300/300195.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl  font-semibold text-gray-900">
+                                Kathmandu
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(21)" class="px-4 py-5 bg-gray-50   focus:outline-none focus:ring focus:bg-rose-500 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            New Zealand
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/300/300090.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl  font-semibold text-gray-900">
+                                Auckland
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(15)" class="px-4 py-5 bg-gray-50   focus:outline-none focus:ring focus:bg-rose-500 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            United States
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299985.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl  font-semibold text-gray-900">
+                                Los Angeles
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(16)" class="px-4 py-5 bg-gray-50   focus:outline-none focus:ring focus:bg-rose-500 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            United States
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299985.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl  font-semibold text-gray-900">
+                                Honolulu
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(17)" class="px-4 py-5 bg-gray-50   focus:outline-none focus:ring focus:bg-rose-500 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            United States
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299985.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl  font-semibold text-gray-900">
+                                New York
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(18)" class="px-4 py-5 bg-gray-50 focus:outline-none focus:ring focus:ring-rose-300 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            United States
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299985.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl  font-semibold text-gray-900">
+                                Phoenix
+                            </dd>
+                        </div>
+                        <div onclick="setLocation(20)" class="px-4 py-5 bg-gray-50 focus:outline-none focus:ring focus:ring-rose-300 rounded-lg overflow-hidden sm:p-6 cursor-pointer">
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                            Canada
+                            <span class="inline">
+                              <img style="height: 18px; margin-left: 3px; display: inline; width: 18px; border-radius: 4px;" src="https://cdn-icons-png.flaticon.com/512/299/299968.png">
+                            </span></dt>
+                            <dd class="mt-1 text-1xl  font-semibold text-gray-900">
+                                Toronto
+                            </dd>
+                        </div>
+                    </dl>
+                  <br>
+                  <label for="location">Game:</label>
+                  <select class="form-control transition ease-in-out delay-100 block w-full flex-1 text-darker rounded-md bg-white
+                  border-gray-300 focus:border-rose-400 focus:ring-rose-400 sm:text-sm" id="egg">
+                    <% for (let [name, value] of Object.entries(settings.api.client.eggs)) { %>
+                      <option value="<%= name %>"><%= value.display %></option>
+                    <% } %>
+                  </select>
+                  <br>
+                  <label for="ram">RAM (GiB):</label>
+                  <input type="text" class="focus:border-rose-400 focus:ring-rose-400 transition ease-in-out delay-100 group relative border border-gray-300 flex w-1/4 justify-center form-control rounded-md" id="ram" placeholder="<%= (packages ? packages.ram : 0)/1024 + extraresources.ram/1024 - ram/1024 %>" value="<%= (packages ? packages.ram : 0)/1024 + extraresources.ram/1024 - ram/1024 %>">
+                  <br>
+                  <label for="disk">Disk (GiB):</label>
+                  <input type="text" class="focus:border-rose-400  focus:ring-rose-400 transition ease-in-out delay-100 group relative border border-gray-300 flex w-1/4 justify-center form-control rounded-md" id="disk" placeholder="<%= (packages ? packages.disk : 0)/1024 + extraresources.disk/1024 - disk/1024 %>" value="<%= (packages ? packages.disk : 0)/1024 + extraresources.disk/1024 - disk/1024 %>">
+                  <br>
+                  <label for="cpu">CPU (Cores):</label>
+                  <input type="text" class="focus:border-rose-400 focus:ring-rose-400 transition ease-in-out delay-100 group relative border border-gray-300 flex w-1/4 justify-center form-control rounded-md" id="cpu" placeholder="<%= (packages ? packages.cpu : 0)/100 + extraresources.cpu/100 - cpu/100 %>" value="<%= (packages ? packages.cpu : 0)/100 + extraresources.cpu/100 - cpu/100 %>">
+                  <br>
+                  
+                  <button onclick="submitForm()" class="transition delay-100 group relative  justify-center rounded-md border border-transparent bg-rose-400 py-2 px-4 text-sm font-medium text-white hover:bg-rose-500 focus:outline-none ml-2">Deploy</button>
+              <br></div>
+              <script>
+                  async function submitForm() {
+                      let name = encodeURIComponent(document.getElementById("name").value);
+                      let egg = encodeURIComponent(document.getElementById("egg").value);
+                      let ram = encodeURIComponent(document.getElementById("ram").value);
+                      let disk = encodeURIComponent(document.getElementById("disk").value);
+                      let cpu = encodeURIComponent(document.getElementById("cpu").value);
+                      let location = inputLocation;
+                      document.location.href = `/create?name=${name}&egg=${egg}&ram=${ram*1024}&disk=${disk*1024}&cpu=${cpu*100}&location=${location}`;
+                  };
+              </script>
+              </div>
+          </div>=
+            <!-- /End replace -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.js" integrity="sha512-eOUPKZXJTfgptSYQqVilRmxUNYm0XVHwcRHD4mdtCLWf/fC9XWe98IT8H1xzBkLL4Mo9GL0xWMSJtgS5te9rQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
