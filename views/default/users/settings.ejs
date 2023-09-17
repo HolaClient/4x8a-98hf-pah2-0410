@@ -38,14 +38,17 @@
                 </span>
                 <br>
                 <span class="">
-                  <% if (user.birthday) { const birthDate=new Date(user.birthday); const currentDate=new
-                                Date(); const age=currentDate.getFullYear() - birthDate.getFullYear(); if
-                                (currentDate.getMonth() < birthDate.getMonth() ||
-                                (currentDate.getMonth()===birthDate.getMonth() && currentDate.getDate() <
-                                birthDate.getDate())) { age--; } %>
-                  <%= age %> years old
-                  <% } %>
-
+                  <% if (user.birthday) { 
+  const birthDate = new Date(user.birthday);
+  const currentDate = new Date();
+  let age = currentDate.getFullYear() - birthDate.getFullYear();
+  if (currentDate.getMonth() < birthDate.getMonth() ||
+      (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
+      age--;
+  } 
+%>
+<%= age %> years old
+<% } %>
                 </span>
               </div>
               <hr>
