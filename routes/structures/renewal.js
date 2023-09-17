@@ -25,7 +25,8 @@ module.exports.load = async function (app, db) {
     })
 
     app.get(`/renew`, async (req, res) => {
-        if (!settings.allow.renewals.status == "true") return res.send(`Renewals are currently disabled.`)
+        try {
+        if (!settings.allow.renewals.status == true) return res.send(`Renewals are currently disabled.`)
         if (!req.query.id) return res.send(`Missing ID.`)
         if (!req.session.pterodactyl) return res.redirect(`/login`)
         if (req.session.pterodactyl.relationships.servers.data.filter(server => server.attributes.id == req.query.id).length == 0) return res.send(`No server with that ID was found!`);
@@ -46,6 +47,10 @@ module.exports.load = async function (app, db) {
         await db.set(`lastrenewal-${req.query.id}`, newTime)
 
         return res.redirect(`/dashboard` + `?success=RENEWED`)
+        } catch(err) {
+            console.log(`${chalk.redBright("[RENEWAL]")} ${err}`)
+            return res.send(`${err}`)
+        }
     })
 
     new CronJob(`0 0 * * *`, () => {
@@ -129,4 +134,35 @@ function msToDaysAndHours(ms) {
     }
 
     return `${days} day${pluralDays} and ${hours} hour${pluralHours}`
+}
+function getAllServers() {
+    return new Promise(async (resolve) => {
+
+        const allServers = []
+
+        async function getServersOnPage(page) {
+            return (await fetch(
+                settings.pterodactyl.domain + "/api/application/servers/?page=" + page,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${settings.pterodactyl.key}`
+                    }
+                }
+            )).json();
+        };
+
+        let currentPage = 1
+        while (true) {
+            const page = await getServersOnPage(currentPage)
+            allServers.push(...page.data)
+            if (page.meta.pagination.total_pages > currentPage) {
+                currentPage++
+            } else {
+                break
+            }
+        }
+
+        resolve(allServers)
+
+    })
 }

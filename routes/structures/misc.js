@@ -10,33 +10,29 @@ module.exports.load = async function (app, db) {
       if (!req.session.pterodactyl) {
         return res.redirect("/auth");
       }
-  
-      const cacheAccount = await getPteroUser(req.session.userinfo.hcid, db);
-  
-      if (!cacheAccount) {
-        throw new Error("Error while updating account information and server list.");
-      }
-  
-      req.session.pterodactyl = cacheAccount.attributes;
-  
+      let cacheaccount = await fetch(
+        settings.pterodactyl.domain + "/api/application/users/" + req.session.pterodactyl.id + "?include=servers",
+        {
+          method: "get",
+          headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${settings.pterodactyl.key}` }
+        }
+      );
+      let cacheaccountinfo = await cacheaccount.json();
+
+      req.session.pterodactyl = cacheaccountinfo.attributes;
       req.session.userinfo = await db.get("userinfo-" + req.session.userinfo.hcid);
-  
       const uinfo = await db.get("onboarding-" + req.session.userinfo.hcid);
-      
       if (uinfo) {
         req.session.user = uinfo;
       }
-  
       if (req.query.redirect && typeof req.query.redirect === "string") {
         return res.redirect("/" + req.query.redirect);
       }
-  
       res.redirect("/dashboard");
     } catch (error) {
-      console.error("Error in /updateinfo:", error);
       return res.redirect("/logout");
     }
-  });  
+  });
 
   app.get("/modify", async (req, res) => {
     if (!req.session.pterodactyl) return res.redirect("/login");
@@ -45,19 +41,21 @@ module.exports.load = async function (app, db) {
 
     if (settings.allow.server.modify == true) {
       if (!req.query.id) return res.send("Missing server id.");
-
-      const cacheaccount = await getPteroUser(req.session.userinfo.hcid, db)
-        .catch(() => {
-          return res.send("An error has occured while attempting to update your account information and server list.");
-        })
-      if (!cacheaccount) return
-      req.session.pterodactyl = cacheaccount.attributes;
+      
+      const cacheaccount = await fetch(
+        settings.pterodactyl.domain + "/api/application/users/" + req.session.pterodactyl.id + "?include=servers",
+        {
+          method: "get",
+          headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${settings.pterodactyl.key}` }
+        }
+      );
+      let cacheaccountinfo = await cacheaccount.json();
+      req.session.pterodactyl = cacheaccountinfo.attributes;
 
       let redirectlink = theme.settings.redirect.failedmodifyserver ? theme.settings.redirect.failedmodifyserver : "/"; // fail redirect link
 
       let checkexist = req.session.pterodactyl.relationships.servers.data.filter(name => name.attributes.id == req.query.id);
       if (checkexist.length !== 1) return res.send("Invalid server id.");
-
       let ram = req.query.ram ? (isNaN(parseFloat(req.query.ram)) ? undefined : parseFloat(req.query.ram)) : undefined;
       let disk = req.query.disk ? (isNaN(parseFloat(req.query.disk)) ? undefined : parseFloat(req.query.disk)) : undefined;
       let cpu = req.query.cpu ? (isNaN(parseFloat(req.query.cpu)) ? undefined : parseFloat(req.query.cpu)) : undefined;
@@ -67,7 +65,7 @@ module.exports.load = async function (app, db) {
 
       if (ram || disk || cpu || allocations || backups || databases) {
 
-        let packagename = await db.get("package-" + req.session.userinfo.email);
+        let packagename = await db.get("package-" + req.session.userinfo.hcid);
         let package = settings.packages.list[packagename ? packagename : settings.packages.default];
 
         let pterorelationshipsserverdata = req.session.pterodactyl.relationships.servers.data.filter(name => name.attributes.id.toString() !== req.query.id);
@@ -98,8 +96,8 @@ module.exports.load = async function (app, db) {
         if (!egginfo) return res.redirect(`${redirectlink}?id=${req.query.id}&err=MISSINGEGG`);
 
         let extra =
-          await db.get("extra-" + req.session.userinfo.email) ?
-            await db.get("extra-" + req.session.userinfo.email) :
+          await db.get("extra-" + req.session.userinfo.hcid) ?
+            await db.get("extra-" + req.session.userinfo.hcid) :
             {
               ram: 0,
               disk: 0,
@@ -157,8 +155,6 @@ module.exports.load = async function (app, db) {
         debuglog.client(`${req.session.userinfo.username} modified the server called ${text.attributes.name} to have the following specs:\nMemory: ${ram} MB\nCPU: ${cpu}%\nDisk: ${disk}\nDatabases: ${databases}\nBackups: ${backups}\nAllocations: ${allocations}`)
         pterorelationshipsserverdata.push(text);
         req.session.pterodactyl.relationships.servers.data = pterorelationshipsserverdata;
-        let theme = indexjs.get(req);
-        adminjs.suspend(req.session.userinfo.email);
         res.redirect("/dashboard?err=MODIFYSERVER");
       } else {
         res.redirect(`${redirectlink}?id=${req.query.id}&err=MISSINGVARIABLE`);
@@ -168,25 +164,3 @@ module.exports.load = async function (app, db) {
     }
   });
 };
-async function getPteroUser(userid, db) {
-  return new Promise(async (resolve, reject) => {
-      try {
-          let cacheaccount = await fetch(
-              settings.pterodactyl.domain + "/api/application/users/" + (await db.get("users-" + userid)) + "?include=servers",
-              {
-                  method: "get",
-                  headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${settings.pterodactyl.key}` }
-              }
-          );
-
-          if (cacheaccount.statusText === "Not Found") {
-              reject('Pterodactyl account not found');
-          } else {
-              let cacheaccountinfo = await cacheaccount.json();
-              resolve(cacheaccountinfo);
-          }
-      } catch (error) {
-          reject(error);
-      }
-  });
-}
