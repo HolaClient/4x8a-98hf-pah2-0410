@@ -78,28 +78,28 @@
       let selectedUser = null;
 
       async function fetchUserData(keyword) {
-         try {
-            const response = await fetch(`/admin/users/coins/list`);
-            userData = await response.json();
+   try {
+      const response = await fetch(`/admin/users/coins/list`);
+      userData = await response.json();
 
-            userSelect.innerHTML = '<option value="" disabled selected>Select a user</option>';
+      userSelect.innerHTML = '<option value="" disabled selected>Select a user</option>';
 
-            const filteredUsers = userData.filter(user =>
-               user.username.toLowerCase().includes(keyword) ||
-               user.email.toLowerCase().includes(keyword) ||
-               user.hcid.includes(keyword)
-            );
+      const filteredUsers = userData.filter(user =>
+         user.username.toLowerCase().includes(keyword) ||
+         user.email.toLowerCase().includes(keyword)
+      );
 
-            filteredUsers.forEach(user => {
-               const option = document.createElement("option");
-               option.value = user.email;
-               option.textContent = `${user.username} - (Coins: ${user.coins}) (HCID: ${user.hcid})`;
-               userSelect.appendChild(option);
-            });
-         } catch (error) {
-            console.error(error);
-         }
-      }
+      filteredUsers.forEach(user => {
+         const option = document.createElement("option");
+         option.value = user.email;
+         option.textContent = `${user.username} - (Coins: ${user.coins}) (HCID: ${user.hcid})`;
+         userSelect.appendChild(option);
+      });
+   } catch (error) {
+      console.error(error);
+   }
+}
+
 
       searchInput.addEventListener("input", event => {
          const keyword = event.target.value.trim().toLowerCase();
