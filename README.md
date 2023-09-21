@@ -4,7 +4,7 @@
 <h1 align="center" tabindex="-1" dir="auto">HolaClient</h1>
 <p align="center" dir="auto">Trusted by hundreds of hosts and thousands of users.</p>
 <p align="center">
-  <a><img src="https://img.shields.io/github/downloads/HolaClient/HolaClient/total?color=blue&label=Downloads @ latest"/></a>
+  <a><img src="https://img.shields.io/github/downloads/HolaClient/HolaClient/total?color=blue&label=v1.5.8 Downloads"/></a>
   <a href="https://discord.gg/CvqRH9TrYK"><img src="https://img.shields.io/discord/1038719273658499072?color=blue&label=Discord&logo=HolaClient&logoColor=blue" alt="discord" /></a>
   <a href="https://holaclient.tech/docs"><img alt="Website" src="https://img.shields.io/website?down_color=lightred&down_message=Offline&label=Docs&up_color=blue&up_message=Online&url=https://holaclient.tech/docs"></a>
     <a href="https://demo.holaclient.tech"><img alt="Website" src="https://img.shields.io/website?down_color=red&down_message=Offline&label=Demo&up_color=blue&up_message=Online&url=https://demo.holaclient.tech"></a>
