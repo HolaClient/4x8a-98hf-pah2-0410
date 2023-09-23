@@ -103,10 +103,6 @@
       <script>
         async function submitForm() {
           try {
-            const token = await grecaptcha.execute('<%= settings.features.captcha.site_key %>', {
-              action: 'submit'
-            });
-
             let name = encodeURIComponent(document.getElementById("name").value);
             let username = encodeURIComponent(document.getElementById("username").value);
             let email = encodeURIComponent(document.getElementById("email").value);
