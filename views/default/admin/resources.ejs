@@ -79,16 +79,16 @@
 
       userSelect.innerHTML = '<option value="" disabled selected>Select a user</option>';
 
-            const filteredUsers = userData.filter(user =>
-         user.username.toLowerCase().includes(keyword) ||
-         user.email.toLowerCase().includes(keyword)
+      const filteredUsers = userData.filter(user =>
+        user.username.toLowerCase().includes(keyword) ||
+        user.email.toLowerCase().includes(keyword)
       );
 
       filteredUsers.forEach(user => {
-         const option = document.createElement("option");
-         option.value = user.email;
-         option.textContent = `${user.username} - (HCID: ${user.hcid})`;
-         userSelect.appendChild(option);
+        const option = document.createElement("option");
+        option.value = user.hcid;
+        option.textContent = `${user.username} - (HCID: ${user.hcid})`;
+        userSelect.appendChild(option);
       });
     } catch (error) {
       console.error(error);
@@ -144,7 +144,7 @@
         requestData.allocations = allocationsValue;
         requestData.backups = backupsValue;
         requestData.databases = databasesValue;
-        
+
         updateBtnStats('block')
         break;
 
