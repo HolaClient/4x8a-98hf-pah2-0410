@@ -34,6 +34,7 @@
     "geoip-lite": "^1.4.7",
     "googleapis": "^111.0.0",
     "javascript-obfuscator": "^4.0.2",
+    "js-yaml": "^4.1.0",
     "keyv": "^4.0.4",
     "mongoose": "^7.1.0",
     "multer": "^1.4.5-lts.1",
