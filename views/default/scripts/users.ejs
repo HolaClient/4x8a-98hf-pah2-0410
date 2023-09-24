@@ -157,6 +157,8 @@
       if (data.success === true) {
         toastr.success(data.message, "Success!")
         fetchUserData("");
+      } else if(data.redirect) {
+        window.location.href=data.redirect
       } else {
         toastr.error(data.message, 'Error');
       }
