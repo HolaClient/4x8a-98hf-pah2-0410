@@ -7,9 +7,8 @@ module.exports.load = async function (app, db) {
     app.post("/admin/users/remove", async (req, res) => {
         try {
           let theme = indexjs.get(req);
-      
-          if (!req.session.pterodactyl) return four0four(req, res, theme);
-      
+          if (!req.session.pterodactyl)
+          return res.json({ success: false, message: alerts.MISSINGUSER, redirect: "login" });
           let cacheaccount = await fetch(
             settings.pterodactyl.domain +
               "/api/application/users/" +
@@ -23,26 +22,19 @@ module.exports.load = async function (app, db) {
               },
             }
           );
-      
           if ((await cacheaccount.statusText) == "Not Found")
-            return four0four(req, res, theme);
-      
+          return res.json({ success: false, message: alerts.MISSINGUSER, redirect: "login" });
           let cacheaccountinfo = JSON.parse(await cacheaccount.text());
           req.session.pterodactyl = cacheaccountinfo.attributes;
-      
           if (cacheaccountinfo.attributes.root_admin !== true)
-            return four0four(req, res, theme);
-      
+            return res.json({ success: false, message: alerts.MISSINGUSER, redirect: "login" });
           if (!req.body.user)
             return res.json({ success: false, message: alerts.MISSINGUSER });
-      
           let user = req.body.user;
-      
           if (!await db.get("userinfo-" + user))
             return res.json({ success: false, message: alerts.INVALIDUSER });
-      
+
           let pteroid = await db.get("users-" + user);
-      
           const delUserSrvs = await fetch(
             `${settings.pterodactyl.domain}/api/application/users/${pteroid}?include=servers`,
             {
@@ -54,13 +46,11 @@ module.exports.load = async function (app, db) {
               },
             }
           );
-      
-          if (delUserSrvs.status === 204) {
+          if (delUserSrvs.status == 200) {
             const serverData = await delUserSrvs.json();
-      
-            if (serverData.servers && serverData.servers.length > 0) {
-              for (const server of serverData.servers) {
-                await deleteServer(server.id);
+            if (serverData.attributes.relationships.servers.data.length > 0) {
+              for (const server of serverData.attributes.relationships.servers.data) {
+                await deleteServer(server.attributes.id);
               }
             }
           } else {
@@ -68,10 +58,9 @@ module.exports.load = async function (app, db) {
               `Failed to fetch server data. Status code: ${delUserSrvs.status}`
             );
           }
-      
           async function deleteServer(serverId) {
             try {
-              const response = await fetch(
+              const delUserSrv = await fetch(
                 `${settings.pterodactyl.domain}/api/application/servers/${serverId}`,
                 {
                   method: "DELETE",
@@ -80,14 +69,14 @@ module.exports.load = async function (app, db) {
                   },
                 }
               );
-      
-              if (response.status === 204) {
+                console.log(await delUserSrv.json())
+              if (delUserSrv.status === 204) {
                 console.log(
                   `Successfully deleted the server: ${serverId}. That belongs to ${pteroid}`
                 );
               } else {
                 console.error(
-                  `Failed to delete server ${serverId}. That belongs to ${pteroid}. Status code: ${response.status}`
+                  `Failed to delete server ${serverId}. That belongs to ${pteroid}. Status code: ${delUserSrv.status}`
                 );
               }
             } catch (error) {
@@ -96,20 +85,18 @@ module.exports.load = async function (app, db) {
               );
             }
           }
-      
           const delUserRes = await fetch(
             `${settings.pterodactyl.domain}/api/application/users/${pteroid}`,
             {
               method: "DELETE",
               headers: {
-                Accept: "application/json",
+                "Accept": "application/json",
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${settings.pterodactyl.key}`,
+                "Authorization": `Bearer ${settings.pterodactyl.key}`,
               },
             }
           );
-      
-          if (delUserRes.status == 204) {
+          try {
             let selected_ip = await db.get("ip-" + user);
             let userinfo = await db.get("userinfo-" + user);
       
@@ -159,38 +146,16 @@ module.exports.load = async function (app, db) {
             );
       
             return res.json({ success: true, message: "Success!" });
-          } else {
+          } catch (error) {
             console.error(
               `Failed to delete user with ID ${pteroid}:`,
               delUserRes.statusText
             );
       
-            return res.json({ success: false, message: `Failed to delete user.` });
+            return res.json({ success: false, message: `Failed to delete user ${pteroid}. ${delUserRes.statusText}` });
           }
         } catch (error) {
           return res.json({ success: false, message: "An error occurred", error });
         }
       });
-
-    async function four0four(req, res, theme) {
-        ejs.renderFile(
-            `./views/${theme.name}/${theme.settings.unauthorized}`,
-            await eval(indexjs.renderdataeval),
-            null,
-            function (err, str) {
-                delete req.session.newaccount;
-                if (err) {
-                    console.log(
-                        `[WEBSITE] An error has occured on path ${req._parsedUrl.pathname}:`
-                    );
-                    console.log(err);
-                    return res.send(
-                        "An error has occured while attempting to load this page. Please contact an administrator to fix this."
-                    );
-                }
-                res.status(403);
-                res.send(str);
-            }
-        );
-    }
 }
