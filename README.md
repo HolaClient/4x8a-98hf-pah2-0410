@@ -81,11 +81,9 @@ Subdomain (v1.5.7):
    - or refer to our old [documentation](https://old-docs.holaclient.tech) made by [ItzBenoitXD](https://github.com/ItzBenoitXD).
    - or refer to this [video install guide by Arctic Wolf](https://youtu.be/V4FnFKL3nGw) (he did a great job explaining how to install).
 * Automatic Installation
-  * For VPS
 ```bash
 bash <(curl -s https://holaclient.tech/installer.sh)
 ```
-  * For Pterodactyl: [Pterodactyl Egg](https://github.com/HolaClient/installer).
 ---
 
 ## 📝 Authors
