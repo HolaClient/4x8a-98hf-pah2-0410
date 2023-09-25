@@ -76,12 +76,14 @@ Subdomain (v1.5.7):
 ---
 
 ## ⬇️ Installation
-Refer to our docs for manual installation: https://holaclient.tech/docs
-
-... or refer to our old documentation made by [**ItzBenoitXD**](https://github.com/ItzBenoitXD): https://old-docs.holaclient.tech
-
-... or refer to this video install guide by Arctic Wolf (he did a great job explaining how to install): https://youtu.be/V4FnFKL3nGw
-    
+- Manual Installation
+ - Please refer our [documentation](https://holaclient.tech/docs).
+ - or refer to our old [documentation](https://old-docs.holaclient.tech) made by [ItzBenoitXD](https://github.com/ItzBenoitXD).
+ - or refer to this [video install guide by Arctic Wolf](https://youtu.be/V4FnFKL3nGw) (he did a great job explaining how to install).
+- Automatic Installation
+```bash
+bash <(curl -s https://holaclient.tech/installer.sh)
+```
 ---
 
 ## 📝 Authors
