@@ -69,12 +69,13 @@
 
       const filteredUsers = userData.filter(user =>
         user.username.toLowerCase().includes(keyword) ||
-        user.email.toLowerCase().includes(keyword)
+        user.email.toLowerCase().includes(keyword) ||
+        user.hcid.toLowerCase().includes(keyword)
       );
 
       filteredUsers.forEach(user => {
         const option = document.createElement("option");
-        option.value = user.email;
+        option.value = user.hcid;
         option.textContent = `${user.username} - (HCID: ${user.hcid})`;
         userSelect.appendChild(option);
       });
