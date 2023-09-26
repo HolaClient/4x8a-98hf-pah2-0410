@@ -50,6 +50,7 @@
 - Onboarding: Interactive starting page for the users.
 - Birthdays: Auto wish on user's birthdays.
 - User Management: Easily add/remove/set resources.
+- Real time stats: View the real time resource usage.
 - Linkvertise Earning: Earn coins by completing a link.
 - ShareUs Earning: Earn coins by completing a link.
 - GyaniLinks Earning: Earn coins by completing a link.
