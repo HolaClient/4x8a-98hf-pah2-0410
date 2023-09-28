@@ -1,7 +1,4 @@
-<p align="center">
-  <img src="https://media.discordapp.net/attachments/1082632266506850344/1108449684709703770/image.png" alt="Gray shape shifter" height="120" style="max-width: 100%;">
-</p>
-<h1 align="center" tabindex="-1" dir="auto">HolaClient</h1>
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/8cc5e386-223c-434e-ab35-e587515d5138)
 <p align="center" dir="auto">Trusted by hundreds of hosts and thousands of users.</p>
 <p align="center">
   <a><img src="https://img.shields.io/github/downloads/HolaClient/HolaClient/total?color=blue&label=v1.5.8 Downloads"/></a>
