@@ -58,24 +58,6 @@
 - Role Packages: Give a package to users who have the role.
 ---
 
-
-## 👀 Preview
-HolaClient Demo: https://demo.holaclient.tech/
-
-Landing Page (v1.5.8):
-![image](https://github.com/HolaClient/HolaClient/assets/102372274/f9cecf3f-5e88-404c-8c8f-49c8c9f0275a)
-
-Admin Home (v1.5.8):
-![admin home](https://media.discordapp.net/attachments/1108054221456146534/1150167629726765126/image.png)
-
-Dashboard (v1.5.8):
-![dashboard](https://media.discordapp.net/attachments/1108054221456146534/1150167633472258099/image.png)
-
-Subdomain (v1.5.7):
-![Subdomain](https://github.com/HolaClient/HolaClient/assets/102372274/6db15761-a9a5-4c69-95d8-df6020696b37)
-
----
-
 ## ⬇️ Installation
 * Manual Installation
    - Please refer our [documentation](https://holaclient.tech/docs).
@@ -99,6 +81,23 @@ bash <(curl -s https://holaclient.tech/installer.sh)
 ## 📝 Authors
 - [**CR072**](https://github.com/CR072)
 - [**ItzBenoitXD**](https://github.com/ItzBenoitXD)
+
+---
+
+## 👀 Preview
+HolaClient Demo: https://demo.holaclient.tech/
+
+Landing Page (v1.5.8):
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/f9cecf3f-5e88-404c-8c8f-49c8c9f0275a)
+
+Admin Home (v1.5.8):
+![admin home](https://media.discordapp.net/attachments/1108054221456146534/1150167629726765126/image.png)
+
+Dashboard (v1.5.8):
+![dashboard](https://media.discordapp.net/attachments/1108054221456146534/1150167633472258099/image.png)
+
+Subdomain (v1.5.7):
+![Subdomain](https://github.com/HolaClient/HolaClient/assets/102372274/6db15761-a9a5-4c69-95d8-df6020696b37)
 
 ---
 
