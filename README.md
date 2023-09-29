@@ -85,7 +85,7 @@ bash <(curl -s https://holaclient.tech/installer.sh)
 
 ## 📑 Acknowledgements
 
-- [**Dashactyl**](https://github.com/Votion-Development/Dashactyl) | This project was not possible without it.
+- [**ItzBenoitXD**](https://github.com/ItzBenoitXD)
 - [**EzayHost**](https://croix.pro) | Provided servers for development, cdn and other purposes.
 - [**Vien**](https://github.com/VienDC) | Made [PyHolaClient](https://github.com/VienDC/PyHolaClient), An API wrapper using python.
 
