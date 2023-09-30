@@ -4,21 +4,21 @@
 
 Our maintained and support version to submit a security vulnerability.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.5.7   | ✅                |
-| 1.5.6   | ✅                |
-| 1.5.5   | ✅                |
-| 1.5.4   | ❌                |
-| 1.5.3   | ❌                |
-| 1.5.2   | ❌                |
-| 1.5.1   | ❌                |
-| 1.5     | ❌                |
-| 1.4     | ❌                |
-| 1.3     | ❌                |
-| 1.2     | ❌                |
-| 1.1     | ❌                |
-| 1       | ❌                |
+| Version | Type               | Supported          |
+| ------- | ------------------ | ------------------ |
+| 1.5.7   | Production         | ✅                |
+| 1.5.6   | Development        | ✅                |
+| 1.5.5   | Production         | ✅                |
+| 1.5.4   | Production         | ❌                |
+| 1.5.3   | Production         | ❌                |
+| 1.5.2   | Production         | ❌                |
+| 1.5.1   | Production         | ❌                |
+| 1.5     | Development        | ❌                |
+| 1.4     | Production         | ❌                |
+| 1.3     | Production         | ❌                |
+| 1.2     | Production         | ❌                |
+| 1.1     | Production         | ❌                |
+| 1       | Production         | ❌                |
 
 ## Reporting a Vulnerability
 
