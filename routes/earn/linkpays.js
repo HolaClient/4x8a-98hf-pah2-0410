@@ -72,7 +72,7 @@ module.exports.load = async function (app, db) {
     if (((Date.now() - usercode.generated) / 1000) < settings.earn.linkpays.minTimeToComplete) {
       return res.send('<body style="background-color: #1b1c1d;"><center><h1 style="color: white">Error Code: HCLP002</h1><br><h2 style="color: white">You can get more information about this code on our <a style="color: white" href="https://discord.gg/CvqRH9TrYK">support</a> server!</h2></center>');
     }
-    cooldowns[req.session.userinfo.id] = Date.now() + settings.earn.linkpays.cooldown * 60 * 1000;
+    cooldowns[req.session.userinfo.hcid] = Date.now() + settings.earn.linkpays.cooldown * 60 * 1000;
     await db.set(`dailylinkpays-${req.session.userinfo.hcid}`, 1);
     const coins = await db.get(`coins-${req.session.userinfo.hcid}`)
     await db.set(`coins-${req.session.userinfo.hcid}`, coins + settings.earn.linkpays.coins)    
