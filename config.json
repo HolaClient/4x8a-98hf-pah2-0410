@@ -6,7 +6,7 @@
     },
     "database": {
         "db": "sqlite",
-        "list": "(sqlite), (mysql), (mongodb)",
+        "list": "(sqlite)",
         "encrypt": true
     },
     "config": {
