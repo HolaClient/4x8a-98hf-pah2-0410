@@ -9,34 +9,30 @@ module.exports = (action, message) => {
 
     const isUserAction = !settings.webhook.actions.admin[action];
 
-    const webhook = isUserAction
-        ? settings.webhook.client
-        : settings.webhook.admin;
+    const webhook = isUserAction ? settings.webhook.client : settings.webhook.admin;
 
     fetch(webhook, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: "HolaClient",
-            avatar_url: "https://media.discordapp.net/attachments/1082636619804323860/1115601102344298636/image.png?width=621&height=580",
-            embeds: [
-                {
-                    color: hexToDecimal('#191c24'),
-                    title: `\`${action}\``,
-                    description: message,
-                    author: {
-                        name: 'HolaClient'
-                    },
-                    thumbnail: {
-                        url: settings.logo
-                    }
-                }
-            ]
-        })
-    })
-    .catch(() => {})
+        "method":"POST",
+        "headers": {"Content-Type": "application/json"},
+        "body": JSON.stringify({
+           username: "HolaClient",
+           avatar_url: "https://media.discordapp.net/attachments/1082636619804323860/1115601102344298636/image.png?width=621&height=580",
+           embeds: [
+               {
+                   color: hexToDecimal('#191c24'),
+                   title: `\`${action}\``,
+                   description: message,
+                   author: {
+                       name: 'HolaClient'
+                   },
+                   thumbnail: {
+                       url: settings.logo.url
+                   }
+               }
+           ]
+       })
+   
+       })
 }
 
 function hexToDecimal(hex) {
