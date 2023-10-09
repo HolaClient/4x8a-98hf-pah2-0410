@@ -106,7 +106,6 @@ Please refer "LICENSE" and "CREDITS" files for better understability.
 - [**YouTube Channel**](https://youtube.com/@holallc)
 - [**Website**](https://holaclient.tech)
 - [**Discord Server**](https://discord.gg/ne8JwpGpX3)
-- [**Holasmp**](https://discord.gg/Dms5dsmVAs)
 - [**Documentation**](https://docs.holaclient.tech)
 - [**HolaClient Demo**](https://demo.holaclient.tech)
 - [**Video Installation**](https://youtu.be/V4FnFKL3nGw)
