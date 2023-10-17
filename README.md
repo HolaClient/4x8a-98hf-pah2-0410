@@ -81,13 +81,6 @@ Subdomain (v1.5.7):
 ```bash
 bash <(curl -s https://holaclient.tech/installer.sh)
 ```
----
-
-## 📑 Acknowledgements
-
-- [**ItzBenoitXD**](https://github.com/ItzBenoitXD) | Made old documentation, egg and helped me in many ways.
-- [**Vien**](https://github.com/VienDC) | Made [PyHolaClient](https://github.com/VienDC/PyHolaClient), An API wrapper using python.
-
 
 ---
 
