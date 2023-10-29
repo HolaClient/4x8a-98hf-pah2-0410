@@ -1,4 +1,3 @@
-# PLEASE DON'T USE THIS DASHBOARD UNTIL FURTHER NOTICE
 
 ![image](https://github.com/HolaClient/HolaClient/assets/102372274/8cc5e386-223c-434e-ab35-e587515d5138)
 <p align="center" dir="auto">Trusted by hundreds of hosts and thousands of users.</p>
