@@ -10,8 +10,8 @@ module.exports.load = async function(app, db) {
     if (newsettings.allow.regen !== true) return res.send("You cannot regenerate your password currently.");
     let newpassword = makeid(newsettings.passwordgenerator["length"]);
     req.session.password = newpassword;
-    req.session.userpass = await db.get("password-" + req.session.userinfo.hcid);
     await db.set("password-" + req.session.userinfo.hcid, newpassword)
+    req.session.userpass = await db.get("password-" + req.session.userinfo.hcid);
 
     await fetch(
       settings.pterodactyl.domain + "/api/application/users/" + req.session.pterodactyl.id,
