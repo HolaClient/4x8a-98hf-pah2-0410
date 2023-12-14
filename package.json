@@ -42,7 +42,6 @@
     "node-cache": "^5.1.2",
     "node-cron": "^3.0.2",
     "node-fetch": "^2.6.6",
-    "nodeactyl": "^3.3.0",
     "nodejs-tail": "^1.1.1",
     "nodemailer": "^6.9.3",
     "ora": "^5.4.1",
