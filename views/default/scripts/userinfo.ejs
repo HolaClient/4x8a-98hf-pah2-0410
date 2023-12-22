@@ -79,7 +79,7 @@
           <div class="form-group">
             <label>Password [Click to copy]</label>
             <div class="input-group">
-              <input onclick="copyToClipboard('password')" id="password" class="form-control form-control-rounded" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;" value="<%= userinfo.password %><%= req.session.userpass %>" type="password" readonly>
+              <input onclick="copyToClipboard('password')" id="password" class="form-control form-control-rounded" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;" value="<%= req.session.userpass %>" type="password" readonly>
               <div class="input-group-append">
                 <button class="form-control form-control-rounded" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" id="togglePassword">
                   <i class="fa fa-eye" id="toggleIcon"></i>
