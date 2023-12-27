@@ -180,7 +180,7 @@ const listener = app.listen(settings.website.port, function () {
     console.log(chalk.white(" "))
     console.log(chalk.white("=====================SOCIAL======================"));
     console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Discord")}${chalk.white("]")}${chalk.white(" https://discord.gg/CvqRH9TrYK ")}`);
-    console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Github")}${chalk.white("]")}${chalk.white(" https://github.com/CR072/HolaClient ")}`);
+    console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Github")}${chalk.white("]")}${chalk.white(" https://github.com/HolaClient/HolaClient ")}`);
     console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Website")}${chalk.white("]")}${chalk.white(" https://holaclient.tech ")}`);
     console.log(chalk.white("================================================="));
     console.log(" ");
