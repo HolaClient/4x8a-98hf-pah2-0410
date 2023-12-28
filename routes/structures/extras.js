@@ -21,7 +21,7 @@ module.exports.load = async function(app, db) {
     res.send(`
     <html>
     <head>
-        <title>HolaClient v1.5.7</title>
+        <title>HolaClient v1.5.8</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body class="bg-gradient-to-b from-slate-900 to-black">
