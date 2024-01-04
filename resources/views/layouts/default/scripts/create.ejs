@@ -1,0 +1,213 @@
+<script>
+  let inputLOCC = "";
+
+  function setINPLOC(num) {
+    inputLOCC = num;
+    console.log(num);
+  }
+
+  function submitNew() {
+    const cbox = document.getElementById("createBox");
+    const loading = document.getElementById("loading");
+    cbox.style.display = 'none'
+    loading.style.display = 'block';
+    const name = encodeURIComponent(document.getElementById("SRVname").value);
+    const softwareItems = document.getElementsByClassName("software-item");
+    let selectedEgg;
+
+    for (let i = 0; i < softwareItems.length; i++) {
+      if (softwareItems[i].classList.contains("selected")) {
+        selectedEgg = softwareItems[i].dataset.egg;
+        break;
+      }
+    }
+
+    if (!selectedEgg) {
+      Swal.fire({
+        title: 'Alert!',
+        text: 'Please select a server software!',
+        icon: 'error'
+      });
+      cbox.style.display = 'block'
+      loading.style.display = 'none';
+      return;
+    }
+
+    const ram = encodeURIComponent(document.getElementById("SRVram").value);
+    const disk = encodeURIComponent(document.getElementById("SRVdisk").value);
+    const cpu = encodeURIComponent(document.getElementById("SRVcpu").value);
+    const backups = encodeURIComponent(document.getElementById("SRVbackups").value);
+    const databases = encodeURIComponent(document.getElementById("SRVdb").value);
+    const allocations = encodeURIComponent(document.getElementById("SRVallocations").value);
+    const description = encodeURIComponent(document.getElementById("SRVdescription").value);
+
+    const locationItems = document.getElementsByClassName("location-item");
+    let selectedLocation;
+
+    for (let i = 0; i < locationItems.length; i++) {
+      if (locationItems[i].classList.contains("selected")) {
+        selectedLocation = locationItems[i].getAttribute("value");
+        break;
+      }
+    }
+
+    if (!selectedLocation) {
+      Swal.fire({
+        title: 'Alert!',
+        text: 'Please select a server location!',
+        icon: 'error'
+      });
+      cbox.style.display = 'block'
+      loading.style.display = 'none';
+      return;
+    }
+
+    const queryParams = new URLSearchParams({
+      name: name,
+      description: description,
+      egg: selectedEgg,
+      ram: ram,
+      disk: disk,
+      cpu: cpu,
+      backups: backups,
+      allocations: allocations,
+      databases: databases,
+      location: selectedLocation
+    });
+
+    fetch(`/create?${queryParams.toString()}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success === true) {
+          toastr.success(data.message, 'Success!');
+          window.location.reload();
+        } else if (data.redirect) {
+          window.location.href = data.redirect
+        } else {
+          toastr.error(data.message, 'Error!');
+          cbox.style.display = 'block'
+          loading.style.display = 'none';
+        }
+      })
+      .catch(error => {
+        console.error("An error occurred:", error);
+      });
+
+
+  }
+
+  const softwareItems = document.getElementsByClassName("software-item");
+  for (let i = 0; i < softwareItems.length; i++) {
+    softwareItems[i].addEventListener("click", function() {
+      for (let j = 0; j < softwareItems.length; j++) {
+        softwareItems[j].classList.remove("selected");
+        softwareItems[j].style.display = 'block';
+      }
+      this.classList.add("selected");
+    });
+  }
+
+  const locationItems = document.getElementsByClassName("location-item");
+  for (let i = 0; i < locationItems.length; i++) {
+    locationItems[i].addEventListener("click", function() {
+      for (let j = 0; j < locationItems.length; j++) {
+        locationItems[j].style.display = 'block';
+        locationItems[j].classList.remove("selected");
+      }
+      this.classList.add("selected");
+    });
+  }
+
+  const eggItems = document.getElementsByClassName("egg-item");
+  for (let i = 0; i < eggItems.length; i++) {
+    eggItems[i].addEventListener("click", function() {
+      for (let j = 0; j < eggItems.length; j++) {
+        eggItems[j].classList.remove("selected");
+      }
+      this.style.display = 'none';
+      this.classList.add("selected");
+    });
+  }
+</script>
+<style>
+  .rotatel {
+    animation: rotation 1s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .location-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .location-item {
+    border: 0 solid #e5eaef;
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: 15px;
+    padding: 10px;
+    min-width: 250px;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  .location-item.selected {
+    background-color: rgba(0, 0, 0, .2);
+    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .45)
+  }
+
+  .location-flag {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+
+  .software-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .software-item {
+    border: 0 solid #e5eaef;
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: 15px;
+    padding: 10px;
+    min-width: 250px;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  .software-banner {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+
+  .software-item.selected {
+    background-color: rgba(0, 0, 0, .2);
+    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .45)
+  }
+</style>

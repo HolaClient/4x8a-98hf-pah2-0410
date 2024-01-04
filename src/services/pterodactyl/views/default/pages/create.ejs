@@ -1,0 +1,210 @@
+<%- include('../partials/head') %>
+  <%- include('../partials/css') %>
+    <%- include('../scripts/wrapper') %>
+      <%- include('../partials/sidebar') %>
+        <%- include('../partials/topnav') %>
+          <%- include('../partials/alert') %>
+            <%- include('../scripts/containers') %>
+              <%- include('../partials/resources') %>
+                <% let ram=resources.ram; let disk=resources.disk; let cpu=resources.cpu; let backups=resources.backups;
+                  let allocations=resources.allocations; let databases=resources.databases; %>
+                  <div id="createBox" class="card mt-3">
+                    <div class="card-content">
+                      <div class="row row-group m-0">
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-alt"></i></span></h5>
+                          <h6 style="color:white">Server name:</h6>
+                          <input id="SRVname" class="form-control form-control-rounded" type="text"
+                            placeholder="My Server" name="fname">
+                        </div>
+                      </div>
+
+                      <div class="row row-group m-0">
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i
+                                class="fa-solid fa-memory"></i></span></h5>
+                          <h6 style="color:white">Server Memory:</h6>
+                          <input id="SRVram" class="form-control form-control-rounded" type="text"
+                            placeholder="ram in MB" value="<%= ram %>" name="fname">
+                        </div>
+
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i
+                                class="fa-solid fa-hard-drive"></i></span></h5>
+                          <h6 style="color:white">Server Disk:</h6>
+                          <input id="SRVdisk" class="form-control form-control-rounded" type="text"
+                            placeholder="disk in MB" value="<%= disk %>" name="fname">
+                        </div>
+
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i
+                                class="fa-solid fa-microchip"></i></span></h5>
+                          <h6 style="color:white">Server Cpu:</h6>
+                          <input id="SRVcpu" class="form-control form-control-rounded" type="text"
+                            placeholder="cpu in %" value="<%= cpu %>" name="fname">
+                        </div>
+                      </div>
+
+                      <div class="row row-group m-0">
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i
+                                class="fa-solid fa-database"></i></span></h5>
+                          <h6 style="color:white">Server Databases:</h6>
+                          <input id="SRVdb" class="form-control form-control-rounded" type="text"
+                            placeholder="databases" value="<%= databases %>" name="fname">
+                        </div>
+
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-brands fa-usb"></i></span>
+                          </h5>
+                          <h6 style="color:white">Server Allocations:</h6>
+                          <input id="SRVallocations" class="form-control form-control-rounded" type="text"
+                            placeholder="allocations" value="<%= allocations %>" name="fname">
+                        </div>
+
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i
+                                class="fa-solid fa-repeat"></i></span></h5>
+                          <h6 style="color:white">Server Backups:</h6>
+                          <input id="SRVbackups" class="form-control form-control-rounded" type="text"
+                            placeholder="backups" value="<%= backups %>" name="fname">
+                        </div>
+                      </div>
+
+                      <div class="row row-group m-0">
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-plugin"></i></span>
+                          </h5>
+                          <h6 style="color:white">Select your server software</h6>
+                          <ul class="software-list">
+                            <% for (let [name, value] of Object.entries(eggs)) { %>
+                              <li class="software-item" data-egg="<%= name %>">
+                                <img class="software-banner" src="<%= value.banner %>">
+                                <%= value.display %>
+                              </li>
+                              <% } %>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="row row-group m-0">
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i
+                                class="bi bi-geo-alt-fill"></i></span></h5>
+                          <h6 style="color:white">Where should your server be deployed?</h6>
+                          <ul class="location-list">
+                            <% for (let [id] of Object.entries(ptla.creation.nodes)) { %>
+                              <% if (ptla.creation.nodes[id].enabled=="true" && ptla.creation.nodes[id].premium=="false"
+                                ) { %>
+                                <li class="location-item" value="<%= id %>">
+                                  <span class="float-left">
+                                    <%= ptla.creation.nodes[id].attributes.name %>
+                                  </span>
+                                  <span class="float-right" id="node<%= ptla.creation.nodes[id].attributes.id %>">
+                                    <img src="https://cdn.holaclient.tech/assets/pinging.gif">
+                                  </span><br>
+                                  <br>
+                                  <span style="align-items: center;">
+                                    <img class="location-flag"
+                                      src="https://flagsapi.com/<%= ptla.creation.nodes[id].attributes.relationships.location.attributes.short %>/flat/48.png">
+                                    <%= ptla.creation.nodes[id].attributes.relationships.location.attributes.long %>
+                                  </span>
+                                  <span class="float-right">
+                                    FREE
+                                  </span>
+                                </li>
+                                <script>ping("<%= ptla.creation.nodes[id].attributes.scheme %>://<%= ptla.creation.nodes[id].attributes.fqdn %>:<%= ptla.creation.nodes[id].attributes.daemon_listen %>/health", function (m) { document.getElementById("node<%= ptla.creation.nodes[id].attributes.id %>").textContent = `${m} Ms` })</script>
+                                <script>
+                                  function ping(host, pong) {
+        
+                                    var started = new Date().getTime();
+        
+                                    var http = new XMLHttpRequest();
+        
+                                    http.open("GET", host, /*async*/true);
+                                    http.onreadystatechange = function () {
+                                      if (http.readyState == 4) {
+                                        var ended = new Date().getTime();
+        
+                                        var milliseconds = ended - started;
+        
+                                        if (pong != null) {
+                                          pong(milliseconds);
+                                        }
+                                      }
+                                    };
+                                    try {
+                                      http.send(null);
+                                    } catch (exception) {
+                                    }
+        
+                                  }</script>
+                                <% } else { %>
+                                  <li class="location-item" value="<%= id %>">
+                                    <span class="float-left">
+                                      <%= ptla.creation.nodes[id].attributes.name %>
+                                    </span>
+                                    <span class="float-right" id="node<%= ptla.creation.nodes[id].attributes.id %>">
+                                      <img src="https://cdn.holaclient.tech/assets/pinging.gif">
+                                    </span><br>
+                                    <br>
+                                    <span style="align-items: center;">
+                                      <img class="location-flag"
+                                        src="https://flagsapi.com/<%= ptla.creation.nodes[id].attributes.relationships.location.attributes.short %>/flat/48.png">
+                                      <%= ptla.creation.nodes[id].attributes.relationships.location.attributes.long %>
+                                    </span>
+                                    <span class="float-right">
+                                      PREMIUM
+                                    </span>
+                                  </li>
+                                  <script>ping("<%= ptla.creation.nodes[id].attributes.scheme %>://<%= ptla.creation.nodes[id].attributes.fqdn %>:<%= ptla.creation.nodes[id].attributes.daemon_listen %>/health", function (m) { document.getElementById("node<%= ptla.creation.nodes[id].attributes.id %>").textContent = `${m} Ms` })</script>
+                                  <script>
+                                    function ping(host, pong) {
+          
+                                      var started = new Date().getTime();
+          
+                                      var http = new XMLHttpRequest();
+          
+                                      http.open("GET", host, /*async*/true);
+                                      http.onreadystatechange = function () {
+                                        if (http.readyState == 4) {
+                                          var ended = new Date().getTime();
+          
+                                          var milliseconds = ended - started;
+          
+                                          if (pong != null) {
+                                            pong(milliseconds);
+                                          }
+                                        }
+                                      };
+                                      try {
+                                        http.send(null);
+                                      } catch (exception) {
+                                      }
+          
+                                    }</script>
+                                  <% } %>
+                                    <% } %>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="row row-group m-0">
+                        <div class="card-body">
+                          <h5 class="text-white mb-0"> <span class="float-right"><i class="bi bi-check2"></i></span>
+                          </h5>
+                          <h6 style="color:white">Are you sure want to create a server?</h6>
+                          <button class="form-control form-control-rounded" onclick="submitNew()">Deploy new
+                            server</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="loading" style="display: none;" class="card mt-3">
+                    <div class="text-center card-content p-2"><br><br>
+                      <img width="40px" src="<%= settings.logo.url %>" class="rotatel"><br><br><br>
+                    </div>
+                  </div>
+                  <%- include('../partials/footer') %>
+                    <%- include('../scripts/create') %>
+                      <%- include('../partials/js') %>

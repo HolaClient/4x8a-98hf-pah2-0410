@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HolaClient | Setup Wizard</title>
+    <% if (installed == true) { %>
+        <script>
+            window.location.href = "/";
+        </script>
+    <% } %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Urbanist&display=swap');
+
+        body {
+            font-family: 'urbanist'
+        }
+
+        .font-nunito {
+            font-family: 'nunito'
+        }
+
+        ::selection {
+            background: rgba(255, 255, 255, .2)
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image: inherit;
+            background-size: cover;
+            z-index: 0;
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(0);
+            }
+
+            50% {
+                transform: translate(0px, 0px) scale(5);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(0);
+            }
+        }
+
+        .animation-blob {
+            animation: blob 10s infinite;
+        }
+
+        ::selection {
+            background: transparent
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: transparent;
+            border-radius: 3px;
+        }
+    </style>
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        async function A() {
+            const token = getCookie('token');
+
+            if (token) {
+                const resp = await fetch('/api/setup/auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token
+                    })
+                });
+
+                const data = await resp.json();
+
+                if (!data.success == true) {
+                    window.location.href = '/setup';
+                }
+            } else {
+                window.location.href = '/setup';
+            }
+        }
+        A();
+    </script>
+</head>
+
+<body class="h-full">
+    <section class="flex flex-auto h-full flex-col transition-all duration-300 ease-in-out bg-zinc-950">
+        <div class="mx-auto mb-20 p-4 container flex shrink-0 grow basis-auto flex-col pb-0">
+            <div class="flex h-full flex-wrap content-start">
+                <div class="mb-4 grid w-full grid-cols-12 gap-4">
+                    <div class="col-span-12 flex flex-col gap-4 xl:col-span-6">
+                        <div class="flex bg-zinc-900 text-zinc-300 w-full rounded-lg flex-wrap p-4 content-start">
+                            <h1 class="text-2xl text-zinc-100">Discord Oauth2</h1>
+                            <hr class="w-full border-b border-zinc-700 my-2">
+                            <div class="w-full mt-4 grid grid-cols-1 gap-4">
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Client ID</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="dccid"
+                                        value="<%= settings.authentication.discord.id %>"
+                                        placeholder="06090609 just tryna be professional tho">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Client Secret</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="dccs"
+                                        value="<%= settings.authentication.discord.secret %>">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Redirect URI (Use this as your Oauth2 app's
+                                        Redirect URI)</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2"
+                                        value="<%= process.env.APP_URL + settings.authentication.discord.callbackpath %>"
+                                        disabled>
+                                </div>
+                                <div class="flex">
+                                    <div class="w-full pr-2">
+                                        <label class="block text-gray-300">Enable driver (Disabling is not
+                                            possible)</label>
+                                        <div class="items-center py-1.5 flex">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" class="sr-only peer" disabled checked>
+                                                <div
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                </div>
+                                                <span
+                                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Enable
+                                                    Discord authentication</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="w-full pr-2">
+                                        <label class="block text-gray-300">Allow signups</label>
+                                        <div class="items-center py-1.5 flex">
+                                            <label class="relative inline-flex items-center cursor-pointer" checked
+                                                disabled>
+                                                <input type="checkbox" value="" class="sr-only peer">
+                                                <div
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                </div>
+                                                <span
+                                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Enable
+                                                    Discord registrations</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div class="w-full pr-2">
+                                        <label class="block text-gray-300">Cookie Alt Check</label>
+                                        <div class="items-center py-1.5 flex">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" id="cookiealt" class="sr-only peer" <% if
+                                                    (settings.authentication.discord.alt.cookies) { %> checked <% } %>/>
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                    </div>
+                                                    <span
+                                                        class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Block
+                                                        alts by checking cookies.</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="w-full pr-2">
+                                        <label class="block text-gray-300">IPv6 Alt Check</label>
+                                        <div class="items-center py-1.5 flex">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" id="ipalt" class="sr-only peer" <% if
+                                                    (settings.authentication.discord.alt.ip) { %> checked <% } %>>
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                    </div>
+                                                    <span
+                                                        class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Block
+                                                        alts by checking IPv6.</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex bg-zinc-900 text-zinc-300 w-full rounded-lg flex-wrap p-4 content-start">
+                            <h1 class="text-2xl text-zinc-100">Pterodactyl</h1>
+                            <hr class="w-full border-b border-zinc-700 my-2">
+                            <div class="w-full mt-4 grid grid-cols-1 gap-4">
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Panel url</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="domain"
+                                        value="<%= ptla.domain %>"
+                                        placeholder="https://panel.example.com without '/' in the end.">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Application API key</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="app"
+                                        value="<%= ptla.app %>">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Client API key</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="acc"
+                                        value="<%= ptla.acc %>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 flex flex-col gap-4 xl:col-span-6">
+                        <div class="flex bg-zinc-900 text-zinc-300 w-full rounded-lg flex-wrap p-4 content-start">
+                            <h1 class="text-2xl text-zinc-100">Appearance</h1>
+                            <hr class="w-full border-b border-zinc-700 my-2">
+                            <div class="w-full mt-4 grid grid-cols-1 gap-4">
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Name</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="name"
+                                        value="<%= settings.name %>"
+                                        placeholder="06090609 just tryna be professional tho">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Logo URL</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="logo"
+                                        value="<%= settings.logo.url %>">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Banner URL</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="banner" value="<%= settings.banner %>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex bg-zinc-900 text-zinc-300 w-full rounded-lg flex-wrap p-4 content-start">
+                            <h1 class="text-2xl text-zinc-100">Links</h1>
+                            <hr class="w-full border-b border-zinc-700 my-2">
+                            <div class="w-full mt-4 grid grid-cols-1 gap-4">
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Discord</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="discord"
+                                        value="<%= settings.links.discord %>"
+                                        placeholder="06090609 just tryna be professional tho">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Website</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="website"
+                                        value="<%= settings.links.website %>">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Status</label>
+                                    <input class="w-full bg-zinc-800 rounded-lg p-2" id="status" value="<%= settings.links.status %>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex bg-zinc-900 text-zinc-300 w-full rounded-lg flex-wrap p-4 content-start">
+                            <h1 class="text-2xl text-zinc-100">Default resources</h1>
+                            <hr class="w-full border-b border-zinc-700 my-2">
+                            <div class="w-full mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Memory</label>
+                                    <input id="ram" class="w-full bg-zinc-800 rounded-lg p-2"
+                                        value="<%= settings.packages.list.default.resources[0].value  %>">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Storage</label>
+                                    <input id="disk" class="w-full bg-zinc-800 rounded-lg p-2"
+                                        value="<%= settings.packages.list.default.resources[1].value  %>">
+                                </div>
+
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">CPU</label>
+                                    <input id="cpu" class="w-full bg-zinc-800 rounded-lg p-2"
+                                        value="<%= settings.packages.list.default.resources[2].value %>">
+                                </div>
+                                <div class="w-full pr-2">
+                                    <label class="block text-gray-300">Servers</label>
+                                    <input id="servers" class="w-full bg-zinc-800 rounded-lg p-2"
+                                        value="<%= settings.packages.list.default.resources[3].value  %>">
+                                </div>
+
+                                <div class="grid grid-cols-1 lg:grid-cols-3 col-span-2 gap-4">
+                                    <div class="w-full pr-2">
+                                        <label class="block text-gray-300">Allocations</label>
+                                        <input id="allocations" class="w-full bg-zinc-800 rounded-lg p-2"
+                                            value="<%= settings.packages.list.default.resources[6].value  %>">
+                                    </div>
+                                    <div class="w-full pr-2">
+                                        <label class="block text-gray-300">Backups</label>
+                                        <input id="backups" class="w-full bg-zinc-800 rounded-lg p-2"
+                                            value="<%= settings.packages.list.default.resources[5].value  %>">
+                                    </div>
+                                    <div class="w-full pr-2">
+                                        <label class="block text-gray-300">Databases</label>
+                                        <input id="databases" class="w-full bg-zinc-800 rounded-lg p-2"
+                                            value="<%= settings.packages.list.default.resources[4].value  %>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex bottom-0 w-full fixed">
+            <div class="grid w-full grid-cols-1 gap-4">
+                <div class="flex flex-col bg-zinc-900 text-gray-100 rounded-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-4 px-4 pt-4 pb-4">
+                        <div class="flex flex-wrap items-center gap-4">
+                            Finished?
+                        </div>
+                        <div class="flex flex-wrap items-center gap-4"><button onclick="submit()"
+                                class="inline-flex items-center justify-center bg-emerald-500 border-2 border-emerald-500 text-white hover:bg-emerald-600 hover:border-emerald-600 active:bg-emerald-600 active:border-emerald-600 px-5 py-1.5 text-base rounded-lg transition-all duration-300 ease-in-out">
+                                Submit</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    async function submit() {
+        let ids = ["name", "logo", "banner", "dccid", "dccs", "domain", "app", "acc", "discord", "status", "website", "ram", "disk", "cpu", "servers", "allocations", "backups", "databases"];
+        
+        let body = {};
+    
+        for (let id of ids) {
+            body[id] = document.getElementById(id).value;
+        }
+    
+        let ipalt = document.getElementById("ipalt").checked;
+        let cookiealt = document.getElementById("cookiealt").checked;
+    
+        body.ip = ipalt;
+        body.cookies = cookiealt;
+    
+        let resp = await fetch('/api/setup/finish', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body)
+        });
+    
+        let data = await resp.json();
+    
+        if (data.success == true) {
+            window.location.href = "/setup/finish";
+        } else {
+            alert(data.message);
+        }
+    }
+    </script>    

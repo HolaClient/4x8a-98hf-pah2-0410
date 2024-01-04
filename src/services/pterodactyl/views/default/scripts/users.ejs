@@ -1,0 +1,170 @@
+<style>
+  .plan-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .plan-item {
+    cursor: pointer;
+    background-color: black;
+    padding: 8px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .plan-item:hover {
+    background-color: #333333;
+  }
+
+  .plan-item.selected {
+    background-color: #5e5e5e;
+  }
+
+  .plan-name {
+    color: white;
+    font-weight: bold;
+  }
+
+  .plan-ram {
+    color: white;
+    margin-left: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .plan-list {
+      justify-content: center;
+    }
+  }
+
+  .bottomflat {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+
+  .topflat {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const userSelect = document.getElementById("userSelect");
+
+  let userData = [];
+  let selectedUser = null;
+
+  async function fetchUserData(keyword) {
+    try {
+      const response = await fetch(`/admin/users/coins/list`);
+      userData = await response.json();
+
+      userSelect.innerHTML = '<option value="" disabled selected>Select a user</option>';
+
+      const filteredUsers = userData.filter(user =>
+        user.username.toLowerCase().includes(keyword) ||
+        user.email.toLowerCase().includes(keyword) ||
+        user.hcid.toLowerCase().includes(keyword)
+      );
+
+      filteredUsers.forEach(user => {
+        const option = document.createElement("option");
+        option.value = user.hcid;
+        option.textContent = `${user.username} - (HCID: ${user.hcid})`;
+        userSelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  searchInput.addEventListener("input", event => {
+    const keyword = event.target.value.trim().toLowerCase();
+    fetchUserData(keyword);
+  });
+  fetchUserData("")
+
+  async function submitPlan() {
+    const user = userSelect.value;
+    const planItems = document.getElementsByClassName("plan-item");
+    let selectedPackage;
+
+    for (let i = 0; i < planItems.length; i++) {
+      if (planItems[i].classList.contains("selected")) {
+        selectedPackage = planItems[i].dataset.package;
+        break;
+      }
+    }
+
+    const planElement = document.getElementById("plan");
+    planElement.textContent = ('Selected ' + selectedPackage + ' Plan');
+    try {
+      const response = await fetch("/admin/plans/set", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user: user,
+          package: encodeURIComponent(selectedPackage)
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success === true) {
+        toastr.success(data.message, "Success!")
+        fetchUserData("");
+      } else {
+        toastr.error(data.message, 'Error');
+      }
+    } catch (error) {
+      toastr.error(error, "Error!");
+    }
+  }
+
+  const planItems = document.getElementsByClassName("plan-item");
+  for (let i = 0; i < planItems.length; i++) {
+    planItems[i].addEventListener("click", function() {
+      for (let j = 0; j < planItems.length; j++) {
+        planItems[j].classList.remove("selected");
+      }
+
+      this.classList.add("selected");
+    });
+  }
+
+  async function removeAccount() {
+    const user = document.getElementById("rmAccId").value
+    try {
+      const response = await fetch("/admin/users/remove", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user: user
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success === true) {
+        toastr.success(data.message, "Success!")
+        fetchUserData("");
+      } else if(data.redirect) {
+        window.location.href=data.redirect
+      } else {
+        toastr.error(data.message, 'Error');
+      }
+    } catch (error) {
+      toastr.error(error, "Error!");
+    }
+  }
+</script>

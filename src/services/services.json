@@ -1,0 +1,35 @@
+{
+    "total": [
+        "pterodactyl",
+        "proxmox"
+    ],
+    "loaded": [
+        "pterodactyl"
+    ],
+    "services": [
+        {
+            "name": "Pterodactyl",
+            "banner": "https://cdn.pterodactyl.io/logos/new/pterodactyl_logo_transparent.png",
+            "description": "Pterodactyl® is a free, open-source game server management panel built with PHP, React, and Go. Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers while exposing a beautiful and intuitive UI to end users.",
+            "website": "https://pterodactyl.io",
+            "service": {
+                "version": "1.5.9",
+                "author": "CR072",
+                "support": "https://discord.gg/CvqRH9TrYK"
+            },
+            "src": "/pterodactyl"
+        },
+        {
+            "name": "Proxmox",
+            "banner": "https://newsletter.proxmox.com/uploads/Proxmox-logo-white-orange-800_1.png",
+            "description": "Proxmox Virtual Environment is a complete open-source platform for enterprise virtualization. With the built-in web interface you can easily manage VMs and containers, software-defined storage and networking, high-availability clustering, and multiple out-of-the-box tools using a single solution.",
+            "website": "https://www.proxmox.com",
+            "service": {
+                "version": "1.5.9",
+                "author": "CR072",
+                "support": "https://discord.gg/CvqRH9TrYK"
+            },
+            "src": "/proxmox"
+        }
+    ]
+}

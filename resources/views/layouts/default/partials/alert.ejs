@@ -1,0 +1,1006 @@
+<style>
+  .alert {
+    color: #fff;
+    border-radius: 15px;
+  }
+
+  .alert_info {
+    background-color: solid rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .1);
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 12px;
+  }
+
+  button.close {
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0
+  }
+
+  .close {
+    font-size: 20px;
+    color: #fff;
+    opacity: 0.9;
+    font-weight: normal
+  }
+
+  .alert_success {
+    background-color: #09c97f;
+    border: 2px solid #09c97f
+  }
+
+  .alert_warning {
+    background-color: #f8b15d;
+    border: 2px solid #f8b15d
+  }
+
+  .alert_error {
+    background-color: #f95668;
+    border: 2px solid #f95668
+  }
+
+  .fade_info {
+    background-color: #d9e6fb;
+    border: 1px solid #4285f4
+  }
+
+  .fade_info .close {
+    color: #4285f4
+  }
+
+  .fade_info strong {
+    color: rgba(0, 0, 0, .1)
+  }
+
+  .fade_success {
+    background-color: #c9ffe5;
+    border: 1px solid #09c97f
+  }
+
+  .fade_success .close {
+    color: #09c97f
+  }
+
+  .fade_success strong {
+    color: #09c97f
+  }
+
+  .fade_warning {
+    background-color: #fff0cc;
+    border: 1px solid #f8b15d
+  }
+
+  .fade_warning .close {
+    color: #f8b15d
+  }
+
+  .fade_warning strong {
+    color: #f8b15d
+  }
+
+  .fade_error {
+    background-color: #ffdbdb;
+    border: 1px solid #f95668
+  }
+
+  .fade_error .close {
+    color: #f95668
+  }
+
+  .fade_error strong {
+    color: #f95668
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.alert .close').on('click', function () {
+      $(this).closest('.alert').fadeOut('slow');
+    });
+
+    setTimeout(function () {
+      $('.alert_success').fadeOut('slow');
+    }, 5000);
+  });
+  setTimeout(function () {
+    $('.alert_warning').fadeOut('slow');
+  }, 5000);
+
+  setTimeout(function () {
+    $('.alert_error').fadeOut('slow');
+  }, 5000);
+</script>
+<% if (req.query.err) { %>
+  <% if (req.query.err=="MISSINGCOUPONCODE" ) { %>
+    <script>
+      function showNotification() {
+        toastr.error('Please enter a coupon code to continue!', 'Error');
+      }
+      showNotification()
+    </script>
+    <% } else if (req.query.err=="INVALIDCOUPONCODE" ) { %>
+      <script>
+        function showNotification() {
+          toastr.error('This does not seem to work, Check if it is already redeemed!', 'Error');
+        }
+        showNotification()
+      </script>
+          <% } else if (req.query.err=="LOGGEDOUT" ) { %>
+            <script>
+              function showNotification() {
+                toastr.success('', 'Successfully logged out!');
+              }
+              showNotification()
+            </script>
+                      <% } else if (req.query.err=="UPDATED" ) { %>
+                        <script>
+                          function showNotification() {
+                            toastr.success('', 'Successfully updated your userinfo!');
+                          }
+                          showNotification()
+                        </script>
+                                              <% } else if (req.query.err=="LOGINAGAIN" ) { %>
+                                                <script>
+                                                  function showNotification() {
+                                                    toastr.info('', 'Please login again to make HolaClient work efficiently!');
+                                                  }
+                                                  showNotification()
+                                                </script>
+      <% } else if (req.query.err=="COMPLETEDONBOARDING" ) { %>
+        <style>
+          body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+          }
+        
+          #overlay {
+            display: block;
+            position: fixed;
+            text-align: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: linear-gradient(315deg, rgba(249, 104, 140, 0.7) 3%, rgba(24, 24, 24, 0.874) 38%, rgba(24, 24, 24, 0.874) 46%, rgb(63, 70, 69) 68%, rgb(0, 0, 0) 98%);
+            animation: gradient 15s ease infinite;
+            background-size: 400% 400%;
+            background-attachment: fixed;
+            opacity: 1;
+          }
+        
+          @keyframes gradient {
+            0% {
+              background-position: 0% 0%;
+            }
+        
+            50% {
+              background-position: 100% 100%;
+            }
+        
+            100% {
+              background-position: 0% 0%;
+            }
+          }
+        
+          #overlay p {
+            position: absolute;
+            bottom: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 70px;
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+          }
+          #overlay h4 {
+            position: absolute;
+            bottom: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 60px;
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+          }
+        
+          #overlay.active p,
+          #overlay.active h4 {
+            opacity: 1;
+            bottom: 40%;
+          }
+        
+          #overlay.final p {
+            bottom: 50%;
+          }
+          #overlay.final h4 {
+            bottom: 30%;
+          }
+        
+          @media (max-width: 768px) {
+            #overlay h4 {
+              font-size: 16px;
+            }
+        
+            #overlay p {
+              font-size: 30px;
+            }
+          }
+        </style>
+        </head>
+        
+        <body>
+          <div id="overlay">
+            <p>Welcome to <%= settings.name %><br></p>
+            <h4>&nbsp;<br>Click to begin your journey!</h4>
+          </div>
+          <% const redirectPath=req._parsedUrl.pathname; const trimmedPath=redirectPath.replace(/^\//, '' ); const
+          url=`../updateinfo?redirect=${trimmedPath}`; %>
+          <script>
+            const overlay = document.getElementById("overlay");
+        
+            function showOverlay() {
+              overlay.classList.add("active");
+              setTimeout(() => {
+                overlay.classList.add("final");
+              }, 1000);
+            }
+        
+            overlay.addEventListener("click", () => {
+              overlay.classList.remove("active", "final");
+              setTimeout(() => {
+                overlay.style.display = "none";
+                window.location.href = "<%= url %>"
+              }, 500);
+            });
+        
+            showOverlay();
+          </script>
+        
+          <% } else if (req.query.err=="ALTACC" ) { %>
+            <script>
+              function showNotification() {
+                toastr.error('You cannot create alternate accounts!', 'ALT Account');
+              }
+              showNotification()
+            </script>
+<% } else if (req.query.err=="DELETEDSERVER" ) { %>
+<script>
+function showNotification() {
+toastr.success('Successfully deleted your server!', 'Success');
+}
+showNotification()
+</script>
+            <% } else if (req.query.err=="INVALIDCREDENTIALS" ) { %>
+              <script>
+                function showNotification() {
+                  toastr.error('We could not find any account with these credentials!', 'Invalid Details');
+                }
+                showNotification()
+              </script>
+              <% } else if (req.query.err=="CANNOTAFFORD" ) { %>
+                <script>
+                  function showNotification() {
+                    toastr.error('', 'Cannot afford that!');
+                  }
+                  showNotification()
+                </script>
+                <% } else if (req.query.err=="INVALIDSERVERS" ) { %>
+                  <script>
+                    function showNotification() {
+                      toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
+                    }
+                    showNotification()
+                  </script>
+                  <% } else if (req.query.err=="INVALIDSERVERS" ) { %>
+                    <script>
+                      function showNotification() {
+                        toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
+                      }
+                      showNotification()
+                    </script>
+                    <% } else if (req.query.err=="COULDNOTDECODENAME" ) { %>
+                      <script>
+                        function showNotification() {
+                          toastr.error("", "The server's name contains invalid characters!");
+                        }
+                        showNotification()
+                      </script>
+                      <% } else if (req.query.err=="INVALIDRAM" ) { %>
+                        <script>
+                          function showNotification() {
+                            toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
+                          }
+                          showNotification()
+                        </script>
+                        <% } else if (req.query.err=="INVALIDDISK" ) { %>
+                          <script>
+                            function showNotification() {
+                              toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
+                            }
+                            showNotification()
+                          </script>
+                          <% } else if (req.query.err=="INVALIDCPU" ) { %>
+                            <script>
+                              function showNotification() {
+                                toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
+                              }
+                              showNotification()
+                            </script>
+                            <% } else if (req.query.err=="INVALIDDATABASES" ) { %>
+                              <script>
+                                function showNotification() {
+                                  toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
+                                }
+                                showNotification()
+                              </script>
+                              <% } else if (req.query.err=="INVALIDBACKUPS" ) { %>
+                                <script>
+                                  function showNotification() {
+                                    toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
+                                  }
+                                  showNotification()
+                                </script>
+                                <% } else if (req.query.err=="INVALIDALLOCATIONS" ) { %>
+                                  <script>
+                                    function showNotification() {
+                                      toastr.error("The amount you entered is higher than the user's actual resource.", 'Invalid Servers');
+                                    }
+                                    showNotification()
+                                  </script>
+                                  <% } else if (req.query.err=="none" ) { %>
+                                    <script>
+                                      function showNotification() {
+                                        toastr.success('Operation Successful!', 'Success!');
+                                      }
+                                      showNotification()
+                                    </script>
+                                    <% } else if (req.query.err=="INSUFFICIENT" ) { %>
+                                      <script>
+                                        function showNotification() {
+                                          toastr.error('You do not have enough resources!', 'Error!');
+                                        }
+                                        showNotification()
+                                      </script>
+                                      <% } else if (req.query.err=="INVALIDREFERRAL" ) { %>
+                                        <script>
+                                          function showNotification() {
+                                            toastr.error('Invalid referral code!', 'Error!');
+                                          }
+                                          showNotification()
+                                        </script>
+                                        <% } else if (req.query.err=="REFERYOURSELF" ) { %>
+                                          <script>
+                                            function showNotification() {
+                                              toastr.error('You cannot refer yourself!', 'Error!');
+                                            }
+                                            showNotification()
+                                          </script>
+                                          <% } else if (req.query.err=="SUCCESSCOUPONCODE" ) { %>
+                                            <script>
+                                              function showNotification() {
+                                                toastr.success('Successfully redeemed the code!', 'Success!');
+                                              }
+                                              showNotification()
+                                            </script>
+                                            <% } else if (req.query.err=="REMOVEACCOUNTMISSINGID" ) { %>
+                                              <script>
+                                                function showNotification() {
+                                                  toastr.error('Please enter an email to remove that account!', 'Missing Email!');
+                                                }
+                                                showNotification()
+                                              </script>
+                                              <% } else if (req.query.err=="CLAIMED" ) { %>
+                                                <script>
+                                                  function showNotification() {
+                                                    toastr.success('Successfully claimed your daily coins!', 'Success!');
+                                                    toastr.success('<%= settings.daily.coins %> coins has been credited to your account!', 'HolaPay');
+                                                  }
+                                                  showNotification()
+                                                </script>
+                                                <% } else if (req.query.err=="ALREADYCLAIMED" ) { %>
+                                                  <script>
+                                                    function showNotification() {
+                                                      toastr.error('You have already claimed your daily coins!', 'Error!');
+                                                    }
+                                                    showNotification()
+                                                  </script>
+                                                  <% } else if (req.query.err=="ALREADY_OPEN" ) { %>
+                                                    <script>
+                                                      function showNotification() {
+                                                        toastr.warning('Your account has been logged-in from another location!', 'Warning!');
+                                                      }
+                                                      showNotification()
+                                                    </script>
+                                                    <% } else if (req.query.err==="CANNOTAFFORDRENEWAL" ) { %>
+                                                      <script>
+                                                        function showNotification() {
+                                                          toastr.error('You will need at least <%= settings.renewals.cost %> coins to renew your server!', 'Error');
+                                                        }
+                                                        showNotification()
+                                                      </script>
+                                                      <% } if (req.query.success==='RENEWED' ) { %>
+                                                        <script>
+                                                          function showNotification() {
+                                                            toastr.success('Successfully renewed your server, do not forget to renew it again in <%= settings.renewals.delay %> days!', 'Success!');
+                                                            toastr.info('<%= settings.renewals.cost %> has been debited from your account!', 'HolaPay');
+                                                          }
+                                                          showNotification()
+                                                        </script>
+                                                        <% } if (req.query.err==='RENEWED' ) { %>
+                                                          <script>
+                                                            function showNotification() {
+                                                              toastr.success('Successfully renewed your server, do not forget to renew it again in <%= settings.renewals.delay %> days!', 'Success!');
+                                                              toastr.info('<%= settings.renewals.cost %> has been debited from your account!', 'HolaPay');
+                                                            }
+                                                            showNotification()
+                                                          </script>
+                                                          <% } if (req.session.newaccount || req.session.password) { %>
+                                                            <% if (req.session.newaccount) { %>
+                                                              <script>
+                                                                function pass() {
+                                                                  Swal.fire({
+                                                                    title: 'Success',
+                                                                    text: 'Successfully registered on <%= settings.name %>.',
+                                                                    html: 'Username: <%= pterodactyl.username %><br>Password: <%= req.session.password %>',
+                                                                    icon: 'success'
+                                                                  });
+                                                                }
+                                                                pass();
+                                                              </script>
+                                                              <% } %>
+                                                                <% if (req.session.password) { %>
+                                                                  <script>
+                                                                    function passs() {
+                                                                      Swal.fire({
+                                                                        title: 'Success',
+                                                                        text: 'Successfully registered on <%= settings.name %>.',
+                                                                        html: 'Username: <%= pterodactyl.username %><br>Password: <%= req.session.password %>',
+                                                                        icon: 'success'
+                                                                      });
+                                                                    }
+                                                                    passs();
+                                                                  </script>
+                                                                  <% } %>
+                                                                        <% if (req.query.err=="MODIFYSERVER" ) { %>
+                                                                          <script>
+                                                                            function showNotification() {
+                                                                              toastr.success('Successfully modified your server!', 'Success');
+                                                                            }
+                                                                            showNotification()
+                                                                          </script>
+                                                                          <% } %>
+                                                                            <% } %>
+                                                                              <% } %>
+
+                                                                                <% if (req.query.err) { %>
+                                                                                  <% if
+                                                                                    (req.query.err=="MISSINGVARIABLE" )
+                                                                                    { %>
+                                                                                    <script>
+                                                                                      function showNotification() {
+                                                                                        toastr.warning('Please fill-up all fields to continue!', 'Warning!');
+                                                                                      }
+                                                                                      showNotification()
+                                                                                    </script>
+                                                                                    <% } else if
+                                                                                      (req.query.err=="NOTANUMBER" ) {
+                                                                                      %>
+                                                                                      <script>
+                                                                                        function showNotification() {
+                                                                                          toastr.warning('Resources must be in number!', 'Warning!');
+                                                                                        }
+                                                                                        showNotification()
+                                                                                      </script>
+                                                                                      <% } else if
+                                                                                        (req.query.err=="ERRORONCREATE"
+                                                                                        ) { %>
+                                                                                        <script>
+                                                                                          function showNotification() {
+                                                                                            toastr.error('An error occured while creating your server, please check console logs for more info!', 'Error!');
+                                                                                          }
+                                                                                          showNotification()
+                                                                                        </script>
+                                                                                        <% } else if
+                                                                                          (req.query.err=="BIGSERVERNAME"
+                                                                                          ) { %>
+                                                                                          <script>
+                                                                                            function showNotification() {
+                                                                                              toastr.error('Your server name contains long characters, please short the server name!', 'Error!');
+                                                                                            }
+                                                                                            showNotification()
+                                                                                          </script>
+                                                                                          <% } else if
+                                                                                            (req.query.err=="TOOMUCHSERVERS"
+                                                                                            ) { %>
+                                                                                            <script>
+                                                                                              function showNotification() {
+                                                                                                toastr.error('Too much servers!', 'Error!');
+                                                                                              }
+                                                                                              showNotification()
+                                                                                            </script>
+                                                                                            <% } else if
+                                                                                              (req.query.err=="PREMIUMLOCATION"
+                                                                                              ) { %>
+                                                                                              <script>
+                                                                                                function showNotification() {
+                                                                                                  toastr.warning('You do not have access to deploy servers in this location!', 'Warning!');
+                                                                                                }
+                                                                                                showNotification()
+                                                                                              </script>
+                                                                                              <% } else if
+                                                                                                (req.query.err=="TOOLITTLECOINS"
+                                                                                                ) { %>
+                                                                                                <script>
+                                                                                                  function showNotification() {
+                                                                                                    toastr.warning('You do not have enough coins to create a server!', 'Warning!');
+                                                                                                  }
+                                                                                                  showNotification()
+                                                                                                </script>
+                                                                                                <% } else if
+                                                                                                  (req.query.err=="CREATEDSERVER"
+                                                                                                  ) { %>
+                                                                                                  <script>
+                                                                                                    function created() {
+                                                                                                      Swal.fire({
+                                                                                                        title: 'Success',
+                                                                                                        text: 'Successfully created a server!',
+                                                                                                        icon: 'success'
+                                                                                                      });
+                                                                                                    }
+                                                                                                    created();
+                                                                                                  </script>
+                                                                                                  <% } else if
+                                                                                                    (req.query.err=="MUSTCOMPLETECAPTCHA"
+                                                                                                    ) { %>
+                                                                                                    <script>
+                                                                                                      function showNotification() {
+                                                                                                        toastr.warning('Please solve the captcha!', 'Warning!');
+                                                                                                      }
+                                                                                                      showNotification()
+                                                                                                    </script>
+                                                                                                    <% } else if
+                                                                                                      (req.query.err=="INVALIDCAPTCHARESPONSE"
+                                                                                                      ) { %>
+                                                                                                      <script>
+                                                                                                        function showNotification() {
+                                                                                                          toastr.warning('You are getting sus in solving the captcha!', 'Warning!');
+                                                                                                        }
+                                                                                                        showNotification()
+                                                                                                      </script>
+                                                                                                      <% } else { %>
+                                                                                                        <% if
+                                                                                                          (req.query.num)
+                                                                                                          { %>
+                                                                                                          <% if
+                                                                                                            (!isNaN(parseFloat(req.query.num)))
+                                                                                                            { %>
+                                                                                                            <% if
+                                                                                                              (req.query.err=="TOOLITTLERAM"
+                                                                                                              ||
+                                                                                                              req.query.err=="TOOLITTLEDISK"
+                                                                                                              ||
+                                                                                                              req.query.err=="TOOLITTLECPU"
+                                                                                                              ) { %>
+                                                                                                              <script>
+                                                                                                                function showNotification() {
+                                                                                                                  toastr.warning('You should create a server with at least <%= req.query.num %>MB (cpu, ram or disk)', 'Warning!');
+                                                                                                                }
+                                                                                                                showNotification()
+                                                                                                              </script>
+                                                                                                              <% } else
+                                                                                                                if
+                                                                                                                (req.query.err=="TOOMUCHRAM"
+                                                                                                                ||
+                                                                                                                req.query.err=="TOOMUCHDISK"
+                                                                                                                ||
+                                                                                                                req.query.err=="TOOMUCHCPU"
+                                                                                                                ) { %>
+                                                                                                                <script>
+                                                                                                                  function showNotification() {
+                                                                                                                    toastr.warning('You can have a maximum of <%= req.query.num %>MB (cpu, ram or disk)!', 'Warning!');
+                                                                                                                  }
+                                                                                                                  showNotification()
+                                                                                                                </script>
+                                                                                                                <% }
+                                                                                                                  else
+                                                                                                                  if
+                                                                                                                  (req.query.err=="EXCEEDRAM"
+                                                                                                                  ||
+                                                                                                                  req.query.err=="EXCEEDDISK"
+                                                                                                                  ||
+                                                                                                                  req.query.err=="EXCEEDCPU"
+                                                                                                                  ) { %>
+                                                                                                                  <script>
+                                                                                                                    function showNotification() {
+                                                                                                                      toastr.warning('Exceeded resources than your actual available resources!', 'Warning!');
+                                                                                                                    }
+                                                                                                                    showNotification()
+                                                                                                                  </script>
+                                                                                                                  <% }
+                                                                                                                    else
+                                                                                                                    if
+                                                                                                                    (req.query.err=="none"
+                                                                                                                    ) {
+                                                                                                                    %>
+                                                                                                                    <script>
+                                                                                                                      function showNotification() {
+                                                                                                                        toastr.success('Operation Successful!', 'Success!');
+                                                                                                                      }
+                                                                                                                      showNotification()
+                                                                                                                    </script>
+                                                                                                                    <% }
+                                                                                                                      %>
+                                                                                                                      <% }
+                                                                                                                        %>
+                                                                                                                        <% }
+                                                                                                                          %>
+                                                                                                                          <% }
+                                                                                                                            %>
+                                                                                                                            <% }
+                                                                                                                              %>
+
+                                                                                                                              <% if
+                                                                                                                                (req.query.arcioerr=="ADBLOCKER"
+                                                                                                                                )
+                                                                                                                                {
+                                                                                                                                %>
+                                                                                                                                <script>
+                                                                                                                                  function showNotification() {
+                                                                                                                                    toastr.warning('Please disable your AD blocker!', 'Warning!');
+                                                                                                                                  }
+                                                                                                                                  showNotification()
+                                                                                                                                </script>
+                                                                                                                                <% }
+                                                                                                                                  else
+                                                                                                                                  if
+                                                                                                                                  (req.query.arcioerr=="WEBSOCKET_DISCONNECTED"
+                                                                                                                                  )
+                                                                                                                                  {
+                                                                                                                                  %>
+                                                                                                                                  <script>
+                                                                                                                                    function showNotification() {
+                                                                                                                                      toastr.error('Something wrong with your connection or configuration!', 'Error!');
+                                                                                                                                    }
+                                                                                                                                    showNotification()
+                                                                                                                                  </script>
+                                                                                                                                  <% }
+                                                                                                                                    else
+                                                                                                                                    if
+                                                                                                                                    (req.query.err=="SUCCESSSHAREUS"
+                                                                                                                                    )
+                                                                                                                                    {
+                                                                                                                                    %>
+                                                                                                                                    <script>
+                                                                                                                                      function showNotification() {
+                                                                                                                                        toastr.success('You earned <%= settings.earn.shareus.coins %> coins by completing a ShareUs Link!', 'Success!');
+                                                                                                                                      }
+                                                                                                                                      showNotification()
+                                                                                                                                    </script>
+                                                                                                                                    <% }
+                                                                                                                                      else
+                                                                                                                                      if
+                                                                                                                                      (req.query.err=="SUCCESSLINKPAYS"
+                                                                                                                                      )
+                                                                                                                                      {
+                                                                                                                                      %>
+                                                                                                                                      <script>
+                                                                                                                                        function showNotification() {
+                                                                                                                                          toastr.success('You earned <%= settings.earn.linkpays.coins %> coins by completing a LinkPays Link!', 'Success!');
+                                                                                                                                        }
+                                                                                                                                        showNotification()
+                                                                                                                                      </script>
+                                                                                                                                      <% }
+                                                                                                                                        else
+                                                                                                                                        if
+                                                                                                                                        (req.query.err=="SUCCESSGYANI"
+                                                                                                                                        )
+                                                                                                                                        {
+                                                                                                                                        %>
+                                                                                                                                        <script>
+                                                                                                                                          function showNotification() {
+                                                                                                                                            toastr.success('You earned <%= settings.earn.gyanilinks.coins %> coins by completing a GyaniLinks Link!', 'Success!');
+                                                                                                                                          }
+                                                                                                                                          showNotification()
+                                                                                                                                        </script>
+                                                                                                                                        <% }
+                                                                                                                                          else
+                                                                                                                                          if
+                                                                                                                                          (req.query.err=="SHAREUSERROR"
+                                                                                                                                          )
+                                                                                                                                          {
+                                                                                                                                          %>
+                                                                                                                                          <script>
+                                                                                                                                            function showNotification() {
+                                                                                                                                              toastr.error('An error occured with ShareUs!', 'Error');
+                                                                                                                                            }
+                                                                                                                                            showNotification()
+                                                                                                                                          </script>
+                                                                                                                                          <% }
+                                                                                                                                            else
+                                                                                                                                            if
+                                                                                                                                            (req.query.arcioerr=="OPTOUT"
+                                                                                                                                            )
+                                                                                                                                            {
+                                                                                                                                            %>
+                                                                                                                                            <script>
+                                                                                                                                              function showNotification() {
+                                                                                                                                                toastr.error('Please OPT-IN to Arc.io for AFK page to work!', 'Error');
+                                                                                                                                              }
+                                                                                                                                              showNotification()
+                                                                                                                                            </script>
+                                                                                                                                            <% }
+                                                                                                                                              %>
+                                                                                                                                              <% if
+                                                                                                                                                (req.query.err)
+                                                                                                                                                {
+                                                                                                                                                %>
+                                                                                                                                                <% if
+                                                                                                                                                  (req.query.err=="ADBLOCKER"
+                                                                                                                                                  )
+                                                                                                                                                  {
+                                                                                                                                                  %>
+                                                                                                                                                  <script>
+                                                                                                                                                    function showNotification() {
+                                                                                                                                                      toastr.warning('Please disable your AD blocker!', 'Warning');
+                                                                                                                                                    }
+                                                                                                                                                    showNotification()
+                                                                                                                                                  </script>
+                                                                                                                                                  <% }
+                                                                                                                                                    %>
+                                                                                                                                                    <% }
+                                                                                                                                                      %>
+                                                                                                                                                      <% if
+                                                                                                                                                        (req.query.success)
+                                                                                                                                                        {
+                                                                                                                                                        %>
+                                                                                                                                                        <script>
+                                                                                                                                                          function showNotification() {
+                                                                                                                                                            toastr.success('Operation Successful!', 'Success!');
+                                                                                                                                                          }
+                                                                                                                                                          showNotification()
+                                                                                                                                                        </script>
+                                                                                                                                                        <% }
+                                                                                                                                                          %>
+                                                                                                                                                          <% if
+                                                                                                                                                            (req.query.err)
+                                                                                                                                                            {
+                                                                                                                                                            %>
+                                                                                                                                                            <% if
+                                                                                                                                                              (req.query.err=="MISSINGFIELDS"
+                                                                                                                                                              )
+                                                                                                                                                              {
+                                                                                                                                                              %>
+                                                                                                                                                              <script>
+                                                                                                                                                                function showNotification() {
+                                                                                                                                                                  toastr.error('Please fill-up the fields!', 'Error');
+                                                                                                                                                                }
+                                                                                                                                                                showNotification()
+                                                                                                                                                              </script>
+                                                                                                                                                              <% }
+                                                                                                                                                                else
+                                                                                                                                                                if
+                                                                                                                                                                (req.query.err=="CANNOTGIFTYOURSELF"
+                                                                                                                                                                )
+                                                                                                                                                                {
+                                                                                                                                                                %>
+                                                                                                                                                                <script>
+                                                                                                                                                                  function showNotification() {
+                                                                                                                                                                    toastr.error('You cannot gift yourself!', 'Error');
+                                                                                                                                                                  }
+                                                                                                                                                                  showNotification()
+                                                                                                                                                                </script>
+                                                                                                                                                                <% }
+                                                                                                                                                                  else
+                                                                                                                                                                  if
+                                                                                                                                                                  (req.query.err=="CANTAFFORD"
+                                                                                                                                                                  )
+                                                                                                                                                                  {
+                                                                                                                                                                  %>
+                                                                                                                                                                  <script>
+                                                                                                                                                                    function showNotification() {
+                                                                                                                                                                      toastr.error('You cannot afford this!', 'Error');
+                                                                                                                                                                    }
+                                                                                                                                                                    showNotification()
+                                                                                                                                                                  </script>
+                                                                                                                                                                  <% }
+                                                                                                                                                                    else
+                                                                                                                                                                    if
+                                                                                                                                                                    (req.query.err=="USERDOESNTEXIST"
+                                                                                                                                                                    )
+                                                                                                                                                                    {
+                                                                                                                                                                    %>
+                                                                                                                                                                    <script>
+                                                                                                                                                                      function showNotification() {
+                                                                                                                                                                        toastr.error('We could not find an account with that ID!', 'Error');
+                                                                                                                                                                      }
+                                                                                                                                                                      showNotification()
+                                                                                                                                                                    </script>
+                                                                                                                                                                    <% }
+                                                                                                                                                                      else
+                                                                                                                                                                      if
+                                                                                                                                                                      (req.query.err=="TOOLOWCOINS"
+                                                                                                                                                                      )
+                                                                                                                                                                      {
+                                                                                                                                                                      %>
+                                                                                                                                                                      <script>
+                                                                                                                                                                        function showNotification() {
+                                                                                                                                                                          toastr.error('You should at least gift more than 1 coins!', 'Error');
+                                                                                                                                                                        }
+                                                                                                                                                                        showNotification()
+                                                                                                                                                                      </script>
+                                                                                                                                                                      <% }
+                                                                                                                                                                        %>
+                                                                                                                                                                        <% }
+                                                                                                                                                                          %>
+
+                                                                                                                                                                          <% if
+                                                                                                                                                                            (req.query.err=="MISSINGID"
+                                                                                                                                                                            )
+                                                                                                                                                                            {
+                                                                                                                                                                            %>
+                                                                                                                                                                            <script>
+                                                                                                                                                                              function showNotification() {
+                                                                                                                                                                                toastr.error('Missing ID', 'Error');
+                                                                                                                                                                              }
+                                                                                                                                                                              showNotification()
+                                                                                                                                                                            </script>
+                                                                                                                                                                            <% }
+                                                                                                                                                                              else
+                                                                                                                                                                              if
+                                                                                                                                                                              (req.query.err=="CREATECOUPONINVALIDCHARACTERS"
+                                                                                                                                                                              )
+                                                                                                                                                                              {
+                                                                                                                                                                              %>
+                                                                                                                                                                              <script>
+                                                                                                                                                                                function showNotification() {
+                                                                                                                                                                                  toastr.warning('Coupon code has invalid characters', 'Warning');
+                                                                                                                                                                                }
+                                                                                                                                                                                showNotification()
+                                                                                                                                                                              </script>
+                                                                                                                                                                              <% }
+                                                                                                                                                                                else
+                                                                                                                                                                                if
+                                                                                                                                                                                (req.query.err=="REVOKECOUPONCANNOTFINDCODE"
+                                                                                                                                                                                )
+                                                                                                                                                                                {
+                                                                                                                                                                                %>
+                                                                                                                                                                                <script>
+                                                                                                                                                                                  function showNotification() {
+                                                                                                                                                                                    toastr.error('Cannot find a coupon with this code!', 'Error');
+                                                                                                                                                                                  }
+                                                                                                                                                                                  showNotification()
+                                                                                                                                                                                </script>
+                                                                                                                                                                                <% }
+                                                                                                                                                                                  else
+                                                                                                                                                                                  if
+                                                                                                                                                                                  (req.query.err=="MISSINGVARIABLES"
+                                                                                                                                                                                  )
+                                                                                                                                                                                  {
+                                                                                                                                                                                  %>
+                                                                                                                                                                                  <script>
+                                                                                                                                                                                    function showNotification() {
+                                                                                                                                                                                      toastr.warning('Please Fill up all fields!', 'Warning!');
+                                                                                                                                                                                    }
+                                                                                                                                                                                    showNotification()
+                                                                                                                                                                                  </script>
+                                                                                                                                                                                  <% }
+                                                                                                                                                                                    else
+                                                                                                                                                                                    if
+                                                                                                                                                                                    (req.query.err=="IP"
+                                                                                                                                                                                    )
+                                                                                                                                                                                    {
+                                                                                                                                                                                    %>
+                                                                                                                                                                                    <script>
+                                                                                                                                                                                      function pass() {
+                                                                                                                                                                                        const urlParams = new URLSearchParams(window.location.search);
+                                                                                                                                                                                        const ip = urlParams.get('ip');
+
+                                                                                                                                                                                        if (ip) {
+                                                                                                                                                                                          Swal.fire({
+                                                                                                                                                                                            title: 'Success',
+                                                                                                                                                                                            text: `IP: ${decodeURIComponent(ip)}`,
+                                                                                                                                                                                            icon: 'success'
+                                                                                                                                                                                          });
+                                                                                                                                                                                        }
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      pass();
+                                                                                                                                                                                    </script>
+                                                                                                                                                                                    <% }
+                                                                                                                                                                                      %>
+                                                                                                                                                                                      <% if
+                                                                                                                                                                                        (req.query.err=="CREATECOUPONEMPTY"
+                                                                                                                                                                                        )
+                                                                                                                                                                                        {
+                                                                                                                                                                                        %>
+                                                                                                                                                                                        <script>
+                                                                                                                                                                                          function showNotification() {
+                                                                                                                                                                                            toastr.warning('Please provide a coupon code!', 'Warning!');
+                                                                                                                                                                                          }
+                                                                                                                                                                                          showNotification()
+                                                                                                                                                                                        </script>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                        <% }
+                                                                                                                                                                                          else
+                                                                                                                                                                                          if
+                                                                                                                                                                                          (req.query.err==="CREATECOUPONLESSTHANONE"
+                                                                                                                                                                                          )
+                                                                                                                                                                                          {
+                                                                                                                                                                                          %>
+                                                                                                                                                                                          <script>
+                                                                                                                                                                                            function showNotification() {
+                                                                                                                                                                                              toastr.warning('Cannot create coupon with negative numbers!', 'Warning!');
+                                                                                                                                                                                            }
+                                                                                                                                                                                            showNotification()
+                                                                                                                                                                                          </script>
+                                                                                                                                                                                          <% }
+                                                                                                                                                                                            if
+                                                                                                                                                                                            (req.query.err==='INVALIDID'
+                                                                                                                                                                                            )
+                                                                                                                                                                                            {
+                                                                                                                                                                                            %>
+                                                                                                                                                                                            <script>
+                                                                                                                                                                                              function showNotification() {
+                                                                                                                                                                                                toastr.error('Could not find an account with this Email!', 'Error!');
+                                                                                                                                                                                              }
+                                                                                                                                                                                              showNotification()
+                                                                                                                                                                                            </script>
+                                                                                                                                                                                            <% }
+                                                                                                                                                                                              if
+                                                                                                                                                                                              (req.query.err=="RAMSIZE"
+                                                                                                                                                                                              ||
+                                                                                                                                                                                              req.query.err=="DISKSIZE"
+                                                                                                                                                                                              ||
+                                                                                                                                                                                              req.query.err=="CPUSIZE"
+                                                                                                                                                                                              ||
+                                                                                                                                                                                              req.query.err=="SERVERSIZE"
+                                                                                                                                                                                              )
+                                                                                                                                                                                              {
+                                                                                                                                                                                              %>
+                                                                                                                                                                                              <script>
+                                                                                                                                                                                                function showNotification() {
+                                                                                                                                                                                                  toastr.error('Cannot create coupon with negative numbers!', 'Error!');
+                                                                                                                                                                                                }
+                                                                                                                                                                                                showNotification()
+                                                                                                                                                                                              </script>
+                                                                                                                                                                                              <% }
+                                                                                                                                                                                                if
+                                                                                                                                                                                                (req.query.code)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                %>
+                                                                                                                                                                                                <script>
+                                                                                                                                                                                                  function showNotification() {
+                                                                                                                                                                                                    toastr.success('Successfully created a coupon: <%= req.query.code %>', 'Success');
+                                                                                                                                                                                                  }
+                                                                                                                                                                                                  showNotification()
+                                                                                                                                                                                                </script>
+                                                                                                                                                                                                <% }
+                                                                                                                                                                                                  if
+                                                                                                                                                                                                  (req.query.err==='NOIP'
+                                                                                                                                                                                                  )
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                  %>
+                                                                                                                                                                                                  <script>
+                                                                                                                                                                                                    function showNotification() {
+                                                                                                                                                                                                      toastr.warning('<%= settings.name %> do not support storing user IP in database!', 'Warning!');
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    showNotification()
+                                                                                                                                                                                                  </script>
+                                                                                                                                                                                                  <% }
+                                                                                                                                                                                                    if
+                                                                                                                                                                                                    (req.query.err==='REMOVEACCOUNT'
+                                                                                                                                                                                                    )
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                    %>
+                                                                                                                                                                                                    <script>
+                                                                                                                                                                                                      function showNotification() {
+                                                                                                                                                                                                        toastr.success('Successfully removed that account from our database!', 'Success');
+                                                                                                                                                                                                      }
+                                                                                                                                                                                                      showNotification()
+                                                                                                                                                                                                    </script>
+                                                                                                                                                                                                    <% }
+                                                                                                                                                                                                      %>

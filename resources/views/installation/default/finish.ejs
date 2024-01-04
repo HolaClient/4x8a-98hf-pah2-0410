@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="https://cdn.holaclient.tech/logo.png" type="image/x-icon">
+    <title>
+        HolaClient | Installation
+    </title>
+    <link rel="icon" type="image/png" href="https://cdn.holaclient.tech/logo.png">
+    <script src="https://kit.fontawesome.com/cf4342c927.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+</head>
+
+<body class="bg-zinc-950 overflow-hidden w-screen flex items-center justify-center h-screen">
+    <div class="text-center text-white relative">
+        <div id="bg" class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+                class="w-80 h-80 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animation-blob">
+            </div>
+        </div>
+        <div class="inline-grid grid-cols-1 grid-rows-1 overflow-hidden">
+            <h1 id="mga" class="text-4xl col-span-full row-span-full lg:text-4xl font-semibold">
+                This might take a few seconds.<br>
+            </h1>
+            <h1 id="mgb" class="text-4xl col-span-full row-span-full lg:text-4xl opacity-0 font-semibold mb-4">
+                Almost there!
+            </h1>
+            <h1 id="mgc" class="text-4xl col-span-full row-span-full lg:text-5xl opacity-0 font-semibold mb-4">
+                Welcome to <span class="font-nunito"><%= settings.name %></span>
+            </h1>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            const mga = document.getElementById("mga");
+            const mgb = document.getElementById("mgb");
+            const mgc = document.getElementById("mgc");
+            const bg = document.getElementById("bg");
+
+            mga.style.transition = "opacity 2s";
+            mga.style.opacity = "0";
+
+            setTimeout(() => {
+                mga.classList.add("hidden");
+                mgb.style.transition = "color 2s, opacity 2s";
+                mgb.style.color = "white";
+                mgb.style.opacity = "100";
+                setTimeout(() => {
+                    mgb.style.transition = "opacity 2s";
+                    mgb.style.opacity = "0";
+                    bg.style.transition = "opacity 4s";
+                    bg.style.opacity = "0";
+
+                    mgb.classList.add("hidden");
+                    mgc.style.transition = "color 2s, opacity 2s";
+                    mgc.style.color = "white";
+                    mgc.style.opacity = "100";
+                    setTimeout(() => {
+                        location.href="/"
+                    }, 3000);
+                }, 4000);
+            }, 2000);
+        }, 5000);
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Urbanist&display=swap');
+
+        body {
+            font-family: 'urbanist'
+        }
+
+        .font-nunito {
+            font-family: 'nunito';
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            50% {
+                transform: translate(0px, 0px) scale(5);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(0);
+            }
+        }
+
+        .animation-blob {
+            animation: blob 12s forwards;
+        }
+
+        ::selection {
+            background: transparent
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: transparent;
+            border-radius: 3px;
+        }
+    </style>
+</body>

@@ -1,0 +1,47 @@
+{
+    "name": "Default",
+    "author": "CR072",
+    "version": 1,
+    "database": ["core", "landing-default"],
+    "settings": [
+        {
+            "identifier": "statistics",
+            "description": "Show statistics of the host.",
+            "type": {
+                "element": "input",
+                "attributes": {
+                    "type": "checkbox",
+                    "checked": true
+                }
+            }
+        },
+        {
+            "identifier": "socials",
+            "description": "Show social links of the host.",
+            "type": {
+                "element": "input",
+                "attributes": {
+                    "type": "checkbox",
+                    "checked": true
+                }
+            }
+        },
+        {
+            "identifier": "reviews",
+            "description": "Show reviews of the host.",
+            "type": {
+                "element": "input",
+                "attributes": {
+                    "type": "checkbox",
+                    "checked": true
+                }
+            }
+        }
+    ],
+    "mappings": {
+        "default": {
+            "left": "(LMB)",
+            "right": "(RMB)"
+        }
+    }
+}
