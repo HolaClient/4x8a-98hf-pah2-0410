@@ -1,1 +1,0 @@
-Upload your files you want to host here, it can be any picture, video etc.
