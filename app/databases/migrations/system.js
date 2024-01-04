@@ -513,7 +513,7 @@ if (!setdb) {
         }
     }
 }
-await db.set('core', 'settings')
+await db.set('core', 'settings', settings)
 }
 /**
  *--------------------------------------------------------------------------
