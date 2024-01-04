@@ -1,0 +1,175 @@
+<head>
+   <%- include('../components/header') %>
+      <%- include('../components/css') %>
+</head>
+
+<body>
+   <!-- Start wrapper-->
+   <div id="wrapper">
+      <%- include('../components/alert') %>
+         <%- include('../components/menu') %>
+            <%- include('../components/topnav') %>
+               <div class="clearfix"></div>
+               <div class="content-wrapper">
+                  <div class="container-fluid">
+                     <div class="card">
+                        <div class="card-body">
+                           <div class="card-title" id="title">Manage coins</div>
+                           <hr>
+                           <div class="form-group">
+                              <label for="searchInput">Search:</label>
+                              <input type="text" id="searchInput" class="form-control form-control-rounded bottomflat"
+                                 placeholder="Search by username, email, or HCID">
+                              <select id="userSelect" class="form-control form-control-rounded topflat">
+                                 <option value="" disabled selected>Select a user</option>
+                              </select>
+                           </div>
+                           <div class="row">
+                              <div class="card-body">
+                                 <label for="input-7">Function:</label>
+                                 <select id="functionSelect" class="form-control form-control-rounded">
+                                    <option value="set">Set Coins</option>
+                                    <option value="add">Add Coins</option>
+                                    <option value="remove">Remove Coins</option>
+                                 </select>
+                              </div>
+                              <div class="card-body">
+                                 <label for="input-7">Coins:</label>
+                                 <input type="text" id="coins" name="coins" class="form-control form-control-rounded"
+                                    placeholder="coins">
+                              </div>
+                              <div class="card-body">
+                                 <label for="input-7">Final coins:</label>
+                                 <input type="text" id="final" name="final" class="form-control form-control-rounded"
+                                    placeholder="result" readonly>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <button role="button" id="submitCoins" class="btn btn-light btn-round px-5">
+                                 Submit</button>
+                           </div>
+                        </div>
+                     </div>
+                     <%- include('../components/footer') %>
+                  </div>
+               </div>
+</body>
+<%- include('../components/js') %>
+   <style>
+      .bottomflat {
+         border-bottom-left-radius: 0px !important;
+         border-bottom-right-radius: 0px !important;
+      }
+
+      .topflat {
+         border-top-left-radius: 0px !important;
+         border-top-right-radius: 0px !important;
+      }
+   </style>
+   <script>
+      const searchInput = document.getElementById("searchInput");
+      const userSelect = document.getElementById("userSelect");
+      const titleDiv = document.getElementById("title");
+      const functionSelect = document.getElementById("functionSelect");
+      const finalInput = document.getElementById("final");
+      const coinsInput = document.getElementById("coins");
+
+      let userData = [];
+      let selectedUser = null;
+
+      async function fetchUserData(keyword) {
+   try {
+      const response = await fetch(`/admin/users/coins/list`);
+      userData = await response.json();
+
+      userSelect.innerHTML = '<option value="" disabled selected>Select a user</option>';
+
+      const filteredUsers = userData.filter(user =>
+         user.username.toLowerCase().includes(keyword) ||
+         user.email.toLowerCase().includes(keyword)
+      );
+
+      filteredUsers.forEach(user => {
+         const option = document.createElement("option");
+         option.value = user.email;
+         option.textContent = `${user.username} - (Coins: ${user.coins}) (HCID: ${user.hcid})`;
+         userSelect.appendChild(option);
+      });
+   } catch (error) {
+      console.error(error);
+   }
+}
+
+
+      searchInput.addEventListener("input", event => {
+         const keyword = event.target.value.trim().toLowerCase();
+         fetchUserData(keyword);
+      });
+
+      userSelect.addEventListener("change", event => {
+         const selectedEmail = userSelect.value;
+         selectedUser = userData.find(user => user.email === selectedEmail);
+         if (selectedUser) {
+            titleDiv.textContent = `Managing coins of user: ${selectedUser.username}`;
+         }
+      });
+
+      coinsInput.addEventListener("input", updateFinalCoins);
+      functionSelect.addEventListener("change", updateFinalCoins);
+
+      function updateFinalCoins() {
+         const selectedFunction = functionSelect.value;
+         const coinsValue = parseInt(coinsInput.value, 10) ?? 0;
+
+         if (selectedFunction === "add" && selectedUser) {
+            finalInput.value = selectedUser.coins + coinsValue;
+         } else if (selectedFunction === "set" && selectedUser) {
+            finalInput.value = coinsValue;
+         }  else {
+            finalInput.value = selectedUser.coins - coinsValue;
+         }
+      }
+
+      fetchUserData("");
+
+      const submitCoinsButton = document.getElementById("submitCoins");
+
+      submitCoinsButton.addEventListener("click", updateCoins.bind(null, "set"));
+
+      async function updateCoins(action) {
+         const selectedFunction = functionSelect.value;
+         const coinsValue = parseInt(coinsInput.value, 10);
+
+         if (selectedUser && coinsValue) {
+            const endpoint = selectedFunction === "remove" ? "/admin/coins/remove" : selectedFunction === "add" ? "/admin/coins/add" : "/admin/coins/set";
+
+            const requestData = {
+               user: selectedUser.hcid,
+               coins: coinsValue
+            };
+
+            try {
+               const response = await fetch(endpoint, {
+                  method: "POST",
+                  headers: {
+                     "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(requestData)
+               });
+
+               const data = await response.json();
+
+               if (data.success === true) {
+                  toastr.success('', `Successfully ${action === "remove" ? "removed" : "set"} the coins of the user ${selectedUser.username} to ${finalInput.value}`);
+                  fetchUserData("");
+               } else {
+                  toastr.error(data.message, 'Error');
+               }
+            } catch (error) {
+               toastr.error(error, "Error!");
+            }
+         } else {
+            toastr.error('', 'Invalid username or coins value.');
+         }
+      }
+   </script>

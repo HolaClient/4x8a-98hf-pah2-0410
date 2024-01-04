@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Normal Meta Tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="<%= settings.website.description %> | Powered by HolaClient.">
+  <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC">
+  <meta name="author" content="HolaLLC">
+  <meta name="copyright" content="HolaLLC">
+  <!-- Facebook Meta Tags -->
+  <meta property="og:type" content="dashboard">
+  <meta property="og:title" content="<%= settings.name %>">
+  <meta property="og:description" content="<%= settings.website.description %> | Powered by HolaClient.">
+  <meta property="og:image" content="<%= settings.logo.url %>">
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="<%= settings.logo.url %>">
+  <meta name="twitter:title" content="<%= settings.name %>">
+  <meta name="twitter:description" content="<%= settings.website.description %> | Powered by HolaClient.">
+  <meta name="twitter:image" content="<%= settings.logo.url %>">
+  <meta name="twitter:image:src" content="<%= settings.logo.url %>">
+  <meta property="og:image" content="<%= settings.logo.url %>">
+  <meta name="twitter:title" content="<%= settings.name %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <!-- End Meta Tags -->
+  <link rel="shortcut icon" href="<%= settings.logo.url %>" type="image/x-icon">
+  <title>
+    <%= settings.name %>
+  </title>
+  <link rel="icon" type="image/png" href="<%= settings.logo.url %>">
+  <% if (settings.ads.adsense.enabled==true) { %>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-<%= settings.ads.adsense.clientid %>" crossorigin="anonymous"></script>
+  <% } %>
+  <script src="https://kit.fontawesome.com/cf4342c927.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+  <% if (settings.earn.arcio.enabled==true) { %>
+  <script async src="https://arc.io/widget.min.js#<%= settings.earn.arcio.widgetid %>"></script>
+  <% } %>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: '<%= settings.language %>',
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <style>
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(37, 37, 37, 0.649);
+      z-index: 9999;
+    }
+
+    .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border: 4px solid #f3f3f300;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 500ms linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      20% {
+        transform: translate(-50%, -50%) rotate(72deg);
+      }
+
+      40% {
+        transform: translate(-50%, -50%) rotate(144deg);
+      }
+
+      60% {
+        transform: translate(-50%, -50%) rotate(216deg);
+      }
+
+      80% {
+        transform: translate(-50%, -50%) rotate(288deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    body {
+      background-image: url('<%= settings.background %>');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+
+      @media (max-width: 768px) {
+        background-size: cover;
+      }
+    }
+  </style>
+  <div id="cookieConsent" class="cookie-consent">
+    <span class="cookie-consent-message">This website uses cookies to ensure you get the best experience on our
+      website.</span>
+    <br><br>
+    <button class="cookie-consent-button" onclick="acceptCookies()">Got it!</button>
+  </div>
+
+  <style>
+    .cookie-consent {
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+      width: 350px;
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      font-family: Arial, sans-serif;
+      display: none;
+      z-index: 9999;
+    }
+
+    .cookie-consent.show {
+      display: block;
+    }
+
+    .cookie-consent-message {
+      margin: 0;
+    }
+
+    .cookie-consent-button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 4px 16px;
+      width: 100%;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function onboarding() {
+      fetch('/onboarding/status')
+        .then(response => response.json())
+        .then(data => {
+          if (data.status == true) {
+            window.location.href = "./dashboard"
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    onboarding();
+  </script>
+  <script>
+    let doctitle = document.title
+    window.addEventListener("blur", () => {
+      document.title = "inactive";
+    })
+    window.addEventListener("focus", () => {
+      document.title = doctitle
+    })
+
+    function acceptCookies() {
+      document.cookie = "cookieConsent=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+      hideCookieNotice();
+    }
+
+    function hideCookieNotice() {
+      var cookieNotice = document.getElementById("cookieConsent");
+      cookieNotice.classList.remove("show");
+    }
+
+    function checkCookieConsent() {
+      var cookieConsent = getCookie("cookieConsent");
+      if (cookieConsent === "true") {
+        hideCookieNotice();
+      } else {
+        var cookieNotice = document.getElementById("cookieConsent");
+        cookieNotice.classList.add("show");
+      }
+    }
+
+    function getCookie(name) {
+      var cookieArr = document.cookie.split("; ");
+      for (var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        if (cookiePair[0] === name) {
+          return cookiePair[1];
+        }
+      }
+      return null;
+    }
+    checkCookieConsent();
+  </script>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    showHideTransition: 'slide',
+    positionClass: 'toast-bottom-right',
+    timeOut: 4000,
+    extendedTimeOut: 1000,
+    showDuration: 300,
+    hideDuration: 300,
+  };
+</script>
+<style>
+  .toast-success {
+    background-color: #22bb33 !important;
+    color: #ffffff !important;
+  }
+
+  .toast-error {
+    background-color: #e81c0d !important;
+    color: #ffffff !important;
+  }
+
+  .toast-warning {
+    background-color: #1a1616 !important;
+    color: #ffffff !important;
+  }
+
+  .toast-info {
+    background-color: #02a1db !important;
+    color: #ffffff !important;
+  }
+</style>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const error = urlParams.get('err');
+
+  if (error) {
+    setTimeout(() => {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }, 0);
+  }
+  setTimeout(function() {
+    console.clear();
+    console.log('%cHold UP!', 'font-size: 50px; font-weight: bold; color: red;');
+    console.log("%cIf someone told you to run something here you have a high chance you're being scammed.", 'font-size: 20px; font-weight: bold; color: red;');
+    console.log("%cDon't run anything here unless you know what you're doing!", 'font-size: 20px; font-weight: bold; color: red;');
+  }, 3000);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap" rel="stylesheet">
+</head>
+<%- include('../components/css') %>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+</style>
+
+<body>
+  <div id="wrapper">
+    <div class="card card-authentication1 mx-auto my-5">
+      <div class="card-body">
+        <div class="card-content p-2">
+          <div class="card-title text-uppercase text-center py-3">Howdy <%= userinfo.username %>!
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputUsername">Nickname*</label>
+            <div class="position-relative has-icon-right">
+              <input type="text" id="nickname" class="form-control input-shadow" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword">Birthday*</label>
+            <div class="position-relative has-icon-right">
+              <input type="date" id="birthday" class="form-control input-shadow" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputUsername">Language*</label>
+            <div class="position-relative has-icon-right">
+              <select id="language" name="language" class="form-control input-shadow" required>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword">About*</label>
+            <div class="position-relative has-icon-right">
+              <textarea id="about" name="about" required class="form-control input-shadow"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword">Background</label>
+            <div class="position-relative has-icon-right">
+              <input type="text" id="background" class="form-control input-shadow" required>
+            </div>
+          </div>
+          <% if (!userinfo.avatar) { %>
+          <div class="form-group">
+            <label for="exampleInputPassword">Profile Picture</label>
+            <div class="position-relative has-icon-right">
+              <input type="text" id="pfp" class="form-control input-shadow" required>
+            </div>
+          </div>
+          <% } %>
+          <div class="form-group">
+            <div class="icheck-material-white">
+              <input type="checkbox" id="user-checkbox" />
+              <label for="user-checkbox">I Agree With <a href="./tos">Terms & Conditions</a></label>
+            </div>
+          </div>
+        </div>
+        <button onclick="submit()" type="button" class="btn btn-light btn-block">Begin The Journey!</button>
+      </div>
+    </div>
+
+    <script>
+      async function fetchLangs() {
+        try {
+          const response = await fetch('/onboarding/languages');
+
+          if (response.ok) {
+            const langs = await response.json();
+
+            const selectElement = document.getElementById('language');
+            selectElement.innerHTML = '<option value="" disabled selected>Select a language</option>';
+
+            langs.languages.forEach(lang => {
+              const option = document.createElement('option');
+              option.value = lang.code;
+              option.textContent = `${lang.name}`;
+              selectElement.appendChild(option);
+            });
+          } else {
+            console.error('Failed to fetch languages:', response.statusText);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      fetchLangs();
+
+
+
+      async function submit() {
+        let agreeCheckbox = document.getElementById("user-checkbox");
+        if (!agreeCheckbox.checked) {
+          toastr.error('', 'Please agree to the Terms & Conditions!');
+          return;
+        }
+        const nickname = document.getElementById("nickname").value;
+        const birthday = document.getElementById("birthday").value;
+        const about = document.getElementById("about").value;
+        const language = document.getElementById("language").value;
+        const bgimg = document.getElementById("background").value;
+        let image;
+
+        if (!bgimg) {
+          image = "<%= settings.background %>";
+        } else {
+          image = bgimg;
+        }
+        let pfpi;
+
+        const formData = {
+          nickname,
+          birthday,
+          about,
+          image,
+          language,
+        };
+
+        try {
+          console.log("Form Data:", formData);
+          const response = await fetch("/onboarding/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData),
+          });
+          if (response.ok) {
+            window.location.href = "/dashboard?err=COMPLETEDONBOARDING";
+          } else {
+            alert("Failed to complete onboarding. Please try again.");
+          }
+        } catch (error) {
+          console.error("An error occurred while completing onboarding:", error);
+          alert("An error occurred while completing onboarding. Please try again later.");
+        }
+      };
+      const backgroundInput = document.getElementById("background");
+      backgroundInput.addEventListener("input", () => {
+        const imageUrl = backgroundInput.value;
+        document.body.style.backgroundImage = `url('${imageUrl}')`;
+        if (!imageUrl) {
+          document.body.style.backgroundImage = `url('<%= settings.background %>')`;
+        }
+      });
+    </script>
+</body>
+<%- include('../components/js') %>
+
+</html>

@@ -1,0 +1,222 @@
+<head>
+    <%- include('../components/head') %>
+    <!-- Vector CSS -->
+    <link href="../../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+    <!-- simplebar CSS-->
+    <link href="../../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- animate CSS-->
+    <link href="../../../assets/css/animate.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="../../../assets/css/icons.css" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="../../../assets/css/sidebar-menu.css" rel="stylesheet"/>
+    <!-- Custom Style-->
+    <link href="../../../assets/css/app-style.css" rel="stylesheet"/>
+  
+  </head> 
+  <body>
+    <div id="wrapper">
+        <%- include('../components/sidebar') %>
+        <%- include('../components/topnav') %>
+        <div class="clearfix"></div>
+        <div class="content-wrapper">
+          <div class="container-fluid">
+            <div class="">
+              <div class="card-body">
+                <div class="card-title">
+                  <center>Plugins</center>
+                  <hr>
+                  <div class="form-group">
+                    <input type="text" id="searchInput" placeholder="Search plugins..." class="form-control" oninput="searchPlugins()">
+                  </div>
+                </div>
+                <div id="plugins" class="row"></div>
+                <div id="paginator" class="pagination justify-content-center"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <script>
+          const pageSize = 64; // Number of plugins to show per page
+          let currentPage = 1; // Current page number
+          let totalPages = 1; // Total number of pages
+          let pluginsData = []; // Array to store all plugins data
+          let filteredPlugins = []; // Array to store filtered plugins data
+        
+          const searchInput = document.getElementById('searchInput');
+        
+          // Fetch plugins from the API and populate the plugin container
+          fetch('https://api.spiget.org/v2/resources?sort=updated&direction=desc&size=1000&free=true')
+            .then(response => response.json())
+            .then(plugins => {
+              pluginsData = plugins;
+              filteredPlugins = pluginsData;
+              totalPages = Math.ceil(filteredPlugins.length / pageSize);
+              displayPluginsByPage(currentPage);
+            })
+            .catch(error => {
+              console.error('Error fetching plugins:', error);
+            });
+        
+          // Display plugins of the specified page
+          function displayPluginsByPage(page) {
+            const pluginContainer = document.getElementById('plugins');
+            pluginContainer.innerHTML = '';
+        
+            const startIndex = (page - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, filteredPlugins.length);
+        
+            for (let i = startIndex; i < endIndex; i++) {
+              const plugin = filteredPlugins[i];
+              const pluginCard = createPluginCard(plugin);
+              pluginContainer.appendChild(pluginCard);
+            }
+        
+            renderPaginator();
+          }
+        
+          // Create a plugin card element with the provided plugin data
+          function createPluginCard(plugin) {
+            const pluginCard = document.createElement('div');
+            pluginCard.className = 'col-lg-3 col-md-6 col-sm-12 mb-4';
+        
+            const cardInner = document.createElement('div');
+            cardInner.className = 'card card-body';
+        
+            const cardTitle = document.createElement('div');
+            cardTitle.className = 'card-title text-center';
+            cardTitle.textContent = plugin.name;
+        
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body text-center';
+        
+            const icon = document.createElement('img');
+            icon.src = `https://api.spiget.org/v2/resources/${plugin.id}/icon`;
+            icon.className = 'mx-auto d-block mb-3';
+            icon.style.maxWidth = '50px';
+        
+            const installButton = document.createElement('button');
+            installButton.className = 'btn btn-light';
+            installButton.textContent = 'Install';
+            installButton.onclick = function() {
+              installPlugin(plugin.id);
+            };
+        
+            cardBody.appendChild(icon);
+            cardBody.appendChild(installButton);
+        
+            cardInner.appendChild(cardTitle);
+            cardInner.appendChild(cardBody);
+        
+            pluginCard.appendChild(cardInner);
+        
+            return pluginCard;
+          }
+        
+          // Render the pagination buttons
+          function renderPaginator() {
+            const paginatorContainer = document.getElementById('paginator');
+            paginatorContainer.innerHTML = '';
+        
+            const prevButton = createPaginatorButton('Prev', currentPage - 1);
+            paginatorContainer.appendChild(prevButton);
+        
+            for (let i = 1; i <= totalPages; i++) {
+              const pageButton = createPaginatorButton(i, i);
+              paginatorContainer.appendChild(pageButton);
+            }
+        
+            const nextButton = createPaginatorButton('Next', currentPage + 1);
+            paginatorContainer.appendChild(nextButton);
+          }
+        
+          // Create a pagination button element
+          function createPaginatorButton(label, page) {
+            const button = document.createElement('button');
+            button.className = 'btn btn-light';
+            button.textContent = label;
+        
+            if (page === currentPage) {
+              button.classList.add('active');
+            }
+        
+            button.onclick = function() {
+              if (page === 'Prev') {
+                currentPage = Math.max(currentPage - 1, 1);
+              } else if (page === 'Next') {
+                currentPage = Math.min(currentPage + 1, totalPages);
+              } else {
+                currentPage = page;
+              }
+              displayPluginsByPage(currentPage);
+            };
+        
+            return button;
+          }
+        
+          // Function to filter plugins based on search input
+          function searchPlugins() {
+            const searchTerm = searchInput.value.toLowerCase();
+            filteredPlugins = pluginsData.filter(plugin => plugin.name.toLowerCase().includes(searchTerm));
+            totalPages = Math.ceil(filteredPlugins.length / pageSize);
+            currentPage = 1;
+            displayPluginsByPage(currentPage);
+          }
+        
+          // Function to install a plugin on the server using Pterodactyl API
+          async function getServer() {
+                            try {
+                              const urlParams = new URLSearchParams(window.location.search);
+                              const id = urlParams.get('id');
+                              const response = await fetch('/api/admin/servers/details?id=' + parseInt(id));
+                              const serverData = await response.json();
+                              const serverIdentifier = serverData.identifier;
+                              return serverIdentifier;
+                            } catch (error) {
+                              console.error('Error:', error);
+                            }
+                          }
+          const serverId = "b599bed9"
+          function installPlugin(pluginId) {
+            console.log(pluginId)
+            fetch('/api/install-plugin', {
+              method: 'POST',
+              body: JSON.stringify({ pluginId, serverId }),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+              .then(response => response.json())
+              .then(data => {
+                console.log('Plugin installation successful:', data);
+                toastr.success('Successfully uploaded!', 'Success!');
+              })
+              .catch(error => {
+                console.error('Plugin installation error:', error);
+                toastr.error(error, 'Error!');
+              });
+          }
+        </script>
+    </body>
+<!--start overlay-->
+<div class="overlay toggle-menu"></div>
+<!--end overlay-->
+<!--Start Back To Top Button-->
+<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+<!--End Back To Top Button-->
+<!-- Bootstrap core JavaScript-->
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/popper.min.js"></script>
+<script src="../../../assets/js/bootstrap.min.js"></script>
+<!-- simplebar js -->
+<script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+<!-- sidebar-menu js -->
+<script src="../../../assets/js/sidebar-menu.js"></script>
+<!-- Custom scripts -->
+<script src="../../../assets/js/app-script.js"></script>
+<footer>
+  <%- include('../components/footer') %>
+</footer>

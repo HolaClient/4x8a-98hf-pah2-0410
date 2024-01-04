@@ -1,0 +1,157 @@
+  <%- include('../components/head') %>
+  <%- include('../components/css') %>
+  <% if (settings.features.captcha.enabled==true) { %>
+  <script src="https://www.google.com/recaptcha/api.js?render=<%= settings.features.captcha.site_key %>"></script>
+  <% } %>
+  <%- include('../components/alert') %>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+  .rotate {
+    animation: rotation 3s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  </style>
+
+  <body>
+
+    <!-- Start wrapper-->
+    <div id="wrapper">
+      <div class="card card-authentication1 mx-auto my-5">
+        <div id="registerbox" class="card-body">
+          <div class="card-content p-2">
+            <div class="text-center">
+              <img width="40px" src="<%= settings.logo.url %>" alt="logo icon">
+            </div>
+            <div class="card-title text-uppercase text-center py-3">Sign Up to <%= settings.name %>
+            </div>
+            <form>
+
+              <div class="form-group">
+                <label for="exampleInputUsername" class="sr-only">Name</label>
+                <div class="position-relative has-icon-right">
+                  <input type="text" id="name" class="form-control input-shadow" placeholder="Enter Name" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword" class="sr-only">Username</label>
+                <div class="position-relative has-icon-right">
+                  <input type="text" id="username" class="form-control input-shadow" placeholder="Enter Username" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputUsername" class="sr-only">Email</label>
+                <div class="position-relative has-icon-right">
+                  <input type="email" id="email" class="form-control input-shadow" placeholder="Enter Email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword" class="sr-only">Password</label>
+                <div class="position-relative has-icon-right">
+                  <input type="password" id="password" class="form-control input-shadow" placeholder="Enter Password" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="icheck-material-white">
+                  <input type="checkbox" id="user-checkbox" />
+                  <label for="user-checkbox">I Agree With <a href="./tos">Terms & Conditions</a></label>
+                </div>
+              </div>
+          </div>
+          <button id="submitButton" onclick="submitForm()" type="button" class="btn btn-light btn-block">Sign Up</button>
+          <div class="text-center mt-3">Sign Up With</div>
+
+          <% if (!req.session.userinfo) { %>
+          <% } else { %>
+          <script>
+            window.addEventListener('load', function() {
+              window.location.href = "./dashboard";
+            });
+          </script>
+
+          <% } %>
+          <div class="form-row mt-4">
+            <a href="./auth/discord/login" type="button" class="btn btn-light btn-block"><i class="bi bi-discord"></i> Discord</a>
+          </div>
+
+          </form>
+        </div>
+        <div id="loading" style="display: none;" class="card-content p-2">
+          <div class="text-center">
+            <img width="40px" src="<%= settings.logo.url %>" class="rotate">
+          </div>
+        </div>
+        <div class="card-footer text-center py-3">
+          <p class="mb-0">Already Registered? <a href="./login"> Sign in here</a></p>
+        </div>
+      </div>
+
+      <script>
+        async function submitForm() {
+          try {
+            let name = encodeURIComponent(document.getElementById("name").value);
+            let username = encodeURIComponent(document.getElementById("username").value);
+            let email = encodeURIComponent(document.getElementById("email").value);
+            let password = encodeURIComponent(document.getElementById("password").value);
+            let submit = document.getElementById("loading")
+            let registerbox = document.getElementById("registerbox")
+            submit.style.display = 'block'
+            registerbox.style.display = 'none'
+            let agreeCheckbox = document.getElementById("user-checkbox");
+            if (!name || !username || !email || !password) {
+              toastr.error('', 'Please fill up the necessary fields!');
+              submit.style.display = 'none'
+              registerbox.style.display = 'block'
+              return;
+            }
+            if (!agreeCheckbox.checked) {
+              toastr.error('', 'Please agree to the Terms & Conditions!');
+              submit.style.display = 'none'
+              registerbox.style.display = 'block'
+              return;
+            }
+            const response = await fetch(`/auth/email/register?email=${email}&password=${password}&username=${username}&name=${name}`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json"
+              },
+            //  body: {
+            //    "name": name,
+            //    "username": username,
+            //    "email": email,
+            //    "password": password
+            //  }
+            });
+
+            const data = await response.json();
+
+            if (data.success === true) {
+              window.location.href = '/dashboard';
+            } else {
+              toastr.error(data.message, 'Error');
+              registerbox.style.display = 'block'
+              submit.style.display = 'none'
+            }
+          } catch (error) {
+            toastr.error(error, "Error!");
+            registerbox.style.display = 'block'
+            submit.style.display = 'none'
+          }
+        }
+      </script>
+
+      <%- include('../components/js') %>

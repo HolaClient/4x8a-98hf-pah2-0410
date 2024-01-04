@@ -1,0 +1,258 @@
+<%- include('../components/header') %>
+<%- include('../components/css') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../components/alert') %>
+<%- include('../components/menu') %>
+<%- include('../components/topnav') %>
+<%- include('../scripts/containers') %>
+<div class="card">
+  <div class="card-body">
+    <div class="card-title" id="title">Manage resources</div>
+    <hr>
+    <div class="form-group">
+      <label for="searchInput">Search:</label>
+      <input type="text" id="searchInput" class="form-control form-control-rounded bottomflat" placeholder="Search by username, email, or HCID">
+      <select id="userSelect" class="form-control form-control-rounded topflat">
+        <option value="" disabled selected>Select a user</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="functionSelect">Function:</label>
+      <select id="functionSelect" class="form-control form-control-rounded">
+        <option value="check">Check resources</option>
+        <option value="set">Set Resources</option>
+        <option value="add">Add Resources</option>
+        <option value="remove">Remove Resources</option>
+      </select>
+    </div>
+    <div class="row">
+      <div class="card-body">
+        <label for="input-7">Ram:</label>
+        <input type="text" id="ram" class="form-control form-control-rounded" placeholder="1024">
+      </div>
+      <div class="card-body">
+        <label for="input-7">Disk:</label>
+        <input type="text" id="disk" class="form-control form-control-rounded" placeholder="coins">
+      </div>
+      <div class="card-body">
+        <label for="input-7">Cpu:</label>
+        <input type="text" id="cpu" class="form-control form-control-rounded" placeholder="coins">
+      </div>
+      <div class="card-body">
+        <label for="input-7">Slots:</label>
+        <input type="text" id="servers" class="form-control form-control-rounded" placeholder="coins">
+      </div>
+    </div>
+    <div class="row">
+      <div class="card-body">
+        <label for="input-7">Databases:</label>
+        <input type="text" id="databases" class="form-control form-control-rounded" placeholder="coins">
+      </div>
+      <div class="card-body">
+        <label for="input-7">Allocations:</label>
+        <input type="text" id="allocations" class="form-control form-control-rounded" placeholder="coins">
+      </div>
+      <div class="card-body">
+        <label for="input-7">Backups:</label>
+        <input type="text" id="backups" class="form-control form-control-rounded" placeholder="coins">
+      </div>
+    </div>
+    <div id="btnFrm" class="form-group">
+      <button role="button" id="submitResources" class="btn btn-light btn-round px-5">
+        Submit</button>
+    </div>
+  </div>
+</div>
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const userSelect = document.getElementById("userSelect");
+  const functionSelect = document.getElementById("functionSelect");
+  const submitResourcesButton = document.getElementById("submitResources");
+  const smtbtn = document.getElementById("btnFrm");
+  let selectedUser;
+  let userData;
+
+  async function fetchUserData(keyword) {
+    try {
+      const response = await fetch(`/admin/users/resources/list`);
+      userData = await response.json();
+
+      userSelect.innerHTML = '<option value="" disabled selected>Select a user</option>';
+
+      const filteredUsers = userData.filter(user =>
+        user.username.toLowerCase().includes(keyword) ||
+        user.email.toLowerCase().includes(keyword)
+      );
+
+      filteredUsers.forEach(user => {
+        const option = document.createElement("option");
+        option.value = user.hcid;
+        option.textContent = `${user.username} - (HCID: ${user.hcid})`;
+        userSelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  searchInput.addEventListener("input", event => {
+    const keyword = event.target.value.trim().toLowerCase();
+    fetchUserData(keyword);
+  });
+  fetchUserData("");
+
+  userSelect.addEventListener("change", event => {
+    const selectedEmail = userSelect.value;
+    selectedUser = userData.find(user => user.hcid == selectedEmail);
+
+    if (selectedUser) {
+      updateExtraResources(selectedUser.extra);
+    }
+  });
+
+  submitResourcesButton.addEventListener("click", () => {
+    const selectedFunction = functionSelect.value;
+
+    if (!selectedUser) {
+      toastr.error("Select an user first", "Error");
+      return;
+    }
+
+    const requestData = {
+      user: selectedUser.hcid,
+    };
+
+    switch (selectedFunction) {
+      case "check":
+        updateExtraResources(selectedUser.extra);
+        updateBtnStats('none')
+        break;
+
+      case "add":
+        const ramValue = parseInt(document.getElementById("ram").value, 10);
+        const diskValue = parseInt(document.getElementById("disk").value, 10);
+        const cpuValue = parseInt(document.getElementById("cpu").value, 10);
+        const slotsValue = parseInt(document.getElementById("servers").value, 10);
+        const allocationsValue = parseInt(document.getElementById("allocations").value, 10);
+        const backupsValue = parseInt(document.getElementById("backups").value, 10);
+        const databasesValue = parseInt(document.getElementById("databases").value, 10);
+
+        requestData.ram = ramValue;
+        requestData.disk = diskValue;
+        requestData.cpu = cpuValue;
+        requestData.servers = slotsValue;
+        requestData.allocations = allocationsValue;
+        requestData.backups = backupsValue;
+        requestData.databases = databasesValue;
+
+        updateBtnStats('block')
+        break;
+
+      case "set":
+        const finalRamValue = parseInt(document.getElementById("ram").value, 10);
+        const finalDiskValue = parseInt(document.getElementById("disk").value, 10);
+        const finalCpuValue = parseInt(document.getElementById("cpu").value, 10);
+        const finalSlotsValue = parseInt(document.getElementById("servers").value, 10);
+        const finalAllocationsValue = parseInt(document.getElementById("allocations").value, 10);
+        const finalBackupsValue = parseInt(document.getElementById("backups").value, 10);
+        const finalDatabasesValue = parseInt(document.getElementById("databases").value, 10);
+
+        requestData.ram = finalRamValue;
+        requestData.disk = finalDiskValue;
+        requestData.cpu = finalCpuValue;
+        requestData.servers = finalSlotsValue;
+        requestData.allocations = finalAllocationsValue;
+        requestData.backups = finalBackupsValue;
+        requestData.databases = finalDatabasesValue;
+
+        updateBtnStats('block')
+        break;
+
+      case "remove":
+        const removeRamValue = parseInt(document.getElementById("ram").value, 10);
+        const removeDiskValue = parseInt(document.getElementById("disk").value, 10);
+        const removeCpuValue = parseInt(document.getElementById("cpu").value, 10);
+        const removeSlotsValue = parseInt(document.getElementById("servers").value, 10);
+        const removeAllocationsValue = parseInt(document.getElementById("allocations").value, 10);
+        const removeBackupsValue = parseInt(document.getElementById("backups").value, 10);
+        const removeDatabasesValue = parseInt(document.getElementById("databases").value, 10);
+
+        requestData.ram = -removeRamValue;
+        requestData.disk = -removeDiskValue;
+        requestData.cpu = -removeCpuValue;
+        requestData.servers = -removeSlotsValue;
+        requestData.allocations = -removeAllocationsValue;
+        requestData.backups = -removeBackupsValue;
+        requestData.databases = -removeDatabasesValue;
+
+        updateBtnStats('block')
+        break;
+
+      default:
+        toastr.error("Select a function first", "Error");
+        return;
+    }
+
+    sendResourceRequest(selectedFunction, requestData);
+  });
+
+  function updateExtraResources(extra) {
+    document.getElementById("ram").value = extra.ram;
+    document.getElementById("disk").value = extra.disk;
+    document.getElementById("cpu").value = extra.cpu;
+    document.getElementById("servers").value = extra.servers;
+    document.getElementById("allocations").value = extra.allocations;
+    document.getElementById("backups").value = extra.backups;
+    document.getElementById("databases").value = extra.databases;
+  }
+
+  async function sendResourceRequest(action, requestData) {
+    const endpointMap = {
+      add: "/admin/resources/add",
+      set: "/admin/resources/set",
+      remove: "/admin/resources/remove",
+    };
+
+    const endpoint = endpointMap[action];
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      const data = await response.json();
+
+      if (data.success === true) {
+        toastr.success("", `Successfully ${action}ed the resources for user ${selectedUser.username}`);
+      } else {
+        toastr.error(data.message, "Error");
+      }
+    } catch (error) {
+      toastr.error(error, "Error");
+    }
+  }
+
+  function updateBtnStats(style) {
+    smtbtn.style.display = style
+  }
+</script>
+
+
+
+<style>
+  .bottomflat {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+
+  .topflat {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+  }
+</style>
+<%- include('../components/footer') %>
+<%- include('../components/js') %>

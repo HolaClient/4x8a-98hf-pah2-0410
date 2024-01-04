@@ -1,0 +1,366 @@
+<!--Start topbar header-->
+<header class="topbar-nav">
+  <nav class="navbar navbar-expand fixed-top">
+    <ul class="navbar-nav mr-auto align-items-center">
+      <li class="nav-item">
+        <a class="nav-link toggle-menu" href="javascript:void();">
+          <i class="icon-menu menu-icon"></i>
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav align-items-center right-nav-link">
+      <li class="nav-item">
+        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+          <i id="new" class="bi bi-app-indicator" style="display: none;"></i>
+          <i id="nope" class="bi bi-app"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <div class="card-title">
+            <center>
+              Requests
+            </center>
+          </div>
+          <hr>
+          <table id="requestsTable">
+            <thead>
+              <tr>
+                <th>
+                  Message
+                </th>
+                <th>
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody id="requests">
+            </tbody>
+          </table>
+          <span id="noneText">&nbsp;&nbsp;No pending requests available!&nbsp;&nbsp;</span>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+          <i class="fa-solid fa-bars"></i></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <div class="card-title">
+            <center>
+              Quickmenu
+            </center>
+          </div>
+          <hr>
+          <div class="row row-group m-0">
+            <div class="card-body">
+              <input type="text" class="form-control form-control-rounded"
+                value="Seems like there is nothing to do here..." readonly>
+            </div>
+          </div>
+          <% if (pterodactyl.root_admin==true) { %>
+            <hr>
+            <div style="justify-content: center; text-align: center;" class="card-title">
+              <i class="fa-solid fa-screwdriver-wrench"></i> Admin Quickmenu
+            </div>
+            <li class="dropdown-divider"></li>
+            <div class="row row-group m-0">
+              <div class="card-body">
+                <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-solid fa-gear fa-spin"
+                      style="color: #ffffff;"></i></span></h5>
+                <h6 style="color:white">Settings:</h6>
+                <button onclick="reloadSettings()" class="btn btn-light btn-round px-5" type="button">Click to
+                  reload</button>
+              </div>
+
+              <div class="card-body">
+                <h5 class="text-white mb-0"> <span class="float-right"><i class="fa-solid fa-network-wired"></i></span>
+                </h5>
+                <h6 style="color:white">Routes:</h6>
+                <button onclick="reloadRoutes()" class="btn btn-light btn-round px-5" type="button">Click to
+                  reload</button>
+              </div>
+            </div>
+            <% } %>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+          <span class="user-profile"><img src="<%= userinfo.profile %>" class="img-circle"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li class="dropdown-item user-details">
+            <a href="../settings">
+              <div class="media">
+                <div class="avatar"><img class="align-self-start mr-3" id="profile" src="<%= userinfo.profile %>">
+                </div>
+                <div class="media-body">
+                  <h6 class="mt-2 user-title">
+                    <%= userinfo.username %>
+                  </h6>
+                  <p class="user-subtitle"><%= packagename %> plan</p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="dropdown-divider"></li>
+          <li class="dropdown-item"><i class="fa-solid fa-coins mr-2"></i>
+            <%= coins %> coins
+          </li>
+          <li onclick="location.href = '../settings';" style="cursor: pointer;" class="dropdown-item"><i
+              class="fa-solid fa-user mr-2"></i> Account</li>
+          <% const redirectPath=req._parsedUrl.pathname; const trimmedPath=redirectPath.replace(/^\//, '' ); const
+            url=`../updateinfo?redirect=${trimmedPath}`; %>
+            <li onclick="location.href = '../updateinfo?redirect=<%= url %>';" style="cursor: pointer;"
+              class="dropdown-item"><i class="fa-solid fa-rotate-right mr-2"></i> Refresh</li>
+            <li class="dropdown-divider"></li>
+            <li onclick="location.href = '../logout';" style="color: rgb(255, 47, 47); cursor: pointer;"
+              class="dropdown-item"><i onclick="location.href = '../logout';" class="icon-power mr-2"></i> Logout</li>
+        </ul>
+      </li>
+
+      <script>
+        function getRequests() {
+          fetch('/request/coins/list')
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              displayRequests(data);
+            })
+            .catch(function (error) {
+              console.error('Error fetching requests:', error);
+            });
+        }
+
+        function displayRequests(data) {
+          var requestsTable = document.getElementById('requestsTable');
+          var requestsBody = document.getElementById('requests');
+          var noneText = document.getElementById('noneText');
+          var notify = document.getElementById('new');
+          var nope = document.getElementById('nope');
+          requestsBody.innerHTML = '';
+
+          if (Array.isArray(data.requests) && data.requests.length > 0) {
+            data.requests.forEach(function (req) {
+              var row = document.createElement('tr');
+
+              var messageCell = document.createElement('td');
+              messageCell.textContent = `${req.requestFrom} requested ${req.requestedCoins} coins ` + formatTimeElapsed(req.requestedDate);;
+              row.appendChild(messageCell);
+
+              var actionsCell = document.createElement('td');
+
+              var acceptButton = document.createElement('a');
+              acceptButton.textContent = 'Accept /';
+              acceptButton.style.cursor = 'pointer';
+              acceptButton.addEventListener('click', function () {
+                grantRequest(req.requestId);
+              });
+              actionsCell.appendChild(acceptButton);
+
+              var ignoreButton = document.createElement('a');
+              ignoreButton.textContent = '/ Ignore';
+              ignoreButton.style.cursor = 'pointer';
+              ignoreButton.addEventListener('click', function () {
+                ignoreRequest(req.requestId);
+              });
+              actionsCell.appendChild(ignoreButton);
+
+              row.appendChild(actionsCell);
+
+              requestsBody.appendChild(row);
+            });
+
+            requestsTable.style.display = 'table';
+            notify.style.display = 'block';
+            nope.style.display = 'none';
+            noneText.style.display = 'none';
+          } else {
+            requestsTable.style.display = 'none';
+            notify.style.display = 'none';
+            nope.style.display = 'block';
+            noneText.style.display = 'block';
+          }
+        }
+
+        function grantRequest(requestId) {
+          fetch('/request/coins/grant', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ requestId: requestId }),
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              if (data.success) {
+                toastr.success(data.message, "Success!");
+                getRequests();
+              } else {
+                toastr.error(data.message, "Error!");
+              }
+            })
+            .catch(function (error) {
+              console.error('Error granting request:', error);
+              toastr.error(error, "Error!")
+            });
+        }
+
+        function ignoreRequest(requestId) {
+          fetch('/request/coins/ignore', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ requestId: requestId }),
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              if (data.success) {
+                toastr.success(data.message, 'Success!');
+                getRequests();
+              } else {
+                toastr.error(data.message, 'Error!');
+              }
+            })
+            .catch(function (error) {
+              console.error('Error ignoring request:', error);
+              toastr.error(error, 'Error!');
+            });
+        }
+
+        function formatTimeElapsed(requestedDate) {
+          var currentTime = new Date();
+          var requestDate = new Date(requestedDate);
+          var elapsedMilliseconds = currentTime - requestDate;
+          var elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+
+          if (elapsedSeconds < 60) {
+            return elapsedSeconds + ' secs ago';
+          } else if (elapsedSeconds < 3600) {
+            var elapsedMinutes = Math.floor(elapsedSeconds / 60);
+            return elapsedMinutes + ' mins ago';
+          } else {
+            var elapsedHours = Math.floor(elapsedSeconds / 3600);
+            return elapsedHours + ' hrs ago';
+          }
+        }
+
+        getRequests();
+
+
+        function reloadSettings() {
+          fetch('/admin/reload/settings', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Failed to reload settings');
+              }
+            })
+            .then(data => {
+              alert(data.message);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Failed to reload settings. Check the console for details.');
+            });
+        }
+
+        function reloadRoutes() {
+          fetch('/admin/reload/routes', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Failed to reload routes');
+              }
+            })
+            .then(data => {
+              alert(data.message);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Failed to reload routes. Check the console for details.');
+            });
+        }
+      </script>
+      <style>
+        .skiptranslate span {
+          display: none;
+        }
+
+        .goog-te-gadget {
+          display: block;
+          color: transparent;
+        }
+
+        /* Style for the Google Translate dropdown */
+        .goog-te-combo {
+          font-size: 14px;
+          /* Adjust font size */
+          color: #fff;
+          /* Adjust text color */
+          border-color: transparent;
+          background-color: transparent;
+          /* Adjust background color */
+          border-radius: 4px;
+          /* Adjust border radius if desired */
+          padding: 5px 10px;
+          /* Adjust padding if needed */
+          align-self: center;
+          min-width: 150px;
+          /* Adjust width as needed */
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          /* Add box shadow if desired */
+        }
+
+        /* Style for the Google Translate dropdown options */
+        .goog-te-menu2-item {
+          font-size: 14px;
+          /* Adjust font size */
+          color: #333;
+          /* Adjust text color */
+          background-color: #fff;
+          /* Adjust background color */
+          padding: 8px 12px;
+          /* Adjust padding if needed */
+          border-bottom: 1px solid #e0e0e0;
+          /* Add a separator line between options */
+          transition: background-color 0.3s;
+          /* Add a smooth transition effect */
+        }
+
+        /* Style for the selected language in the dropdown */
+        .goog-te-menu2-item-selected {
+          background-color: #33cfc47b;
+          /* Adjust background color for the selected option */
+        }
+
+        /* Style for the Google Translate dropdown arrow */
+        .goog-te-gadget-icon {
+          display: none;
+          /* Hide the default dropdown arrow */
+        }
+      </style>
+    </ul>
+  </nav>
+</header>
+<!--End topbar header-->
+<div class="nanobar" style="position: fixed;">
+  <div class="bar"></div>
+</div>

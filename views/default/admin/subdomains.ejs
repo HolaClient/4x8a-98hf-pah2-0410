@@ -1,0 +1,110 @@
+  <%- include('../components/header') %>
+  <%- include('../components/css') %>
+  <%- include('../scripts/wrapper') %>
+  <%- include('../components/menu') %>
+  <%- include('../components/topnav') %>
+  <%- include('../scripts/containers') %>
+  <%- include('../components/alert') %>
+  <div style="border-radius: 15px;" class="table-responsive">
+    <div class="card-title">&nbsp;Subdomains of domain: <span id="domain"></span></div>
+    <table class="table" id="subdomains">
+      <input type="text" class="form-control" id="search" placeholder="Search a subdomain by its Name">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Target</th>
+          <th>Port</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const domainElement = document.getElementById('domain');
+      const form = document.getElementById('createRecordForm');
+
+      // Fetch domain and display it
+      fetch('/domain')
+        .then(response => response.json())
+        .then(data => {
+          domainElement.textContent = data.domain;
+        })
+        .catch(error => {
+          console.error('Error fetching domain:', error);
+          domainElement.textContent = 'Error fetching domain';
+        });
+    })
+  </script>
+  <script>
+    fetch('/subdomains')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Fetched data:', data); // Debugging
+
+        const srvData = data.data.result.filter(record => record.type === 'SRV');
+
+        console.log('Filtered data:', srvData); // Debugging
+
+        const tableBody = document.querySelector('#subdomains tbody');
+        const searchInput = document.querySelector('#search');
+
+        console.log('Table body:', tableBody); // Debugging
+        console.log('Search input:', searchInput); // Debugging
+
+        searchInput.addEventListener('input', () => {
+          const searchTerm = searchInput.value.toLowerCase().trim();
+
+          // Clear existing table rows
+          while (tableBody.firstChild) {
+            tableBody.removeChild(tableBody.firstChild);
+          }
+
+          srvData.forEach(record => {
+            const name = record.name.toLowerCase();
+
+            // Check if the record name contains the search term
+            if (name.includes(searchTerm)) {
+              const row = document.createElement('tr');
+              const nameCell = document.createElement('td');
+              const targetCell = document.createElement('td');
+              const portCell = document.createElement('td');
+
+              nameCell.textContent = record.data.name;
+              targetCell.textContent = record.data.target;
+              portCell.textContent = record.data.port;
+
+              row.appendChild(nameCell);
+              row.appendChild(targetCell);
+              row.appendChild(portCell);
+              tableBody.appendChild(row);
+            }
+          });
+        });
+
+        // Populate the table with initial data
+        srvData.forEach(record => {
+          const row = document.createElement('tr');
+          const nameCell = document.createElement('td');
+          const targetCell = document.createElement('td');
+          const portCell = document.createElement('td');
+
+          nameCell.textContent = record.data.name;
+          targetCell.textContent = record.data.target;
+          portCell.textContent = record.data.port;
+
+          row.appendChild(nameCell);
+          row.appendChild(targetCell);
+          row.appendChild(portCell);
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching SRV records:', error);
+      });
+  </script>
+
+  </div>
+  <%- include('../components/footer') %>
+  <%- include('../components/js') %>

@@ -1,0 +1,228 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../components/sidebar') %>
+<%- include('../components/topnav') %>
+<%- include('../scripts/containers') %>
+<%- include('../components/alert') %>
+<%- include('../components/resources') %>
+
+<div class="card">
+  <% if (settings.coins.store.enabled == true) { %>
+  <div class="row m-0">
+
+    <div class="card-body">
+      <div class="card-title">Buy CPU</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6">
+          <%= settings.coins.store.cpu.per %>% CPU - <%= settings.coins.store.cpu.cost %> coins
+        </label>
+        <input type="number" id="cpuAmount" min="1" name="id" class="form-control form-control-rounded" placeholder="CPU TO BUY IN '%'">
+      </div>
+      <div class="form-group">
+        <button onclick="buyCPU()" role="button" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> Buy CPU</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-title">Buy RAM</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6">
+          <%= settings.coins.store.ram.per %>MB RAM - <%= settings.coins.store.ram.cost %> coins
+        </label>
+        <input type="number" id="ramAmount" min="1" class="form-control form-control-rounded" placeholder="RAM TO BUY IN MB">
+      </div>
+      <div class="form-group">
+        <button onclick="buyRAM()" role="button" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> Buy RAM</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-title">Buy DISK</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6">
+          <%= settings.coins.store.disk.per %>MB Disk - <%= settings.coins.store.disk.cost %>
+          coins
+        </label>
+        <input type="number" id="diskAmount" min="1" class="form-control form-control-rounded" placeholder="DISK TO BUY IN MB">
+      </div>
+      <div class="form-group">
+        <a onclick="buyDisk()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> buy
+          disk</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="row m-0">
+
+    <div class="card-body">
+      <div class="card-title">Buy Backups</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6">
+          <%= settings.coins.store.backups.per %> Backups - <%= settings.coins.store.backups.cost
+                     %> coins
+        </label>
+        <input type="number" id="backupsAmount" min="1" class="form-control form-control-rounded" placeholder="BACKUPS TO BUY">
+      </div>
+      <div class="form-group">
+        <a onclick="buyBackups()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i>
+          buy backups</a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-title">Buy Databases</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6">
+          <%= settings.coins.store.databases.per %> Databases - <%=
+                     settings.coins.store.databases.cost %> coins
+        </label>
+        <input type="number" id="databasesAmount" min="1" class="form-control form-control-rounded" placeholder="DATABASES TO BUY">
+      </div>
+      <div class="form-group">
+        <a onclick="buyDatabases()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> buy databases</a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-title">Buy Allocations</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6">
+          <%= settings.coins.store.allocations.per %> Allocations - <%=
+                     settings.coins.store.allocations.cost %> coins
+        </label>
+        <input type="number" id="allocationsAmount" min="1" class="form-control form-control-rounded" placeholder="ALLOCATIONS TO BUY">
+      </div>
+      <div class="form-group">
+        <a onclick="buyallocations()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> buy allocations</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="row m-0">
+
+    <div class="card-body">
+      <div class="card-title">Buy SLOTS</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6">
+          <%= settings.coins.store.servers.per %> slot - <%= settings.coins.store.servers.cost %>
+          coins
+        </label>
+        <input type="number" id="serversAmount" min="1" class="form-control form-control-rounded" placeholder="SERVER SLOTS TO BUY">
+      </div>
+      <div class="form-group">
+        <a onclick="buyServers()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i>
+          buy slots</a>
+      </div>
+    </div>
+    <% } %>
+    <% if (settings.coins.blackmart.enabled == true) { %>
+    <div class="card-body">
+      <div class="card-title">Sell CPU</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6"><%= settings.coins.blackmart.cpu.per %>% CPU - <%= settings.coins.blackmart.cpu.cost %> coins</label>
+        <input type="number" id="cpuAmount1" name="id" class="form-control form-control-rounded" placeholder="CPU TO SELL IN '%'">
+      </div>
+      <div class="form-group">
+        <button onclick="sellCPU()" role="button" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> Sell CPU</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-title">Sell RAM</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6"><%= settings.coins.blackmart.ram.per %>MB RAM - <%= settings.coins.blackmart.ram.cost %> coins</label>
+        <input type="number" id="ramAmount1" class="form-control form-control-rounded" placeholder="RAM TO SELL IN MB">
+      </div>
+      <div class="form-group">
+        <button onclick="sellRAM()" role="button" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> Sell RAM</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="row m-0">
+
+    <div class="card-body">
+      <div class="card-title">Sell DISK</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6"><%= settings.coins.blackmart.disk.per %>MB Disk - <%= settings.coins.blackmart.disk.cost %> coins</label>
+        <input type="number" id="diskAmount1" class="form-control form-control-rounded" placeholder="DISK TO SELL IN MB">
+      </div>
+      <div class="form-group">
+        <a onclick="sellDisk()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> sell disk</a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-title">Sell SLOTS</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6"><%= settings.coins.blackmart.servers.per %> slot - <%= settings.coins.blackmart.servers.cost %> coins</label>
+        <input type="number" id="serversAmount1" class="form-control form-control-rounded" placeholder="SERVER SLOTS TO SELL">
+      </div>
+      <div class="form-group">
+        <a onclick="sellServers()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> sell slots</a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-title">Sell Backups</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6"><%= settings.coins.blackmart.backups.per %> Backups - <%= settings.coins.blackmart.backups.cost %> coins</label>
+        <input type="number" id="backupsAmount1" class="form-control form-control-rounded" placeholder="BACKUPS TO SELL">
+      </div>
+      <div class="form-group">
+        <a onclick="sellBackups()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> sell backups</a>
+      </div>
+    </div>
+  </div>
+  <div class="row m-0">
+
+    <div class="card-body">
+      <div class="card-title">Sell Databases</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6"><%= settings.coins.blackmart.databases.per %> Databases - <%= settings.coins.blackmart.databases.cost %> coins</label>
+        <input type="number" id="databasesAmount1" class="form-control form-control-rounded" placeholder="DATABASES TO SELL">
+      </div>
+      <div class="form-group">
+        <a onclick="sellDatabases()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> sell databases</a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-title">Sell Allocations</div>
+      <hr>
+      <div class="form-group">
+        <label for="input-6"><%= settings.coins.blackmart.allocations.per %> Allocations - <%= settings.coins.blackmart.allocations.cost %> coins</label>
+        <input type="number" id="allocationsAmount1" class="form-control form-control-rounded" placeholder="ALLOCATIONS TO SELL">
+      </div>
+      <div class="form-group">
+        <a onclick="sellallocations()" class="btn btn-light btn-round px-5"><i class="bi bi-coin"></i> sell allocations</a>
+      </div>
+    </div>
+    <% } %>
+
+  </div>
+
+</div>
+
+<% if (settings.coins.blackmart.enabled == 'false' && settings.coins.store.enabled == 'false') { %>
+<script>
+  window.location.href = '/dashboard';
+</script>
+<% } %>
+<%- include('../components/footer') %>
+<%- include('../components/js') %>
+<%- include('../scripts/marketplace') %>

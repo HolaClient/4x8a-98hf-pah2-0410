@@ -1,0 +1,303 @@
+  <%- include('../components/header') %>
+  <%- include('../components/css') %>
+
+  <div id="wrapper">
+    <%- include('../components/menu') %>
+      <%- include('../components/topnav') %>
+        <%- include('../scripts/create') %>
+          <div class="clearfix"></div>
+          <div class="content-wrapper">
+            <div class="container-fluid">
+              <div class="row mt-3">
+                <div class="col-lg-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card-title">Brand</div>
+                      <hr>
+                      <div class="form-group">
+                        <label for="input-6">Name:</label>
+                        <input id="name" class="form-control form-control-rounded" placeholder="Host Name"
+                          value="<%= settings.name %>">
+                      </div>
+                      <div class="form-group">
+                        <label for="input-7">Logo URL:</label>
+                        <input id="logo" class="form-control form-control-rounded" placeholder="Logo URL"
+                          value="<%= settings.logo.url %>">
+                      </div>
+                      <div class="form-group">
+                        <button role="button" onclick="updateBrand()"
+                          class="btn btn-light btn-round px-5">Update</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card-title">Remove Eggs</div>
+                      <hr>
+                      <div class="form-group">
+                        <select class="form-control form-control-rounded" id="eggs">
+                          <% for (let [name, value] of Object.entries(eggs)) { %>
+                            <option value="<%= name %>">
+                              <%= value.display %>
+                            </option>
+                            <% } %>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <button role="button" onclick="removeEgg()" class="btn btn-light btn-round px-5">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="card">
+                    <form id="nestEggForm">
+                      <div class="card-body">
+                        <div class="card-title">Add Eggs</div>
+                        <hr>
+                        <div class="form-group">
+                          <label for="input-7">Banner:</label>
+                          <input id="banner" class="form-control form-control-rounded">
+                        </div>
+                        <div class="form-group">
+                          <label for="input-6">Nest:</label>
+                          <div class="row row-group m-0" id="nestList"></div>
+                        </div>
+                        <div class="form-group">
+                          <label for="input-7">Egg:</label>
+                          <div class="row row-group m-0" id="eggList"></div>
+                        </div>
+                        <div class="form-group">
+                          <label for="input-7">Preview:</label>
+                          <ul class="software-list">
+                            <li class="software-item">
+                              <img class="software-banner" id="ban">
+                              <input style="background-color: transparent; color: white; border: transparent;"
+                                value="Click me (text)">
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="form-group">
+                          <button role="button" type="submit" class="btn btn-light btn-round px-5">Add</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <script>
+                    async function removeEgg() {
+                      const selectElement = document.getElementById("eggs");
+                      const selectedOption = selectElement.options[selectElement.selectedIndex];
+                  
+                      if (!selectedOption) {
+                        toastr.error("", "Please select an egg to remove it!");
+                        return;
+                      }
+                  
+                      const selectedEgg = selectedOption.value;
+                      const rmEgg = await fetch(`/admin/eggs/remove/${selectedEgg}`)
+                        .then(response => response.json())
+                        .then(data => {
+                          if (data.success === true) {
+                            selectElement.removeChild(selectedOption);
+                            toastr.success("", data.message);
+                            toastr.info(`Please reload the settings to sync the current changed!`, 'Changes detected!');
+                          } else {
+                            toastr.error('', data.message);
+                          }
+                        });
+                    }
+                  </script>
+                  
+                  
+                  <script>
+                    const bann = document.getElementById("banner");
+                    const ban = document.getElementById("ban");
+
+                    bann.addEventListener("input", function () {
+                      ban.src = bann.value;
+                    });
+                  </script>
+
+
+                  <style>
+                    .plan-list {
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 10px;
+                      list-style: none;
+                      padding: 0;
+                      margin: 0;
+                    }
+
+                    .plan-item {
+                      border: 0 solid #e5eaef;
+                      background-color: rgba(255, 255, 255, .2);
+                      border-radius: 15px;
+                      padding: 10px;
+                      min-width: 200px;
+                      margin: 5px;
+                      cursor: pointer;
+                    }
+
+                    .plan-item:hover {
+                      background-color: #333333;
+                    }
+
+                    .plan-item.selected {
+                      background-color: rgba(0, 0, 0, .2);
+                      box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .45)
+                    }
+
+                    .plan-name {
+                      color: white;
+                      font-weight: bold;
+                    }
+
+                    .plan-ram {
+                      color: white;
+                      margin-left: 5px;
+                    }
+
+                    @media (max-width: 768px) {
+                      .plan-list {
+                        justify-content: center;
+                      }
+                    }
+                  </style>
+
+                  <script>
+                    fetch('/api/nests')
+                      .then(response => response.json())
+                      .then(data => {
+                        const nestList = document.getElementById('nestList');
+
+                        data.nests.forEach(nest => {
+                          const nestItem = document.createElement('div');
+                          nestItem.classList.add('plan-item');
+                          nestItem.textContent = nest.attributes.name;
+                          nestItem.setAttribute('data-id', nest.attributes.id);
+
+                          nestItem.addEventListener('click', () => {
+                            clearSelection(nestList);
+                            nestItem.classList.add('selected');
+                            populateEggs(nestItem.getAttribute('data-id'));
+                          });
+
+                          nestList.appendChild(nestItem);
+                        });
+
+                        const populateEggs = (nestId) => {
+                          const eggList = document.getElementById('eggList');
+                          eggList.innerHTML = '';
+
+                          fetch(`/api/nests/${nestId}/eggs`)
+                            .then(response => response.json())
+                            .then(data => {
+                              data.eggs.forEach(egg => {
+                                const eggItem = document.createElement('div');
+                                eggItem.classList.add('plan-item');
+                                eggItem.textContent = egg.attributes.name;
+                                eggItem.setAttribute('data-id', egg.attributes.id);
+
+                                eggItem.addEventListener('click', () => {
+                                  clearSelection(eggList);
+                                  eggItem.classList.add('selected');
+                                });
+
+                                eggList.appendChild(eggItem);
+                              });
+                            })
+                            .catch(error => console.error('Error fetching eggs:', error));
+                        };
+
+                        const clearSelection = (list) => {
+                          const items = list.getElementsByClassName('plan-item');
+                          Array.from(items).forEach(item => item.classList.remove('selected'));
+                        };
+                      })
+                      .catch(error => console.error('Error fetching nests:', error));
+
+                    document.getElementById('nestEggForm').addEventListener('submit', function (event) {
+                      event.preventDefault();
+
+                      const nestItems = document.getElementById('nestList').getElementsByClassName('plan-item');
+                      const selectedNestItem = Array.from(nestItems).find(item => item.classList.contains('selected'));
+                      const nestId = selectedNestItem ? selectedNestItem.getAttribute('data-id') : '';
+
+                      const eggItems = document.getElementById('eggList').getElementsByClassName('plan-item');
+                      const selectedEggItem = Array.from(eggItems).find(item => item.classList.contains('selected'));
+                      const eggId = selectedEggItem ? selectedEggItem.getAttribute('data-id') : '';
+                      let banner = document.getElementById("banner").value
+                      if (!banner) {
+                        banner = "/cdn/eggs/minecraft.png"
+                      }
+                      fetch('/api/settings', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ nestId, eggId, banner })
+                      })
+                        .then(response => response.json())
+                        .then(data => {
+                          if (data.success) {
+                            toastr.success(`Successfully added the egg with ID: ${eggId}!`, 'Success!');
+                            toastr.info(`Please reload the settings to sync the current changed!`, 'Changes detected!');
+                          } else {
+                            toastr.error('Failed to add Egg!', 'Error!');
+                          }
+                        })
+                        .catch(error => console.error('Error updating settings:', error));
+                    });
+
+                  </script>
+
+                  <script>
+                    function updateBrand() {
+                      const nameValue = document.getElementById('name');
+                      const logoValue = document.getElementById('logo').value;
+
+                      const data = {
+                        name: nameValue,
+                        logo: logoValue,
+                      };
+
+                      const xhr = new XMLHttpRequest();
+                      xhr.open('POST', '/update-brand');
+                      xhr.setRequestHeader('Content-Type', 'application/json');
+                      xhr.send(JSON.stringify(data));
+                      location.reload();
+                    }
+                  </script>
+                  <!-- End Handlers -->
+                  <!-- Include Bootstrap 5 JS -->
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+                  <!-- Include Bootstrap 5 CSS -->
+                  <link rel="stylesheet"
+                    href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+                </div>
+              </div>
+</body>
+
+</html>
+</body>
+<!--start overlay-->
+<div class="overlay toggle-menu"></div>
+<!--end overlay-->
+<!--Start Back To Top Button-->
+<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+<!--End Back To Top Button-->
+<!-- Bootstrap core JavaScript-->
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/popper.min.js"></script>
+<script src="../../../assets/js/bootstrap.min.js"></script>
+<!-- simplebar js -->
+<script src="../../../assets/plugins/simplebar/js/simplebar.js"></script>
+<!-- sidebar-menu js -->
+<script src="../../../assets/js/sidebar-menu.js"></script>
+<!-- Custom scripts -->
+<script src="../../../assets/js/app-script.js"></script>
+<footer>
+  <%- include('../components/footer') %>
+</footer>

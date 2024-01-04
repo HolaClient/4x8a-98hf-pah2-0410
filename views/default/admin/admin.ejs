@@ -1,0 +1,357 @@
+<%- include('../components/header') %>
+<%- include('../components/css') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../components/menu') %>
+<%- include('../components/topnav') %>
+<%- include('../scripts/containers') %>
+<div class="card">
+   <div class="card-body">
+      <div class="card-title">&nbsp;<%= settings.name %> Statistics</div>
+      <hr>
+      <div class="row row-group m-0">
+         <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+               <h5 class="text-white mb-0"><span id="users">---</span><span class="float-right"><i
+                  class="bi bi-people"></i></span></h5>
+               <p class="mb-0 text-white small-font">Users Registered</p>
+            </div>
+         </div>
+         <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+               <h5 class="text-white mb-0"><span id="servers">---</span><span class="float-right"><i
+                  class="bi bi-hdd-network"></i></span></h5>
+               <p class="mb-0 text-white small-font">Servers Active</p>
+            </div>
+         </div>
+         <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+               <h5 class="text-white mb-0"><span id="locations">---</span><span class="float-right"><i
+                  class="bi bi-geo"></i></span></h5>
+               <p class="mb-0 text-white small-font">Locations</p>
+            </div>
+         </div>
+         <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+               <h5 class="text-white mb-0"><span id="nodes">---</span><span class="float-right"><i
+                  class="bi bi-hdd-rack"></i></span></h5>
+               <p class="mb-0 text-white small-font">Nodes</p>
+            </div>
+         </div>
+      </div>
+      <div class="row row-group m-0">
+         <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+               <h5 class="text-white mb-0"><span id="tram">---</span><span class="float-right"><i
+                  class="bi bi-memory"></i></span></h5>
+               <p class="mb-0 text-white small-font">Total RAM Available</p>
+            </div>
+         </div>
+         <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+               <h5 class="text-white mb-0"><span id="tdisk">---</span><span class="float-right"><i
+                  class="bi bi-hdd"></i></span></h5>
+               <p class="mb-0 text-white small-font">Total Disk Available</p>
+            </div>
+         </div>
+         <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+               <h5 class="text-white mb-0"><span id="uram">---</span><span class="float-right"><i
+                  class="bi bi-memory"></i></span></h5>
+               <p class="mb-0 text-white small-font">Total RAM Used</p>
+            </div>
+         </div>
+         <div class="col-12 col-lg-6 col-xl-3 border-light">
+            <div class="card-body">
+               <h5 class="text-white mb-0"><span id="udisk">---</span><span class="float-right"><i
+                  class="bi bi-hdd"></i></span></h5>
+               <p class="mb-0 text-white small-font">Total Disk Used</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   function tram() {
+     const apiKey = '<%= settings.api.key %>';
+     const xhr = new XMLHttpRequest();
+     xhr.open('GET', '/api/total/ram', true);
+     xhr.setRequestHeader('Authorization', apiKey);
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4) {
+         if (xhr.status === 200) {
+           const response = JSON.parse(xhr.responseText);
+           document.getElementById('tram').textContent = response.ram / 1024 + ' GB';
+         } else {
+           console.error('Error fetching RAM:', xhr.statusText);
+         }
+       }
+     };
+     xhr.send();
+   }
+   tram()
+   function tdisk() {
+     const apiKey = '<%= settings.api.key %>';
+     const xhr = new XMLHttpRequest();
+     xhr.open('GET', '/api/total/disk', true);
+     xhr.setRequestHeader('Authorization', apiKey);
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4) {
+         if (xhr.status === 200) {
+           const response = JSON.parse(xhr.responseText);
+           document.getElementById('tdisk').textContent = response.disk / 1024 + ' GB';
+         } else {
+           console.error('Error fetching Disk:', xhr.statusText);
+         }
+       }
+     };
+     xhr.send();
+   }
+   tdisk()
+   function udisk() {
+     const apiKey = '<%= settings.api.key %>';
+     const xhr = new XMLHttpRequest();
+     xhr.open('GET', '/api/used/disk', true);
+     xhr.setRequestHeader('Authorization', apiKey);
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4) {
+         if (xhr.status === 200) {
+           const response = JSON.parse(xhr.responseText);
+           document.getElementById('udisk').textContent = response.disk / 1024 + ' GB';
+         } else {
+           console.error('Error fetching Disk:', xhr.statusText);
+         }
+       }
+     };
+     xhr.send();
+   }
+   udisk()
+   function uram() {
+     const apiKey = '<%= settings.api.key %>';
+     const xhr = new XMLHttpRequest();
+     xhr.open('GET', '/api/used/ram', true);
+     xhr.setRequestHeader('Authorization', apiKey);
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4) {
+         if (xhr.status === 200) {
+           const response = JSON.parse(xhr.responseText);
+           document.getElementById('uram').textContent = response.ram / 1024 + ' GB';
+         } else {
+           console.error('Error fetching RAM:', xhr.statusText);
+         }
+       }
+     };
+     xhr.send();
+   }
+   uram()
+</script>
+<div class="row mt-3">
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-header">Statistics Graph
+         </div>
+         <div class="card-body">
+            <div class="chart-container-1">
+               <canvas id="chart1"></canvas>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-header">Usage info (in GB)
+         </div>
+         <div class="card-body">
+            <div class="chart-container-1">
+               <canvas id="chart2"></canvas>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   async function fetchData() {
+     try {
+       const serverInfo = await fetch('/api/servers');
+       const serverData = await serverInfo.json();
+       const usersInfo = await fetch('/api/users');
+       const userData = await usersInfo.json();
+       const locationsInfo = await fetch('/api/locations');
+       const locationData = await locationsInfo.json();
+       const nodesInfo = await fetch('/api/nodes');
+       const nodeData = await nodesInfo.json();
+   
+       const serverInfoElement = document.getElementById("servers");
+       serverInfoElement.innerText = serverData.servers;
+   
+       const usersElement = document.getElementById("users");
+       usersElement.innerText = userData.users;
+   
+       const locationsElement = document.getElementById("locations");
+       locationsElement.innerText = locationData.locations;
+   
+       const nodesElement = document.getElementById("nodes");
+       nodesElement.innerText = nodeData.nodes;
+   
+       const data = {
+         labels: ['Servers', 'Users', 'Locations', 'Nodes'],
+         datasets: [
+           {
+             data: [serverData.servers, userData.users, locationData.locations, nodeData.nodes],
+             backgroundColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)', 'rgba(54, 162, 235, 1)'],
+             borderWidth: 1,
+           },
+         ],
+       };
+   
+       const ctx = document.getElementById('chart1').getContext('2d');
+       const chart = new Chart(ctx, {
+         type: 'pie',
+         data: data,
+         options: {
+           responsive: true,
+           maintainAspectRatio: false,
+         },
+       });
+     } catch (error) {
+       console.error('Error fetching data:', error);
+     }
+   }
+   
+   fetchData();
+</script>
+<script>
+   async function fetchData() {
+     try {
+       const apiKey = '<%= settings.api.key %>';
+       
+       const ramInfo = await fetch('/api/total/ram', {
+         headers: { Authorization: apiKey },
+       });
+       const ramData = await ramInfo.json();
+   
+       const diskInfo = await fetch('/api/total/disk', {
+         headers: { Authorization: apiKey },
+       });
+       const diskData = await diskInfo.json();
+   
+       const uramInfo = await fetch('/api/used/ram', {
+         headers: { Authorization: apiKey },
+       });
+       const uramData = await uramInfo.json();
+   
+       const udiskInfo = await fetch('/api/used/disk', {
+         headers: { Authorization: apiKey },
+       });
+       const udiskData = await udiskInfo.json();
+   
+       const tramElement = document.getElementById("tram");
+       tramElement.innerText = (ramData.ram / 1024).toFixed(0) + ' GB';
+   
+       const tdiskElement = document.getElementById("tdisk");
+       tdiskElement.innerText = (diskData.disk / 1024).toFixed(0) + ' GB';
+   
+       const uramElement = document.getElementById("uram");
+       uramElement.innerText = (uramData.ram / 1024).toFixed(0) + ' GB';
+   
+       const udiskElement = document.getElementById("udisk");
+       udiskElement.innerText = (udiskData.disk / 1024).toFixed(0) + ' GB';
+   
+       const data = {
+         labels: ['RAM', 'DISK', 'Used RAM', 'Used DISK'],
+         datasets: [
+           {
+             data: [ramData.ram / 1024, diskData.disk / 1024, uramData.ram / 1024, udiskData.disk / 1024],
+             backgroundColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)', 'rgba(54, 162, 235, 1)'],
+             borderWidth: 1,
+           },
+         ],
+       };
+   
+       const ctx = document.getElementById('chart2').getContext('2d');
+       const chart = new Chart(ctx, {
+         type: 'pie',
+         data: data,
+         options: {
+           responsive: true,
+           maintainAspectRatio: false,
+         },
+       });
+     } catch (error) {
+       console.error('Error fetching data:', error);
+     }
+   }
+   
+   fetchData();
+</script>
+<div class="row mt-3">
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">HolaClient</div>
+            <hr>
+            <div class="form-group">
+               <p>HolaClient by CR072</p>
+               <br>
+               <span id="latest">Fetching...</span>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script>
+      async function getversion() {
+        let latestversion = await fetch("/api/version")
+          .then(response => response.json())
+          .then(json => {
+            const isUpToDate = json.latest === json.current;
+            document.getElementById("latest").innerHTML = `Current Version: v<%= settings.version %> <br>Latest Version: ${json.latest}<br>${isUpToDate ? 'HolaClient is up-to-date.' : '<b>HolaClient is not up-to-date!</b>'}`;
+      
+            if (!isUpToDate) {
+              alertAdmin();
+            }
+          });
+      }
+      
+      function alertAdmin() {
+        toastr.warning('Please keep your HolaClient up-to-date, as using older versions could potentially pose a security threat.', 'Update Available!');
+      }
+      
+      getversion();
+   </script>
+   <% if (settings.features.purge.enabled==true) { %>
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">&nbsp;Purge Servers</div>
+            <hr>
+            <div style="border-radius: 15px;" class="table-responsive">
+               <div class="form-group">
+                  <label for="input-6">&nbsp;Keyword: edit keyword in settings</label>
+                  <input class="form-control form-control-rounded" value="<%= settings.features.purge.keyword %>"
+                     disabled>
+               </div>
+               <button class="btn btn-light btn-round px-5"
+                  onclick="if (confirm('Are you sure that you want to purge inactive servers?')) { purge() }">Purge
+               Inactive Servers</button>
+               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+               <script>
+                  function purge() {
+                    $.ajax({
+                      url: '/api/purge',
+                      method: 'POST',
+                      success: function () {
+                        toastr.success('The purger has successfully purged all servers without the appropriate keyword.', 'Purge Completed!')
+                      },
+                      error: function () {
+                        toastr.error('Failed to purge inactive servers.', "Error!");
+                      }
+                    });
+                  }
+               </script>
+            </div>
+         </div>
+      </div>
+      <% } %>
+   </div>
+</div>
+<%- include('../components/footer') %>
+<%- include('../components/js') %>

@@ -1,0 +1,52 @@
+   <%- include('../components/header') %>
+   <%- include('../components/css') %>
+   <%- include('../scripts/wrapper') %>
+   <%- include('../components/menu') %>
+   <%- include('../components/topnav') %>
+   <%- include('../components/alert') %>
+   <%- include('../scripts/containers') %>
+   <div class="card">
+     <div class="card-body">
+       <div class="card-title">Change User's Plan</div>
+       <hr>
+       <div class="form-group">
+        <label for="searchInput">Search:</label>
+        <input type="text" id="searchInput" class="form-control form-control-rounded bottomflat"
+           placeholder="Search by username, email, or HCID">
+        <select id="userSelect" class="form-control form-control-rounded topflat">
+           <option value="" disabled selected>Select a user</option>
+        </select>
+     </div>
+       <div class="form-group">
+         <label for="input-6">Plan:</label>
+         <ul class="plan-list">
+           <% for (let [name, value] of Object.entries(settings.packages.list)) { %>
+           <li class="plan-item" data-package="<%= name %>">
+             <span class="plan-name"><%= value.name %></span>
+             <span class="plan-ram">(<%= value.ram %>MB RAM)</span>
+           </li>
+           <% } %>
+         </ul>
+       </div>
+       <span id="plan"></span>
+       <div class="form-group">
+         <button onclick="submitPlan()" role="button" class="btn btn-light btn-round px-5"> Change</button>
+       </div>
+     </div>
+   </div>
+   <div class="card">
+    <div class="card-body">
+      <div class="card-title">Remove an user</div>
+      <hr>
+      <div class="form-group">
+       <label for="searchInput">User's HCID:</label>
+       <input type="number" id="rmAccId" class="form-control form-control-rounded" placeholder="0069">
+    </div>
+      <div class="form-group">
+        <button onclick="removeAccount()" role="button" class="btn btn-light btn-round px-5"> Remove</button>
+      </div>
+    </div>
+  </div>
+   <%- include('../scripts/users') %>
+   <%- include('../components/footer') %>
+   <%- include('../components/js') %>

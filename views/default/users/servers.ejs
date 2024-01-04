@@ -1,0 +1,314 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+<%- include('../components/alert') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../scripts/containers') %>
+<%- include('../components/sidebar') %>
+<%- include('../components/topnav') %>
+<% if (settings.features.subdomain.enabled==true) { %>
+<div class="card alert">
+  <div class="card-body">
+    <div style="border-radius: 15px;">
+      <div class="card-action">
+        <div class="dropdown">
+          <i onclick="location.href='https://holaclient.tech/guide'" target="_blank" style="cursor: pointer;" class="fa-solid fa-info" style="color: #ffffff;"></i>&nbsp;
+        </div>
+      </div>
+      <div class="card-title" id="message">&nbsp; Subdomain Creator | <span id="subdomainValue"></span><span id="domain"></span></div>
+      <hr>
+      <div class="row mt-3">
+        <div class="col-lg-6">
+          <form id="createRecordForm">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="subdomain">Subdomain:</label>
+                <input type="text" id="subdomain" name="subdomain" class="form-control form-control-rounded" placeholder="Subdomain">
+              </div>
+              <div class="form-group">
+                <label for="target">Target:</label>
+                <input type="text" id="target" name="target" class="form-control form-control-rounded" placeholder="de01.admin.holaclient.io">
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="port">Port:</label>
+              <input type="number" id="port" name="port" class="form-control form-control-rounded" placeholder="25565">
+            </div>
+            <div class="form-group">
+              <label for="submit">Submit:</label><br>
+              <input type="text" value="10" id="priority" hidden>
+              <input type="text" value="40" id="weight" hidden>
+              <button type="submit" role="button" class="form-control form-control-rounded">Create
+                Subdomain</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+<% } %>
+
+<% if (pterodactyl.relationships.servers.data.length==0) { %>
+<div class="card alert">
+  <div class="card-body">
+    <div class="card-action">
+      <div class="dropdown">
+        <button aria-hidden="true" class="close" type="button">&times;</button>
+      </div>
+    </div>
+    <center>
+      <image onclick="location.href='../new'" width="256" src="https://media.discordapp.net/attachments/1135147336771850250/1136652020670017596/263899.png?width=576&height=576">
+        <br><br>
+        You don't have any servers yet! Click the above icon to create one.<br>
+    </center>
+  </div>
+</div>
+<% } else { %>
+<div class="row">
+  <% for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) { %>
+    <div class="col-12 col-lg-full col-xl-full">
+      <div class="card">
+        <div class="card-header text-center">
+          <%= pterodactyl.relationships.servers.data[i].attributes.name %>
+          <div class="card-action">
+            <div class="dropdown">
+              <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
+                <i class="icon-options"></i>
+              </a>
+              <div class="btn-group">
+                <div class="dropdown-menu dropdown-menu-right">
+                  <% if (settings.allow.renewals.status == true) { %>
+                  <a class="dropdown-item" href="/renew?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>">
+                    <i class="bi bi-arrow-repeat"></i> Renew
+                  </a>
+                  <% } %>
+                  <a class="dropdown-item" href="/servers/edit?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>">
+                    <i class="bi bi-pencil-fill"></i> Edit
+                  </a>
+                  <a class="dropdown-item" target="_blank"
+                    href="<%= settings.pterodactyl.domain %>/server/<%= pterodactyl.relationships.servers.data[i].attributes.identifier %>">
+                    <i class="bi bi-link-45deg"></i> Link
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" onclick="confirmDelete(<%= pterodactyl.relationships.servers.data[i].attributes.id %>)">
+                    <i class="bi bi-trash3"></i> Delete
+                  </a>
+                  <script>
+                    function confirmDelete(serverId) {
+                      Swal.fire({
+                        title: 'Confirm Deletion',
+                        text: 'Please confirm if you want to delete this server. The data cannot be retrieved after it has been deleted.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel',
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          window.location.href = '/delete?id=' + serverId;
+                        }
+                      });
+                    }
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-6">
+            <form id="createRecordForm">
+              <div class="card-body">
+                <div class="form-group">
+                  <label>UUID:</label>
+                  <input class="form-control form-control-rounded"
+                    value="<%= pterodactyl.relationships.servers.data[i].attributes.uuid %>" disabled>
+                </div>
+                <div class="form-group">
+                  <label>Identifier:</label>
+                  <input class="form-control form-control-rounded"
+                    value="<%= pterodactyl.relationships.servers.data[i].attributes.identifier %>" disabled>
+                </div>
+                <div class="form-group">
+                  <label>Location:</label>
+                  <input class="form-control form-control-rounded"
+                    value="<%= pterodactyl.relationships.servers.data[i].attributes.container.environment.P_SERVER_LOCATION %>"
+                    disabled>
+                </div>
+                <div class="form-group">
+                  <label>Created at:</label>
+                  <input class="form-control form-control-rounded"
+                    value="<%= pterodactyl.relationships.servers.data[i].attributes.created_at %>" disabled>
+                </div>
+              </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card-body">
+              <div class="form-group">
+                <label>ID:</label>
+                <input class="form-control form-control-rounded"
+                  value="<%= pterodactyl.relationships.servers.data[i].attributes.id %>" disabled>
+              </div>
+              <div class="form-group">
+                <label>Suspended:</label>
+                <input class="form-control form-control-rounded"
+                  value="<%= pterodactyl.relationships.servers.data[i].attributes.suspended %>" disabled>
+              </div>
+              <div class="form-group">
+                <label>egg:</label>
+                <input class="form-control form-control-rounded" id="eggName<%= i %>" disabled>
+              </div>
+              <div class="form-group">
+                <label>Renewal:</label>
+                <input class="form-control form-control-rounded" id="renewal<%= i %>" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          const eggId<%= i %> = '<%= pterodactyl.relationships.servers.data[i].attributes.egg %>';
+          const nestId<%= i %> = '<%= pterodactyl.relationships.servers.data[i].attributes.nest %>';
+  
+          fetch(`/api/nests/${nestId<%= i %>}/eggs/${eggId<%= i %>}`)
+            .then(response => response.json())
+            .then(eggDetails => {
+              const eggName<%= i %> = eggDetails.eggs.name;
+              document.getElementById("eggName<%= i %>").value = eggName<%= i %>;
+            })
+            .catch(error => {
+              console.error('Error fetching egg details:', error);
+            });
+  
+          fetch(`/api/renewal/status/<%= pterodactyl.relationships.servers.data[i].attributes.id %>`)
+            .then(response => response.json())
+            .then(data => {
+              const msg<%= i %> = data.message;
+              document.getElementById("renewal<%= i %>").value = msg<%= i %>;
+            })
+            .catch(error => {
+              console.error('Error fetching renewal details:', error);
+            });
+        </script>
+        <div class="row m-0 row-group text-center border-top border-light-3">
+          <div class="col-10 col-lg-2">
+            <div class="p-3">
+              <h5 class="mb-0">
+                <%= pterodactyl.relationships.servers.data[i].attributes.limits.memory %>MB
+              </h5>
+              <small class="mb-0">RAM</small>
+            </div>
+          </div>
+          <div class="col-10 col-lg-2">
+            <div class="p-3">
+              <h5 class="mb-0">
+                <%= pterodactyl.relationships.servers.data[i].attributes.limits.disk %>MB
+              </h5>
+              <small class="mb-0">DISK</small>
+            </div>
+          </div>
+          <div class="col-10 col-lg-2">
+            <div class="p-3">
+              <h5 class="mb-0">
+                <%= pterodactyl.relationships.servers.data[i].attributes.limits.cpu %>%
+              </h5>
+              <small class="mb-0">CPU</small>
+            </div>
+          </div>
+          <div class="col-10 col-lg-2">
+            <div class="p-3">
+              <h5 class="mb-0">
+                <%= pterodactyl.relationships.servers.data[i].attributes.feature_limits.databases %>
+              </h5>
+              <small class="mb-0">Databases</small>
+            </div>
+          </div>
+          <div class="col-10 col-lg-2">
+            <div class="p-3">
+              <h5 class="mb-0">
+                <%= pterodactyl.relationships.servers.data[i].attributes.feature_limits.backups %>
+              </h5>
+              <small class="mb-0">Backups</small>
+            </div>
+          </div>
+          <div class="col-10 col-lg-2">
+            <div class="p-3">
+              <h5 class="mb-0">
+                <%= pterodactyl.relationships.servers.data[i].attributes.feature_limits.allocations %>
+              </h5>
+              <small class="mb-0">Allocations</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% } %>
+  
+  <% } %>
+</div>
+<%- include('../components/footer') %>
+<%- include('../components/js') %>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const subdomainInput = document.getElementById('subdomain');
+    const subdomainValueElement = document.getElementById('subdomainValue');
+
+    subdomainInput.addEventListener('input', () => {
+      const subdomainValue = subdomainInput.value + ".";
+      subdomainValueElement.textContent = subdomainValue;
+    });
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    const domainElement = document.getElementById('domain');
+    const form = document.getElementById('createRecordForm');
+
+    fetch('/domain')
+      .then(response => response.json())
+      .then(data => {
+        domainElement.textContent = data.domain;
+        const domainName = data.domain
+      })
+      .catch(error => {
+        console.error('Error fetching domain:', error);
+        domainElement.textContent = 'Error fetching domain';
+      });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const subdomain = document.getElementById('subdomain').value;
+      const target = document.getElementById('target').value;
+      const port = document.getElementById('port').value;
+      const priority = document.getElementById('priority').value;
+      const weight = document.getElementById('weight').value;
+
+      fetch('/subdomain/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            subdomain,
+            target,
+            port,
+            priority,
+            weight
+          }),
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            toastr.success(`Subdomain ${subdomain} created successfully!`, 'Success!');
+          } else {
+            toastr.error(`Error on creating subdomain, Please refer our guide for more info!`, 'Failed!');
+          }
+        })
+        .catch(error => {
+          console.error('Error creating Subdoman:', error);
+          toastr.error(error, 'Error!');
+        });
+    });
+  });
+</script>

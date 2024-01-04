@@ -1,0 +1,59 @@
+{
+    "settings": {
+        "format": "JSON",
+        "list": "(JSON), (YML)",
+        "note": "Features like automatic location config won't work in YML"
+    },
+    "database": {
+        "db": "sqlite",
+        "list": "(sqlite)",
+        "encrypt": true
+    },
+    "config": {
+        "mysql": {
+            "host": "",
+            "port": "3306",
+            "username": "",
+            "password": "",
+            "database": ""
+        }
+    },
+    "backup": {
+        "enabled": true,
+        "options": {
+            "location": "storage/backups",
+            "overwrite": false,
+            "files": {
+                "database": true,
+                "referral": true,
+                "settings": true
+            }
+        }
+    },
+    "telemetry": {
+        "send": {
+            "enabled": true,
+            "send": {
+                "settings": true,
+                "logs": true,
+                "crashdata": true,
+                "system": {
+                    "cpu": true,
+                    "arch": true,
+                    "platform": true,
+                    "memory": true
+                }
+            }
+        },
+        "auto_verify": {
+            "enabled": true
+        },
+        "hostings_list": {
+            "list_your_host": true,
+            "send": {
+                "links": true,
+                "system_info": true
+            }
+        }
+    }
+}

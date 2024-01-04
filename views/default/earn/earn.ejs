@@ -1,0 +1,244 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+<%- include('../scripts/wrapper') %>
+<%- include('../components/sidebar') %>
+<%- include('../components/topnav') %>
+<%- include('../scripts/containers') %>
+<%- include('../components/alert') %>
+<div class="row mt-3">
+   <% if (settings.earn.shareus.enabled==true) { %>
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">ShareUS.io</div>
+            <hr>
+            <div>
+               <div>
+                  <div>
+                     <div id="generate-shareus-panel">
+                        <p style="color:white; text-align: start;">
+                           You will get <%= settings.earn.shareus.coins %> coins after you successfully complete
+                           a ShareUs.io link!<br>
+                           <br>
+                           <button class="btn btn-light btn-round px-5" id="generateBtn">
+                           Generate Link
+                           </button>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script>
+      const generateBtn = document.getElementById('generateBtn');
+      
+      generateBtn.addEventListener('click', async () => {
+        try {
+          const response = await fetch('/earn/shareus/generate');
+          const data = await response.json();
+      
+          if (response.ok) {
+            Swal.fire({
+              title: 'Success',
+              text: 'ShareUs link generated successfully.',
+              icon: 'success',
+              html: `Your ShareUs link: <a style="color: aqua" href="${data.link}"> Link</a>`
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: 'Error generating ShareUs link. Please try again later.',
+              icon: 'error'
+            });
+          }
+        } catch (error) {
+          console.error('Error generating ShareUs link:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Error generating ShareUs link. Please try again later.',
+            icon: 'error'
+          });
+        }
+      });
+   </script>
+   <% } %>
+   <% if (settings.earn.linkpays.enabled==true) { %>
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">LinkPays</div>
+            <hr>
+            <div>
+               <div>
+                  <div>
+                     <div id="generate-shareus-panel">
+                        <p style="color:white; text-align: start;">
+                           You will get <%= settings.earn.linkpays.coins %> coins after you successfully
+                           complete a LinkPays link!<br>
+                           <br>
+                           <button class="btn btn-light btn-round px-5" id="linkpaysBtn">
+                           Generate Link
+                           </button>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script>
+      const linkpaysBtn = document.getElementById('linkpaysBtn');
+      
+      linkpaysBtn.addEventListener('click', async () => {
+        try {
+          const response = await fetch('/earn/linkpays/generate');
+          const data = await response.json();
+      
+          if (response.ok) {
+            Swal.fire({
+              title: 'Success',
+              text: 'LinkPays link generated successfully.',
+              icon: 'success',
+              html: `Your LinkPays link: <a style="color: aqua" href="${data.link}"> Link</a>`
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: 'Error generating LinkPays Link. Please try again later.',
+              icon: 'error'
+            });
+          }
+        } catch (error) {
+          console.error('Error generating LinkPays link:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Error generating LinkPays link. Please try again later.',
+            icon: 'error'
+          });
+        }
+      });
+   </script>
+   <% } %>
+   <% if (settings.earn.gyanilinks.enabled==true) { %>
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">GyaniLinks</div>
+            <hr>
+            <div>
+               <div>
+                  <div>
+                     <div id="generate-shareus-panel">
+                        <p style="color:white; text-align: start;">
+                           You will get <%= settings.earn.gyanilinks.coins %> coins after you
+                           successfully complete a GyaniLinks link!<br>
+                           <br>
+                           <button class="btn btn-light btn-round px-5" id="gyaniBtn">
+                           Generate Link
+                           </button>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script>
+      const gyaniBtn = document.getElementById('gyaniBtn');
+      
+      gyaniBtn.addEventListener('click', async () => {
+        try {
+          const response = await fetch('/earn/gyani/generate');
+          const data = await response.json();
+      
+          if (response.ok) {
+            Swal.fire({
+              title: 'Success',
+              text: 'GyaniLinks link generated successfully.',
+              icon: 'success',
+              html: `Your GyaniLinks link: <a style="color: aqua" href="${data.link}"> Link</a>`
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: 'Error generating GyaniLinks Link. Please try again later.',
+              icon: 'error'
+            });
+          }
+        } catch (error) {
+          console.error('Error generating GyaniLinks link:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Error generating GyaniLinks link. Please try again later.',
+            icon: 'error'
+          });
+        }
+      });
+   </script>
+   <% } %>
+   <% if (settings.earn.j4r.enabled==true) { %>
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-body">
+            <div class="card-title">Join For Rewards</div>
+            <div class="table-responsive">
+               <table class="table table-hover" id="j4rServerTable">
+                  <thead>
+                     <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Coins</th>
+                        <th scope="col">Status</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script>
+      async function populateJ4rServers() {
+        try {
+          const response = await fetch('/users/earn/j4r/servers');
+          const data = await response.json();
+      
+          if (data.success) {
+            const j4rServers = data.j4rServers;
+            const tableBody = document.querySelector('#j4rServerTable tbody');
+      
+            j4rServers.forEach(server => {
+              const row = tableBody.insertRow();
+              const nameCell = row.insertCell(0);
+              const coinsCell = row.insertCell(1);
+              const joinedCell = row.insertCell(2);
+      
+              coinsCell.textContent = server.coins
+              nameCell.textContent = server.name;
+      
+              const joinLink = document.createElement('a');
+              joinLink.textContent = server.hasJoined ? 'Claimed' : 'Join';
+              joinLink.style.color = server.hasJoined ? '' : 'aqua';
+              joinLink.href = server.hasJoined ? '#' : server.invite;
+      
+              joinedCell.appendChild(joinLink);
+            });
+          } else {
+            console.error('Failed to retrieve j4r servers:', data.message);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+      
+      populateJ4rServers();
+      
+   </script>
+   <% } %>
+</div>
+<%- include('../components/footer') %>
+<%- include('../components/js') %>

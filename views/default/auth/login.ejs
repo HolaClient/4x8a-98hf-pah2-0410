@@ -1,0 +1,115 @@
+<%- include('../components/head') %>
+<%- include('../components/css') %>
+<%- include('../components/alert') %>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .rotate {
+    animation: rotation 1s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<body>
+
+  <!-- Start wrapper-->
+  <div id="wrapper">
+    <div class="card card-authentication1 mx-auto my-5">
+      <div class="card-body">
+        <div id="loginbox" class="card-content p-2">
+          <div class="text-center">
+            <img width="40px" src="<%= settings.logo.url %>" alt="logo icon">
+          </div>
+          <div class="card-title text-uppercase text-center py-3">Sign In to <%= settings.name %>
+          </div>
+          <form>
+            <div class="form-group">
+              <label for="" class="sr-only">Email</label>
+              <div class="position-relative has-icon-right">
+                <input type="text" id="user" class="form-control input-shadow" placeholder="Enter Username or Email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="" class="sr-only">Password</label>
+              <div class="position-relative has-icon-right">
+                <input type="password" id="password" class="form-control input-shadow" placeholder="Enter Password">
+              </div>
+            </div>
+            <button onclick="submitForm()" type="button" class="btn btn-light btn-block">Sign In</button>
+            <div class="text-center mt-3">Or login using</div>
+            <div class="form-row mt-4">
+              <a href="./auth/discord/login" type="button" class="btn btn-light btn-block"><i class="bi bi-discord"></i>
+                Discord</a>
+            </div>
+          </form>
+        </div>
+        <div id="loading" style="display: none;" class="card-content p-2">
+          <div class="text-center">
+            <img width="40px" src="<%= settings.logo.url %>" class="rotate">
+          </div>
+        </div>
+      </div>
+      <% if (settings.authentication.email.enabled == true) { %>
+      <div id="footer" class="card-footer text-center py-3">
+        <p class="mb-0">New to <%= settings.name %>? <a href="./register"> Sign Up here</a></p>
+      </div>
+      <% } else { %>
+      <% } %>
+    </div>
+    <% if (!req.session.userinfo) { %><% } else { %>
+    <script>
+      window.addEventListener('load', function() {
+        window.location.href = "./dashboard";
+      });
+    </script><% } %>
+    <script>
+      async function submitForm() {
+        let loginbox = document.getElementById("loginbox");
+        let loading = document.getElementById("loading");
+        let footer = document.getElementById("footer");
+        loginbox.style.display = 'none'
+        loading.style.display = 'block'
+        footer.style.display = 'none'
+        let user = encodeURIComponent(document.getElementById("user").value);
+        let password = encodeURIComponent(document.getElementById("password").value);
+        try {
+          const response = await fetch(`/auth/email/login?user=${user}&password=${password}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            },
+          });
+
+          const data = await response.json();
+
+          if (data.success === true) {
+            window.location.href = '/dashboard';
+          } else {
+            toastr.error(data.message, 'Error');
+            loginbox.style.display = 'block'
+            loading.style.display = 'none'
+            footer.style.display = 'block'
+          }
+        } catch (error) {
+          toastr.error(error, "Error!");
+          loginbox.style.display = 'block'
+          loading.style.display = 'none'
+          footer.style.display = 'block'
+        }
+      };
+    </script>
+    <%- include('../components/js') %>
