@@ -1,0 +1,17 @@
+<div class="card mt-3">
+  <div class="card-content">
+    <div class="row row-group m-0">
+      <% for (let i = 0, len = resources.length; i < len; i++) { %>
+      <div class="col-12 col-lg-6 col-xl-3 border-light">
+        <div class="card-body">
+          <h5 class="text-white mb-0"><%= resources[i].used %> / <%= resources[i].total %></h5>
+          <div class="progress my-3" style="height:3px;">
+            <div class="progress-bar" style="width:<%= resources[i].used * 100 / resources[i].total %>%"></div>
+          </div>
+          <p class="mb-0 text-white small-font"><%= resources[i].unit %> <%= resources[i].name %> Used</p>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

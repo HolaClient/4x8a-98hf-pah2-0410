@@ -1,0 +1,464 @@
+<%- include('./partials/head') %>
+
+    <body class="bg-zinc-950">
+        <div class="antialiased">
+            <%- include('./partials/topnav') %>
+                <%- include('./partials/sidebar') %>
+                    <main class="p-4 md:ml-64 h-auto pt-20">
+                        <section>
+                            <h1 class="text-white font-semibold mt-2 mb-4 text-4xl" id="greeting"></h1>
+                            <script>
+                                function getGreeting() {
+                                    const currentTime = new Date().getHours();
+                                    let greeting;
+
+                                    if (currentTime >= 5 && currentTime < 12) {
+                                        greeting = "Good Morning, <%= userinfo.nickname %>";
+                                    } else if (currentTime >= 12 && currentTime < 17) {
+                                        greeting = "Good Afternoon, <%= userinfo.nickname %>";
+                                    } else if (currentTime >= 17 && currentTime < 22) {
+                                        greeting = "Good Evening, <%= userinfo.nickname %>";
+                                    } else {
+                                        greeting = "Hey Batman, time to sleep!";
+                                    }
+
+                                    return greeting;
+                                }
+
+                                document.getElementById("greeting").innerText = `${getGreeting()}`;
+                            </script>
+                            <div class="lg:flex gap-4">
+                                <div class="lg:w-2/3 h-max grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                    <div class="rounded-lg h-max bg-zinc-900 px-2.5 py-2 text-white">
+                                        <div class="flex items-center justify-between space-x-1">
+                                            <p>
+                                                <span id="uram" class="text-lg font-medium">0</span>
+                                                <span class="text-md"> / <span id="tram">0</span> GB</span>
+                                            </p>
+                                            <i class="fa-solid fa-memory"></i>
+                                        </div>
+
+                                        <div
+                                            class="mt-1.5 flex items-center justify-between text-xs text-slate-400 dark:text-navy-300">
+                                            <p class="mt-0.5 text-tiny+ uppercase">Memory used</p>
+                                            <span><span id="pram"></span>%</span>
+                                        </div>
+
+                                        <div class="progress mt-3 h-1.5 bg-zinc-700">
+                                            <div id="wram" style="width: 0%;"
+                                                class="is-active relative overflow-hidden rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-lg h-max bg-zinc-900 px-2.5 py-2 text-white">
+                                        <div class="flex items-center justify-between space-x-1">
+                                            <p>
+                                                <span id="udisk" class="text-lg font-medium">0</span>
+                                                <span class="text-md">/ <span id="tdisk">0</span> GB</span>
+                                            </p>
+                                            <i class="fa-solid fa-hard-drive"></i>
+                                        </div>
+
+                                        <div
+                                            class="mt-1.5 flex items-center justify-between text-xs text-slate-400 dark:text-navy-300">
+                                            <p class="mt-0.5 text-tiny+ uppercase">Storage used</p>
+                                            <span> <span id="pdisk"></span>%</span>
+                                        </div>
+
+                                        <div class="progress mt-3 h-1.5 bg-zinc-700">
+                                            <div id="wdisk" style="width: 0%;"
+                                                class="is-active relative overflow-hidden rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-lg h-max bg-zinc-900 px-2.5 py-2 text-white">
+                                        <div class="flex items-center justify-between space-x-1">
+                                            <p>
+                                                <span id="uports" class="text-lg font-medium">0</span>
+                                                <span class="text-xs">/ <span id="tports">0</span></span>
+                                            </p>
+                                            <i class="fa-solid fa-plug"></i>
+                                        </div>
+
+                                        <div
+                                            class="mt-1.5 flex items-center justify-between text-xs text-slate-400 dark:text-navy-300">
+                                            <p class="mt-0.5 text-tiny+ uppercase">Allocations used</p>
+                                            <span> <span id="pports"></span>%</span>
+                                        </div>
+
+                                        <div class="progress mt-3 h-1.5 bg-zinc-700">
+                                            <div id="wports" style="width: 0%;"
+                                                class="is-active relative overflow-hidden rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-lg h-max bg-zinc-900 px-2.5 py-2 text-white">
+                                        <div class="flex items-center p-1 gap-3 text-left text-white">
+                                            <div class="bg-zinc-800 items-center text-center px-3 p-2.5 rounded-lg">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor" class="w-8 h-8">
+                                                    <path
+                                                        d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z" />
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-lg font-semibold items-center leading-none text-white">
+                                                    $0</h3>
+                                                <span class="text-md text-gray-300">Total revenue</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-lg h-max bg-zinc-900 px-2.5 py-2 text-white">
+                                        <div class="flex items-center p-1 gap-3 text-left text-white">
+                                            <div class="bg-zinc-800 items-center text-center px-3 p-2.5 rounded-lg">
+                                                <i class="fa-solid fa-file-invoice scale-[2] p-2"></i>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-lg font-semibold items-center leading-none text-white">0
+                                                </h3>
+                                                <span class="text-md text-gray-300">Invoices created</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-lg h-max bg-zinc-900 px-2.5 py-2 text-white">
+                                        <div class="flex items-center p-1 gap-3 text-left text-white">
+                                            <div class="bg-zinc-800 items-center text-center px-3 p-2.5 rounded-lg">
+                                                <i class="fa-solid fa-coins scale-[2] p-2"></i>
+                                            </div>
+                                            <div>
+                                                <h3 id="coins"
+                                                    class="text-lg font-semibold items-center leading-none text-white">0
+                                                </h3>
+                                                <span class="text-md text-gray-300">Coins in circulation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:w-1/3 mt-4 lg:mt-0">
+                                    <div class="bg-zinc-900 rounded-lg p-3.5">
+                                        <div class="flex items-center gap-3 text-left text-white">
+                                            <div class="bg-zinc-800 rounded-lg p-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor" class="w-6 h-6">
+                                                    <path
+                                                        d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
+                                                </svg>
+                                            </div>
+                                            <div class="flex place-items-baseline">
+                                                <h3
+                                                    class="bg-[radial-gradient(138.06%_1036.51%_at_95.25%_-2.54%,_#7ED4FD_14.06%,#709DF7_51.02%,#4D78EF_79.09%)] bg-clip-text text-4xl font-bold leading-[1.2] text-transparent">
+                                                    <%= users.length %>
+                                                </h3>
+                                                <span class="text-md ml-2 text-gray-200">Users</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center mt-3 gap-3 text-left text-white">
+                                            <div class="bg-zinc-800 rounded-lg p-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor" class="w-6 h-6">
+                                                    <path
+                                                        d="M5.507 4.048A3 3 0 0 1 7.785 3h8.43a3 3 0 0 1 2.278 1.048l1.722 2.008A4.533 4.533 0 0 0 19.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008Z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M1.5 10.5a3 3 0 0 1 3-3h15a3 3 0 1 1 0 6h-15a3 3 0 0 1-3-3Zm15 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2.25.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM4.5 15a3 3 0 1 0 0 6h15a3 3 0 1 0 0-6h-15Zm11.25 3.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM19.5 18a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <div class="flex place-items-baseline">
+                                                <h3 id="servers"
+                                                    class="bg-[radial-gradient(138.06%_1036.51%_at_95.25%_-2.54%,_#7ED4FD_14.06%,#709DF7_51.02%,#4D78EF_79.09%)] bg-clip-text text-4xl font-bold leading-[1.2] text-transparent">
+                                                    <i class="fa-solid text-white fa-snowflake animate-spin"></i>
+                                                </h3>
+                                                <span class="text-md ml-2 text-gray-200">Servers</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center mt-3 gap-3 text-left text-white">
+                                            <div class="bg-zinc-800 rounded-lg p-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor" class="w-6 h-6">
+                                                    <path fill-rule="evenodd"
+                                                        d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <div class="flex place-items-baseline">
+                                                <h3 id="locations"
+                                                    class="bg-[radial-gradient(138.06%_1036.51%_at_95.25%_-2.54%,_#7ED4FD_14.06%,#709DF7_51.02%,#4D78EF_79.09%)] bg-clip-text text-4xl font-bold leading-[1.2] text-transparent">
+                                                    <i class="fa-solid text-white fa-snowflake animate-spin"></i>
+                                                </h3>
+                                                <span class="text-md ml-2 text-gray-200">Locations</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="mt-4">
+                            <h3
+                                class="font-nunito mb-2 text-center bg-gradient-to-br from-gray-200 to-transparent bg-clip-text text-5xl font-bold leading-[1.2] text-transparent">
+                                Security Actions</h3>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                <div class="bg-zinc-900 rounded-lg border border-zinc-800 p-3">
+                                    <a
+                                        class="rounded-lg bg-zinc-800 w-full p-2 text-white text-center  block mt-0 mb-4"></span>Purge
+                                        servers without a keyword</a>
+                                    <div class="flex justify-between mt-1 p-1">
+                                        <a class="text-gray-200">Total servers: <span id="tservers"
+                                                class="text-green-400 font-semibold"><i
+                                                    class="fa-solid fa-circle-notch animate-spin"></i></span> </a>
+                                        <a class="text-gray-200">Inactive servers: <span id="iservers"
+                                                class="text-rose-400 font-semibold"><i
+                                                    class="fa-solid fa-circle-notch animate-spin"></i></span> </a>
+                                    </div>
+                                    <div class="relative mt-2 items-center">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <span class="text-gray-300">Keyword:</span>
+                                        </div>
+                                        <input id="keyword"
+                                            class="w-full appearance-none outline-0 pl-20 text-green-400 transition-all duration-300 ease-in-out border-2 border-zinc-800 bg-zinc-800 hover:border-blue-500 focus:border-zinc-800 px-1.5 py-1.5 text-base rounded-lg"
+                                            type="text" value="<%= settings.features.purge.keyword %>">
+                                        <button id="purge" onclick="purge()"
+                                            class="bg-rose-500 px-4 h-full scale-[0.8] animation duration-500 absolute end-0 text-white rounded-lg hover:scale-95">
+                                            Purge
+                                        </button>
+                                        <button id="update" onclick="update()"
+                                            class="bg-emerald-500 hidden px-4 h-full scale-[0.8] animation duration-500 absolute end-0 text-white rounded-lg hover:scale-95">
+                                            Update
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="bg-zinc-900 rounded-lg border border-zinc-800 p-3">
+                                    <a
+                                        class="rounded-lg bg-zinc-800 w-full p-2 text-white text-center block mt-0 mb-4"></span>Purge
+                                        suspended servers</a>
+                                    <div class="flex justify-between mt-1 p-1">
+                                        <a class="text-gray-200">Total suspended servers: <span id="sservers"
+                                                class="text-rose-500 font-semibold"><i
+                                                class="fa-solid fa-circle-notch animate-spin"></i></span> </a>
+                                    </div>
+                                    <button id="purge" onclick="suspended()"
+                                        class="bg-rose-500 py-2 w-full animation duration-500 mt-2 text-white rounded-lg hover:duration-500 hover:bg-rose-600 hover:shadow-lg hover:shadow-zinc-900">
+                                        Purge
+                                    </button>
+                                </div>
+                                <div class="bg-zinc-900 rounded-lg border border-zinc-800 p-3">
+                                    <a
+                                        class="rounded-lg bg-zinc-800 w-full p-2 text-white text-center block mt-0 mb-4"></span>
+                                        Scan servers for PteroVM</a>
+                                    <div class="flex justify-between mt-1 p-1">
+                                        <a class="text-gray-200">Scan interval: <span class="text-green-400">
+                                                <%= settings.features.anti_pteroVM.interval %>
+                                            </span> mins </a>
+                                        <a class="text-gray-200">Last scan: <span id="pterovmls"
+                                                class="text-gray-200">---</span> </a>
+                                    </div>
+                                    <button id="purge" onclick="pterovm()"
+                                        class="bg-sky-500 py-2 w-full animation duration-500 mt-2 text-white rounded-lg hover:duration-500 hover:bg-rose-600 hover:shadow-lg hover:shadow-zinc-900">
+                                        Scan
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="mt-4 bg-zinc-900 h-80 rounded-lg w-full text-gray-200 border border-zinc-800 p-3">
+                        <pre><iframe id="logs" style="color: white !important;" class="w-full h-full text-gray-200" src="/frames/admin/logs"></iframe></pre>
+                        </div>
+                    </main>
+        </div>
+    </body>
+    <script>
+        setInterval(function () {
+            var i = document.getElementById('logs');
+            i.src = i.src;
+        }, 5000);
+    </script>
+    <script>
+        async function fetchInactiveServers() {
+            try {
+                const response = await fetch('/api/admin/purger/inactive');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Error fetching inactive servers:", error);
+                throw error;
+            }
+        }
+
+        async function fetchSuspendedServers() {
+            try {
+                const response = await fetch('/api/admin/purger/suspended');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Error fetching suspended servers:", error);
+                throw error;
+            }
+        }
+
+        async function purge() {
+            try {
+                const result = await fetch('/api/admin/purge/inactive');
+                toastr.success(result.message);
+            } catch (error) {
+                console.error("Error initiating PteroVM scanner:", error);
+                toastr.error(`Error: ${error.message}`);
+            } finally {
+                updateUI();
+            }
+        }
+
+        async function suspended() {
+            try {
+                const result = await fetch('/api/admin/purge/suspended');
+                toastr.success("Successfully purged suspended servers.");
+            } catch (error) {
+                console.error("Error initiating suspended server purger:", error);
+                toastr.error(`Error: ${error.message}`);
+            } finally {
+                updateUI();
+            }
+        }
+
+        async function updateUI() {
+            try {
+                const inactiveServers = await fetchInactiveServers();
+                document.getElementById("tservers").innerText = inactiveServers.total;
+                document.getElementById("iservers").innerText = inactiveServers.inactive;
+
+                const suspendedServers = await fetchSuspendedServers();
+                document.getElementById("sservers").innerText = suspendedServers;
+            } catch (error) {
+                console.error("Error updating UI:", error);
+            }
+        }
+        updateUI();
+
+        const keyword = document.getElementById("keyword");
+        keyword.addEventListener("input", f);
+
+        function f() {
+            const pb = document.getElementById('purge');
+            const ub = document.getElementById('update');
+            pb.style.transition = "opacity 2s";
+            pb.style.opacity = "0";
+            pb.classList.add("hidden");
+
+            ub.classList.remove('hidden');
+        }
+
+        async function update() {
+            const keyword = document.getElementById("keyword");
+            const result = await fetch(`/api/admin/purger/inactive/update?keyword=${keyword.value}`);
+            toastr.success(result.message);
+        }
+
+        async function vm() {
+            try {
+                const c = await fetch('/api/admin/pterovm');
+                const cc = await c.json();
+                const i = document.getElementById("pterovmls");
+
+                const timeInSeconds = Math.floor((Date.now() - cc) / 1000);
+                let displayTime;
+                let display;
+                let colorClass = "";
+                let isUnderOneMinute;
+
+                if (timeInSeconds < 60) {
+                    displayTime = `${timeInSeconds}`;
+                    display = ` sec${timeInSeconds !== 1 ? 's' : ''}`;
+                    colorClass = "text-red-500";
+                    isUnderOneMinute = true;
+                } else {
+                    const timeInMinutes = Math.floor(timeInSeconds / 60);
+                    displayTime = `${timeInMinutes}`;
+                    display = ` min${timeInMinutes !== 1 ? 's' : ''}`;
+                    isUnderOneMinute = false;
+
+                    if (timeInMinutes < 5) {
+                        colorClass = "text-red-500";
+                    } else {
+                        colorClass = "text-emerald-400";
+                    }
+                }
+
+                function updateDisplay() {
+                    i.innerHTML = `<span><span class="${colorClass}">${displayTime}</span> ${display} ago</span>`;
+                }
+
+                if (isUnderOneMinute) {
+                    requestAnimationFrame(updateDisplay);
+                } else {
+                    i.innerHTML = `<span><span class="${colorClass}">${displayTime}</span> ${display} ago</span>`;
+                }
+            } catch (error) {
+                console.error("Error fetching PteroVM data:", error);
+            } finally {
+                requestAnimationFrame(vm);
+            }
+        }
+        vm();
+
+        async function pterovm() {
+            try {
+                const a = await fetch('/api/admin/pterovm/init');
+                const aa = await a.json();
+                vm();
+
+                if (aa.success === true && aa.finished === true) {
+                    toastr.success("Successfully finished scanning.");
+                    vm();
+                } else if (aa.success === true) {
+                    toastr.success("Initiated PteroVM scanner");
+                    vm();
+                } else {
+                    toastr.error(`Error: ${aa.error}`);
+                }
+            } catch (error) {
+                console.error("Error initiating PteroVM scanner:", error);
+            }
+        }
+    </script>
+
+    <script>
+        async function lol() {
+            const z = await fetch('/api/pterodactyl/stats/public');
+            const zz = await z.json();
+            const aa = zz.servers
+            const bb = zz.locations
+
+            const l = await fetch('/api/pterodactyl/stats/admin');
+            const rr = await l.json();
+            const cc = rr.umem
+            const dd = rr.tmem
+            const ee = rr.udisk
+            const ff = rr.tdisk
+            const gg = rr.uport
+            const hh = rr.tport
+            const i = await fetch('/api/core/coins');
+            const ii = await i.json();
+
+            document.getElementById("servers").innerText = aa
+            document.getElementById("locations").innerText = bb
+
+            document.getElementById("uram").innerText = (cc / 1024).toFixed(2)
+            document.getElementById("tram").innerText = (dd / 1024).toFixed(2)
+            document.getElementById("pram").innerText = (cc / dd * 100).toFixed(0)
+            document.getElementById("wram").style.transition = "width 2s"
+            document.getElementById("wram").style.width = (cc / dd * 100).toFixed(0) + "%"
+
+            document.getElementById("udisk").innerText = (ee / 1024).toFixed(0)
+            document.getElementById("tdisk").innerText = (ff / 1024).toFixed(0)
+            document.getElementById("pdisk").innerText = (ee / ff * 100).toFixed(0)
+            document.getElementById("wdisk").style.transition = "width 2s"
+            document.getElementById("wdisk").style.width = (ee / ff * 100).toFixed(0) + "%"
+
+            document.getElementById("uports").innerText = (gg)
+            document.getElementById("tports").innerText = (hh)
+            document.getElementById("pports").innerText = (gg / hh * 100).toFixed(0)
+            document.getElementById("wports").style.transition = "width 2s"
+            document.getElementById("wports").style.width = (gg / hh * 100).toFixed(0) + "%"
+
+            document.getElementById("coins").innerText = ii
+        }
+        lol()
+    </script>

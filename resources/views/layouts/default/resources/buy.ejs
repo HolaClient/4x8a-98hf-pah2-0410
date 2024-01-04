@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= settings.name %> | Billing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Urbanist&display=swap');
+    
+        body {
+            font-family: 'urbanist'
+        }
+    
+        .font-nunito {
+            font-family: 'nunito'
+        }
+    </style>
+</head>
+<% if (!req.query.id) { %>
+    <script>
+        window.location.href="/products"
+    </script>
+<% } else { %>
+    <% if (products.filter(product => product.id == req.query.id).length == 1) {
+        let product = products.filter(product => product.id == req.query.id)[0]
+    %>
+<body class="bg-zinc-950">
+    <section class="mx-8 lg:mx-24 mt-12">
+        <div class="grid grid-cols-1 lg:grid-cols-7 gap-8">
+            <div class="bg-zinc-900 h-max border w-full lg:col-span-3 border-zinc-700 rounded-lg p-4">
+                <h1 class="text-white text-3xl">
+                    Order summary
+                </h1>
+                <div class="bg-zinc-800 rounded-lg mt-4 items-center p-2 px-4 flex justify-between">
+                    <div class="items-center flex">
+                        <img src="<%= product.icon %>" class="h-16 rounded-lg">
+                        <div class="grid grid-cols-1 items-center ml-4">
+                            <p class="font-bold text-xl text-white">
+                                <%= product.name %>
+                            </p>
+                            <p class="text-lg text-gray-200">
+                                <%= product.price %> USD
+                            </p>
+                        </div>
+                    </div>
+                    <a onclick="location.href='/products'" class="hover:bg-zinc-900 hover:text-rose-500 duration-300 hover:duration-300 cursor-pointer text-white rounded-lg p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                        </svg>
+                    </a>
+                </div>
+                <input type="text" placeholder="Enter your promo code here!" class="outline-none placeholder-gray-300 bg-zinc-900 border focus:pl-4 focus:duration-300 duration-300 border-zinc-700 mt-3 text-white rounded-lg w-full p-2">
+                <hr class="my-4 border border-zinc-700">
+                <h1 class="font-semibold text-gray-200 text-xl flex justify-between">
+                    <span>Total estimate</span>
+                    <span><%= product.price %> USDT</span>
+                </h1>
+            </div>
+
+            <div class="bg-zinc-900 text-center h-max border w-full lg:col-span-4 border-zinc-700 rounded-lg p-4">
+                <h1 class="text-white text-center text-2xl">
+                    Available payment networks
+                </h1>
+                <div class="border border-zinc-800 rounded-lg my-4 p-2 w-full">
+                    <button onclick="pay()" class="bg-gray-100 hover:bg-black cursor-pointer text-black hover:text-white font-semibold rounded-lg p-2 px-4">
+                        PROCEED TO PAY
+                    </button>
+                </div>
+                <div id="services" class="bg-zinc-900 rounded-lg mt-4 text-center items-center space-y-1 p-2 grid grid-cols-1">
+                    
+                </div>
+                <script>
+                   async function s() {
+    let resp = await fetch('/api/payments/gateways/cryptomus');
+    let data = await resp.json();
+    let s = document.getElementById('services');
+    let h = '';
+
+    for (let i of data.result) {
+        if (i.is_available == true) {
+            h += `
+                <div class="bg-zinc-800 hover:bg-zinc-800/50 cursor-pointer duration-300 hover:duration-300 p-2 rounded-lg w-full flex items-center justify-between">
+                    <h1 class="text-white text-xl">
+                        ${i.currency}
+                    </h1>
+                    <h1 class="text-white text-xl">
+                        ${i.network}
+                    </h1>
+                </div>`;
+        }
+    }
+
+    s.innerHTML = h;
+}
+
+s();
+                    async function pay() {
+                    let resp = await fetch('/api/payments/gateways/cryptomus/payment?id=<%= product.id %>&amount=<%= product.price %>')
+                    let data = await resp.json()
+                    window.location.href=data.redirect
+                    }
+                </script>
+            </div>
+        </div>
+    </section>
+</body>
+<% } %>
+<% } %>
+</html>

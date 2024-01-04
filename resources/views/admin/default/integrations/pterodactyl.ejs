@@ -1,0 +1,426 @@
+<%- include('../partials/head') %>
+
+  <body class="bg-zinc-950">
+    <div class="antialiased">
+      <%- include('../partials/topnav') %>
+        <%- include('../partials/sidebar') %>
+          <main class="p-4 md:ml-64 h-auto pt-20">
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div class="flex bg-zinc-900 text-zinc-300 rounded-lg flex-wrap p-4 content-start">
+                <h1 class="text-2xl text-zinc-100">Pterodactyl settings</h1>
+                <hr class="w-full border-b border-zinc-700 my-2">
+                <div class="w-full mt-4 grid grid-cols-1 gap-4">
+                  <div class="w-full pr-2">
+                    <label class="block text-gray-300">Domain</label>
+                    <input class="w-full bg-zinc-800 outline-none rounded-lg p-2" id="pdomain"
+                      value="<%= ptla.domain %>" placeholder="https://panel.example.com">
+                  </div>
+                  <div class="w-full pr-2">
+                    <label class="block text-gray-300">Application API</label>
+                    <input class="w-full bg-zinc-800 outline-none rounded-lg p-2" id="papp" value="<%= ptla.app %>"
+                      placeholder="starts with ptla_">
+                  </div>
+                  <div class="w-full pr-2">
+                    <label class="block text-gray-300">Account API</label>
+                    <input class="w-full bg-zinc-800 outline-none rounded-lg p-2" id="pacc" value="<%= ptla.acc %>"
+                      placeholder="starts with ptlc_">
+                  </div>
+                  <button onclick="update()"
+                    class="w-full bg-zinc-800 hover:bg-zinc-800/50 duration-200 hover:duration-500 rounded-lg p-2">
+                    Update
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex bg-zinc-900 text-zinc-300 rounded-lg flex-wrap p-4 content-start">
+                <div class="w-full flex justify-between items-center">
+                  <h1 class="text-2xl text-zinc-100">Nodes</h1>
+                  <button id="refreshb" onclick="refresh()"
+                    class="p-2 text-zinc-200 group outline-none rounded-full bg-zinc-800"><i
+                      class="fa-solid group-hover:rotate-45 group-hover:duration-1000 duration-500 fa-arrow-rotate-right"></i></button>
+                </div>
+                <hr class="w-full border-b border-zinc-700 my-2">
+                <div id="nodesstats" class="w-full mt-2 grid grid-cols-1 gap-1">
+
+                </div>
+              </div>
+
+              <div class="grid gap-4 col-span-2 grid-cols-1 lg:grid-cols-3 w-full">
+                <div class="bg-zinc-900 w-full rounded-lg p-4">
+                  <div class="w-full flex justify-between items-center">
+                    <h1 class="text-2xl text-zinc-100">Remove Softwares</h1>
+                  </div>
+                  <hr class="w-full border-b border-zinc-700 my-2">
+                  <select class="w-full text-zinc-300 bg-zinc-800 outline-none rounded-lg p-2" id="eggs">
+                    <% for (let [name, value] of Object.entries(eggs)) { %>
+                      <option value="<%= name %>">
+                        <%= value.display %>
+                      </option>
+                      <% } %>
+                  </select>
+                  <button class="p-2 mt-4 text-zinc-200 w-full bg-zinc-800 rounded-lg hover:bg-zinc-800/60">
+                    Submit
+                  </button>
+                </div>
+
+                <div class="bg-zinc-900 text-zinc-300 col-span-2 w-full rounded-lg p-4">
+                  <div class="w-full flex justify-between items-center">
+                    <h1 class="text-2xl text-zinc-100">Add Softwares</h1>
+                  </div>
+                  <hr class="w-full border-b border-zinc-700 my-2">
+                  <form id="nestEggForm">
+                    <div class="w-full">
+                      <label class="block text-gray-300">Icon url</label>
+                      <input class="w-full bg-zinc-800 outline-none rounded-lg p-2" id="banner"
+                        placeholder="/cdn/products/minecraft.png">
+                    </div>
+                    <div class="w-full">
+                      <label class="block text-gray-300">Nest</label>
+                      <div class="grid grid-cols-1 lg:grid-cols-3" id="nestList"></div>
+                    </div>
+                    <div class="w-full">
+                      <label for="input-7">Egg:</label>
+                      <div class="grid grid-cols-1 lg:grid-cols-3" id="eggList"></div>
+                    </div>
+                    <div class="w-full">
+                      <button type="submit"
+                        class="p-2 mt-2 text-zinc-200 w-full bg-zinc-800 rounded-lg hover:bg-zinc-800/60">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="flex bg-zinc-900 col-span-2 text-zinc-300 rounded-lg flex-wrap p-4 content-start">
+                <div class="w-full flex justify-between items-center">
+                  <h1 class="text-2xl text-zinc-100">Server creation</h1>
+                </div>
+                <hr class="w-full border-b border-zinc-700 my-2">
+                <div class="grid grid-cols-1 w-full lg:grid-cols-5 gap-4">
+                  <div id="nodespane" class="w-full col-span-3 mt-4 grid grid-cols-2 gap-4">
+
+                  </div>
+                  <div id="configpane" class="w-full border-2 border-zinc-800 rounded-lg col-span-2 mt-4 gap-4">
+
+                  </div>
+                </div>
+              </div>
+            </section>
+            <script>
+              async function removeEgg() {
+                const selectElement = document.getElementById("eggs");
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+
+                if (!selectedOption) {
+                  toastr.error("", "Please select an egg to remove it!");
+                  return;
+                }
+
+                const selectedEgg = selectedOption.value;
+                const rmEgg = await fetch(`/admin/eggs/remove/${selectedEgg}`)
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.success === true) {
+                      selectElement.removeChild(selectedOption);
+                      toastr.success("", data.message);
+                      toastr.info(`Please reload the settings to sync the current changed!`, 'Changes detected!');
+                    } else {
+                      toastr.error('', data.message);
+                    }
+                  });
+              }
+            </script>
+            <style>
+              .plan-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+              }
+
+              .plan-item {
+                border: 0 solid #e5eaef;
+                background-color: rgba(255, 255, 255, .2);
+                border-radius: 15px;
+                padding: 10px;
+                min-width: 200px;
+                margin: 5px;
+                cursor: pointer;
+              }
+
+              .plan-item:hover {
+                background-color: #333333;
+              }
+
+              .plan-item.selected {
+                background-color: rgba(0, 0, 0, .2);
+                box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .45)
+              }
+
+              .plan-name {
+                color: white;
+                font-weight: bold;
+              }
+
+              .plan-ram {
+                color: white;
+                margin-left: 5px;
+              }
+
+              @media (max-width: 768px) {
+                .plan-list {
+                  justify-content: center;
+                }
+              }
+            </style>
+
+            <script>
+              fetch('/api/nests')
+                .then(response => response.json())
+                .then(data => {
+                  const nestList = document.getElementById('nestList');
+
+                  data.nests.forEach(nest => {
+                    const nestItem = document.createElement('div');
+                    nestItem.classList.add('plan-item');
+                    nestItem.textContent = nest.attributes.name;
+                    nestItem.setAttribute('data-id', nest.attributes.id);
+
+                    nestItem.addEventListener('click', () => {
+                      clearSelection(nestList);
+                      nestItem.classList.add('selected');
+                      populateEggs(nestItem.getAttribute('data-id'));
+                    });
+
+                    nestList.appendChild(nestItem);
+                  });
+
+                  const populateEggs = (nestId) => {
+                    const eggList = document.getElementById('eggList');
+                    eggList.innerHTML = '';
+
+                    fetch(`/api/nests/${nestId}/eggs`)
+                      .then(response => response.json())
+                      .then(data => {
+                        data.eggs.forEach(egg => {
+                          const eggItem = document.createElement('div');
+                          eggItem.classList.add('plan-item');
+                          eggItem.textContent = egg.attributes.name;
+                          eggItem.setAttribute('data-id', egg.attributes.id);
+
+                          eggItem.addEventListener('click', () => {
+                            clearSelection(eggList);
+                            eggItem.classList.add('selected');
+                          });
+
+                          eggList.appendChild(eggItem);
+                        });
+                      })
+                      .catch(error => console.error('Error fetching eggs:', error));
+                  };
+
+                  const clearSelection = (list) => {
+                    const items = list.getElementsByClassName('plan-item');
+                    Array.from(items).forEach(item => item.classList.remove('selected'));
+                  };
+                })
+                .catch(error => console.error('Error fetching nests:', error));
+
+              document.getElementById('nestEggForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const nestItems = document.getElementById('nestList').getElementsByClassName('plan-item');
+                const selectedNestItem = Array.from(nestItems).find(item => item.classList.contains('selected'));
+                const nestId = selectedNestItem ? selectedNestItem.getAttribute('data-id') : '';
+
+                const eggItems = document.getElementById('eggList').getElementsByClassName('plan-item');
+                const selectedEggItem = Array.from(eggItems).find(item => item.classList.contains('selected'));
+                const eggId = selectedEggItem ? selectedEggItem.getAttribute('data-id') : '';
+                let banner = document.getElementById("banner").value
+                if (!banner) {
+                  banner = "/cdn/eggs/minecraft.png"
+                }
+                fetch('/api/settings', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ nestId, eggId, banner })
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.success) {
+                      toastr.success(`Successfully added the egg with ID: ${eggId}!`, 'Success!');
+                    } else {
+                      toastr.error('Failed to add Egg!', 'Error!');
+                    }
+                  })
+                  .catch(error => console.error('Error updating settings:', error));
+              });
+
+            </script>
+            <script>
+              async function nodes() {
+                const a = await fetch('/api/pterodactyl/status/nodes');
+                const b = await a.json();
+                const c = document.getElementById("nodesstats");
+                const d = document.getElementById("nodespane");
+
+                for (const e of b) {
+                  let l
+                  if (e.status == "online") {
+                    l = `<h1 class="text-emerald-400 text-lg"><i class="fa-solid fa-beat duration-300 fa-heart-pulse fa-md"></i></h1>`
+                  } else {
+                    l = `<h1 class="text-red-400 text-lg"><i class="fa-regular fa-heart fa-md"></i></h1>`
+                  }
+                  let o;
+                  let oo = e.usedMemory / e.memory * 100
+                  if (oo > 80) {
+                    o = `<span class="text-rose-500 font-medium text-lg">${(e.usedMemory / e.memory * 100).toFixed(2)}%</span>`
+                  } else {
+                    o = `<span class="text-green-500 font-medium text-lg">${(e.usedMemory / e.memory * 100).toFixed(2)}%</span>`
+                  }
+                  const f = `
+                                    <div class="rounded-lg items-center hover:bg-zinc-800 hover:mx-2 hover:duration-300 duration-300 p-2 px-3 flex justify-between">
+                                        <div class="flex gap-4 items-center">
+                                            ${l} <span class="font-semibold">${e.name}</span>
+                                        </div>
+                                        <div class="text-right items-center">
+                                            <span class="font-bold items-center tracking-wide text-lg text-center text-zinc-300">${e.location.long} | ${o} Full</span>
+                                        </div>
+                                    </div>
+                                `;
+                  c.innerHTML += f;
+
+                  const g = `
+                                    <button id="${e.id}" onclick="node(${JSON.stringify(e).replace(/"/g, '&quot;')})" class="rounded-lg h-max w-full active:border-[3px] active:border-zinc-700 focus:border-[3px] focus:border-zinc-700 cursor-pointer items-center bg-zinc-800 p-2 px-3 flex justify-between">
+                                        <div class="text-left items-center">
+                                            <h1 class="text-zinc-100 end-0 text-lg">${e.name}</h1>
+                                            <span class="font-bold tracking-wide text-xs text-center text-zinc-300">${e.fqdn}</span>
+                                        </div>
+                                        <div class="text-right items-center">
+                                            <h1 class="text-zinc-100 end-0 text-lg">${e.usedMemory / e.memory * 100}% </h1>
+                                            <span class="font-bold tracking-wide text-xs text-center text-zinc-300">${e.location.short} | ${e.location.long}</span>
+                                        </div>
+                                    </button>
+                                `;
+                  d.innerHTML += g;
+                }
+              }
+              nodes();
+              async function refresh() {
+                document.getElementById('refreshb').style.transition = "transform 4s";
+                document.getElementById('refreshb').style.transform = "rotate(360deg)";
+                const response = await fetch('/api/pterodactyl/status/nodes/refresh');
+                const data = await response.json();
+                if (data.success == true) {
+                  toastr.success("Success")
+                }
+              }
+              async function node(n) {
+                console.log(n);
+                console.log(n.id);
+                const b = document.getElementById(n.id);
+                const h = document.getElementById("configpane")
+                const response = await fetch('/api/pterodactyl/admin/nodes');
+                const data = await response.json();
+                const a = data[n.id]
+                if (a) {
+                  console.log(a)
+                  const c = a.enabled == 'true' ? "checked" : "";
+                  const d = a.premium == 'true' ? "checked" : "";
+                  h.innerHTML = `
+    <div class="bg-zinc-800 text-center text-zinc-100 w-full rounded-t-lg p-2">
+                                        ${n.name}
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="w-full flex justify-center">
+                                            <div class="w-full pr-2">
+                                                <div class="items-center py-1.5 flex">
+                                                  <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" id="premium${n.id}" class="sr-only peer" ${c}>
+                                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Premium node</span>
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="w-full pr-2">
+                                                <div class="items-center py-1.5 flex">
+                                                  <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" id="allow${n.id}" class="sr-only peer" ${d}>
+                                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Allow servers</span>
+                                                  </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-full">
+                                            <label class="block text-gray-300">Minimum permission</label>
+                                            <input type="number" class="w-full bg-zinc-800 rounded-lg p-2" id="permission${n.id}" value="${a.permission}" placeholder="2 for users">
+                                          </div>
+                                          <button onclick="submit('${n.id}')" class="w-full cursor-pointer p-2 mt-2 rounded-lg text-center bg-zinc-800 hover:bg-zinc-800/50">
+                                            Apply changes
+                                          </button>
+                                    </div>`;
+                } else {
+                  h.innerHTML = `
+    <div class="bg-zinc-800 text-center text-zinc-100 w-full rounded-t-lg p-2">
+                                        ${n.name}
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="w-full flex justify-center">
+                                            <div class="w-full pr-2">
+                                                <div class="items-center py-1.5 flex">
+                                                  <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" id="premium${n.id}" class="sr-only peer">
+                                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Premium node</span>
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="w-full pr-2">
+                                                <div class="items-center py-1.5 flex">
+                                                  <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" id="allow${n.id}" class="sr-only peer" checked>
+                                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Allow servers</span>
+                                                  </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-full">
+                                            <label class="block text-gray-300">Minimum permission</label>
+                                            <input type="number" class="w-full bg-zinc-800 rounded-lg p-2" id="permission${n.id}" value="2" placeholder="2 for users">
+                                          </div>
+                                          <button onclick="submit('${n.id}')" class="w-full cursor-pointer p-2 mt-2 rounded-lg text-center bg-zinc-800 hover:bg-zinc-800/50">
+                                            Add node
+                                          </button>
+                                    </div>`;
+                }
+              }
+              async function submit(id) {
+                const premium = Boolean(document.getElementById(`premium${id}`).checked)
+                const enabled = Boolean(document.getElementById(`allow${id}`).checked)
+                const permission = parseInt(document.getElementById(`permission${id}`).value)
+                const response = await fetch(`/api/pterodactyl/admin/nodes/new?id=${id}&premium=${premium}&enabled=${enabled}&permission=${permission}`);
+                const data = await response.json();
+                if (data.success == true) {
+                  toastr.success("Success")
+                }
+              }
+
+              async function update() {
+                const domain = document.getElementById(`pdomain`).value
+                const app = document.getElementById(`papp`).value
+                const acc = document.getElementById(`pacc`).value
+                const response = await fetch(`/api/pterodactyl/admin/settings?payload=1&domain=${domain}&app=${app}&acc=${acc}`);
+                const data = await response.json();
+                if (data.success == true) {
+                  toastr.success("Success")
+                }
+              }
+            </script>
+          </main>

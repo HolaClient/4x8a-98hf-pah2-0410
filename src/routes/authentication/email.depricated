@@ -1,0 +1,197 @@
+/**
+ *--------------------------------------------------------------------------
+ * email.js - Email authentication manager.
+ *--------------------------------------------------------------------------
+*/
+
+/**
+ *--------------------------------------------------------------------------
+ * Loading modules
+ *--------------------------------------------------------------------------
+*/
+const modules = require("../../utils/modules")
+const wh = modules.wh
+const validator = modules.validator
+const settings = modules.settings;
+const crypto = modules.crypto;
+const keys = modules.keys;
+const alerts = modules.alerts;
+module.exports.load = async function (app, db) {
+    /**
+    *--------------------------------------------------------------------------
+    * Authentication process...
+    *--------------------------------------------------------------------------
+    */
+    app.get("/auth/email/validate", async (req, res) => {
+        if (!req.query.user || !req.query.password) return res.json({ "success": false, "message": alerts(req).alerts.MISSINGCREDENTIALS });
+        if (await db.get('users', `id-${req.query.user}`)) {
+            return res.json({ "success": true, "registered": true });
+        } else {
+            return res.json({ "success": false, "registered": false });
+        }
+    });
+    app.get("/auth/email", async (req, res) => {
+        if (!req.query.user || !req.query.password) return res.json({ "success": false, "message": alerts(req).alerts.MISSINGCREDENTIALS });
+        if (await db.get('users', `id-${req.query.user}`)) {
+            /**
+            *--------------------------------------------------------------------------
+            * Login process...
+            *--------------------------------------------------------------------------
+            */
+            const id = await db.get('users', `id-${req.query.user}`);
+            console.log(id)
+            const userinfo = await db.get('users', id);
+            const passwordHash = await db.get('users', `password-${id}`);
+            const password = decrypt(passwordHash, keys.database.encryption);
+            if (password !== req.query.password) return res.json({ "success": false, "message": alerts(req).alerts.INVALIDCREDENTIALS });
+            req.session.userinfo = userinfo
+            let secret = gen(48)
+            userinfo.sessions.current = secret
+            await db.set('users', id, userinfo)
+            return res.json({ "success": true, "message": alerts(req).alerts.SUCCESS });
+        } else {
+            /**
+            *--------------------------------------------------------------------------
+            * Registration process...
+            *--------------------------------------------------------------------------
+            */
+            if (settings.allow.signup == false) return res.json({ "success": false, "message": alerts(req).alerts.SIGNUPDISABLED });
+            if (validator.validate(req.query.user) == false) return res.json({ "success": false, "message": alerts(req).alerts.INVALIDEMAIL });
+
+            const ipv6 = req.headers['x-forwarded-for']?.split(',')[0] || req.headers['x-real-ip'] || req.headers['x-client-ip'] || req.headers['x-forwarded'] || req.socket.remoteAddress;
+            const ipv4 = req.headers['x-forwarded-for']?.split(',')[1];
+            const ip = {
+                "v6": ipv6,
+                "v4": ipv4
+            };
+
+            if (settings.authentication.email.alt.ip) {
+                let allips = await db.get("ips") ? await db.get("ips") : [];
+                let mainip = await db.get('ips', req.query.user);
+                if (mainip) {
+                    if (mainip.v6 !== ip.v6) {
+                        allips = allips.filter(ip2 => ip2 !== mainip.v6);
+                        if (allips.includes(ip.v6)) {
+                            return res.json({ "success": false, "message": alerts(req).alerts.ALTACCOUNT });
+                        }
+                        allips.push(ip);
+                        await db.set('ips', "ips", allips);
+                        await db.set('ips', req.query.user, ip);
+                    }
+                } else {
+                    if (allips.includes(ip.v6)) {
+                        return res.json({ "success": false, "message": alerts(req).alerts.ALTACCOUNT });
+                    }
+                    allips.push(ip);
+                    await db.set('ips', "ips", allips);
+                    await db.set('ips', req.query.user, ip);
+                }
+            };
+
+            if (settings.authentication.email.alt.cookies) {
+                let accountid = getCookie(req, "accountid");
+
+                if (accountid) {
+                    if (accountid !== req.query.user) {
+                        return res.json({ "success": false, "message": alerts(req).alerts.ALTACCOUNT });
+                    }
+                }
+
+                res.cookie('accountid', req.query.user);
+            }
+
+            let user = req.query.user
+            let userido = await db.get('core', "lastuser");
+            const userid = userido + 1
+            let userinfo = {
+                email: req.query.user,
+                id: userid,
+                password: encrypt(req.query.password, keys.database.encryption),
+                authtype: "email"
+            }
+
+            await db.set('users', userinfo.id, userinfo);
+            await db.set('users', userinfo.email, userinfo.id);
+            await db.set('core', 'lastuser', userinfo.id + 1);
+            let userinfo1 = {
+                email: req.query.user,
+                id: userid,
+                password: req.query.password,
+                authtype: "email"
+            }
+            req.session.userinfo = userinfo1
+            wh('signup', `${userinfo.email} has registered in the dashboard using email auth`)
+            dl.c(`${userinfo.email} Has registered in the Dashboard using email auth`)
+            return res.json({ "success": true, "message": alerts(req).alerts.SUCCESS });
+        }
+    });
+}
+/**
+*--------------------------------------------------------------------------
+* Defining other functions
+*--------------------------------------------------------------------------
+*/
+function gen(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?';
+    const charactersLength = characters.length;
+    const randomBytes = crypto.randomBytes(length);
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+        const index = randomBytes[i] % charactersLength;
+        result += characters.charAt(index);
+    }
+
+    return result;
+}
+function getCookie(req, cname) {
+    let cookies = req.headers.cookie;
+    if (!cookies) return null;
+    let name = cname + "=";
+    let ca = cookies.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return decodeURIComponent(c.substring(name.length, c.length));
+        }
+    }
+    return "";
+}
+function checkKeyL(key) {
+    const requiredKeyL = 32;
+    const currentKeyL = Buffer.from(key, 'utf-8').length;
+
+    if (currentKeyL < requiredKeyL) {
+        const paddingLength = requiredKeyL - currentKeyL;
+        const padding = Buffer.alloc(paddingLength, '\0');
+        return Buffer.concat([Buffer.from(key, 'utf-8'), padding], requiredKeyL);
+    } else if (currentKeyL > requiredKeyL) {
+        return Buffer.from(key, 'utf-8').slice(0, requiredKeyL);
+    }
+
+    return Buffer.from(key, 'utf-8');
+}
+function encrypt(text, key) {
+    const keyBuffer = checkKeyL(key);
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipheriv('aes-256-cbc', keyBuffer, iv);
+    let encrypted = cipher.update(text, 'utf-8', 'hex');
+    encrypted += cipher.final('hex');
+    return { iv: iv.toString('hex'), hash: encrypted };
+}
+function decrypt(hashData, key) {
+    const keyBuffer = checkKeyL(key);
+
+    const decipher = crypto.createDecipheriv('aes-256-cbc', keyBuffer, Buffer.from(hashData.iv, 'hex'));
+    let decrypted = decipher.update(hashData.hash, 'hex', 'utf-8');
+    decrypted += decipher.final('utf-8');
+    return decrypted;
+}
+/**
+*--------------------------------------------------------------------------
+* End of the file
+*--------------------------------------------------------------------------
+*/

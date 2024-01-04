@@ -1,0 +1,180 @@
+<%- include('./partials/head') %>
+
+    <body class="bg-zinc-950">
+        <div class="antialiased">
+            <%- include('./partials/topnav') %>
+                <%- include('./partials/sidebar') %>
+
+                    <body class="bg-zinc-800 text-white">
+                        <div id="a">
+                            <main class="p-4 md:ml-64 h-auto pt-20">
+                                <div class="mx-auto p-4 container">
+                                    <div class="flex flex-col bg-zinc-900 text-white rounded-xl">
+                                        <div class="px-4 pb-4 overflow-auto">
+                                            <input type="text" id="b" placeholder="Search by username..."
+                                                class="w-full p-2 mb-4 mt-2 border-b-2 border-zinc-800 bg-transparent text-white outline-none focus:pl-4 animation duration-500 focus:animation focus:duration-500 focus:border-blue-500">
+
+                                            <table class="w-full table-fixed">
+                                                <thead class="border-b border-zinc-800">
+                                                    <tr>
+                                                        <th class="p-4 text-white font-normal text-left">
+                                                            <div aria-hidden="true" class="">Avatar</div>
+                                                        </th>
+                                                        <th class="p-4 text-white font-normal text-left">
+                                                            <div aria-hidden="true"
+                                                                class="cursor-pointer flex items-center">
+                                                                Full Name</div>
+                                                        </th>
+                                                        <th class="p-4 text-white font-normal text-left">
+                                                            <div aria-hidden="true"
+                                                                class="cursor-pointer flex items-center">
+                                                                Username</div>
+                                                        </th>
+                                                        <th class="p-4 text-white font-normal text-left">
+                                                            <div aria-hidden="true"
+                                                                class="cursor-pointer flex items-center">
+                                                                HCID</div>
+                                                        </th>
+                                                        <th class="p-4 text-white font-normal text-left">
+                                                            <div aria-hidden="true"
+                                                                class="cursor-pointer flex items-center">
+                                                                Permission</div>
+                                                        </th>
+                                                        <th class="p-4 text-white font-normal text-left">
+                                                            <div aria-hidden="true"
+                                                                class="cursor-pointer flex items-center">
+                                                                Top Role</div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="border-b border-zinc-800" id="c">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="flex flex-wrap items-center justify-between gap-4 px-4 pb-4">
+                                            <div class="flex flex-wrap items-center gap-4">
+                                                <select id="d"
+                                                    class="w-full appearance-none outline-0 text-white transition-all duration-300 ease-in-out border-2 border-zinc-800 bg-zinc-800 hover:border-blue-500 focus:border-zinc-800 px-1.5 py-1.5 text-base rounded-lg">
+                                                    <option value="5">Show 5</option>
+                                                    <option value="10">Show 10</option>
+                                                    <option value="20">Show 20</option>
+                                                    <option value="30">Show 30</option>
+                                                    <option value="40">Show 40</option>
+                                                    <option value="100000000">Show All</option>
+                                                </select>
+                                            </div>
+                                            <div id="e"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+                        </div>
+                        <script>
+                            (async () => {
+                                const response = await fetch('/api/admin/users');
+                                const a = await response.json();
+                                
+                                const b = document.getElementById('a');
+                                const c = document.getElementById('c');
+                                const d = document.getElementById('b');
+                                const e = document.getElementById('d');
+                                const f = document.getElementById('e');
+                        
+                                let g = 1;
+                                let h = parseInt(e.value);
+                        
+                                function i() {
+                                    const j = d.value.toLowerCase();
+                                    const k = a.filter(l => 
+                                        l.name.first.toLowerCase().includes(j) ||
+                                        l.name.last.toLowerCase().includes(j) ||
+                                        (l.name.first + " " + l.name.last).toLowerCase().includes(j) ||
+                                        (l.nickname && l.nickname.toLowerCase().includes(j))
+                                    );
+                        
+                                    const m = (g - 1) * h;
+                                    const n = m + h;
+                                    const o = k.slice(m, n);
+                        
+                                    c.innerHTML = o.map(p => `
+                                        <tr onclick="location.href='/admin/manage/${p.hcid}'" class="cursor-pointer">
+                                            <td class="p-4 transition-all duration-300 ease-in-out text-left">
+                                                <a><img class="object-cover w-12 rounded-full" src="${p.avatar}"></a>
+                                            </td>
+                                            <td class="p-4 transition-all duration-300 text-gray-300 ease-in-out text-left">
+                                                <a>${p.name.first} ${p.name.last}</a>
+                                            </td>
+                                            <td class="p-4 transition-all duration-300 text-gray-300 ease-in-out text-left">
+                                                <a>${p.username}</a>
+                                            </td>
+                                            <td class="p-4 transition-all duration-300 text-gray-300 ease-in-out text-left">
+                                                <a>${p.hcid}</a>
+                                            </td>
+                                            <td class="p-4 transition-all duration-300 text-gray-300 ease-in-out text-left">
+                                                <a>${p.permissions.level}</a>
+                                            </td>
+                                            <td class="p-4 transition-all duration-300 text-gray-300 ease-in-out text-left">
+                                                <a>${p.permissions.role}</a>
+                                            </td>
+                                        </tr>
+                                    `).join('');
+                                }
+                        
+                                function q() {
+                                    const r = a.length;
+                                    const s = Math.ceil(r / h);
+                        
+                                    const t = [];
+                                    const u = 2;
+                        
+                                    let v = Math.max(1, g - u);
+                                    let w = Math.min(s, g + u);
+                        
+                                    if (v > 1) {
+                                        t.push(`<a href="#" class="outline-0 text-white bg-zinc-800 hover:bg-zinc-800/70 border-2 border-transparent hover:border-blue-500 px-4 py-2 mx-1 rounded-lg">1</a>`);
+                                        if (v > 2) {
+                                            t.push(`<span class="text-white px-2 py-2 mx-1">...</span>`);
+                                        }
+                                    }
+                        
+                                    for (let x = v; x <= w; x++) {
+                                        t.push(`<a href="#" class="outline-0 text-white bg-zinc-800 hover:bg-zinc-800/70 border-2 border-transparent hover:border-blue-500 px-4 py-2 mx-1 rounded-lg">${x}</a>`);
+                                    }
+                        
+                                    if (w < s) {
+                                        if (w < s - 1) {
+                                            t.push(`<span class="text-white px-2 py-2 mx-1">...</span>`);
+                                        }
+                                        t.push(`<a href="#" class="outline-0 text-white bg-zinc-800 hover:bg-zinc-800/70 border-2 border-transparent hover:border-blue-500 px-4 py-2 mx-1 rounded-lg">${s}</a>`);
+                                    }
+                        
+                                    const y = document.createElement('div');
+                                    y.innerHTML = t.join('');
+                                    const z = f;
+                                    z.innerHTML = '';
+                                    z.appendChild(y);
+                        
+                                    y.querySelectorAll('a').forEach((aa, bb) => {
+                                        aa.addEventListener('click', (cc) => {
+                                            cc.preventDefault();
+                                            g = bb + v;
+                                            i();
+                                        });
+                                    });
+                        
+                                }
+                        
+                                d.addEventListener('input', i);
+                                e.addEventListener('change', () => {
+                                    h = parseInt(e.value);
+                                    g = 1;
+                                    i();
+                                    q();
+                                });
+                        
+                                i();
+                                q();
+                            })();
+                        </script>  
+                    </body>

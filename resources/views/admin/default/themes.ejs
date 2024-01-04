@@ -1,0 +1,130 @@
+<%- include('./partials/head') %>
+
+    <body class="bg-zinc-950">
+        <div class="antialiased">
+            <%- include('./partials/topnav') %>
+                <%- include('./partials/sidebar') %>
+                <main class="p-4 md:ml-64 h-auto pt-20">
+                    <div class="grid grid-cols-1">
+
+                        <div class="rounded-lg bg-zinc-900 text-zinc-300 p-4 sm:px-18">
+                          <div class="flex flex-col justify-between sm:flex-row">
+                            <div class="text-center sm:text-left">
+                              <h2 class="text-2xl font-semibold text-white font-nunito">HolaClient</h2>
+                              <div class="space-y-1 pt-2">
+                                <p>info@holaclient.tech</p>
+                                <p>Holacorp, Inc</p>
+                                
+                              </div>
+                            </div>
+                            <div class="mt-4 text-center sm:m-0 sm:text-right">
+                              <h2 class="text-2xl font-semibold uppercase text-primary dark:text-accent-light">
+                                invoice
+                              </h2>
+                              <div class="space-y-1 pt-2">
+                                <p>Invoice #: <span class="font-semibold">2</span></p>
+                                <p>
+                                  Created: <span class="font-semibold">December 09, 2023</span>
+                                </p>
+                                <p>Paid on: <span class="font-semibold">December 12, 2023</span></p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="my-7 h-px bg-zinc-700"></div>
+                          <div class="flex flex-col justify-between sm:flex-row">
+                            <div class="text-center sm:text-left">
+                              <p class="text-lg font-medium text-zinc-300">
+                                Invoiced To:
+                              </p>
+                              <div class="space-y-1 pt-2">
+                                <p class="font-semibold">Judai @ Leourel</p>
+                                
+                              </div>
+                            </div>
+                            <div class="mt-4 text-center sm:m-0 sm:text-right">
+                              <p class="text-lg font-medium text-zinc-300">
+                                Payment Method:
+                              </p>
+                              <div class="space-y-1 pt-2">
+                                <p class="font-medium">USDT</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="my-7 h-px bg-zinc-700"></div>
+                          <div class="is-scrollbar-hidden min-w-full overflow-x-auto">
+                            <table class="is-zebra w-full text-left">
+                              <thead>
+                                <tr>
+                                  <th class="whitespace-nowrap rounded-l-lg bg-zinc-950 px-3 py-3 font-semibold uppercase text-zinc-200 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                    #
+                                  </th>
+                                  <th class="whitespace-nowrap bg-zinc-950 px-4 py-3 font-semibold uppercase text-zinc-200 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                    DESCRIPTION
+                                  </th>
+                                  
+                                  <th class="whitespace-nowrap bg-zinc-950 px-3 py-3 text-right font-semibold uppercase text-zinc-200 dark:bg-navy-800 dark:text-navy-100 lg:px-5">QTY</th>
+                                  <th class="whitespace-nowrap rounded-r-lg bg-zinc-950 px-3 py-3 text-right font-semibold uppercase text-zinc-200 dark:bg-navy-800 dark:text-navy-100 lg:px-5">PRICE</th>
+                                </tr>
+                              </thead>
+                              <tbody class="text-zinc-200">
+                                
+              
+                                
+                                <tr>
+                                    <td class="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">1</td>
+                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                      <div>
+                                        <p class="font-medium text-zinc-200 dark:text-navy-100">HolaClient theme</p>
+                                      </div>
+                                    </td>
+                                    
+                                    <td class="w-3/12 whitespace-nowrap px-4 py-3 text-right sm:px-5">1</td>
+                                    <td class="w-3/12 whitespace-nowrap rounded-r-lg px-4 py-3 text-right font-semibold sm:px-5">20</td>
+                                  </tr>
+
+                                <tr class="bg-zinc-800/70">
+                                  <td class="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">2</td>
+                                  <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                    <div>
+                                      <p class="font-medium text-zinc-200 dark:text-navy-100">GP Links addon</p>
+                                    </div>
+                                  </td>
+                                  
+                                  <td class="w-3/12 whitespace-nowrap px-4 py-3 text-right sm:px-5">1</td>
+                                  <td class="w-3/12 whitespace-nowrap rounded-r-lg px-4 py-3 text-right font-semibold sm:px-5">10</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">3</td>
+                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                      <div>
+                                        <p class="font-medium text-zinc-200 dark:text-navy-100">Storelimits function</p>
+                                      </div>
+                                    </td>
+                                    
+                                    <td class="w-3/12 whitespace-nowrap px-4 py-3 text-right sm:px-5">1</td>
+                                    <td class="w-3/12 whitespace-nowrap rounded-r-lg px-4 py-3 text-right font-semibold sm:px-5">10</td>
+                                  </tr>
+                                
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="my-7 h-px bg-zinc-700"></div>
+              
+                          <div class="flex flex-col justify-end sm:flex-row">
+                            <div class="mt-4 text-center sm:m-0 sm:text-right">
+                              <p class="text-lg font-medium text-zinc-300">
+                                Total:
+                              </p>
+                              <div class="space-y-1 pt-2">
+                                <p>Summary : <span class="font-medium">$40</span></p>
+                                <p>Discount : <span class="font-medium">$5</span></p>
+                                
+                                <p class="text-lg text-primary dark:text-accent-light">
+                                  Total: <span class="font-medium">$35</span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>

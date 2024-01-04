@@ -1,0 +1,45 @@
+<%- include('./partials/head') %>
+    <body class="bg-zinc-950">
+        <div class="antialiased">
+            <%- include('./partials/topnav') %>
+                <%- include('./partials/sidebar') %>
+                <main class="p-4 md:ml-64 h-auto pt-20">
+                    <div class="flex bg-zinc-900 text-zinc-300 rounded-lg flex-wrap p-4 content-start">
+                        <div class="w-full flex justify-between items-center">
+                            <h1 class="text-2xl text-zinc-100">Invoices</h1>
+                        </div>
+                        <hr class="w-full border-b border-zinc-700 my-2">
+                        <div id="invoices" class="w-full mt-4 grid grid-cols-1 gap-1">
+                
+                        </div>
+                    </div>
+                </main>
+                <script>
+                    async function nodes() {
+                        const a = await fetch('/api/billing/invoices');
+                        const b = await a.json();
+                        const c = document.getElementById("invoices");
+                
+                        for (const e of b) {
+                            const f = `
+                            <div class="rounded-lg items-center hover:bg-zinc-800 hover:mx-2 hover:duration-300 duration-300 p-2 px-3 flex justify-between">
+                                <div class="flex text-4xl flex-col">
+                                    ${e.id}
+                                </div>
+                                <div class="flex text-4xl flex-col">
+                                    <span class="font-bold tracking-wide text-[30px] text-center text-zinc-300">${e.product}</span>
+                                </div>
+                                <div class="text-right flex items-center">
+                                    <div>
+                                        <h1 class="text-zinc-100 end-0 text-lg">${e.user}</h1>
+                                    <span class="font-bold tracking-wide text-xs text-center text-zinc-300">${e.date}</span>
+                                    </div>
+                                    <h1 class="text-zinc-100 ml-4 end-0 text-4xl">${e.price}</h1>
+                                </div>
+                            </div>
+                            `;
+                            c.innerHTML += f;
+                        }
+                    }
+                    nodes();
+                </script>
