@@ -54,22 +54,6 @@
 - GyaniLinks Earning: Earn coins by completing a link.
 - LinkPays Earning: Earn coins by completing a link.
 - Role Packages: Give a package to users who have the role.
----
-
-## 👀 Preview
-HolaClient Demo: https://demo.holaclient.tech/
-
-Landing Page (v1.5.8):
-![image](https://github.com/HolaClient/HolaClient/assets/102372274/f9cecf3f-5e88-404c-8c8f-49c8c9f0275a)
-
-Admin Home (v1.5.8):
-![admin home](https://media.discordapp.net/attachments/1108054221456146534/1150167629726765126/image.png)
-
-Dashboard (v1.5.8):
-![dashboard](https://media.discordapp.net/attachments/1108054221456146534/1150167633472258099/image.png)
-
-Subdomain (v1.5.7):
-![Subdomain](https://github.com/HolaClient/HolaClient/assets/102372274/6db15761-a9a5-4c69-95d8-df6020696b37)
 
 ---
 
@@ -104,3 +88,30 @@ Please refer "LICENSE" and "CREDITS" files for better understability.
 - [**HolaClient Demo**](https://demo.holaclient.tech)
 - [**Video Installation**](https://youtu.be/V4FnFKL3nGw)
 - [**lil trailer**](https://www.youtube.com/watch?v=66-wZzYsb-w&pp=ygUKaG9sYWNsaWVudA%3D%3D)
+
+---
+
+## 👀 Preview
+HolaClient Demo: https://demo.holaclient.tech/
+
+Landing Page (v1.5.8):
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/f9cecf3f-5e88-404c-8c8f-49c8c9f0275a)
+
+Admin Home (v1.5.9)
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/adc5eeb7-8b28-4b48-a4eb-24ec32c8ae45)
+
+Admin Settings (v1.5.9):
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/46376e18-c1b5-46ed-ab9b-a32020f0cae8)
+
+Dashboard (v1.5.9):
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/800708b3-0f32-465e-ba6f-63d971b7fed3)
+
+Integrations (v1.5.9)
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/bfe986da-098a-4a3e-8e13-83243e77b0ee)
+
+Products (v1.5.9)
+![image](https://github.com/HolaClient/HolaClient/assets/102372274/9860b003-4709-4148-a05c-f416da77de7d)
+
+Subdomain (v1.5.7):
+![Subdomain](https://github.com/HolaClient/HolaClient/assets/102372274/6db15761-a9a5-4c69-95d8-df6020696b37)
+
