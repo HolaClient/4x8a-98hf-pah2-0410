@@ -50,7 +50,7 @@ module.exports.load = async function (app, db) {
             license = false
         }
         let users = await db.get('users', 'users')
-        let response = await fetch('https://core.holaclient.tech/updates', {
+        let response = await fetch('http://localhost:3000/updates', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ module.exports.load = async function (app, db) {
                 }
                 //Trust me bro, I ain't sending any crucial information.
             }
-            let response = await fetch('https://core.holaclient.tech/register', {
+            let response = await fetch('http://localhost:3000/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ module.exports.load = async function (app, db) {
             }
             return
         }
-        let request = await fetch('https://core.holaclient.tech/updates', {
+        let request = await fetch('http://localhost:3000/updates', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

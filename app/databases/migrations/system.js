@@ -36,7 +36,7 @@ const keys = require('../../../app/keys/keys.json')
  * Exporting setup.run()
  *--------------------------------------------------------------------------
 */
-module.exports = async function () {
+module.exports.run() = async function () {
 if (!await db.get('core', "setup")) {
 dl.m("System")
 /**

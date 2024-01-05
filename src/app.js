@@ -76,7 +76,7 @@ app.enable('trust proxy');
 
 app.use(cors());
 
-app.use(session({secret: core.website, resave: false, saveUninitialized: false}));
+app.use(session({ secret: core.website, resave: false, saveUninitialized: false }));
 /**
  *--------------------------------------------------------------------------
  * Checking installation status
@@ -104,18 +104,19 @@ app.use((req, res, next) => {
  * Loading other router files
  *--------------------------------------------------------------------------
 */
-loadRoute(path.join(__dirname, 'routes'), app, db);
-require('./services/handler').load(app, db)
-loadRoute(path.join(__dirname, 'routes', 'installation'), app, db);
-loadRoute(path.join(__dirname, 'routes', 'core'), app, db);
-loadRoute(path.join(__dirname, 'routes', 'administration'), app, db);
-loadRoute(path.join(__dirname, 'routes', 'authentication'), app, db);
-loadRoute(path.join(__dirname, 'routes', 'economy'), app, db);
-loadRoute(path.join(__dirname, 'routes', 'billing'), app, db);
-
 setInterval(() => {
-    loadRoute(path.join(__dirname, 'services'), app, db);
-}, 200);
+    loadRoute(path.join(__dirname, 'routes'), app, db);
+    loadRoute(path.join(__dirname, 'routes', 'installation'), app, db);
+    loadRoute(path.join(__dirname, 'routes', 'core'), app, db);
+    loadRoute(path.join(__dirname, 'routes', 'administration'), app, db);
+    loadRoute(path.join(__dirname, 'routes', 'authentication'), app, db);
+    loadRoute(path.join(__dirname, 'routes', 'economy'), app, db);
+    loadRoute(path.join(__dirname, 'routes', 'billing'), app, db);
+
+    setInterval(() => {
+        loadRoute(path.join(__dirname, 'services'), app, db);
+    }, 200);
+}, 1000);
 
 function loadRoute(directory, app, db) {
     const files = fs.readdirSync(directory).filter(file => file.endsWith('.js'));
@@ -133,7 +134,8 @@ function loadRoute(directory, app, db) {
  * Generating session secret
  *--------------------------------------------------------------------------
 */
-const rndCode = genRND(24);
+const rndCode = "kv4AZTDVfKfB"
+//genRND(12);
 keys.secret.setup = rndCode;
 fs.writeFileSync('./storage/installation/keys.json', JSON.stringify(keys, null, 2));
 function genRND(length) {
@@ -172,8 +174,8 @@ const listener = app.listen(process.env.APP_PORT, async function () {
     console.log(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
     const lg = require('../drivers/lg')
 });
- /**
- *--------------------------------------------------------------------------
- * End of the file
- *--------------------------------------------------------------------------
+/**
+*--------------------------------------------------------------------------
+* End of the file
+*--------------------------------------------------------------------------
 */
