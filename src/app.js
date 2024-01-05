@@ -77,6 +77,7 @@ app.enable('trust proxy');
 app.use(cors());
 
 app.use(session({ secret: core.website, resave: false, saveUninitialized: false }));
+
 /**
  *--------------------------------------------------------------------------
  * Checking installation status
