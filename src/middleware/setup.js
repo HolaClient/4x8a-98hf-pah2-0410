@@ -48,7 +48,7 @@ module.exports.run = async function () {
         if (!migrations.includes(mf)) {
             const mfPath = path.join(mp, mf);
             try {
-                const migration = require(mfPath)
+                const migration = require(mfPath).run()
                 migrations.push(mf);
                 await db.set('core', 'migrations', migrations);
                 dl.t(`${mf} executed successfully.`);

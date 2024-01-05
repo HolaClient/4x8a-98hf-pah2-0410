@@ -14,7 +14,7 @@ module.exports.load = async function (app, db) {
         let services = require('./services.json')
         res.json({ "success": true, "loaded": services.loaded, "services": services.services, "count": services.loaded.length });
     });
-    
+
     let ptero = [{
         name: "pterodactyl",
         display: "Pterodactyl",
@@ -26,7 +26,12 @@ module.exports.load = async function (app, db) {
     for (let i in integrations) {
         let int = integrations[i];
         if (int.active == true) {
-            let service = require(`../services/${int.name}/service`).load(app, db);
+            if (await db.get(int.name, 'settings')) {
+                let service = require(`../services/${int.name}/service`).load(app, db);
+            } else {
+                return
+            }
+            return
         }
     }
 }

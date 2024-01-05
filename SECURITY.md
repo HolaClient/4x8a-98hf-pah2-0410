@@ -4,12 +4,22 @@
 
 Our maintained and support version to submit a security vulnerability.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.5.x   | :white_check_mark: |
-| 1.4     | :white_check_mark: |
+| Version | Type               | Supported          |
+| ------- | ------------------ | ------------------ |
+| 1.5.7   | Production         | ✅                |
+| 1.5.6   | Pre release        | ✅                |
+| 1.5.5   | Production         | ✅                |
+| 1.5.4   | Production         | ❌                |
+| 1.5.3   | Production         | ❌                |
+| 1.5.2   | Production         | ❌                |
+| 1.5.1   | Production         | ❌                |
+| 1.5     | Pre release        | ❌                |
+| 1.4     | Production         | ❌                |
+| 1.3     | Production         | ❌                |
+| 1.2     | Production         | ❌                |
+| 1.1     | Production         | ❌                |
+| 1       | Production         | ❌                |
 
 ## Reporting a Vulnerability
 
-If you find a vulnerabilty or an exploit, you may report it on our
-[Discord Server](https://discord.gg/CvqRH9TrYK) or in [Security Tab](https://github.com/CR072/HolaClient/security) present in our GitHub repo.
+If you find a vulnerabilty or an exploit, you may report it in [Security Tab](https://github.com/HolaClient/HolaClient/security) present in our GitHub repo.
