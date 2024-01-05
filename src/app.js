@@ -134,8 +134,7 @@ function loadRoute(directory, app, db) {
  * Generating session secret
  *--------------------------------------------------------------------------
 */
-const rndCode = "kv4AZTDVfKfB"
-//genRND(12);
+const rndCode = genRND(24);
 keys.secret.setup = rndCode;
 fs.writeFileSync('./storage/installation/keys.json', JSON.stringify(keys, null, 2));
 function genRND(length) {
