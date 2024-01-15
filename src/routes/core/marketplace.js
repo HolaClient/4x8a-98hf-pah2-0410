@@ -115,8 +115,10 @@ module.exports.load = async function (app, db) {
 
     const resources = await db.get("resources", "resources");
 
-    for (const resource of resources) {
-        createRoute(`/api/sell${resource.name}`, resource.name, `${resource.unit} ${resource.name}`, resource.name, "per", null, true);
-        createRoute(`/api/buy${resource.name}`, resource.name, `${resource.unit} ${resource.name}`, resource.name, "per", null, false);
+    if (resources) {
+        for (const resource of resources) {
+            createRoute(`/api/sell${resource.name}`, resource.name, `${resource.unit} ${resource.name}`, resource.name, "per", null, true);
+            createRoute(`/api/buy${resource.name}`, resource.name, `${resource.unit} ${resource.name}`, resource.name, "per", null, false);
+        }
     }
 };
