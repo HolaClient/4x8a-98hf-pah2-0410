@@ -104,6 +104,7 @@ app.use((req, res, next) => {
  * Loading other router files
  *--------------------------------------------------------------------------
 */
+function load() {
     loadRoute(path.join(__dirname, 'routes'), app, db);
     loadRoute(path.join(__dirname, 'routes', 'installation'), app, db);
     loadRoute(path.join(__dirname, 'routes', 'core'), app, db);
@@ -111,10 +112,22 @@ app.use((req, res, next) => {
     loadRoute(path.join(__dirname, 'routes', 'authentication'), app, db);
     loadRoute(path.join(__dirname, 'routes', 'economy'), app, db);
     loadRoute(path.join(__dirname, 'routes', 'billing'), app, db);
-
-    setInterval(() => {
+    let ranf = false;
+    const tidf = setTimeout(() => {
+      if (!ranf) {
         loadRoute(path.join(__dirname, 'services'), app, db);
+        ranf = true;
+      }
     }, 200);
+}
+
+let ran = false;
+const tid = setTimeout(() => {
+  if (!ran) {
+    load();
+    ran = true;
+  }
+}, 2000);
 
 function loadRoute(directory, app, db) {
     const files = fs.readdirSync(directory).filter(file => file.endsWith('.js'));
