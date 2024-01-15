@@ -1,12 +1,12 @@
 {
   "database": {
-    "encryption": "GENERATE",
-    "access": "GENERATE"
+    "encryption": "",
+    "access": ""
   },
   "core": {
-    "encryption": "GENERATE",
-    "access": "GENERATE",
-    "requests": "GENERATE"
+    "encryption": "",
+    "access": "q@h7OU0N|G23>uVPjD18p[Jh9ASCg4ar",
+    "requests": "q@h7OU0N|G23>uVPjD18p[Jh9ASCg4ar"
   },
-  "website": "GENERATE"
+  "website": "jwv^(&NTHN)0dtehw0fn"
 }

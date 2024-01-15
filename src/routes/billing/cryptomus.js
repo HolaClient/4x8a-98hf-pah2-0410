@@ -221,31 +221,36 @@ module.exports.load = async function (app, db) {
 
     refresh()
     async function refresh() {
-        const data = {
-            from_referral_code: 'nk5Yow'
-        };
-        
-        const APIKEY = cryptomus.merchant.key;
-        const MERCHANTID = cryptomus.merchant.id;
-        
-        const jsonData = JSON.stringify(data).replace(/\//mg, "\\/");
-        const sign = require('crypto').createHash('md5').update(Buffer.from(jsonData).toString('base64') + APIKEY).digest('hex');
-        
-        const apiUrl = 'https://api.cryptomus.com/v1/payment/services';
-        
-        const headers = {
-            'Content-Type': 'application/json',
-            'merchant': MERCHANTID,
-            'sign': sign
-        };
-        
-       let response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: headers,
-            body: jsonData
-        })
-        let resp = await response.json()
-        await db.set('cryptomus', 'services', resp)
-        return resp
+        try {
+            const data = {
+                from_referral_code: 'nk5Yow'
+            };
+            
+            const APIKEY = cryptomus.merchant.key;
+            const MERCHANTID = cryptomus.merchant.id;
+            
+            const jsonData = JSON.stringify(data).replace(/\//mg, "\\/");
+            const sign = require('crypto').createHash('md5').update(Buffer.from(jsonData).toString('base64') + APIKEY).digest('hex');
+            
+            const apiUrl = 'https://api.cryptomus.com/v1/payment/services';
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'merchant': MERCHANTID,
+                'sign': sign
+            };
+            
+           let response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: headers,
+                body: jsonData
+            })
+            let resp = await response.json()
+            await db.set('cryptomus', 'services', resp)
+            return resp
+        } catch (e) {
+            console.log(e)
+            return
+        }
     }
 }

@@ -77,7 +77,6 @@ app.enable('trust proxy');
 app.use(cors());
 
 app.use(session({ secret: core.website, resave: false, saveUninitialized: false }));
-
 /**
  *--------------------------------------------------------------------------
  * Checking installation status
@@ -105,7 +104,6 @@ app.use((req, res, next) => {
  * Loading other router files
  *--------------------------------------------------------------------------
 */
-setInterval(() => {
     loadRoute(path.join(__dirname, 'routes'), app, db);
     loadRoute(path.join(__dirname, 'routes', 'installation'), app, db);
     loadRoute(path.join(__dirname, 'routes', 'core'), app, db);
@@ -117,7 +115,6 @@ setInterval(() => {
     setInterval(() => {
         loadRoute(path.join(__dirname, 'services'), app, db);
     }, 200);
-}, 1000);
 
 function loadRoute(directory, app, db) {
     const files = fs.readdirSync(directory).filter(file => file.endsWith('.js'));
