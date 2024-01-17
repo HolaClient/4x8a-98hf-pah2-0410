@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const Keyv = require('keyv');
 
 const createDB = (table) => {
-    return new Keyv(`mysql://${process.env.MYSQL_DB_USERNAME}:${process.env.MYSQL_DB_PASSWORD}@${process.env.MYSQL_DB_HOST}:${process.env.MYSQL_DB_PORT}/${process.env.MYSQL_DB_DATABASE}`, { table });
+    return new Keyv(`sqlite://storage/database.sqlite`, { table, busyTimeout: 10000 });
 };
 
 const core = createDB('core');
