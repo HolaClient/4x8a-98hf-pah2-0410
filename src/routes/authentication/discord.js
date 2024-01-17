@@ -50,7 +50,7 @@ module.exports.load = async function (app, db) {
     */
     app.get("/api/auth/discord", async (req, res) => {
         if (req.query.redirect) req.session.redirect = "/" + req.query.redirect;
-        res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${settings.authentication.discord.id}&redirect_uri=${encodeURIComponent(process.env.APP_URL + settings.authentication.discord.callbackpath)}&response_type=code&scope=identify%20email${newsettings.features.bot.joinguild.enabled == true ? "%20guilds.join" : ""}${newsettings.earn.j4r.enabled == true ? "%20guilds" : ""}${settings.authentication.discord.prompt == false ? "&prompt=none" : (req.query.prompt ? (req.query.prompt == "none" ? "&prompt=none" : "") : "")}`);
+        res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${settings.authentication.discord.id}&redirect_uri=${encodeURIComponent(process.env.APP_URL + "/" + settings.authentication.discord.callbackpath)}&response_type=code&scope=identify%20email${newsettings.features.bot.joinguild.enabled == true ? "%20guilds.join" : ""}${newsettings.earn.j4r.enabled == true ? "%20guilds" : ""}${settings.authentication.discord.prompt == false ? "&prompt=none" : (req.query.prompt ? (req.query.prompt == "none" ? "&prompt=none" : "") : "")}`);
     });
     /**
     *--------------------------------------------------------------------------
