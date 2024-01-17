@@ -128,13 +128,13 @@
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Client ID</label>
                                     <input class="w-full bg-zinc-800 rounded-lg p-2" id="dccid"
-                                        value="<%= settings.authentication.discord.id %>"
+                                        value=""
                                         placeholder="06090609 just tryna be professional tho">
                                 </div>
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Client Secret</label>
                                     <input class="w-full bg-zinc-800 rounded-lg p-2" id="dccs"
-                                        value="<%= settings.authentication.discord.secret %>">
+                                        value="">
                                 </div>
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Redirect URI (Use this as your Oauth2 app's
@@ -180,8 +180,7 @@
                                         <label class="block text-gray-300">Cookie Alt Check</label>
                                         <div class="items-center py-1.5 flex">
                                             <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" id="cookiealt" class="sr-only peer" <% if
-                                                    (settings.authentication.discord.alt.cookies) { %> checked <% } %>/>
+                                                <input type="checkbox" id="cookiealt" class="sr-only peer">
                                                     <div
                                                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                                     </div>
@@ -195,8 +194,7 @@
                                         <label class="block text-gray-300">IPv6 Alt Check</label>
                                         <div class="items-center py-1.5 flex">
                                             <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" id="ipalt" class="sr-only peer" <% if
-                                                    (settings.authentication.discord.alt.ip) { %> checked <% } %>>
+                                                <input type="checkbox" id="ipalt" class="sr-only peer">
                                                     <div
                                                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                                     </div>
@@ -216,18 +214,18 @@
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Panel url</label>
                                     <input class="w-full bg-zinc-800 rounded-lg p-2" id="domain"
-                                        value="<%= ptla.domain %>"
+                                        value=""
                                         placeholder="https://panel.example.com without '/' in the end.">
                                 </div>
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Application API key</label>
                                     <input class="w-full bg-zinc-800 rounded-lg p-2" id="app"
-                                        value="<%= ptla.app %>">
+                                        value="ptla_">
                                 </div>
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Client API key</label>
                                     <input class="w-full bg-zinc-800 rounded-lg p-2" id="acc"
-                                        value="<%= ptla.acc %>">
+                                        value="ptlc_">
                                 </div>
                             </div>
                         </div>
@@ -262,13 +260,13 @@
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Discord</label>
                                     <input class="w-full bg-zinc-800 rounded-lg p-2" id="discord"
-                                        value="<%= settings.links.discord %>"
+                                        value=""
                                         placeholder="06090609 just tryna be professional tho">
                                 </div>
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Website</label>
                                     <input class="w-full bg-zinc-800 rounded-lg p-2" id="website"
-                                        value="<%= settings.links.website %>">
+                                        value="">
                                 </div>
                                 <div class="w-full pr-2">
                                     <label class="block text-gray-300">Status</label>
