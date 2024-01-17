@@ -61,7 +61,7 @@ module.exports.load = async function (app, db) {
         let customredirect = req.session.redirect;
         delete req.session.redirect;
         if (!req.query.code) return res.redirect('/auth/discord')
-        let code = req.query.code
+        let code = req.query.code.replace(/'/g, '')
 
         let json = await fetch(
             'https://discord.com/api/oauth2/token',
