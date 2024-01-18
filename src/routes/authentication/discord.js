@@ -67,7 +67,7 @@ module.exports.load = async function (app, db) {
             'https://discord.com/api/oauth2/token',
             {
                 method: "post",
-                body: "client_id=" + settings.authentication.discord.id + "&client_secret=" + settings.authentication.discord.secret + "&grant_type=authorization_code&code=" + encodeURIComponent(code) + "&redirect_uri=" + encodeURIComponent(settings.authentication.discord.link + settings.authentication.discord.callbackpath),
+                body: "client_id=" + settings.authentication.discord.id + "&client_secret=" + settings.authentication.discord.secret + "&grant_type=authorization_code&code=" + encodeURIComponent(code) + "&redirect_uri=" + encodeURIComponent(process.env.APP_URL + settings.authentication.discord.callbackpath),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }
         );
