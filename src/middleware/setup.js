@@ -58,6 +58,10 @@ module.exports.run = async function () {
             }
         }
     }
+    let lags = await db.get('core', "settings");
+if (!lags) {
+    let langs = [{"code": "en", "name": "English"}]
+    await db.set('core', 'languages', langs)}
     let setdb = await db.get('core', "settings");
 if (!setdb) {
  let settings = {
