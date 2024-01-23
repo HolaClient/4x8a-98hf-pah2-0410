@@ -59,7 +59,7 @@
 
 ## ⬇️ Installation
 * Manual Installation
-   - Please refer our [documentation](https://holaclient.tech/docs).
+   - Please refer our [Documentation](https://holaclient.tech/docs).
    - or refer to our old [documentation](https://old-docs.holaclient.tech) made by [ItzBenoitXD](https://github.com/ItzBenoitXD).
    - or refer to this [video install guide by Arctic Wolf](https://youtu.be/V4FnFKL3nGw) (he did a great job explaining how to install).
 * Automatic Installation
