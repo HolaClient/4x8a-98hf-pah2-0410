@@ -12,7 +12,7 @@
 ---
 
 ## 🪶 Features
-- **Anti-PteroVM:** Automatically suspends servers using PteroVM.
+- Anti-PteroVM: Automatically suspends servers using PteroVM.
 - Subdomain Management: Assign subdomains for user's servers.
 - Plugin Manager: Install plugins easily.
 - Anti DDoS: Built in L7 Anti DDoS protection.
