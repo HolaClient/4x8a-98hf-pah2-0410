@@ -173,7 +173,7 @@ if (!setdb) {
             "users": [
             ],
             "country": [
-                "IN"
+                " "
             ],
             "note": "enter email, Discord ID, HCID or username in users and country code in country."
         },
