@@ -1,4 +1,4 @@
-# HolaClient License Agreement
+# HolaClient License and Agreement
 ---
 This License Agreement is entered into between the Licensor "CR072" and any person obtaining a copy of the HolaClient software "Licensee". Subject to the terms and conditions of this Agreement, I grant Licensee a non-exclusive, non-transferable license to use the HolaClient software and any modified versions with a valid license key.
 Licensee is authorized to use the HolaClient software for commercial purposes, provided that a valid license key is obtained from the official [user console](https://console.holaclient.tech). The HolaClient software and its source code are proprietary to the owner (CR072). All rights not expressly granted herein are reserved.
