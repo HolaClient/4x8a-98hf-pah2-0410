@@ -1,4 +1,0 @@
-{
-    "ignore": ["node_modules", "app", "drivers", "storage", "resources"]
-}
-  
