@@ -16,8 +16,9 @@ Total traffic: 9.52M<br>
 Top traffic from: India<br>
 Donations received: $25<br>
 Ratings: 9.2/10 (Based on 18 reviews)
-<br>
-<br>
+
+---
+
 <h1> Thanks for using HolaClient!</h1>
 <p align="center">
 © 2022 - 2024 HolaClient | Licensed under Apache v2
