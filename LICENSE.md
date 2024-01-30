@@ -6,7 +6,7 @@ Licensee is authorized to use the HolaClient software for commercial purposes, p
 The following actions are strictly prohibited, including but not limited to:
 - Distribute any part of HolaClient (including its code, binaries, ...) without authorization.
 - Commercial use of the HolaClient software without a license key.
-- Removal of credits in any part of the code without CR072's permit.
+- Removal of credits in any part of the code without CR072's permission.
 
 **THE HOLACLIENT SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. HOLACLIENT DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. CR072 SHALL NOT BE LIABLE FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE HOLACLIENT SOFTWARE.**
 
