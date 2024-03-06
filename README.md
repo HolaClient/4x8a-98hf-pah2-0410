@@ -14,7 +14,7 @@ Total hostings: 4k<br>
 Total traffic: 9.52M<br>
 Top traffic from: India<br>
 Donations received: $25<br>
-Ratings: 9.2/10 (Based on 188 reviews)
+Ratings: 9.2/10 (Based on 188 reviews)<br>
 (Most used dashboard of 2023)
 
 ---
