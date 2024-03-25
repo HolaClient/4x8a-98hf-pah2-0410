@@ -7,9 +7,9 @@ The all new series of HolaClient.
 
 ---
 
-Coming soon
+Coming soon<br>
 April, 2024
-Based on HolaClient Core
+
 ---
 
 <p align="center">
