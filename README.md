@@ -7,6 +7,8 @@ The all new series of HolaClient.
 
 ---
 
+# The owner is dead, it will never be released.
+
 Coming soon<br>
 April, 2024
 
