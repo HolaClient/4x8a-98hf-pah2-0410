@@ -1,0 +1,270 @@
+<%- include('./partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('./partials/nav') %>
+            <%- include('./partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex space-x-4 items-center">
+                    <div
+                        class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M11.828 2.25c-.916 0-1.699.663-1.85 1.567l-.091.549a.798.798 0 0 1-.517.608 7.45 7.45 0 0 0-.478.198.798.798 0 0 1-.796-.064l-.453-.324a1.875 1.875 0 0 0-2.416.2l-.243.243a1.875 1.875 0 0 0-.2 2.416l.324.453a.798.798 0 0 1 .064.796 7.448 7.448 0 0 0-.198.478.798.798 0 0 1-.608.517l-.55.092a1.875 1.875 0 0 0-1.566 1.849v.344c0 .916.663 1.699 1.567 1.85l.549.091c.281.047.508.25.608.517.06.162.127.321.198.478a.798.798 0 0 1-.064.796l-.324.453a1.875 1.875 0 0 0 .2 2.416l.243.243c.648.648 1.67.733 2.416.2l.453-.324a.798.798 0 0 1 .796-.064c.157.071.316.137.478.198.267.1.47.327.517.608l.092.55c.15.903.932 1.566 1.849 1.566h.344c.916 0 1.699-.663 1.85-1.567l.091-.549a.798.798 0 0 1 .517-.608 7.52 7.52 0 0 0 .478-.198.798.798 0 0 1 .796.064l.453.324a1.875 1.875 0 0 0 2.416-.2l.243-.243c.648-.648.733-1.67.2-2.416l-.324-.453a.798.798 0 0 1-.064-.796c.071-.157.137-.316.198-.478.1-.267.327-.47.608-.517l.55-.091a1.875 1.875 0 0 0 1.566-1.85v-.344c0-.916-.663-1.699-1.567-1.85l-.549-.091a.798.798 0 0 1-.608-.517 7.507 7.507 0 0 0-.198-.478.798.798 0 0 1 .064-.796l.324-.453a1.875 1.875 0 0 0-.2-2.416l-.243-.243a1.875 1.875 0 0 0-2.416-.2l-.453.324a.798.798 0 0 1-.796.064 7.462 7.462 0 0 0-.478-.198.798.798 0 0 1-.517-.608l-.091-.55a1.875 1.875 0 0 0-1.85-1.566h-.344ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" clip-rule="evenodd" />
+                          </svg>                              
+                    </div>
+                    <div class="flex flex-col justify-between w-full">
+                        <h1 class="text-gray-200 font-semibold text-xl">Global settings</h1>
+                        <span class="text-gray-300 text-md">Configure HolaClientX as per your needs.</span>
+                    </div>
+                </div>
+                <div class="lg:flex mt-4 lg:justify-between">
+                  <div class="w-full">
+                    <div class="mb-4 rounded-xl">
+                      <ul class="text-sm font-medium text-center text-gray-300 divide-x divide-gray-800/80 rounded-xl shadow sm:flex" id="resourceTab" data-tabs-toggle="#settings" role="tablist">
+                        <li class="w-full" role="presentation">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl" data-tabs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="false">General</button>
+                        </li>
+                        <li class="w-full" role="presentation">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300" data-tabs-target="#landing" type="button" role="tab" aria-controls="landing" aria-selected="false">Landing</button>
+                        </li>
+                        <li class="w-full" role="presentation">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300" data-tabs-target="#href" type="button" role="tab" aria-controls="href" aria-selected="false">Redirects</button>
+                        </li>
+                      </ul>
+                    </div>
+                    <div id="settings">
+                      <div class="hidden rounded-xl mb-4" id="general" role="tabpanel">
+                        <div class="flex bg-zinc-900/50 text-gray-300 rounded-xl border border-zinc-800/80 flex-wrap content-start">
+                          <h1 class="text-2xl text-gray-100 p-4">General Settings</h1>
+                          <hr class="w-full border-b border-zinc-800/80">
+                          <div class="grid grid-cols-1 md:grid-cols-3 w-full">
+                            <div class="w-full mt-4 grid-cols-1 col-span-2 grid md:grid-cols-2 gap-4 px-4 py-2 pb-4">
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-200">Application Name</label>
+                                <input id="appname" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="<%= appearance.name %>">
+                              </div>
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-200">Rotate logo</label>
+                                <select id="logorotate" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2">
+                                  <option hidden><%= appearance.logo.rotate ? true : false %></option>
+                                  <option value="true">true</option>
+                                  <option value="false">false</option>
+                                  </select>
+                              </div>
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-200">Rotate logo speed</label>
+                                <input id="rotatespeed" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="<%= appearance.logo.speed %>">
+                              </div>
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-300">Application Logo</label>
+                                <input id="applogo" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="<%= appearance.logo.url %>">
+                              </div>
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-300">Application Banner</label>
+                                <input id="appbanner" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="<%= appearance.banner %>">
+                              </div>
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-300">Application Description</label>
+                                <input id="appdescription" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="<%= appearance.description %>">
+                              </div>
+                            </div>
+                            <div class="w-full flex items-center p-2">
+                              <span class="text-gray-300 rotate-[270deg] flex absolute">L O G O</span>
+                              <div class="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-800/50 via-transparent to-zinc-950 rounded-xl flex items-center justify-center w-full h-full">
+                                <img id="logoHolder" src="<%= appearance.logo.url %>" class="w-auto h-auto max-h-72">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-4 flex bg-zinc-900/50 text-gray-300 rounded-xl border border-zinc-800/80 flex-wrap content-start">
+                          <h1 class="text-2xl text-gray-100 p-4">SEO Settings</h1>
+                          <hr class="w-full border-b border-zinc-800/80">
+                          <div class="grid grid-cols-1 md:grid-cols-3 w-full">
+                            <div class="w-full mt-4 grid-cols-1 col-span-2 grid md:grid-cols-2 gap-4 px-4 py-2 pb-4">
+                              <div class="w-full pr-2">
+                                <div id="tt-help" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-zinc-900 rounded-xl shadow-sm opacity-0 tooltip">
+                                  Global title will only be shown in meta tags.
+                              </div>
+                                <label class="text-gray-200 w-full justify-between flex items-center">Global title <button data-tooltip-target="tt-help" type="button" class="bg-zinc-300 rounded-full items-center justify-center flex text-zinc-800"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 0 1-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 0 1-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 0 1-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584ZM12 18a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                                </svg>
+                                </button></label>
+                                <input id="seotitle" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="<%= appearance.seo.title %>">
+                              </div>
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-200">Keywords</label>
+                                <input id="seokeys" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="<%= appearance.seo.keywords %>">
+                              </div>
+                              <div class="w-full pr-2 col-span-2">
+                                <label class="block text-gray-200">Image</label>
+                                <input id="seoimage" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="<%= appearance.seo.image %>">
+                              </div>
+                              <div class="w-full pr-2 col-span-2">
+                                <label class="block text-gray-200">Description</label>
+                                <textarea rows="4" id="seodescription" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2"><%= appearance.seo.description %></textarea>
+                              </div>
+                            </div>
+                            <div class="w-full flex items-center p-2">
+                              <span class="text-gray-300 rotate-[270deg] -ml-6 flex absolute">P R E V I E W</span>
+                              <div class="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-800/50 via-transparent to-zinc-950 rounded-xl flex items-center justify-center w-full h-full">
+                                <div class="w-full mx-16 h-max rounded-xl bg-zinc-900 p-2 flex flex-col shadow-md shadow-black">
+                                  <div class="flex space-x-2 items-center">
+                                    <div class="bg-zinc-800 rounded-xl p-0.5 shadow-lg">
+                                      <img src="https://cdn.holaclient.tech/logo.png" class="w-10 h-10">
+                                    </div>
+                                    <div class="flex flex-col">
+                                      <h1 id="seoTitle" class="text-gray-200"><%= appearance.seo.title %></h1>
+                                      <span class="text-gray-400 text-xs"><%= (process.env.APP_URL).replace("http://", "").replace("https://") %></span>
+                                    </div>
+                                  </div>
+                                  <h1 class="text-sky-300 text-lg mt-1"><%= appearance.seo.title %> - Landing</h1>
+                                  <p class="text-xs" id="seodes">
+                                    <%= appearance.seo.description %>
+                                  </p>
+                                  <img id="seoimg" src="<%= appearance.seo.image %>" alt="seoimg" class="w-full rounded-xl mt-2">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="hidden rounded-xl mb-4" id="landing" role="tabpanel">
+                        <div class="flex bg-zinc-900/50 border border-zinc-800/80 text-gray-300 rounded-lg flex-wrap content-start">
+                          <h1 class="text-2xl text-gray-200 p-4 flex justify-between w-full items-center">Landing pages
+                              <!--
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" value="" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                              </label>
+                              -->
+                          </h1>
+                          <hr class="w-full border-b border-zinc-800/80 my-2">
+                          <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 px-4 pb-4 overflow-auto">
+                            <div class="w-full text-center">
+                              <img class="rounded-lg border-2 border-blue-500" src="https://cdn.holaclient.tech/production/X1/images/default-landing.png">
+                              <span class="mt-2 text-lg">Default</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="hidden rounded-xl mb-4" id="href" role="tabpanel">
+                        <div class="flex bg-zinc-900/50 text-gray-300 border border-zinc-800/80 rounded-xl flex-wrap content-start mt-4">
+                          <h1 class="text-2xl text-gray-200 p-4 w-full flex justify-between">Page redirects
+                            <!--
+                              <button class="bg-zinc-900 rounded-full p-1 items-center flex justify-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                              </svg>                                  
+                            </button>
+                            -->
+                          </h1>
+                          <hr class="w-full border-b border-zinc-800/80 my-2">
+                          <div class="mt-4 w-full px-4 pb-4">
+                            <div class="bg-zinc-900 rounded-xl -mt-1 p-2 px-4 w-full flex items-center justify-between">
+                              <span class="text-md">/discord</span>
+                              <span class="text-md">discord.gg/CvqRH9TrYK</span>
+                              <span class="text-md">301 (Permanent)</span>
+                              <span class="text-rose-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+                              </svg>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </main>
+        <div id="savealert" class="opacity-0 fixed backdrop-blur-lg border border-zinc-800/80 bg-zinc-900/30 md:max-w-sm flex items-center justify-between lg:max-w-screen-md rounded-xl inset-x-6 bottom-6 z-40 mx-auto">
+          <a class="text-white text-md pl-4">
+              Careful - You've unsaved changes.
+          </a>
+          <a onclick="submit()" class="cursor-pointer group flex gap-3 m-2 rounded-xl p-[1px] shadow-inner shadow-zinc-950 w-max h-max border border-yellow-900/30 bg-gradient-to-br from-zinc-800/80 to-transparent">
+              <span class="text-sm w-full h-full group-hover:px-5 group-hover:duration-300 duration-300 px-3 bg-zinc-900 rounded-xl p-3 tracking-wide text-white">Save Changes</span>
+          </a>
+      </div>
+        <script>
+          const es = ["appname", "applogo", "appbanner", "appdescription", "logorotate", "rotatespeed", "seotitle", "seoimage", "seodescription", "seokeys", "cookiealt", "ipalt", "dcauth", "dcid", "dcsecret"];
+          const originalValues = {};
+          function ge(e) {
+            return document.getElementById(e);
+          }
+          ge("applogo").addEventListener("input", function () {
+            ge("logoHolder").src = ge("applogo").value
+          });
+          ge("seoimage").addEventListener("input", function () {
+            ge("seoimg").src = ge("seoimage").value
+          });
+          ge("seodescription").addEventListener("input", function () {
+            ge("seodes").innerText = ge("seodescription").value
+          });
+          ge("seotitle").addEventListener("input", function () {
+            ge("seoTitle").innerText = ge("seotitle").value
+          });
+          document.addEventListener("DOMContentLoaded", function () { check() });
+          function check() {
+            for (const e of es) {
+              const element = ge(e);
+              originalValues[e] = element.value || element.checked;
+              element.addEventListener("input", function () {
+                ge("savealert").style.transition = "opacity 0.5s";
+                ge("savealert").style.opacity = "1";
+                if (element.value === originalValues[e]) {
+                  ge("savealert").style.transition = "opacity 0.5s";
+                  ge("savealert").style.opacity = "0";
+                }
+              });
+              element.addEventListener("change", function () {
+                ge("savealert").style.transition = "opacity 0.5s";
+                ge("savealert").style.opacity = "1";
+                if (element.value === originalValues[e]) {
+                  ge("savealert").style.transition = "opacity 0.5s";
+                  ge("savealert").style.opacity = "0";
+                }
+              });
+            }
+          }
+          async function submit() {
+            let a = await fetch(`/api/admin/settings`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                name: ge("appname").value,
+                logo: ge("applogo").value,
+                speed: ge("rotatespeed").value,
+                rotate: ge("logorotate").value,
+                banner: ge("appbanner").value,
+                description: ge("appdescription").value,
+                seoImage: ge("seoimage").value,
+                seoDes: ge("seodescription").value,
+                seoTitle: ge("seotitle").value,
+                seoKeys: ge("seokeys").value,
+                dcid: ge("dcid").value,
+                dcsecret: ge("dcsecret").value,
+                dcauth: ge("dcauth").checked,
+                cookies: ge("cookiealt").checked,
+                ip: ge("ipalt").checked
+              })
+            });
+            let b = await a.json()
+            if (b.success == true) {
+              check()
+              ge("savealert").style.transition = "opacity 0.5s";
+              ge("savealert").style.opacity = "0";
+              toastr.success(b.message, "Success")
+            }
+          }
+        </script>
+            <%- include('./partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

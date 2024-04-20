@@ -1,0 +1,4 @@
+{
+    "ignore": ["node_modules", "app", "public", "storage", "resources"]
+}
+  

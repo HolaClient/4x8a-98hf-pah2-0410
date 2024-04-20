@@ -1,0 +1,447 @@
+<%- include('./partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('./partials/nav') %>
+            <%- include('./partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6">
+                                <path fill-rule="evenodd"
+                                    d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl">Permissions</h1>
+                            <span class="text-gray-300 text-md">Manage roles & page permissions.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:flex mt-4 lg:justify-between">
+                    <div class="w-full">
+                        <div class="mb-4 rounded-xl">
+                            <ul class="text-sm font-medium text-center text-gray-300 divide-x divide-gray-800/80 rounded-xl shadow sm:flex"
+                                id="resourceTab" data-tabs-toggle="#permissions" role="tablist">
+                                <li class="w-full" role="presentation">
+                                    <button
+                                        class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl"
+                                        data-tabs-target="#page" type="button" role="tab" aria-controls="page"
+                                        aria-selected="false">Page Access</button>
+                                </li>
+                                <li class="w-full" role="presentation">
+                                    <button
+                                        class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300"
+                                        data-tabs-target="#roles" type="button" role="tab" aria-controls="roles"
+                                        aria-selected="true">Roles</button>
+                                </li>
+                                <li class="w-full" role="presentation">
+                                    <button
+                                        class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300"
+                                        data-tabs-target="#intents" type="button" role="tab" aria-controls="intents"
+                                        aria-selected="false">Intents</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="permissions">
+                            <div class="hidden rounded-xl mb-4" id="page" role="tabpanel">
+                                <div
+                                    class="bg-zinc-900/50 divide-x divide-zinc-800/80 grid grid-cols-1 md:grid-cols-5 text-gray-300 rounded-xl border border-zinc-800/80">
+                                    <div class="w-full p-2">
+                                        <div class="flex items-center w-full justify-between">
+                                            <div
+                                                class="hover:bg-zinc-900 cursor-pointer hover:duration-300 duration-300 flex items-center space-x-2 rounded-full border border-zinc-800/80 px-5 py-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                                                </svg>
+                                                <span
+                                                    class="text-gray-300 group-hover:duration-300 duration-300 group-hover:text-white">Back</span>
+                                            </div>
+                                            <div
+                                                class="hover:bg-zinc-900 cursor-pointer hover:duration-300 duration-300 flex items-center space-x-2 rounded-full border border-zinc-800/80 p-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 4.5v15m7.5-7.5h-15" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="w-full max-h-[470px] overflow-x-hidden overflow-y-scroll mt-4">
+                                            <span class="text-gray-400 uppercase text-xs font-bold">layouts:</span>
+                                            <ul id="sidebar" class="space-y-0.5 mx-2 pr-4 pt-2 w-full text-left">
+                                                <li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0s, transform 1s ease 0s;">
+                                <a onclick="render('')" id="nav-" class="flex items-center mx-auto cursor-pointer font-medium hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80 text-white shadow bg-zinc-800/90">
+                                    <div id="nav-display-" class="w-1 h-6 bottom-0 pl-0.5 hidden rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">home</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.1s, transform 1s ease 0.1s;">
+                                <a onclick="render('create.html')" id="nav-create.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-create.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">create</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.2s, transform 1s ease 0.2s;">
+                                <a onclick="render('servers.html')" id="nav-servers.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-servers.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">servers</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;">
+                                <a onclick="render('economy.html')" id="nav-economy.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-economy.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">economy</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;">
+                                <a onclick="render('tickets')" id="nav-tickets" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-tickets" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">tickets</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;">
+                                <a onclick="render('chat.html')" id="nav-chat.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-chat.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">chat</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.6s, transform 1s ease 0.6s;">
+                                <a onclick="render('market.html')" id="nav-market.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-market.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">market</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.7s, transform 1s ease 0.7s;">
+                                <a onclick="render('account.html')" id="nav-account.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-account.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">account</span>
+                                    </div>
+                                </a></li></ul>
+                                <span class="text-gray-400 uppercase text-xs font-bold">landing:</span>
+                                            <ul id="sidebar" class="space-y-0.5 mx-2 pr-4 pt-2 w-full text-left">
+                                                <li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.1s, transform 1s ease 0.1s;">
+                                <a onclick="render('create.html')" id="nav-create.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-create.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <span class="text-lg capitalize">Index</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.2s, transform 1s ease 0.2s;">
+                                <a onclick="render('servers.html')" id="nav-servers.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-servers.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">servers</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;">
+                                <a onclick="render('economy.html')" id="nav-economy.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-economy.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">economy</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;">
+                                <a onclick="render('tickets')" id="nav-tickets" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-tickets" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">tickets</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;">
+                                <a onclick="render('chat.html')" id="nav-chat.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-chat.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">chat</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.6s, transform 1s ease 0.6s;">
+                                <a onclick="render('market.html')" id="nav-market.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-market.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">market</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.7s, transform 1s ease 0.7s;">
+                                <a onclick="render('account.html')" id="nav-account.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-account.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"></path></svg>
+                                        <span class="ml-2 text-lg capitalize">account</span>
+                                    </div>
+                                </a></li></ul>
+                                        </div>
+                                    </div>
+                                    <div class="w-full p-4 md:col-span-4">
+                                        <div class="w-full grid grid-cols-1 gap-2">
+                                            <h1 class="text-gray-300 text-xl">Editing page: Home</h1>
+                                        </div>
+                                        <div class="w-full my-4 bg-zinc-800/80 rounded-full h-[0.8px] -ml-4 -mr-4">
+                                        </div>
+                                        <div class="grid grid-cols-1 gap-2">
+                                            <div class="w-full flex flex-col">
+                                                Icon:
+                                                <textarea class="bg-zinc-950 p-2 mt-1 md:max-w-md rounded-xl w-full outline-none border border-zinc-800/80"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path></svg></textarea>
+                                            </div>
+                                            <div class="w-full flex flex-col">
+                                                Page name:
+                                                <input type="text" value="Home"
+                                                    class="bg-zinc-950 p-2 mt-1 md:max-w-md rounded-xl w-full outline-none border border-zinc-800/80">
+                                            </div>
+                                            <div class="w-full flex flex-col">
+                                                Page route:
+                                                <input type="text" value="/dashboard"
+                                                    class="bg-zinc-950 p-2 mt-1 md:max-w-md rounded-xl w-full outline-none border border-zinc-800/80">
+                                            </div>
+                                            <div class="w-full flex flex-col">
+                                                File path:
+                                                <input type="text" value="dashboard.ejs"
+                                                    class="bg-zinc-950 p-2 mt-1 md:max-w-md rounded-xl w-full outline-none border border-zinc-800/80">
+                                            </div>
+                                            <div class="w-full flex flex-col">
+                                                Route Permission:
+                                                <input type="number" value="1"
+                                                    class="bg-zinc-950 p-2 mt-1 md:max-w-md rounded-xl w-full outline-none border border-zinc-800/80">
+                                            </div>
+                                            <div class="w-full flex flex-col">
+                                                <label
+                                                    class="relative inline-flex mt-1 items-center cursor-pointer">
+                                                    <input type="checkbox" value="" class="sr-only peer">
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                    </div>
+                                                    <span
+                                                        class="ml-3 font-medium text-gray-900 dark:text-gray-200">Require
+                                                        authentication</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hidden rounded-xl mb-4 w-full" id="roles" role="tabpanel">
+                                <div
+                                    class="bg-zinc-900/50 divide-x divide-zinc-800/80 grid grid-cols-1 md:grid-cols-5 text-gray-300 rounded-xl border border-zinc-800/80">
+                                    <div class="w-full p-2">
+                                        <div class="flex items-center w-full justify-between">
+                                            <div
+                                                class="hover:bg-zinc-900 cursor-pointer hover:duration-300 duration-300 flex items-center space-x-2 rounded-full border border-zinc-800/80 px-5 py-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                                                </svg>
+                                                <span
+                                                    class="text-gray-300 group-hover:duration-300 duration-300 group-hover:text-white">Back</span>
+                                            </div>
+                                            <div
+                                                class="hover:bg-zinc-900 cursor-pointer hover:duration-300 duration-300 flex items-center space-x-2 rounded-full border border-zinc-800/80 p-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 4.5v15m7.5-7.5h-15" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="w-full max-h-[470px] overflow-x-hidden overflow-y-scroll mt-4">
+                                            <ul id="sidebar" class="space-y-0.5 mx-2 pr-4 pt-2 w-full text-left">
+                                                <li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0s, transform 1s ease 0s;">
+                                <a onclick="render('')" id="nav-" class="flex items-center mx-auto cursor-pointer font-medium hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80 text-white shadow bg-zinc-800/90">
+                                    <div id="nav-display-" class="w-1 h-6 bottom-0 pl-0.5 hidden rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <div class="bg-purple-500 rounded-full h-3 w-3"></div>
+                                        <span class="ml-2 text-lg capitalize">Management</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.1s, transform 1s ease 0.1s;">
+                                <a onclick="render('create.html')" id="nav-create.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-create.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <div class="bg-red-500 rounded-full h-3 w-3"></div>
+                                        <span class="ml-2 text-lg capitalize">Administrator</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.2s, transform 1s ease 0.2s;">
+                                <a onclick="render('servers.html')" id="nav-servers.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-servers.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <div class="bg-sky-500 rounded-full h-3 w-3"></div>
+                                        <span class="ml-2 text-lg capitalize">Moderator</span>
+                                    </div>
+                                </a></li><li class="text-gray-300" style="opacity: 1; transform: translateY(0px); transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;">
+                                <a onclick="render('economy.html')" id="nav-economy.html" class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 hover:duration-300 duration-300 hover:bg-zinc-900/80">
+                                    <div id="nav-display-economy.html" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
+                                    <div class="p-2 flex items-center">
+                                        <div class="bg-green-500 rounded-full h-3 w-3"></div>
+                                        <span class="ml-2 text-lg capitalize">Member</span>
+                                    </div>
+                                </a></li></ul>
+                                        </div>
+                                    </div>
+                                    <div class="w-full p-4 md:col-span-4">
+                                        <div class="w-full grid grid-cols-1 gap-2">
+                                            <h1 class="text-gray-300 text-xl">Editing role: Management</h1>
+                                        </div>
+                                        <div class="w-full my-4 bg-zinc-800/80 rounded-full h-[0.8px] -ml-4 -mr-4">
+                                        </div>
+                                        <div class="grid grid-cols-1 gap-2">
+                                            <div class="w-full flex flex-col">
+                                                Color:
+                                                <div class="flex items-center md:max-w-md space-x-2">
+                                                    <div class="bg-[#a855f7] rounded-xl mt-1 h-9 w-10"></div>
+                                                    <input type="text" value="#a855f7"
+                                                    class="bg-zinc-950 p-2 mt-1 rounded-xl w-full outline-none border border-zinc-800/80">
+                                                </div>
+                                            </div>
+                                            <div class="w-full flex flex-col">
+                                                Role name:
+                                                <input type="text" value="management"
+                                                    class="bg-zinc-950 p-2 mt-1 md:max-w-md rounded-xl w-full outline-none border border-zinc-800/80">
+                                            </div>
+                                            <div class="w-full flex flex-col max-w-md">
+                                                Role intents:
+                                                <div class="flex items-center space-x-1">
+                                                    <span class="bg-zinc-900/30 backdrop-blur-xl w-max h-max px-2 py-1 rounded-full">*</span>,
+                                                    <span class="bg-zinc-900/30 backdrop-blur-xl w-max h-max px-2 py-1 rounded-full">hc.su</span>
+                                                    <span class="bg-zinc-900/20 backdrop-blur-xl w-max h-max p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg></span>
+                                                </div>
+                                            </div>
+                                            <div class="w-full flex flex-col">
+                                                Role Permission:
+                                                <input type="number" value="400"
+                                                    class="bg-zinc-950 p-2 mt-1 md:max-w-md rounded-xl w-full outline-none border border-zinc-800/80">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hidden rounded-xl mb-4" id="intents" role="tabpanel">
+                                <div
+                                    class="flex bg-zinc-900/50 border border-zinc-800/80 text-gray-300 rounded-lg flex-wrap content-start">
+                                    <h1 class="text-2xl text-gray-200 p-4 flex justify-between w-full items-center">
+                                        Landing pages
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer">
+                                            <div
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                            </div>
+                                        </label>
+                                    </h1>
+                                    <hr class="w-full border-b border-zinc-800/80 my-2">
+                                    <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 px-4 pb-4 overflow-auto">
+                                        <div class="w-full text-center">
+                                            <img class="rounded-lg border-2 border-blue-500"
+                                                src="https://cdn.holaclient.tech/production/X1/images/default-landing.png">
+                                            <span class="mt-2 text-lg">Default</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mt-4 flex bg-zinc-900/50 text-gray-300 rounded-xl border border-zinc-800/80 flex-wrap content-start">
+                                    <h1 class="text-2xl text-gray-100 p-4">Page settings: Default</h1>
+                                    <hr class="w-full border-b border-zinc-800/80">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 w-full">
+                                        <div class="w-full mt-4 px-4 py-2 pb-4">
+                                            <div class="w-full pr-2">
+                                                <label
+                                                    class="text-gray-200 w-full justify-between flex items-center">Page
+                                                    title</label>
+                                                <input
+                                                    class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2"
+                                                    value="HolaClient">
+                                            </div>
+                                            <div class="w-full pr-2 col-span-2">
+                                                <label class="block text-gray-200">Description</label>
+                                                <textarea rows="4" id="functionSelect"
+                                                    class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2">A nice and cozy attractive description here...</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="w-full mt-4 px-4 py-2 pb-4">
+                                            <div class="w-full pr-2">
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" value="" class="sr-only peer">
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                    </div>
+                                                    <span
+                                                        class="ml-3 font-medium text-gray-900 dark:text-gray-200">Show
+                                                        Statistics</span>
+                                                </label>
+                                            </div>
+                                            <div class="w-full pr-2 mt-4 col-span-2">
+                                                <label class="block text-gray-200">Hero head:</label>
+                                                <textarea rows="5" id="functionSelect"
+                                                    class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2">Welcome to the Future of <br> Game Hosting</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="w-full mt-4 px-4 py-2 pb-4">
+                                            <div class="w-full pr-2">
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" value="" class="sr-only peer">
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                    </div>
+                                                    <span
+                                                        class="ml-3 font-medium text-gray-900 dark:text-gray-200">Show
+                                                        Features</span>
+                                                </label>
+                                            </div>
+                                            <div class="w-full pr-2 my-4">
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" value="" class="sr-only peer">
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                    </div>
+                                                    <span
+                                                        class="ml-3 font-medium text-gray-900 dark:text-gray-200">Show
+                                                        Reviews</span>
+                                                </label>
+                                            </div>
+                                            <div class="grid grid-cols-3 w-full gap-2 md:gap-4 text-sm">
+                                                <button
+                                                    class="bg-rose-700/50 border border-rose-700 text-rose-300 hover:bg-rose-700/80 hover:duration-300 duration-300 rounded-full w-full py-2">
+                                                    Delete page
+                                                </button>
+                                                <button
+                                                    class="bg-sky-700/50 border border-sky-700 text-sky-300 hover:bg-sky-700/80 hover:duration-300 duration-300 rounded-full w-full py-2">
+                                                    Open in Editor
+                                                </button>
+                                                <button
+                                                    class="bg-emerald-700/50 border border-emerald-700 text-emerald-300 hover:bg-emerald-700/80 hover:duration-300 duration-300 rounded-full w-full py-2">
+                                                    Save Changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('./partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

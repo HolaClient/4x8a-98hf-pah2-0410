@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="https://cdn.holaclient.tech/logo.png" type="image/x-icon">
+    <title>HolaClient: Installation</title>
+    <link rel="icon" type="image/png" href="https://cdn.holaclient.tech/logo.png">
+    <link rel="stylesheet" href="../assets/default/app.css">
+    <script src="../assets/default/app.js"></script>
+    <link href="/assets/common/tailwind.css" rel="stylesheet">
+</head>
+
+<body class="bg-zinc-950 overflow-hidden w-screen flex items-center justify-center h-screen">
+    <div class="text-center text-white relative">
+        <div id="bg" class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+                class="w-80 h-80 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animation-blob">
+            </div>
+        </div>
+        <div class="inline-grid grid-cols-1 grid-rows-1 overflow-hidden">
+            <h1 id="mga" class="text-4xl col-span-full pt-16 row-span-full lg:text-4xl font-semibold">
+                Hola.
+            </h1>
+            <h1 id="mgb" class="text-4xl font-raleway col-span-full pt-16 row-span-full lg:text-4xl opacity-0 font-semibold mb-4">
+                Thanks for installing HolaClient
+            </h1>
+            <h1 id="mgc" class="text-4xl col-span-full row-span-full lg:text-5xl opacity-0 font-semibold mb-4">
+                <div class="flex flex-col justify-center w-full text-center md:pl-20">
+                    <h1 class="text-white text-4xl md:text-6xl">Welcome to</h1>
+                    <h1 class="text-transparent md:max-w-max w-full md:text-7xl font-raleway font-semibold bg-gradient-to-br from-white to-transparent bg-clip-text text-5xl">HolaClient-<span class="font-karla">X1</span></h1>
+                </div>
+            </h1>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            const mga = document.getElementById("mga");
+            const mgb = document.getElementById("mgb");
+            const mgc = document.getElementById("mgc");
+            const bg = document.getElementById("bg");
+
+            mga.style.transition = "opacity 2s";
+            mga.style.opacity = "0";
+
+            setTimeout(() => {
+                mga.classList.add("hidden");
+                mgb.style.transition = "color 2s, opacity 2s";
+                mgb.style.color = "white";
+                mgb.style.opacity = "100";
+                setTimeout(() => {
+                    mgb.style.transition = "opacity 2s";
+                    mgb.style.opacity = "0";
+                    bg.style.transition = "opacity 4s";
+                    bg.style.opacity = "0";
+                    setTimeout(() => {
+                        mgb.classList.add("hidden");
+                        mgc.style.transition = "color 2s, opacity 2s";
+                        mgc.style.color = "white";
+                        mgc.style.opacity = "100";
+                        setTimeout(() => {
+                            location.href="/"
+                        }, 4000);
+                    }, 2000);
+                }, 4000);
+            }, 2000);
+        }, 5000);
+    </script>
+    <style>
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            50% {
+                transform: translate(0px, 0px) scale(5);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(3);
+            }
+        }
+        .animation-blob {
+            animation: blob 12s forwards;
+        }
+        ::selection {
+            background: transparent
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: transparent;
+            border-radius: 3px;
+        }
+    </style>
+</body>

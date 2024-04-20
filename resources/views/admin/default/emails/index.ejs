@@ -1,0 +1,57 @@
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                              </svg>                                                                   
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl">Emails</h1>
+                            <span class="text-gray-300 text-md">Receive & send emails via your SMTP.</span>
+                        </div>
+                    </div>
+                    <div class="py-2 px-5 text-gray-300 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 cursor-pointer border border-zinc-800/80 flex items-center text-sm rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 pr-2">
+                            <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                          </svg>
+                          Compose
+                    </div>
+                </div>
+                <div class="lg:flex mt-4 lg:justify-between">
+                    <div class="w-full">
+                      <div class="mb-4 rounded-xl">
+                        <ul class="text-sm font-medium text-center text-gray-300 divide-x divide-gray-800/80 rounded-xl shadow sm:flex" id="resourceTab" data-tabs-toggle="#permissions" role="tablist">
+                          <li class="w-full" role="presentation">
+                            <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl" data-tabs-target="#page" type="button" role="tab" aria-controls="page" aria-selected="false">Inbox</button>
+                          </li>
+                          <li class="w-full" role="presentation">
+                            <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300" data-tabs-target="#roles" type="button" role="tab" aria-controls="roles" aria-selected="false">History</button>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="w-full mt-14 text-center flex flex-col justify-center items-center">
+                        <h1 class="bg-gradient-to-br from-white to-transparent bg-clip-text font-bold w-max text-transparent text-4xl">
+                            <span class="text-2xl md:text-4xl xl:text-7xl">Unavailable with this beta version.</span>
+                        </h1>
+                    </div>
+                    </div>
+                  </div>
+            </div>
+        </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

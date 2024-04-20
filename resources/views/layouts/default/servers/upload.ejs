@@ -1,0 +1,32 @@
+<%- include('../partials/head') %>
+
+    <body class="bg-zinc-950 relative items-center h-full">
+        <div class="w-screen overflow-hidden">
+            <div class="antialiased">
+                <%- include('../partials/nav') %>
+                <%- include('../partials/aside') %>
+                    <main class="p-4 md:ml-64 z-20 -mt-12 max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+                        <div id="content">
+                        <%- include('../partials/links') %>
+                            <div id="page" class="relative">
+                                <div class="mt-8 flex flex-col h-full justify-center items-center text-center w-full">
+                                    <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full max-w-sm md:max-w-xl lg:max-w-lg">
+                                        <h1 class="text-gray-100 text-xl">Pull file from URL</h1>
+                                        <div class="mt-4">
+                                            <h1 class="text-gray-300 text-start justify-start">Enter the file url:</h1>
+                                            <input id="uploadURLInput" type="url" class="p-2 bg-zinc-950 outline-none border border-zinc-800/80 rounded-xl w-full text-gray-300">
+                                        </div>
+                                        <button onclick="pull()" class="mt-2 w-full text-center rounded-full justify-center flex items-center hover:duration-300 duration-300 hover:bg-zinc-800/50 bg-zinc-900/50 border border-zinc-800/80 text-gray-300 py-2">
+                                            Pull
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                <%- include('../partials/footer') %>
+            </div>
+        </div>
+    </body>
+
+    </html>

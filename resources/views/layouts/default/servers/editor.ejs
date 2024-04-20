@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <%- include('../partials/links') %>
+                <div id="page" class="relative">
+                    <textarea id="Editor" class="bg-zinc-900/50 outline-none mt-8 text-gray-300 p-1 border border-zinc-800/80 rounded-xl w-full h-[560px]" cols="30" rows="10"><%= text %></textarea>
+                    <div class="w-full mt-4 items-center justify-center flex">
+                        <button onclick="save()" class="bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 text-gray-300 rounded-full border border-zinc-800/80 px-5 py-2">
+                            Save content
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

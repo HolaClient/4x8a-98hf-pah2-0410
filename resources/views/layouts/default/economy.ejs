@@ -1,0 +1,148 @@
+<%- include('./partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('./partials/nav') %>
+            <%- include('./partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex space-x-4 items-center">
+                    <div
+                        class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6">
+                            <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
+                            <path fill-rule="evenodd"
+                                d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 14.625v-9.75ZM8.25 9.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM18.75 9a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V9.75a.75.75 0 0 0-.75-.75h-.008ZM4.5 9.75A.75.75 0 0 1 5.25 9h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H5.25a.75.75 0 0 1-.75-.75V9.75Z"
+                                clip-rule="evenodd" />
+                            <path
+                                d="M2.25 18a.75.75 0 0 0 0 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 0 0-.75-.75H2.25Z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-between w-full">
+                        <h1 class="text-gray-200 font-semibold text-xl"><%= lang.servers.title %></h1>
+                        <span class="text-gray-300 text-md"><%= lang.servers.titleText %></span>
+                    </div>
+                </div>
+                <div class="w-full mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 gap-4 col-span-2 w-full">
+                        <div class="rounded-xl bg-zinc-900 border border-zinc-800/80 h-max p-2">
+                            <h1 class="text-gray-200 text-xl text-center w-full">
+                                Link based earning
+                            </h1>
+                            <div class="grid grid-cols-1 mt-2 md:grid-cols-3 gap-4">
+                                <div
+                                    class="bg-zinc-800/50 hover:bg-zinc-900 hover:duration-300 duration-300 cursor-pointer shadow rounded-xl p-4 flex items-center space-x-2 w-full border border-zinc-800/80">
+                                    <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/60f32c3fa0f0500001ab7c87/0x0.png"
+                                        class="w-12 h-auto rounded-xl">
+                                    <h1 class="text-gray-300 text-xl">Work.ink</h1>
+                                </div>
+                                <div
+                                    class="bg-zinc-800/50 hover:bg-zinc-900 hover:duration-300 duration-300 cursor-pointer shadow rounded-xl p-4 flex items-center space-x-2 w-full border border-zinc-800/80">
+                                    <img src="data:image/png;base64,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"
+                                        class="w-12 h-auto rounded-xl">
+                                    <h1 class="text-gray-300 text-xl">Adfoc.us</h1>
+                                </div>
+                                <div
+                                    class="bg-zinc-800/50 hover:bg-zinc-900 hover:duration-300 duration-300 cursor-pointer shadow rounded-xl p-4 flex items-center space-x-2 w-full border border-zinc-800/80">
+                                    <img src="https://spitzen-arbeitgeber.de/wp-content/uploads/2023/08/FINAL-Linkvertise-Icon.png"
+                                        class="w-12 h-auto rounded-xl">
+                                    <h1 class="text-gray-300 text-xl">Linkvertise</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-xl bg-zinc-900 border border-zinc-800/80 h-max p-2">
+                            <h1 class="text-gray-200 text-xl text-center w-full">
+                                Discord: Join For Coins
+                            </h1>
+                            <div class="grid grid-cols-1 mt-2 md:grid-cols-3 gap-4">
+                                <div
+                                    class="bg-sky-800/30 hover:bg-zinc-900 hover:duration-300 duration-300 cursor-pointer shadow rounded-xl p-4 flex items-center space-x-2 w-full border border-sky-800/80">
+                                    <img src="https://cdn.holaclient.tech/logo.png" class="w-12 h-auto rounded-xl">
+                                    <div class="flex flex-col">
+                                        <h1 class="text-sky-300 text-lg">HolaClient</h1>
+                                        <span class="text-gray-400">500 coins</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-xl bg-zinc-900 border border-zinc-800/80 h-max p-2">
+                            <h1 class="text-gray-200 text-xl text-center w-full">
+                                GitHub: Star For Coins
+                            </h1>
+                            <div class="grid h-max grid-cols-1 mt-2 md:grid-cols-3 gap-4">
+                                <div
+                                    class="bg-sky-800/30 hover:bg-zinc-900 hover:duration-300 duration-300 cursor-pointer shadow rounded-xl p-4 flex items-center space-x-2 w-full border border-sky-800/80">
+                                    <img src="https://cdn.holaclient.tech/logo.png" class="w-12 h-auto rounded-xl">
+                                    <div class="flex flex-col">
+                                        <h1 class="text-sky-300 text-lg">HolaClient</h1>
+                                        <span class="text-gray-400">500 coins</span>
+                                    </div>
+                                </div>
+                                <div
+                                class="bg-sky-800/30 hover:bg-zinc-900 hover:duration-300 duration-300 cursor-pointer shadow rounded-xl p-4 flex items-center space-x-2 w-full border border-sky-800/80">
+                                <img src="https://cdn.holaclient.tech/logo.png"
+                                    class="w-12 h-auto rounded-xl">
+                                <div class="flex flex-col">
+                                    <h1 class="text-sky-300 text-lg">HolaClient legacy</h1>
+                                    <span class="text-gray-400">500 coins</span>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid h-max grid-cols-1 gap-4 w-full">
+                        <div class="rounded-xl bg-zinc-900 border border-zinc-800/80 p-2 h-max">
+                            <h1 class="text-gray-200 text-xl text-center w-full">
+                                Leaderboard
+                            </h1>
+                            <div class="flex flex-col mt-2 w-full">
+                                <div
+                                    class="bg-zinc-800/50 hover:bg-zinc-900 h-max hover:duration-300 duration-300 justify-between cursor-pointer shadow rounded-xl p-2 flex items-center space-x-2 w-full border border-zinc-800/80">
+                                    <div class="flex items-center space-x-2">
+                                        <h1 class="text-amber-300 text-xl">#1</h1>
+                                        <img src="https://cdn.discordapp.com/avatars/863452735998656512/a_2990babbb1ca4fe3242456e5720990a6"
+                                            class="w-12 rounded-xl">
+                                        <h1 class="text-gray-200 text-xl">CR072</h1>
+                                    </div>
+                                    <h1 class="text-gray-200 text-lg">1000 <span class="text-gray-400">coins</span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-xl bg-zinc-900 border border-zinc-800/80 p-2 h-max">
+                            <h1 class="text-gray-200 text-xl text-center w-full">
+                                AFK
+                            </h1>
+                            <div class="flex flex-col mt-2 w-full">
+                                <div
+                                    class="bg-zinc-800/50 hover:bg-zinc-900 h-max hover:duration-300 duration-300 justify-center cursor-pointer shadow rounded-xl p-2 flex items-center space-x-2 w-full border border-zinc-800/80">
+                                    <p class="text-gray-300">You are currently earning 5 coins per minute. In this
+                                        session, you have earned 10 coins, bringing your total to 1010 coins.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-xl bg-zinc-900 border border-zinc-800/80 p-2 h-max">
+                            <h1 class="text-gray-200 text-xl text-center w-full">
+                                Redeem Coupons
+                            </h1>
+                            <div class="flex flex-col mt-2 w-full">
+                                <input placeholder="HOLACLIENTX"
+                                    class="bg-zinc-950 text-gray-200 placeholder-gray-400 outline-none focus:bg-zinc-950/80 focus:duration-300 duration-300 rounded-xl p-2 w-full border border-zinc-800/80">
+                                    <button class="bg-zinc-950 mt-2 relative p-2 text-gray-200 outline-none border border-zinc-800/80 rounded-xl w-full">
+                                        Redeem
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('./partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+{
+    "nav": {
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Log out",
+        "start": "Start",
+        "stop": "Stop",
+        "restart": "Restart",
+        "kill": "Kill"
+    },
+    "footer": {
+        "poweredby": "Powered by"
+    },
+    "dashboard": {
+        "home": "Home",
+        "homeText": "Get an overview of your servers & resources."
+    },
+    "create": {
+        "title": "Create",
+        "description": "Deploy a server of your own.",
+        "name": "Server name",
+        "nameText": "Name of your server:",
+        "location": "Server Location",
+        "locationText": "Choose the closest location to you for low latency.",
+        "software": "Server Software",
+        "softwareText": "Choose a software to deploy your server with.",
+        "deploy": "Deploy"
+    },
+    "servers": {
+        "title": "Servers",
+        "titleText": "List of your servers.",
+        "noServers": "You do not own any server."
+    },
+    "economy": {
+        "title": "Economy",
+        "titleText": "Explore HolaClient's economy & your financial information."
+    },
+    "tickets": {
+        "title": "Tickets",
+        "titleText": "Create & manage your support tickets.",
+        "createdon": "Creation Date",
+        "assistor": "Assistor",
+        "id": "Ticket ID",
+        "category": "Category",
+        "related": "Related Service",
+        "queue": "Queue Position",
+        "notickets": "You don't have any opened tickets."
+    },
+    "chat": {
+        "title": "Chat",
+        "titleText": "Communicate with the community, seek help etc. Here is where it happens!"
+    },
+    "licenses": {
+        "title": "Licenses",
+        "titleText": "Overview of all Open-Sourced projects used in this software!"
+    },
+    "market": {
+        "title": "Market",
+        "titleText": "Buy/Sell resources & packages here.",
+        "buy": "Buy resources",
+        "sell": "Sell resources"
+    },
+    "account": {
+        "title": "Account",
+        "titleText": "View and manage your account here.",
+        "coins": "coins",
+        "username": "Username",
+        "nickname": "Nickname",
+        "email": "Email",
+        "id": "ID",
+        "package": "Package",
+        "password": "Password",
+        "danger": "Danger zone",
+        "delete": "Delete account",
+        "reset": "Reset password"
+    },
+    "admin": {
+        "home": {
+            "title": "Admin Home",
+            "titleText": "Get an overview of your hosting.",
+            "servers": "Servers",
+            "users": "Users",
+            "queue": "Servers in Queue",
+            "nodes": "Nodes",
+            "subdomains":"Subdomains",
+            "coins": "Coins Circulating",
+            "invoices": "Invoices open",
+            "tickets": "Tickets open",
+            "revenue": "Total revenue",
+            "memory": "Memory used",
+            "disk": "Storage used",
+            "newUsers": "New users (past 24h)",
+            "purgeServers": "Purge servers without a keyword",
+            "purgeInactive": "Purge Inactive servers",
+            "purgeSuspended": "Purge suspended servers",
+            "purgeServersCache": "Purge servers cache",
+            "purgeCache": "Purge application cache",
+            "warning": "Warning, this is a permanent action and cannot be reverted!",
+            "warning1": "This will purge all temporary files & logs!",
+            "warning2": "This will purge all cache on the cache driver!",
+            "keyword": "Keyword",
+            "suspended": "Suspended servers",
+            "period": "Period"
+        },
+        "users": {
+            "title": "Users",
+            "titleText": "Manage or view all of your users.",
+            "create": "Create user",
+            "update": "Update user",
+            "avatar": "Avatar",
+            "name": "Full name",
+            "username": "Username",
+            "role": "Top Role",
+            "email": "Email",
+            "permission": "Permission",
+            "id": "ID",
+            "show": "Show",
+            "showAll": "Show all",
+            "createText": "Create new user.",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "looksGood": "Looks good?"
+        },
+        "tickets": {
+            "title": "Tickets",
+            "titleText": "Manage users created tickets."
+        },
+        "billing": {
+            "home": "Billing",
+            "homeText": "Get an overview of your billing system."
+        },
+        "products": {
+            "home": "Products",
+            "homeText": "Create & manage your products.",
+            "create": "Create product",
+            "name": "Name",
+            "id": "ID",
+            "price": "Price",
+            "type": "Type",
+            "icon": "Icon",
+            "status": "Status"
+        }
+    }
+}

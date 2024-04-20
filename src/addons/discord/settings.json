@@ -1,0 +1,95 @@
+{
+    "oauth2": [
+        {
+            "identifier": "DISCORD_OAUTH2_CLIENT_ID",
+            "label": "Oauth2 Client ID",
+            "value_type": "string",
+            "placeholder": "1081193792806297316",
+            "pointer": "client.id"
+        },
+        {
+            "identifier": "DISCORD_OAUTH2_CLIENT_SECRET",
+            "label": "Oauth2 Client Secret",
+            "value_type": "string",
+            "placeholder": "PRHL6JATAyj0GvpkeghaKygxjL2L84XN",
+            "pointer": "client.secret"
+        }
+    ],
+    "guild": [
+        {
+            "identifier": "DISCORD_GUILD_ID",
+            "label": "Guild ID",
+            "value_type": "string",
+            "placeholder": "",
+            "pointer": "guild.id"
+        },
+        {
+            "identifier": "DISCORD_GUILD_BOT_TOKEN",
+            "label": "Guild bot token",
+            "value_type": "string",
+            "placeholder": "",
+            "pointer": "guild.bot.token"
+        }
+    ],
+    "pull": [
+        {
+            "identifier": "DISCORD_PULL_USERS",
+            "label": "Pull users (requires bot token)",
+            "value_type": "boolean",
+            "pointer": "pull.enabled"
+        },
+        {
+            "identifier": "DISCORD_PULL_USERS_GUILDS",
+            "label": "Guild IDs (separate IDs with ',')",
+            "value_type": "string",
+            "pointer": "pull.guilds"
+        }
+    ],
+    "j4r": [
+        {
+            "identifier": "DISCORD_JOIN_FOR_REWARDS_TOGGLE",
+            "label": "Enable J4R",
+            "value_type": "boolean",
+            "pointer": "j4r.enabled"
+        },
+        {
+            "identifier": "DISCORD_JOIN_FOR_REWARDS_GUILDS",
+            "label": "Guilds",
+            "value_type": "string",
+            "placeholder": "",
+            "pointer": "j4r.guilds"
+        },
+        {
+            "identifier": "DISCORD_JOIN_FOR_REWARDS_COINS",
+            "label": "J4R reward (Coins)",
+            "value_type": "number",
+            "placeholder": "",
+            "pointer": "j4r.rewards.coins"
+        },
+        {
+            "identifier": "DISCORD_JOIN_FOR_REWARDS_RESOURCES",
+            "label": "J4R reward (Resources)",
+            "value_type": "object",
+            "keys": ["memory", "disk", "cpu", "allocations", "backups", "databases"],
+            "keys_value_type": "number",
+            "placeholder": "",
+            "pointer": "j4r.rewards.resources"
+        }
+    ],
+    "webhook": [
+        {
+            "identifier": "DISCORD_WEBHOOK_CLIENT",
+            "label": "Client channel webhook url",
+            "value_type": "string",
+            "placeholder": "",
+            "pointer": "webhook.client"
+        },
+        {
+            "identifier": "DISCORD_WEBHOOK_ADMIN",
+            "label": "Admin channel webhook url",
+            "value_type": "string",
+            "placeholder": "",
+            "pointer": "webhook.admin"
+        }
+    ]
+}

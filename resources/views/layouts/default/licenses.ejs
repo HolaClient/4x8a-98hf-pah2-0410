@@ -1,0 +1,199 @@
+<%- include('./partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('./partials/nav') %>
+            <%- include('./partials/aside') %>
+            <main
+                class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+                <div id="content">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v.756a49.106 49.106 0 0 1 9.152 1 .75.75 0 0 1-.152 1.485h-1.918l2.474 10.124a.75.75 0 0 1-.375.84A6.723 6.723 0 0 1 18.75 18a6.723 6.723 0 0 1-3.181-.795.75.75 0 0 1-.375-.84l2.474-10.124H12.75v13.28c1.293.076 2.534.343 3.697.776a.75.75 0 0 1-.262 1.453h-8.37a.75.75 0 0 1-.262-1.453c1.162-.433 2.404-.7 3.697-.775V6.24H6.332l2.474 10.124a.75.75 0 0 1-.375.84A6.723 6.723 0 0 1 5.25 18a6.723 6.723 0 0 1-3.181-.795.75.75 0 0 1-.375-.84L4.168 6.241H2.25a.75.75 0 0 1-.152-1.485 49.105 49.105 0 0 1 9.152-1V3a.75.75 0 0 1 .75-.75Zm4.878 13.543 1.872-7.662 1.872 7.662h-3.744Zm-9.756 0L5.25 8.131l-1.872 7.662h3.744Z" clip-rule="evenodd" />
+                              </svg>
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl"><%= lang.licenses.title %></h1>
+                            <span class="text-gray-300 text-md"><%= lang.licenses.titleText %></span>
+                        </div>
+                    </div>
+                    <div class="justify-between w-full mt-4 items-center">
+                        <div class="w-full border border-zinc-800/80 rounded-xl p-2 md:p-4 flex flex-col">
+                            <div class="w-full flex items-center justify-center">
+                                <h1 class="bg-gradient-to-br from-white to-transparent text-transparent bg-clip-text w-max font-bold font-raleway text-5xl sm:text-6xl md:text-7xl lg:text-9xl xl:text-[220px]">
+                                    HolaClient-X<span class="font-urbanist">1</span>
+                                </h1>
+                            </div>
+                            <div class="w-full p-1 mt-2 md:mt-0 md:p-4 z-50 text-xs md:text-lg text-center flex justify-between">
+                                <button onclick="location.href='https://github.com/HolaClient/X'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center px-5 py-2">
+                                    <span>GitHub</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                      </svg>                                      
+                                </button>
+                                <button onclick="location.href='https://discord.gg/CvqRH9TrYK'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center px-5 py-2">
+                                    <span>Discord</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                      </svg>                                      
+                                </button>
+                                <button onclick="location.href='https://holaclientx.tech'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center px-5 py-2">
+                                    <span>Website</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                      </svg>                                      
+                                </button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 w-full gap-4 mt-4">
+                            <div class="w-full border border-zinc-800/80 rounded-xl p-4 flex flex-col">
+                                <div class="w-full flex items-center justify-center">
+                                    <h1 class="bg-gradient-to-br from-white to-transparent text-transparent bg-clip-text w-max font-bold font-raleway text-4xl sm:text-5xl md:text-6xl lg:text-9xl">
+                                        Tailwind
+                                    </h1>
+                                </div>
+                                <div class="w-full p-4 z-50 space-y-1 md:space-y-0 text-xs md:text-lg text-center md:flex justify-between">
+                                    <button onclick="location.href='https://github.com/tailwindlabs/tailwindcss'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>GitHub</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>
+                                    </button>
+                                    <button onclick="location.href='https://discord.gg/tailwind'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>Discord</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>                                      
+                                    </button>
+                                    <button onclick="location.href='https://tailwindcss.com'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>Website</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>                                      
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full border border-zinc-800/80 rounded-xl p-4 flex flex-col">
+                                <div class="w-full flex items-center justify-center">
+                                    <h1 class="bg-gradient-to-br from-white to-transparent text-transparent bg-clip-text w-max font-bold font-raleway text-4xl sm:text-5xl md:text-6xl lg:text-9xl">
+                                        Toastr
+                                    </h1>
+                                </div>
+                                <div class="w-full space-y-1 md:space-y-0 p-4 z-50 text-xs md:text-lg text-center md:flex justify-between">
+                                    <button onclick="location.href='https://github.com/CodeSeven/toastr'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>GitHub</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>                                      
+                                    </button>
+                                    <button onclick="location.href='https://toastrjs.com'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>Website</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>                                      
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full border border-zinc-800/80 rounded-xl p-4 flex flex-col">
+                                <div class="w-full flex items-center justify-center">
+                                    <h1 class="bg-gradient-to-br from-white to-transparent text-transparent bg-clip-text w-max font-bold font-raleway text-4xl sm:text-5xl md:text-6xl lg:text-9xl">
+                                        Flowbite
+                                    </h1>
+                                </div>
+                                <div class="w-full p-4 space-y-1 md:space-y-0 z-50 text-xs md:text-lg text-center md:flex justify-between">
+                                    <button onclick="location.href='https://github.com/themesberg/flowbite'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>GitHub</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>                                      
+                                    </button>
+                                    <button onclick="location.href='https://discord.gg/4eeurUVvTy'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>Discord</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>                                      
+                                    </button>
+                                    <button onclick="location.href='https://flowbite.com/'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>Website</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>                                      
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full border border-zinc-800/80 rounded-xl p-4 flex flex-col">
+                                <div class="w-full flex items-center justify-center">
+                                    <h1 class="bg-gradient-to-br from-white to-transparent text-transparent bg-clip-text w-max font-bold font-raleway text-4xl sm:text-5xl md:text-6xl lg:text-9xl">
+                                        SweetAlert
+                                    </h1>
+                                </div>
+                                <div class="w-full p-4 z-50 space-y-1 md:space-y-0 text-xs md:text-lg text-center md:flex justify-between">
+                                    <button onclick="location.href='https://github.com/t4t5/sweetalert'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>GitHub</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>
+                                    </button>
+                                    <button onclick="location.href='https://discord.gg/4eeurUVvTy'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>Discord</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>
+                                    </button>
+                                    <button onclick="location.href='https://sweetalert.js.org'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>Website</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full border border-zinc-800/80 rounded-xl p-4 flex flex-col">
+                                <div class="w-full flex items-center justify-center">
+                                    <h1 class="bg-gradient-to-br from-white to-transparent text-transparent bg-clip-text w-max font-bold font-raleway text-4xl sm:text-5xl md:text-6xl lg:text-9xl">
+                                        JQuery
+                                    </h1>
+                                </div>
+                                <div class="w-full p-4 z-50 space-y-1 md:space-y-0 text-xs md:text-lg text-center md:flex justify-between">
+                                    <button onclick="location.href='https://github.com/jquery/jquery'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>GitHub</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>
+                                    </button>
+                                    <button onclick="location.href='https://jquery.com/'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>Website</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full border border-zinc-800/80 rounded-xl p-4 flex flex-col">
+                                <div class="w-full flex items-center justify-center">
+                                    <h1 class="bg-gradient-to-br from-white to-transparent text-transparent bg-clip-text w-max font-bold font-raleway text-4xl sm:text-5xl md:text-6xl lg:text-9xl">
+                                        Polka
+                                    </h1>
+                                </div>
+                                <div class="w-full p-4 z-50 space-y-1 md:space-y-0 text-xs md:text-lg text-center md:flex justify-between">
+                                    <button onclick="location.href='https://github.com/lukeed/polka'" class="rounded-full text-gray-300 bg-zinc-900/50 border border-zinc-800/80 flex space-x-2 items-center w-full md:w-max px-5 py-2">
+                                        <span>GitHub</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd" />
+                                          </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('./partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

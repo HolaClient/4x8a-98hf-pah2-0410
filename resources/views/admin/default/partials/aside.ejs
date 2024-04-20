@@ -1,0 +1,44 @@
+<aside class="fixed top-0 left-0 z-50 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
+                aria-label="Sidenav" id="drawer-navigation">
+                <div
+                    class="overflow-y-auto overflow-x-hidden bg-zinc-950/90 md:bg-gradient-to-br from-[#090b0a] to-transparent md:pt-5 p-2 text-center h-full">
+                    <ul class="space-y-2 relatie mt-20 pt-4 lg:mt-0 text-center mx-auto">
+                        <center>
+                            <li>
+                                <a
+                                    class="flex flex-col relative justify-center p-4 items-center mx-auto px-2 text-center text-base font-medium rounded-lg group">
+                                    <span
+                                        class="text-center bg-gradient-to-br from-white via-gray-100/80 to-transparent bg-clip-text leading-[1.2] tracking-tighter text-transparent font-semibold text-4xl font-nunito">HolaClient</span>
+                                    <img src="https://cdn.holaclient.tech/logo.png"
+                                        class="absolute opacity-30 w-full blur-sm z-10">
+                                </a>
+                            </li>
+                        </center>
+                    </ul>
+                    <div class="pt-12 justify-start text-left pl-2">
+                        <span class="text-sm font-karla font-extrabold text-left text-gray-400">ADMINISTRATION</span>
+                    </div>
+                    <ul id="sidebar" class="space-y-2 overflow-y-scroll pb-28 mx-2 pr-4 pt-2 w-full text-left">
+
+                    </ul>
+                </div>
+                <div
+                    class="absolute bottom-0 border-t border-zinc-800/80 bg-zinc-950 left-0 justify-center py-5 px-6 p-4 space-x-4 mx-auto w-full lg:flex z-20">
+                    <div class="w-full cursor-pointer relative rounded-xl bg-black p-2 flex flex-col">
+                        <div onclick="loadUserDropdown()"  class="flex w-full items-center">
+                            <img src="https://cdn.discordapp.com/avatars/863452735998656512/a_2990babbb1ca4fe3242456e5720990a6"
+                                class="w-12 rounded-xl">
+                            <div class="flex ml-3 flex-col">
+                                <h1 class="text-gray-200 text-lg"><%= userinfo.nickname %></h1>
+                                <span class="text-gray-400 -mt-1 text-sm">@<%= userinfo.username %></span>
+                            </div>
+                        </div>
+                        <div id="userDropdownDivider" class="w-full hidden px-4 my-2 rounded-full bg-zinc-900 h-0.5"></div>
+                        <div id="userDropdownHolder" class="relative opacity-0 w-full">
+                            <ul id="userDropdown" class="text-sm text-gray-200">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>

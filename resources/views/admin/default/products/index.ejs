@@ -1,0 +1,66 @@
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="" onload="products()" class="w-0 h-0">
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clip-rule="evenodd" />
+                              </svg>                                                                  
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl"><%= lang.admin.products.home %></h1>
+                            <span class="text-gray-300 text-md"><%= lang.admin.products.homeText %></span>
+                        </div>
+                    </div>
+                    <button onclick="render('admin/products/create')" class="rounded-full flex items-center hover:duration-300 duration-300 hover:bg-zinc-800/50 bg-zinc-900/50 border border-zinc-800/80 text-gray-300 px-5 py-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
+                          </svg>
+                          <span class="ml-2"><%= lang.admin.products.create %></span>
+                    </button>
+                </div>
+                <div class="flex flex-col bg-zinc-900/50 border border-zinc-800/80 text-white rounded-xl mt-4">
+                    <div class="flex flex-wrap items-center rounded-xl justify-between overflow-auto gap-4">
+                        <table class="w-full table-fixed overflow-x-scroll rounded-xl max-md:min-w-[70rem]">
+                            <thead class="border-b text-gray-200 border-zinc-800 rounded-xl overflow-hidden bg-zinc-950">
+                                <th class="p-4 font-normal text-left">
+                                    <%= lang.admin.products.icon %>
+                                </th>
+                                <th class="p-4 font-normal text-right">
+                                    <%= lang.admin.products.name %>
+                                </th>
+                                <th class="p-4 font-normal text-right">
+                                    <%= lang.admin.products.type %>
+                                </th>
+                                <th class="p-4 font-normal text-right">
+                                    <%= lang.admin.products.id %>
+                                </th>
+                                <th class="p-4 font-normal text-right items-center">
+                                    <%= lang.admin.products.price %>
+                                </th>
+                                <th class="p-4 font-normal text-right">
+                                    <%= lang.admin.products.status %>
+                                </th>
+                            </thead>
+                            <tbody class="w-full" id="productsHolder"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

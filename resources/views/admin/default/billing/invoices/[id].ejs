@@ -1,0 +1,204 @@
+<%- include('../../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../../partials/nav') %>
+            <%- include('../../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <% function date(a) {
+                    const b = new Date(a);
+                    const c = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    const d = c[b.getMonth()];
+                    const e = b.getDate();
+                    const f = b.getFullYear();
+                    const g = new Date().getFullYear();
+                    return `${d} ${e}${f !== g ? ', ' + f : ''}`;
+                  } %>
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M12 1.5c-1.921 0-3.816.111-5.68.327-1.497.174-2.57 1.46-2.57 2.93V21.75a.75.75 0 0 0 1.029.696l3.471-1.388 3.472 1.388a.75.75 0 0 0 .556 0l3.472-1.388 3.471 1.388a.75.75 0 0 0 1.029-.696V4.757c0-1.47-1.073-2.756-2.57-2.93A49.255 49.255 0 0 0 12 1.5Zm3.53 7.28a.75.75 0 0 0-1.06-1.06l-6 6a.75.75 0 1 0 1.06 1.06l6-6ZM8.625 9a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm5.625 3.375a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z" clip-rule="evenodd" />
+                              </svg>                                  
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl">Invoice <%= data.id %></h1>
+                            <span class="text-gray-300 text-md">Managing invoice <%= data.id %>.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                        <h1 class="text-gray-300 text-xl p-2 text-center">
+                            Invoice
+                        </h1>
+                        <div class="w-full bg-zinc-800/80 h-0.5"></div>
+                        <div class="p-4">
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Invoice Identifier:</span>
+                                <h1 class="text-gray-300"><%= data.identifier %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Invoice price:</span>
+                                <h1 class="text-gray-300">$<%= data.price %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Invoice created at:</span>
+                                <h1 class="text-gray-300"><%= date(data.date.created) %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Invoice paid at:</span>
+                                <h1 class="text-gray-300"><%= date(data.date.paid) %></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                        <h1 class="text-gray-300 text-xl p-2 text-center">
+                            Product
+                        </h1>
+                        <div class="w-full bg-zinc-800/80 h-0.5"></div>
+                        <div class="p-4">
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Product ID:</span>
+                                <h1 class="text-gray-300"><%= data.product.id %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Product name:</span>
+                                <h1 class="text-gray-300"><%= data.product.name %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Product type:</span>
+                                <h1 class="text-gray-300"><%= data.product.type %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Product cost:</span>
+                                <h1 class="text-gray-300">$<%= data.product.credits %> || <%= data.product.coins %> coins</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                        <h1 class="text-gray-300 text-xl p-2 text-center">
+                            User
+                        </h1>
+                        <div class="w-full bg-zinc-800/80 h-0.5"></div>
+                        <div class="p-4">
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">User ID:</span>
+                                <h1 class="text-gray-300"><%= data.user.id %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">Username:</span>
+                                <h1 class="text-gray-300"><%= data.user.username %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">User nickname:</span>
+                                <h1 class="text-gray-300"><%= data.user.nickname %></h1>
+                            </div>
+                            <div class="flex items-center text-md justify-between">
+                                <span class="text-gray-400">User fullname:</span>
+                                <h1 class="text-gray-300"><%= data.user.name.first %> <%= data.user.name.last %></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="invoiceMain" class="mt-4 w-full space-y-8 rounded-xl bg-zinc-900/50 border border-zinc-800/80 p-8">
+                    <div class="flex justify-between items-center w-full">
+                        <h1 class="text-gray-300 text-2xl font-bold">INVOICE</h1>
+                        <div class="flex space-x-2">
+                        </div>
+                    </div>
+                    <div class="w-full flex justify-between items-center">
+                        <div class="flex space-x-4">
+                            <div class="flex flex-col">
+                                <span class="text-gray-300">Invoice Identifier</span>
+                                <span class="text-gray-300">Invoice created at</span>
+                                <span class="text-gray-300">Invoice paid at</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-300">:</span>
+                                    <span class="text-gray-300">:</span>
+                                    <span class="text-gray-300">:</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <h1 class="text-gray-200"><%= data.identifier %></h1>
+                                    <h1 class="text-gray-200"><%= date(data.date.created) %></h1>
+                                    <h1 class="text-gray-200"><%= date(data.date.paid) %></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <img src="<%= appearance.logo.url %>" alt="logo" class="w-24 h-auto">
+                        </div>
+                    </div>
+                    <div class="w-full flex justify-between items-center">
+                        <div class="flex flex-col">
+                            <h1 class="text-lg font-bold text-gray-300">BILL TO</h1>
+                            <span class="text-gray-200"><%= data.user.name.first %> <%= data.user.name.last %></span>
+                            <span class="text-gray-300"><%= data.user.email %></span>
+                        </div>
+                        <div class="flex flex-col text-left justify-start">
+                            <h1 class="text-lg font-bold text-gray-300">FROM</h1>
+                            <span class="text-gray-200"><%= appearance.name %></span>
+                            <span class="text-gray-300">XYZ adress, change it in settings.</span>
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-col">
+                        <div class="w-full rounded-xl bg-zinc-950/80 p-2 px-4 grid grid-cols-10">
+                            <div class="col-span-7 w-full text-left">
+                                <h1 class="text-gray-300 text-lg">Items</h1>
+                            </div>
+                            <div class="col-span-1 w-full text-right">
+                                <h1 class="text-gray-300 text-lg">QTY</h1>
+                            </div>
+                            <div class="col-span-1 w-full text-right">
+                                <h1 class="text-gray-300 text-lg">Price</h1>
+                            </div>
+                            <div class="col-span-1 w-full text-right">
+                                <h1 class="text-gray-300 text-lg">Amount</h1>
+                            </div>
+                        </div>
+                        <div class="w-full rounded-xl p-2 px-4 grid grid-cols-10">
+                            <div class="col-span-7 w-full text-left">
+                                <h1 class="text-gray-300 text-lg">test</h1>
+                            </div>
+                            <div class="col-span-1 w-full text-right">
+                                <h1 class="text-gray-300 text-lg">1</h1>
+                            </div>
+                            <div class="col-span-1 w-full text-right">
+                                <h1 class="text-gray-300 text-lg">12</h1>
+                            </div>
+                            <div class="col-span-1 w-full text-right">
+                                <h1 class="text-gray-300 text-lg">$12</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full flex justify-between items-center">
+                        <div class=""></div>
+                        <div class="flex justify-between space-x-4">
+                            <div class="flex flex-col text-right">
+                                <h1 class="text-gray-300 text-lg">Total:</h1>
+                                <h1 class="text-gray-300 text-lg">Coupons:</h1>
+                                <h1 class="text-gray-300 pt-3 text-xl">Amount paid:</h1>
+                            </div>
+                            <div class="flex flex-col text-right">
+                                <h1 class="text-gray-300 text-lg">$12</h1>
+                                <h1 class="text-gray-300 text-lg">- $2</h1>
+                                <h1 class="text-gray-300 pt-3 text-xl">$10</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+            <%- include('../../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

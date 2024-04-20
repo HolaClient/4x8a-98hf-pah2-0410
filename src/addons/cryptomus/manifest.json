@@ -1,0 +1,25 @@
+{
+    "name": "cryptomus",
+    "display": "Cryptomus",
+    "icon": {
+        "src": "https://commercemarketplace.adobe.com/media/catalog/product/4/1/4194_1848304542_3.png",
+        "type": "image"
+    },
+    "banner": "https://storage.cryptomus.com/commercial/index.png",
+    "description": "Cryptmous billing gateway for HolaClient-X",
+    "version": 1,
+    "type": "billing",
+    "author": {
+        "name": "CR072",
+        "github": "https://github.com/CR072"
+    },
+    "routes": true,
+    "runtime": {
+        "holaclient": {
+            "series": "X",
+            "version": 1,
+            "database": "full"
+        },
+        "dependencies": []
+    }
+}

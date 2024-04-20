@@ -1,0 +1,19 @@
+{
+        "400": "Invalid request. Please check your parameters.",
+        "401": "Unauthorized. Access denied.",
+        "403": "Forbidden. You do not have permission to access this resource.",
+        "404": "Resource not found. Requested resource or user does not exist.",
+        "500": "Internal server error. Something went wrong on our end.",
+        "ERROR": "An error has occurred:",
+        "SUCCESS": "Operation completed successfully!",
+        "INVALID": "Invalid request. Please check your input.",
+        "INVALIDSTRING": "Some fields contain invalid word formatting.",
+        "INVALIDINTEGER": "One or more required number fields are not integers.",
+        "INTEGERBELOWZERO": "Numbers specified must not be zero or negative.",
+        "INSUFFICIENT": "You do not have enough coins or resources to perform this action.",
+        "MISSING": "Please fill in all required fields.",
+        "USEREXISTS": "An user with these credentials already exists.",
+        "EXISTS": "This item already exists in the database.",
+        "NOTAUTHENTICATEDVIADISCORD": "You're not authenticated via Discord!",
+        "SERVERQUEUE": "Your server has been added to the queue and will be created shortly."
+}
