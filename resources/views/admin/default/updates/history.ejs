@@ -8,6 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="l" onload="updates()" class="w-0 h-0">
                 <div class="flex space-x-4 items-center">
                     <div
                         class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 shadow text-gray-400 rounded-xl p-3">
@@ -22,16 +23,7 @@
                     </div>
                 </div>
                 <div class="w-full mt-8">
-                    <div class="mt-4 w-full flex flex-col space-y-2" id="updatesHistory">
-                        <div class="w-full bg-zinc-900/50 text-lg cursor-pointer text-gray-300 rounded-xl p-4 items-center flex justify-between">
-                            <span>Insider update: Test</span>
-                            <div class="text-emerald-500 p-1 border border-emerald-800/80 bg-emerald-900/50 rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                </svg>                                          
-                              </div>
-                        </div>
-                    </div>
+                    <div class="mt-4 w-full flex flex-col space-y-2" id="updatesHolder"></div>
                 </div>
             </div>
         </main>

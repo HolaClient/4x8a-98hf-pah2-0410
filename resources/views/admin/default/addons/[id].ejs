@@ -42,7 +42,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                     <% for ([i, j] of Object.entries(data.settings)) { %>
                       <div class="relative w-full">
-                        <div class="w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl cursor-move h-max">
+                        <div class="w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl cursor-move h-max"><!-- Add the class "box" here to make it draggable -->
                             <h1 class="text-gray-200 text-xl capitalize py-3 text-center"><%= i %></h1>
                             <hr class="border border-zinc-800/80 rounded-full">
                             <div class="p-2 space-y-2 w-full">

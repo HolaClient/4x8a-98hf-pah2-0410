@@ -34,80 +34,28 @@ const crypt = require('./crypt')
  * Exporting gen(88, 62, 52, 36), base64(x), hash, encrypt, decrypt & cookies.
  *--------------------------------------------------------------------------
 */
-module.exports.gen88 = function (length) {
-    function makeid(length) {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?';
-        const charactersLength = characters.length;
-        const randomBytes = crypto.randomBytes(length);
-        let result = '';
-
-        for (let i = 0; i < length; i++) {
-            const index = randomBytes[i] % charactersLength;
-            result += characters.charAt(index);
-        }
-
-        return result;
-    }
-
-    return makeid(length);
+module.exports.gen88 = function (a) {
+    const b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?';
+    return generate(a, b);
 };
 
-module.exports.gen62 = function (length) {
-    function makeid(length) {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const charactersLength = characters.length;
-        const randomBytes = crypto.randomBytes(length);
-        let result = '';
-
-        for (let i = 0; i < length; i++) {
-            const index = randomBytes[i] % charactersLength;
-            result += characters.charAt(index);
-        }
-
-        return result;
-    }
-
-    return makeid(length);
+module.exports.gen62 = function (a) {
+    const b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    return generate(a, b);
 };
 
-module.exports.gen52 = function (length) {
-    function makeid(length) {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        const charactersLength = characters.length;
-        const randomBytes = crypto.randomBytes(length);
-        let result = '';
-
-        for (let i = 0; i < length; i++) {
-            const index = randomBytes[i] % charactersLength;
-            result += characters.charAt(index);
-        }
-
-        return result;
-    }
-
-    return makeid(length);
+module.exports.gen52 = function (a) {
+    const b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    return generate(a, b);
 };
 
-module.exports.gen36 = function (length) {
-    function makeid(length) {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        const charactersLength = characters.length;
-        const randomBytes = crypto.randomBytes(length);
-        let result = '';
-
-        for (let i = 0; i < length; i++) {
-            const index = randomBytes[i] % charactersLength;
-            result += characters.charAt(index);
-        }
-
-        return result;
-    }
-
-    return makeid(length);
+module.exports.gen36 = function (a) {
+    const b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    return generate(a, b);
 };
 
-module.exports.base64 = function (length) {
-    return `base64:${Buffer.from(crypt.gen62(length), 'utf-8').toString('base64')}`
+module.exports.base64 = function (a) {
+    return `base64:${Buffer.from(crypt.gen62(a), 'utf-8').toString('base64')}`
 };
 
 module.exports.hash = function (key) {
@@ -197,6 +145,14 @@ module.exports.cookie = function (req, cname) {
         }
     }
     return "";
+}
+function generate(a, b) {
+    const c = crypto.randomBytes(a);
+    let d = '';
+    for (let i = 0; i < a; i++) {
+        d += b.charAt(c[i] % b.length);
+    }
+    return d;
 }
 /**
  *--------------------------------------------------------------------------

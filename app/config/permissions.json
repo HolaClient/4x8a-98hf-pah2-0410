@@ -242,6 +242,18 @@
                 "requireAuth": true,
                 "permission": 400,
                 "path": "settings.ejs"
+            },
+            {
+                "route": "/admin/app",
+                "requireAuth": true,
+                "permission": 400,
+                "path": "app/index.ejs"
+            },
+            {
+                "route": "/admin/app/license",
+                "requireAuth": true,
+                "permission": 400,
+                "path": "app/license.ejs"
             }
         ]
     },

@@ -23,13 +23,15 @@
     <link rel="icon" type="image/png" href="<%= appearance.logo.url %>">
     <% if (process.env.APP_ENV !== "production") { %>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/assets/client/default/app.dev.js"></script>
+        <link href="/assets/client/default/app.dev.css" rel="stylesheet">
+    <% } else { %>
+        <script src="/assets/client/default/app.js"></script>
+        <link href="/assets/client/default/app.css" rel="stylesheet" rel="preload">
+        <link href="/assets/common/tailwind.css" rel="stylesheet" rel="preload">
     <% } %>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="/assets/common/tailwind.css" rel="stylesheet">
-    <script src="/assets/client/default/app.js"></script>
     <script async src="/assets/client/default/bundle.js"></script>
-    <link href="/assets/client/default/app.css" rel="stylesheet" rel="preload">
-
     <link rel="stylesheet" href="https://cdn.holaclientx.tech/production/assets/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.holaclientx.tech/production/assets/toastr.js"></script>

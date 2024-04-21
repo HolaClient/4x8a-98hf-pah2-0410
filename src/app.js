@@ -111,6 +111,11 @@ app.use((req, res, next) => {
  *--------------------------------------------------------------------------
  * Loading other router files
  *--------------------------------------------------------------------------
+ * I am using the load function to load the routes directory by directory
+ * instead of iterating over the routes directory as it might first load the
+ * router file. If the router file gets loaded first, it will throw 404 page
+ * for all endpoints even if a route exists.
+ *--------------------------------------------------------------------------
 */
 (() => {
     const routes = [
@@ -135,6 +140,7 @@ function load(a) {
  *--------------------------------------------------------------------------
 */
 app.listen(process.env.APP_PORT, function (err) {
+    WSserver.listen(parseInt(process.env.APP_PORT) + 1);
     console.log(chalk.gray("  "));
     console.log(" _    _       _        _____ _ _            _  __   __");
     console.log("| |  | |     | |      / ____| (_)          | | \\ \\ / /");
@@ -153,13 +159,13 @@ app.listen(process.env.APP_PORT, function (err) {
     console.log(" ");
     console.log(chalk.gray("{/} 🔗") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded HolaClient at ") + chalk.cyan(process.env.APP_URL + "/"));
     console.log(" ");
-    console.log(chalk.gray("{/} 🛜") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded Webserver Handler at: ") + chalk.cyan(2001));
+    console.log(chalk.gray("{/} 🛜") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded Webserver Handler at: ") + chalk.cyan(parseInt(process.env.APP_PORT) + 1));
     console.log("");
     console.log(chalk.gray("{/} 🗝️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Authentication code for this session is ") + chalk.cyan(process.env.APP_CODE));
     console.log("");
     console.log(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
     import('./handlers/logs.mjs')
-})
+});
 /**
 *--------------------------------------------------------------------------
 * End of the file

@@ -12,7 +12,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                     </svg>
-                    <h1 class="text-xl">04-2024 Cumulative update</h1>
+                    <h1 class="text-xl"><%= data.display %></h1>
                 </div>
                 <div class="relative mt-4 rounded-t-xl border border-b-transparent border-zinc-800/80 bg-cover bg-top bg-[url('https://cdn.holaclientx.tech/production/assets/pattern.png')]">
                     <div class="relative p-8">
@@ -22,25 +22,27 @@
                         <span class="text-gray-300 pt-2 text-xl">Explore what's changed in this update.</span>
                     </div>
                 </div>
-                <div class="w-full rounded-b-xl border space-y-4 border-t-transparent text-gray-400 border-zinc-800/80 px-8 py-4">
-                    <div class="flex flex-col">
-                        <h1 class="text-xl text-gray-200">Security</h1>
-                        <ul class="list-disc pl-4">
-                            <li>Changed from SHA256 to SHA512.</li>
-                        </ul>
-                    </div>
-                    <div class="flex flex-col">
-                        <h1 class="text-xl text-gray-200">UI</h1>
-                        <ul class="list-disc pl-4">
-                            <li>UI has been revamped.</li>
-                        </ul>
-                    </div>
+                <div class="w-full rounded-b-xl border space-y-4 border-t-transparent text-gray-400 border-zinc-800/80 px-8 py-4">                    
+                    <% for ([i, j] of Object.entries(data.changes)) { %>
+                        <% if (j.type == "bullets") { %>
+                            <div class="flex flex-col">
+                                <h1 class="text-xl text-gray-200">UI</h1>
+                                <ul class="list-disc pl-4">
+                                    <% for (let k of j.logs) { %>
+                                        <li><%= k %></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        <% } else if (j.type == "message") { %>
+                            <p><%= j.text %></p>
+                        <% } %>
+                    <% } %>
                     <div class="flex flex-col">
                         <h1 class="text-xl text-gray-200">Update information</h1>
                         <ul class="list-disc pl-4">
-                            <li>Version: X1.1</li>
-                            <li>Size: 2.1 MB</li>
-                            <li>Security patch level: 1 April 2024</li>
+                            <li>Version: <%= data.update.version %></li>
+                            <li>Size: <%= data.update.size %></li>
+                            <li>Security patch level: <%= data.update.security %></li>
                         </ul>
                     </div>
                 </div>

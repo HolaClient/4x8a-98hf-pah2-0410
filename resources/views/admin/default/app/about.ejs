@@ -1,10 +1,10 @@
-<%- include('./partials/head') %>
+<%- include('../partials/head') %>
 
 <body class="bg-zinc-950 relative items-center h-full">
     <div class="w-screen overflow-hidden">
         <div class="antialiased">
-            <%- include('./partials/nav') %>
-            <%- include('./partials/aside') %>
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
@@ -25,52 +25,47 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4">
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-nunito">X0.1</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-nunito"><%= data.about.version %></h1> <span
                                 class="text-gray-300">Version</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-bold font-rajdhani">Virtuo</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-bold font-rajdhani"><%= data.about.codename %></h1> <span
                                 class="text-gray-300">Codename</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-urbanist">HCX032024</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-urbanist"><%= data.about.build %></h1> <span
                                 class="text-gray-300">Build Number</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1 January 2024</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= data.about.security %></h1> <span
                                 class="text-gray-300">Security patch level</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">---</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= data.about.updater %></h1> <span
                                 class="text-gray-300">Updater version</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">---</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= data.about.marketplace %></h1> <span
                                 class="text-gray-300">Marketplace API version</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">HCX UI 0</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= data.about.ui.type %></h1> <span
                                 class="text-gray-300">UI Type</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-urbanist">Closed</h1> <span
-                                class="text-gray-300">License status</span>
-                        </div>
-                        <div
-                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">X0.1</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= data.about.ui.admin %></h1> <span
                                 class="text-gray-300">Admin theme version</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">X0.1</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= data.about.ui.client %></h1> <span
                                 class="text-gray-300">Client theme version</span>
                         </div>
                         <div
@@ -100,7 +95,7 @@
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-urbanist">Fucked</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-urbanist"><%= data.about.warranty %></h1> <span
                                 class="text-gray-300">Product warranty</span>
                         </div>
                     </div>
@@ -113,7 +108,7 @@
                 </div>
             </div>
         </main>
-            <%- include('./partials/footer') %>
+            <%- include('../partials/footer') %>
         </div>
     </div>
     </div>

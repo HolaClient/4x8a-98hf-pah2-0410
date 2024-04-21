@@ -139,6 +139,9 @@ module.exports = {
             await db.set("queue", "servers", b);
             cf.start()
             return
+        },
+        "user": async function (a) {
+            return
         }
     },
     "remove": {

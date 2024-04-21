@@ -15,7 +15,7 @@ const routes = [
   { "name": "themes", "href": false, "show": true, "url": "admin/themes", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" /></svg>` },
   { "name": "addons", "href": false, "show": true, "url": "admin/addons", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z" /></svg>` },
   { "name": "updates", "href": false, "show": true, "url": "admin/updates", "svg": `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.67742 20.5672C2.53141 18.0211 0.758027 12.7583 2.71678 8.14385C4.87472 3.06005 10.7453 0.688166 15.8291 2.84612C20.9129 5.00407 23.2848 10.8746 21.1269 15.9584C20.2837 17.9449 18.8736 19.5173 17.1651 20.5672" stroke="#D9D9D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 16V20.4C17 20.7314 17.2686 21 17.6 21H22" stroke="#D9D9D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22.01L12.01 21.9989" stroke="#D9D9D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
-  { "name": "about", "href": false, "show": true, "url": "admin/about", "svg": `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 3.5C4 2.67157 4.67157 2 5.5 2C6.32843 2 7 2.67157 7 3.5V14.5C7 15.3284 6.32843 16 5.5 16C4.67157 16 4 15.3284 4 14.5V3.5Z" fill="#D9D9D9"/><path d="M5.52549 16.0638C4.69709 16.0708 4.01982 15.405 4.01277 14.5766C4.00572 13.7482 4.67154 13.0709 5.49994 13.0639L12.1087 13.0076C12.9371 13.0005 13.6144 13.6664 13.6214 14.4948C13.6285 15.3232 12.9626 16.0004 12.1342 16.0075L5.52549 16.0638Z" fill="#D9D9D9"/><rect x="4" y="18" width="4" height="4" rx="2" fill="#1E1E1E"/><rect x="17" y="2" width="3" height="4" rx="1.5" fill="#1E1E1E"/><rect x="17" y="8" width="3" height="14" rx="1.5" fill="#D9D9D9"/></svg>` },
+  { "name": "holaclient", "href": false, "show": true, "url": "admin/app", "svg": `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 3.5C4 2.67157 4.67157 2 5.5 2C6.32843 2 7 2.67157 7 3.5V14.5C7 15.3284 6.32843 16 5.5 16C4.67157 16 4 15.3284 4 14.5V3.5Z" fill="#D9D9D9"/><path d="M5.52549 16.0638C4.69709 16.0708 4.01982 15.405 4.01277 14.5766C4.00572 13.7482 4.67154 13.0709 5.49994 13.0639L12.1087 13.0076C12.9371 13.0005 13.6144 13.6664 13.6214 14.4948C13.6285 15.3232 12.9626 16.0004 12.1342 16.0075L5.52549 16.0638Z" fill="#D9D9D9"/><rect x="4" y="18" width="4" height="4" rx="2" fill="#1E1E1E"/><rect x="17" y="2" width="3" height="4" rx="1.5" fill="#1E1E1E"/><rect x="17" y="8" width="3" height="14" rx="1.5" fill="#D9D9D9"/></svg>` },
 ]
 const userRoutes = [
   { "name": "notifications", "url": "pages/notifications", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>` },
@@ -899,6 +899,9 @@ async function createProduct() {
 function gv(a) {
   return document.getElementById(a).value
 }
+function st(a, b) {
+  return document.getElementById(a).innerText = b
+}
 async function productsLoad() {
   let x = document.getElementById("productType")
   let y = document.getElementById("productSoftwareHolder")
@@ -1062,16 +1065,56 @@ function date(a) {
   return `${d} ${e}${f !== g ? ', ' + f : ''}`;
 }
 async function updates() {
-  let a = await fetch('/api/app/updates')
+  let a = await fetch('/api/app/updates/history')
   let b = await a.json()
   let d = document.getElementById("updatesHolder")
   if (b.data.length !== 0) {
     let c = []
     for (let i of b.data) {
       c.push(`
+      <div onclick="render('admin/updates/history/${i.identifier}')" class="w-full bg-zinc-900/50 text-lg cursor-pointer text-gray-300 rounded-xl p-4 items-center flex justify-between">
+      <span>${i.display}</span>
+      <div class="text-emerald-500 p-1 border border-emerald-800/80 bg-emerald-900/50 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+          </svg>                                          
+        </div>
+      </div>
       `)
     }
+    d.innerHTML = c
   } else {
-    d.innerHTML = `<div class="w-full  h-40 md:h-52 xl:h-72 flex justify-center items-center"><span class="text-gray-300">No new updates available.</span></div>`
+    d.innerHTML = `<div class="w-full  h-40 md:h-52 xl:h-72 flex justify-center items-center"><span class="text-gray-300">No updates available.</span></div>`
+  }
+}
+async function sysInfo() {
+  let a = await fetch('/api/app/sysinfo')
+  let b = await a.json()
+  let c = b.data
+  st("sysArch", c.machine.arch)
+  st("sysCPU", c.cpu.model)
+  st("sysCPUThreads", c.cpu.threads)
+  st("sysCPUSpeed", c.cpu.speed)
+  st("sysMemTotal", `${format(c.memory.total / 1024)} GB`)
+  st("sysMemFree", `${format(c.memory.free / 1024)} GB`)
+  st("sysMemApp", `${format(c.memory.app)} MB`)
+  st("sysPlatform", c.machine.platform)
+  st("sysUptime", `${formatTime(c.machine.uptime)}`)
+}
+function formatTime(a) {
+  const b = Math.floor(a / 60);
+  const c = Math.floor(b / 60);
+  const d = Math.floor(c / 24);
+  const e = Math.floor(d / 30);
+  if (e > 0) {
+      return `${e} Months`;
+  } else if (d > 0) {
+      return `${d} Days`;
+  } else if (c > 0) {
+      return `${c} Hours`;
+  } else if (b > 0) {
+      return `${b} Minutes`;
+  } else {
+      return `${a} Seconds`;
   }
 }

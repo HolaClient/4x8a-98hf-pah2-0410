@@ -58,7 +58,6 @@ global.alert = alerts
 global.core = require('../middleware/core.js');
 global.wh = import('../handlers/webhook.mjs');
 global.dl = import('../handlers/debug.mjs');
-WSserver.listen(2001);
 /**
 *--------------------------------------------------------------------------
 * Exporting loaded modules

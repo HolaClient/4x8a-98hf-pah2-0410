@@ -27,9 +27,9 @@ const fse = require('fs-extra');
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    app.get('/api/app/updates', core.admin, async (req, res) => {
+    app.get('/api/app/updates/history', core.admin, async (req, res) => {
         try {
-            let a = await db.get("updates", "updates") || []
+            let a = await db.get("updates", "history") || []
             return core.json(req, res, true, "SUCCESS", a);
         } catch (error) {
             handle(error, "Minor", 28);
@@ -39,7 +39,7 @@ module.exports = async function () {
     app.get('/admin/updates/history/:id', core.admin, async (req, res) => {
         try {
             let a = await db.get("updates", "history") || [];
-            let b = a.find(i => i.name == req.params.id);
+            let b = a.find(i => i.identifier === req.params.id);
             if (!b || b == undefined) return res.end(fallback.error404());
             const appearance = await db.get("settings", "appearance") || {};
             const template = appearance.themes && appearance.themes.admin || "default";
@@ -51,6 +51,8 @@ module.exports = async function () {
     });
     async function cache() {
         try {
+            let f = await fs.readdirSync(path.join(__dirname, "../../../storage/updates"));
+            if (f.length !== 0) { f.forEach(i => { if (i.endsWith('.jar')) { update(i) } }) };
             let b = { "Content-Type": "application/json" };
             let c = await db.get("core", "license")
             if (c) b["Authorization"] = `Bearer ${c}`
@@ -58,15 +60,8 @@ module.exports = async function () {
                 method: "GET",
                 headers: b
             });
-            let d = await a.json()
-            let e = await db.get("updates", "settings")
-            if (e && e.auto == true) {
-                download(d.data)
-            } else {
-                await db.set("updates", "updates", d.data)
-            };
-            let f = await fs.readdirSync(path.join(__dirname, "../../../storage/updates"));
-            if (f.length !== 0) { f.forEach(i => { if (i.endsWith('.jar')) { update(i) } }) };
+            let d = await a.json();
+            d.data.forEach(i => download(i));
         } catch (error) {
             console.error(error)
             return
@@ -84,7 +79,7 @@ module.exports = async function () {
             console.error(error)
             return
         }
-    }
+    };
     async function update(a) {
         try {
             a = a.replace('.jar', '');
@@ -100,12 +95,31 @@ module.exports = async function () {
                 let j = path.join(__dirname, '..', '..', '..', i);
                 fse.moveSync(h, j, { overwrite: true });
             });
+            let h = await db.get("updates", "history") || []
+            let j = require(`${d}/manifest.json`)
+            h.push(j)
+            await db.set("updates", "history", h);
             fse.remove(c);
             fse.remove(d);
+            for ([i] of Object.entries(app.routes)) { delete app.routes[i] };
+            Promise.all([
+                load(path.join(__dirname, '..', '..', '..', 'src', 'routes', 'admin')),
+                load(path.join(__dirname, '..', '..', '..', 'src', 'routes', 'app')),
+                load(path.join(__dirname, '..', '..', '..', 'src', 'routes', 'servers')),
+                load(path.join(__dirname, '..', '..', '..', 'src', 'routes')),
+            ]);
         } catch (error) {
             console.error(error);
             return
         };
+    };
+    function load(a) {
+        const b = fs.readdirSync(a).filter(i => i.endsWith('.js'));
+        b.forEach(i => {
+            const c = require(path.join(a, i));
+            if (typeof c === 'function') { c() };
+        });
+        return true
     };
     cache()
     setInterval(() => { cache() }, 60000 * 5);

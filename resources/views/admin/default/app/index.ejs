@@ -1,0 +1,112 @@
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="l" onload="sysInfo()" class="w-0 h-0">
+                <div class="flex space-x-4 items-center">
+                    <div
+                        class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 shadow text-gray-400 rounded-xl p-3">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 3.5C4 2.67157 4.67157 2 5.5 2C6.32843 2 7 2.67157 7 3.5V14.5C7 15.3284 6.32843 16 5.5 16C4.67157 16 4 15.3284 4 14.5V3.5Z" fill="#D9D9D9"/>
+                            <path d="M5.52549 16.0638C4.69709 16.0708 4.01982 15.405 4.01277 14.5766C4.00572 13.7482 4.67154 13.0709 5.49994 13.0639L12.1087 13.0076C12.9371 13.0005 13.6144 13.6664 13.6214 14.4948C13.6285 15.3232 12.9626 16.0004 12.1342 16.0075L5.52549 16.0638Z" fill="#D9D9D9"/><rect x="4" y="18" width="4" height="4" rx="2" fill="#1E1E1E"/><rect x="17" y="2" width="3" height="4" rx="1.5" fill="#1E1E1E"/><rect x="17" y="8" width="3" height="14" rx="1.5" fill="#D9D9D9"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-between w-full">
+                        <h1 class="text-gray-200 font-semibold text-xl">HolaClient-X</h1>
+                        <span class="text-gray-300 text-md">Know more about this software.</span>
+                    </div>
+                </div>
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="w-full col-span-3 bg-zinc-900/50 rounded-xl border border-zinc-800/80">
+                        <h1 class="text-xl p-2 pl-4 text-gray-200">System</h1>
+                        <div class="w-full bg-zinc-800/80 h-0.5 rounded-full"></div>
+                        <div class="w-full p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-400">Architecture</h1>
+                                <span class="text-gray-300" id="sysArch"></span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-400">CPU</h1>
+                                <span class="text-gray-300" id="sysCPU"></span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-400">CPU clock speed</h1>
+                                <span class="text-gray-300" id="sysCPUSpeed"></span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-400">CPU threads</h1>
+                                <span class="text-gray-300" id="sysCPUThreads"></span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-400">Platform</h1>
+                                <span class="text-gray-300" id="sysPlatform"></span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-400">Uptime</h1>
+                                <span class="text-gray-300" id="sysUptime"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full col-span-2 bg-zinc-900/50 rounded-xl border border-zinc-800/80 h-max">
+                        <h1 class="text-xl p-2 pl-4 text-gray-200">Resources</h1>
+                        <div class="w-full bg-zinc-800/80 h-0.5 rounded-full"></div>
+                        <div class="w-full p-4 grid grid-cols-1 gap-4">
+                            <div class="flex items-center justify-between">
+                                <h1 class="text-gray-400">Total memory</h1>
+                                <span class="text-gray-300" id="sysMemTotal"></span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <h1 class="text-gray-400">Free memory</h1>
+                                <span class="text-gray-300" id="sysMemFree"></span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <h1 class="text-gray-400">Memory used by HolaClient</h1>
+                                <span class="text-gray-300" id="sysMemApp"></span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div onclick="render('admin/app/license')" class="w-full cursor-pointer flex flex-col justify-center items-center rounded-xl bg-zinc-900/50 border border-zinc-800 bg-cover bg-top bg-[url('https://cdn.holaclientx.tech/production/assets/pattern.png')]">
+                        <div class="flex items-center p-8 space-x-4 w-full h-full bg-gradient-to-br from-transparent to-zinc-900/50">
+                            <div class="p-5 rounded-2xl text-gray-400 bg-zinc-950/80 border border-zinc-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                                  </svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-300 text-2xl font-nunito">License</h1>
+                                <span class="text-gray-400">Manage your <span class="font-raleway">HolaClient-X</span> License.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div onclick="render('admin/app/about')" class="w-full cursor-pointer flex flex-col justify-center items-center rounded-xl bg-zinc-900/50 border border-zinc-800 bg-cover bg-top bg-[url('https://cdn.holaclientx.tech/production/assets/pattern.png')]">
+                        <div class="flex items-center p-8 space-x-4 w-full h-full bg-gradient-to-br from-transparent to-zinc-900/50">
+                            <div class="p-5 rounded-2xl text-gray-400 bg-zinc-950/80 border border-zinc-800">
+                                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 3.5C4 2.67157 4.67157 2 5.5 2C6.32843 2 7 2.67157 7 3.5V14.5C7 15.3284 6.32843 16 5.5 16C4.67157 16 4 15.3284 4 14.5V3.5Z" fill="#D9D9D9"/>
+                                    <path d="M5.52549 16.0638C4.69709 16.0708 4.01982 15.405 4.01277 14.5766C4.00572 13.7482 4.67154 13.0709 5.49994 13.0639L12.1087 13.0076C12.9371 13.0005 13.6144 13.6664 13.6214 14.4948C13.6285 15.3232 12.9626 16.0004 12.1342 16.0075L5.52549 16.0638Z" fill="#D9D9D9"/><rect x="4" y="18" width="4" height="4" rx="2" fill="#1E1E1E"/><rect x="17" y="2" width="3" height="4" rx="1.5" fill="#1E1E1E"/><rect x="17" y="8" width="3" height="14" rx="1.5" fill="#D9D9D9"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-300 text-2xl font-nunito">About</h1>
+                                <span class="text-gray-400">About the <span class="font-raleway">HolaClient-X</span> you're using.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

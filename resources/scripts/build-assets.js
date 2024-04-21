@@ -6,7 +6,6 @@ const chalk = require('chalk')
 
 async function main() {
     try {
-        console.clear();
         console.log(chalk.white("======================================================="));
         function calculate(a, b) { return chalk.gray(`${b - a}ms`); } //waste function
         async function buildJS(a, b, c) {
