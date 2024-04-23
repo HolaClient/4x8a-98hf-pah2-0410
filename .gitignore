@@ -1,5 +1,0 @@
-package-lock.json
-yarn.lock
-node_modules/
-.vs/
-app/config/backup-settings.json
