@@ -165,6 +165,7 @@ app.listen(process.env.APP_PORT, function (err) {
     console.log("");
     console.log(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
     import('./handlers/logs.mjs')
+    require('./cache/users')
 });
 /**
 *--------------------------------------------------------------------------

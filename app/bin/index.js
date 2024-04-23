@@ -25,14 +25,6 @@ program
     });
 
 program
-    .command('globalkill')
-    .description('Turns off every endpoints, pages and incoming requests.')
-    .action(() => {
-        require('./globalKill')()
-        process.exit()
-    });
-
-program
     .command('create:user')
     .description('Create a user.')
     .action(() => {

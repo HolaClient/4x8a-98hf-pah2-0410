@@ -30,11 +30,15 @@ const modules = require("./modules.js")
 const crypt = require("./crypt.js")
 const page = modules.page;
 const cf = require("./users.js")
+const af = require('../cache/users.js')
 /**
  *--------------------------------------------------------------------------
  * Exporting create user function.
  *--------------------------------------------------------------------------
 */
+module.exports.get = async function (a) {
+    return await af.get(a)
+};
 module.exports.create = async function (req, res, email, username, avatar, first, last, permission, password) {
     try {
         let packages = await db.get("settings", "packages");

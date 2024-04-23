@@ -8,6 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
+                <img src="https://cdn.holaclientx.tech/logo.png" onload="loadChart(), stats()" alt="" class="w-0 h-0">
                 <div class="flex space-x-4 items-center">
                     <div
                         class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
@@ -25,117 +26,52 @@
                     </div>
                 </div>
                 <div class="justify-between w-full mt-4 items-center">
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full gap-4">
+                    <div class="grid grid-cols-2 md:grid-cols-4 w-full gap-4">
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsServers">1</h1> <span
                                 class="text-gray-300"><%= lang.admin.home.servers %></span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">2</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsUsers">2</h1> <span
                                 class="text-gray-300"><%= lang.admin.home.users %></span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsQueue">1</h1> <span
                                 class="text-gray-300"><%= lang.admin.home.queue %></span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsNodes">1</h1> <span
                                 class="text-gray-300"><%= lang.admin.home.nodes %></span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
-                                class="text-gray-300"><%= lang.admin.home.subdomains %></span>
-                        </div>
-                        <div
-                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">100</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsCoins">100</h1> <span
                                 class="text-gray-300">Coins Circulating</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
-                                class="text-gray-300"><%= lang.admin.home.invoices %></span>
-                        </div>
-                        <div
-                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
-                                class="text-gray-300"><%= lang.admin.home.tickets %></span>
-                        </div>
-                        <div
-                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">$1</h1> <span
-                                class="text-gray-300"><%= lang.admin.home.revenue %></span>
-                        </div>
-                        <div
-                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">100%</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsMemory">100%</h1> <span
                                 class="text-gray-300"><%= lang.admin.home.memory %></span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">100%</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsDisk">100%</h1> <span
                                 class="text-gray-300"><%= lang.admin.home.disk %></span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
-                                class="text-gray-300"><%= lang.admin.home.newUsers %></span>
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsCPU">1</h1> <span
+                                class="text-gray-300"><%= lang.admin.home.cpu %></span>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-4 mt-4">
-                        <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
-                            <h1 class="text-gray-100 text-xl"><%= lang.admin.home.purgeServers %>:</h1>
-                            <p class="text-gray-400"><%= lang.admin.home.warning %></p>
-                            <div class="mt-2">
-                                <h1 class="text-gray-300"><%= lang.admin.home.keyword %>:</h1>
-                                <input id="" type="text" value="[Active]" class="p-2 bg-zinc-950 outline-none border border-zinc-800/80 rounded-xl w-full text-gray-300">
-                            </div>
-                            <button class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
-                                Purge
-                            </button>
-                        </div>
-                        <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
-                            <h1 class="text-gray-100 text-xl"><%= lang.admin.home.purgeSuspended %>:</h1>
-                            <p class="text-gray-400"><%= lang.admin.home.warning %></p>
-                            <div class="mt-2">
-                                <h1 class="text-gray-300"><%= lang.admin.home.suspended %>:</h1>
-                                <input id="" disabled type="text" value="1" class="p-2 bg-zinc-950 outline-none border border-zinc-800/80 rounded-xl w-full text-gray-300">
-                            </div>
-                            <button class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
-                                Purge
-                            </button>
-                        </div>
-                        <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
-                            <h1 class="text-gray-100 text-xl"><%= lang.admin.home.purgeInactive %>:</h1>
-                            <p class="text-gray-400"><%= lang.admin.home.warning %></p>
-                            <div class="mt-2">
-                                <h1 class="text-gray-300"><%= lang.admin.home.period %>:</h1>
-                                <select id="" type="text" class="p-2 bg-zinc-950 outline-none border border-zinc-800/80 rounded-xl w-full text-gray-300">
-                                    <option value="">7d</option>
-                                    </select>
-                            </div>
-                            <button class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
-                                Purge
-                            </button>
-                        </div>
-                        <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
-                            <h1 class="text-gray-100 text-xl"><%= lang.admin.home.purgeServersCache %>:</h1>
-                            <p class="text-gray-400"><%= lang.admin.home.warning1 %></p>
-                            <button class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
-                                Purge
-                            </button>
-                        </div>
-                        <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
-                            <h1 class="text-gray-100 text-xl"><%= lang.admin.home.purgeCache %>:</h1>
-                            <p class="text-gray-400"><%= lang.admin.home.warning2 %></p>
-                            <button class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
-                                Purge
-                            </button>
+                    <div class="mt-4 w-full">
+                        <div class="w-full px-3 py-2 bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                            <h1 class="text-center text-xl text-gray-300">New users in April 2024</h1>
+                            <div id="chart" class="relative"></div>
                         </div>
                     </div>
                 </div>

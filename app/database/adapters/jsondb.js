@@ -1,6 +1,8 @@
 const fs = require('fs/promises');
 const path = require('path');
 
+let cache = []
+
 async function set(a, b, c) {
     const d = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     let e;
@@ -24,32 +26,35 @@ async function set(a, b, c) {
     }
 }
 
-function get(a, b) {
-    const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
+async function get(a, b) {
+    if (cache[a]) {
+        return (cache[a]).b
+    } else {
+        const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
+        return fs.readFile(c, 'utf-8')
+            .then(d => {
+                const e = JSON.parse(d || '{}');
 
-    return fs.readFile(c, 'utf-8')
-        .then(d => {
-            const e = JSON.parse(d || '{}');
-
-            if (e && e[b] !== undefined) {
-                return e[b];
-            } else {
-                return null;
-            }
-        })
-        .catch(f => {
-            if (f.code === 'ENOENT') {
-                const g = {};
-                return fs.writeFile(c, JSON.stringify(g, null, 2))
-                    .then(() => undefined);
-            } else {
-                console.error('Error in get:', f);
-                throw f;
-            }
-        });
+                if (e && e[b] !== undefined) {
+                    return e[b];
+                } else {
+                    return null;
+                }
+            })
+            .catch(f => {
+                if (f.code === 'ENOENT') {
+                    const g = {};
+                    return fs.writeFile(c, JSON.stringify(g, null, 2))
+                        .then(() => undefined);
+                } else {
+                    console.error('Error in get:', f);
+                    throw f;
+                }
+            });
+    }
 }
 
-function remove(a, b) {
+async function remove(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     return fs.readFile(c, 'utf-8')
         .then(d => {
@@ -68,7 +73,7 @@ function remove(a, b) {
         });
 }
 
-function reset(a) {
+async function reset(a) {
     const b = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     const c = {};
     return fs.writeFile(b, JSON.stringify(c, null, 2))
@@ -79,7 +84,7 @@ function reset(a) {
         });
 }
 
-function scan(a, b) {
+async function scan(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     return fs.readFile(c, 'utf-8')
         .then(d => {
@@ -106,7 +111,7 @@ function scan(a, b) {
         });
 }
 
-function exists(a, b) {
+async function exists(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     return fs.readFile(c, 'utf-8')
         .then(d => {
@@ -134,4 +139,20 @@ function info() {
     };
 }
 
-module.exports = { get, set, delete: remove, info, reset, scan, exists };
+async function load() {
+    try {
+        let a = path.join(__dirname, '../../../storage/database/')
+        let b = await fs.readdir(a);
+        for (let i of b) {
+            if (i.endsWith(".json")) {
+                let c = await fs.readFile(path.join(a, i), 'utf-8')
+                cache[i] = JSON.parse(c)
+            }
+        }
+    } catch (error) {
+        console.error(error)
+        return
+    }
+}
+
+module.exports = { get, set, delete: remove, info, reset, scan, exists, load };

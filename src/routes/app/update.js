@@ -20,7 +20,6 @@
  * update.js - Application updater.
  *--------------------------------------------------------------------------
 */
-const fse = require('fs-extra');
 /**
  *--------------------------------------------------------------------------
  * Loading modules
@@ -61,7 +60,9 @@ module.exports = async function () {
                 headers: b
             });
             let d = await a.json();
-            d.data.forEach(i => download(i));
+            if (d.success == true) {
+                d.data.forEach(i => download(i));
+            }
         } catch (error) {
             console.error(error)
             return
@@ -69,7 +70,10 @@ module.exports = async function () {
     };
     async function download(a) {
         try {
-            let b = await fetch(`https://console.holacorp.org/storage/X1/updates/${a}.jar`)
+            let b = await fetch(`https://console.holacorp.org/storage/X1/updates/${a}.jar`, {
+                method: "GET",
+                headers: {"Authorization": `Bearer ${await db.get("core", "license")}`}
+            });
             let c = await b.buffer()
             let d = path.join(__dirname, `../../../storage/updates`);
             if (!fs.existsSync(d)) { fs.mkdirSync(d, { recursive: true }) }
@@ -99,6 +103,9 @@ module.exports = async function () {
             let j = require(`${d}/manifest.json`)
             h.push(j)
             await db.set("updates", "history", h);
+            if (j.remove && j.remove.length !== 0) {
+                j.remove.forEach(i => {fse.remove(path.resolve(__dirname, i))});
+            }
             fse.remove(c);
             fse.remove(d);
             for ([i] of Object.entries(app.routes)) { delete app.routes[i] };
@@ -108,6 +115,13 @@ module.exports = async function () {
                 load(path.join(__dirname, '..', '..', '..', 'src', 'routes', 'servers')),
                 load(path.join(__dirname, '..', '..', '..', 'src', 'routes')),
             ]);
+            await fetch(`https://console.holacorp.org/api/X1/updates/${a}`, {
+                method: "PATCH",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${await db.get("core", "license")}`
+                }
+            });
         } catch (error) {
             console.error(error);
             return

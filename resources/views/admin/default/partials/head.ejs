@@ -15,9 +15,11 @@
     <% if (process.env.APP_ENV !== "production") { %>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/assets/admin/default/app.dev.js"></script>
+        <script src="/assets/admin/default/charts.js"></script>
         <link href="/assets/admin/default/app.dev.css" rel="stylesheet">
     <% } else { %>
         <script src="/assets/admin/default/app.js"></script>
+        <script src="/assets/admin/default/charts.js"></script>
         <link href="/assets/admin/default/app.css" rel="stylesheet">
         <link href="/assets/common/tailwind.css" rel="stylesheet">
     <% } %>

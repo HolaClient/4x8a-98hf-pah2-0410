@@ -21,13 +21,13 @@
  *--------------------------------------------------------------------------
 */
 const page = modules.page
+const users = require('../../utils/users')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    let usersList = []
     app.get("/api/admin/economy", core.admin, async (req, res) => {
         try {
             const getUserData = async (a) => {
@@ -124,7 +124,7 @@ module.exports = async function () {
     app.get("/api/admin/users", core.admin, async (req, res) => {
         try {
             core.log(`${req.session.userinfo.username} viewed user list.`);
-            return core.json(req, res, true, "SUCCESS", usersList);
+            return core.json(req, res, true, "SUCCESS", users.getAll);
         } catch (error) {
             handle(error, "Minor", 133)
             return core.json(req, res, false, "ERROR", error);
@@ -232,29 +232,7 @@ module.exports = async function () {
             return res.end({ success: false, message: alert("ERROR", req, res) + error });
         }
     });//unfinished
-    setInterval(() => {
-        cache()
-    }, 60000 * 5);
-    cache()
-    async function cache() {
-        try {
-            const a = await db.get('users', 'users') ?? [];
-            const b = [];
-            for (const c of a) {
-                const d = await db.get('users', c.id);
-                if (d.id !== 0) {
-                    const e = await fetch(d.avatar);
-                    const f = await e.buffer();
-                    d.avatar = `data:${e.headers.get('content-type')};base64,${f.toString('base64')}`;
-                    b.push(d);
-                }
-            }
-            usersList = b
-        } catch (error) {
-            console.error(error)
-            handle(error, "Minor", 253)
-        }
-    }
+
     async function handle(error, a, b) {
         try {
             const admins = await db.get("notifications", "admins") || [];

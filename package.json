@@ -6,7 +6,7 @@
     "discord": "https://discord.gg/CvqRH9TrYK",
     "license": "MIT",
     "bin": {
-        "hc": "./app/hc.js"
+        "hc": "./app/bin/index.js"
     },
     "scripts": {
         "start": "node src/app.js",

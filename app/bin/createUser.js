@@ -30,9 +30,13 @@ module.exports = function () {
         output: process.stdout
     });
     rl.question('Username: ', async (username) => {
+        if (!username) { console.log(`This is a required field!`); process.exit()};
         rl.question('Email: ', async (email) => {
+            if (!username) { console.log(`This is a required field!`); process.exit()};
             rl.question('First name: ', async (first) => {
+                if (!username) { console.log(`This is a required field!`); process.exit()};
                 rl.question('Last name: ', async (last) => {
+                    if (!username) { console.log(`This is a required field!`); process.exit()};
                     rl.question('Permission integer: ', async (permission) => {
                         rl.question('Password (leave empty to generate): ', async (password) => {
                             const users = await db.get("users", "users") || [];
@@ -52,6 +56,7 @@ module.exports = function () {
                             }));
                             await create(email, username, first, last, permission, password);
                             rl.close();
+                            process.exit()
                         });
                     });
                 });
@@ -68,7 +73,7 @@ async function create(email, username, first, last, permission, password) {
     let role;
     for (let i of roles) {
         let roleData = await db.get("permissions", i);
-        if (roleData.permission == permission) {
+        if (roleData.permission == (permission || 1)) {
             role = i;
             break;
         }
@@ -89,7 +94,7 @@ async function create(email, username, first, last, permission, password) {
         language: "en",
         permissions: {
             roles: [role],
-            level: permission,
+            level: (parseInt(permission) || 1),
             intents: []
         },
         date: {
@@ -140,7 +145,8 @@ async function create(email, username, first, last, permission, password) {
             total: packages.list[packages.default].resources.backups
         }
     };
-    queue.add.user({ "name": { first, last }, username, email, password, user });
+    user.password = password
+    await queue.add.user(user);
     await db.set("users", "users", users);
     await db.set("core", "lastuser", id);
     await db.set('users', id, user);
@@ -148,11 +154,12 @@ async function create(email, username, first, last, permission, password) {
     await db.set("resources", id, resources)
     await db.set('economy', id, balance);
     console.log(chalk.white("======================================================="));
+    console.log(`${chalk.white('An user with the below details will be created soon.')}`)
     console.log(`${chalk.white(`Username: ${username}`)}`);
     console.log(`${chalk.white(`Email: ${email}`)}`);
     console.log(`${chalk.white(`Full name: ${first, last}`)}`);
     console.log(`${chalk.white(`Permission: ${permission}`)}`);
     console.log(`${chalk.white(`Password: ${password}`)}`);
     console.log(chalk.white("======================================================="));
-    process.kill()
+    return
 }

@@ -89,6 +89,7 @@
             "revenue": "Total revenue",
             "memory": "Memory used",
             "disk": "Storage used",
+            "cpu": "CPU used",
             "newUsers": "New users (past 24h)",
             "purgeServers": "Purge servers without a keyword",
             "purgeInactive": "Purge Inactive servers",

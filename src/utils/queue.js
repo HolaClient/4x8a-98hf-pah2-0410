@@ -27,9 +27,10 @@
 */
 const db = require('../handlers/database.js')
 let cf = require('./queue.js')
-let status = false;
+let serverStatus = false;
+let userStatus = false;
 
-module.exports.server = async function () {
+module.exports.servers = async function () {
     let a = await db.get("queue", "servers") || []
     let b = await db.get('pterodactyl', "settings") || {}
     if (a.length !== 0) {
@@ -114,7 +115,65 @@ module.exports.server = async function () {
             }
         }
     }
-    status = false;
+    serverStatus = false;
+}
+
+module.exports.users = async function () {
+    let a = await db.get("queue", "users") || [];
+    let b = await db.get('pterodactyl', "settings") || {};
+    if (a.length !== 0) {
+        for (let i of a) {
+            let d = {
+                username: i.username,
+                email: i.email,
+                first_name: i.name.first,
+                last_name: i.name.last,
+                password: i.password
+            };
+            if (i.permissions && i.permissions.level >= 100) d["root_admin"] = true
+            let h = await fetch(`${b.domain}/api/application/users`,
+                {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${b.app}` },
+                    body: JSON.stringify(d)
+                }
+            );
+            if (h.status === 201) {
+                let c = JSON.parse(await h.text());
+                let j = await db.get('pterodactyl', 'users') ?? [];
+                j.push({ id: c.attributes.id, hc: i.id });
+                await db.set('pterodactyl', i.id, c.attributes);
+                await db.set('pterodactyl', 'users', j);
+            } else {
+                let k = await fetch(`${b.domain}/api/application/users?include=servers&filter[email]=${encodeURIComponent(i.email)}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            "Authorization": `Bearer ${b.app}`
+                        }
+                    }
+                );
+                let l = await k.json();
+                let m = l.data.find(u => u.attributes.email === i.email);
+                if (m) {
+                    let n = await db.get('pterodactyl', 'users') ?? [];
+                    let o = n.findIndex(u => u.id === m.attributes.id);
+                    if (o === -1) {
+                        n.push({ id: m.attributes.id, hc: i.id });
+                        await db.set('pterodactyl', 'users', n);
+                        await db.set('pterodactyl', i.id, m.attributes);
+                    } else {
+                        n[o] = { id: m.attributes.id, hc: i.id };
+                        await db.set('pterodactyl', 'users', n);
+                        await db.set('pterodactyl', i.id, m.attributes);
+                    }
+                }
+            }
+            removeUser(i.id);
+        }
+    };
+    userStatus = false;
 }
 
 async function removeServer(a) {
@@ -124,10 +183,21 @@ async function removeServer(a) {
     return
 }
 
+async function removeUser(a) {
+    let b = await db.get("queue", "users") || [];
+    b = b.filter(i => i.id !== a);
+    await db.set("queue", "users", b);
+    return
+}
+
 module.exports.start = async function () {
-    if (status !== true) {
-        status = true;
-        await cf.server();
+    if (serverStatus !== true) {
+        serverStatus = true;
+        await cf.servers();
+    }
+    if (userStatus !== true) {
+        userStatus = true;
+        await cf.users();
     }
 }
 
@@ -141,6 +211,10 @@ module.exports = {
             return
         },
         "user": async function (a) {
+            let b = await db.get("queue", "users") || []
+            b.push(a)
+            await db.set("queue", "users", b)
+            cf.start()
             return
         }
     },
@@ -152,6 +226,30 @@ module.exports = {
             cf.start()
             return
         }
-    }
+    },
+    "get": {
+        "server": async function (a) {
+            let b = await db.get("queue", "servers") || [];
+            if (a) {
+                b.push(a)
+                await db.set("queue", "servers", b);
+                cf.start()
+                return
+            } else {
+                return b
+            }
+        },
+        "user": async function (a) {
+            let b = await db.get("queue", "users") || []
+            if (a) {
+                b.push(a)
+                await db.set("queue", "users", b)
+                cf.start()
+                return
+            } else {
+                return b
+            }
+        }
+    },
 }
-cf.start()
+cf.start();

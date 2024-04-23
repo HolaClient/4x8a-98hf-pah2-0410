@@ -33,6 +33,7 @@ global.crypto = require('crypto');
 global.path = require('path');
 global.geoip = require('geoip-lite');
 global.fs = require("fs");
+global.fse = require('fs-extra');
 global.fetch = require('node-fetch');
 global.chalk = require("chalk");
 global.polka = require('polka');

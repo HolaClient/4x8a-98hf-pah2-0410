@@ -1107,14 +1107,162 @@ function formatTime(a) {
   const d = Math.floor(c / 24);
   const e = Math.floor(d / 30);
   if (e > 0) {
-      return `${e} Months`;
+    return `${e} Months`;
   } else if (d > 0) {
-      return `${d} Days`;
+    return `${d} Days`;
   } else if (c > 0) {
-      return `${c} Hours`;
+    return `${c} Hours`;
   } else if (b > 0) {
-      return `${b} Minutes`;
+    return `${b} Minutes`;
   } else {
-      return `${a} Seconds`;
+    return `${a} Seconds`;
+  }
+}
+function loadChart() {
+  let options = {
+    chart: {
+      type: 'line',
+      height: 280,
+      toolbar: {
+        show: false,
+      },
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 800,
+        animateGradually: {
+          enabled: true,
+          delay: 150
+        },
+        dynamicAnimation: {
+          enabled: true,
+          speed: 350
+        }
+      }
+    },
+    series: [
+      {
+        name: 'Registers',
+        data: [
+          63, 57, 87, 41, 28, 41, 20, 88, 52,
+           9, 97, 25, 76, 73, 40, 71, 81, 15,
+          78, 29, 24, 58, 84, 64,  6,  2,  0,
+          43, 35, 33, 37
+        ],
+      },
+    ],
+    colors: ['#323237'],
+    grid: {
+      borderColor: '',
+    },
+
+    fill: {
+      colors: undefined,
+      opacity: 0.9,
+      type: 'solid',
+      gradient: {
+        shade: 'dark',
+        type: "horizontal",
+        shadeIntensity: 0.5,
+        gradientToColors: undefined,
+        inverseColors: true,
+        opacityFrom: 1,
+        opacityTo: 1,
+        stops: [0, 50, 100],
+        colorStops: []
+      },
+      image: {
+        src: [],
+        width: undefined,
+        height: undefined
+      },
+      pattern: {
+        style: 'verticalLines',
+        width: 6,
+        height: 6,
+        strokeWidth: 2,
+      },
+    },
+    stroke: {
+      show: true,
+      curve: 'smooth',
+      lineCap: 'butt',
+      colors: ["#323237"],
+      width: 2,
+      dashArray: 0,
+    },
+    markers: {
+      size: 0,
+    },
+    tooltip: {
+      theme: "dark"
+    },
+    xaxis: {
+      categories: [],
+      title: {
+        text: "",
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+            color: "#d1d5db",
+            fontSize: '12px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 600,
+            cssClass: 'apexcharts-xaxis-title',
+        },
+    },
+      labels: {
+        style: {
+          colors: ["#d1d5db"],
+        }
+      },
+      lines: {
+        show: false,
+      }
+    },
+    yaxis: {
+      title: {
+        text: '',
+      },
+      lines: {
+        show: false,
+      },
+      labels: {
+        style: {
+          colors: ["#d1d5db"],
+        }
+      },
+    },
+  }  
+
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  const datesArray = [];
+
+  for (let day = 1; day <= new Date(currentYear, currentMonth + 1, 0).getDate(); day++) {
+    const date = new Date(currentYear, currentMonth, day);
+    const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit' });
+    datesArray.push(formattedDate);
+  }
+  let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  const date = new Date()
+  options.xaxis.categories = datesArray;
+  options.xaxis.title.text = `${months[date.getMonth()]} ${date.getFullYear()}`;
+  options.xaxis.labels.style = {colors: new Array(datesArray.length).fill("#d1d5db")}
+  var chart = new ApexCharts(document.querySelector("#chart"), options);
+  chart.render();
+};
+async function stats() {
+  let a = await fetch('/api/admin/statistics')
+  let b = await a.json()
+  if (b.success == true) {
+    let c = b.data
+    st("statsServers", c.servers)
+    st("statsUsers", c.users)
+    st("statsQueue", c.queue)
+    st("statsNodes", c.nodes)
+    st("statsCoins", c.coins)
   }
 }
