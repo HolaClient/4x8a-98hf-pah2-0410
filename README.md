@@ -15,14 +15,14 @@ HolaClient-X is the new series of HolaClient, it has been made to support only P
 
 ## ✨ Features
 
-Please refer `FEATURES.md`.
+* Please refer `FEATURES.md`.
 
 ## 📄 Documentation
 
-[Main documentation](https://holaclientx.tech/docs)<br>
-[Usage guide](https://holaclientx.tech/guide)<br>
-[Console](https://console.holacorp.org)<br>
-Or get additional help via [Discord](https://discord.gg/CvqRH9TrYK)
+* [Main documentation](https://holaclientx.tech/docs)<br>
+* [Usage guide](https://holaclientx.tech/guide)<br>
+* [Console](https://console.holacorp.org)<br>
+* Or get additional help via [Discord](https://discord.gg/CvqRH9TrYK)
 
 
 ## 📝 Authors
