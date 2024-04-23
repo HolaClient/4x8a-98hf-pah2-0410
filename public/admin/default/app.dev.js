@@ -43,81 +43,144 @@ const error500 = `
               Back</button>
       </div>
   </body>`
+async function getPage(page) {
+  //if (wsa == true) {
+  //  handler.send(JSON.stringify({ type: "render", page: `/${page}` }));
+  //  return new Promise((resolve, reject) => {
+  //    handler.onmessage = function (event) {
+  //       let data = JSON.parse(event.data);
+  //      resolve(data.page.page);
+  //     };
+  //   });
+  //  } else {
+  let c;
+  if (page.startsWith('/')) {
+    c = await fetch(page || "/");
+  } else if (page === "") {
+    c = await fetch("/");
+  } else {
+    c = await fetch("/" + (page || "/"));
+  }
+  return c.text();
+  // }
+}
 async function render(page = page || "/") {
-  for (let i of routes) {
-    if (i.url == page && i.href == true) {
-      window.location.href = i.url
-      break
+  for (let a of routes) {
+    if (a.url == page && a.href == true) {
+      window.location.href = a.url;
+      break;
     }
   }
-  const content = document.getElementById('content')
+  const b = document.getElementById('content');
   document.querySelector('main').insertAdjacentHTML('beforeend', `
-  <div id="loadOverlay" class="bg-zinc-900/50 backdrop-blur-3xl absolute z-50 flex flex-col top-0 bottom-0 items-center justify-center w-full left-0 h-screen">
-      <h1 class="text-transparent text-4xl md:text-9xl font-bold font-karla bg-gradient-to-br from-white to-transparent bg-clip-text">
-      <svg aria-hidden="true" class="w-8 h-8 animate-load fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-      </svg>
-      </h1>
-  </div>`);
-  content.style.transition = 'opacity 0.5s ease, transform 0.2s ease'
-  content.style.opacity = 0
-  content.style.transform = 'translateY(20px)'
-  let resp;
-  if (page.startsWith('/')) {
-    resp = await fetch(page || "/")
-  } else if (page == "") {
-    resp = await fetch("/")
-  } else {
-    resp = await fetch("/" + (page || "/"))
-  }
-  let data = await resp.text()
-  let tempElement = document.createElement('div')
-  tempElement.innerHTML = data
-  let specificContent = tempElement.querySelector('#content')
+    <div id="loadOverlay" class="bg-zinc-900/50 backdrop-blur-3xl absolute z-50 flex flex-col top-0 bottom-0 items-center justify-center w-full left-0 h-screen">
+        <h1 class="text-transparent text-4xl md:text-9xl font-bold font-karla bg-gradient-to-br from-white to-transparent bg-clip-text">
+        <svg aria-hidden="true" class="w-8 h-8 animate-load fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+        </svg>
+        </h1>
+    </div>`);
+  let d = await getPage(page);
+  let e = document.createElement('div');
+  e.innerHTML = d;
+  let f = e.querySelector('#content');
+  b.style.transition = 'opacity 0.5s ease, transform 0.2s ease';
+  b.style.opacity = 0;
+  b.style.transform = 'translateY(20px)';
   try {
-    if (content && specificContent) {
-      content.innerHTML = specificContent.innerHTML
+    if (b && f) {
+      b.innerHTML = ``;
+      b.innerHTML = f.innerHTML;
       document.getElementById('loadOverlay').remove();
     } else {
-      console.error(`Page ${page} not found"`, 404)
-      let resp = await fetch(`../../errors/404.html`)
-      let data = await resp.text()
-      content.innerHTML = data
+      console.error(`Page ${page} not found"`, 404);
+      let g = await fetch(`obviously-a-404-page`);
+      let h = await g.text();
+      b.innerHTML = "";
+      b.innerHTML = h;
       document.getElementById('loadOverlay').remove();
     }
-  } catch (error) {
-    content.innerHTML = error500
+  } catch (i) {
+    b.innerHTML = error500;
+    document.getElementById('loadOverlay').remove();
   }
-  const navItem = document.getElementById(`nav-${page}`)
-  const navDisplay = document.getElementById(`nav-display-${page}`)
-  for (let i of routes) {
-    document.getElementById(`nav-${i.url}`).classList.remove("shadow", "text-white", "bg-zinc-800/90")
-    document.getElementById(`nav-display-${i.url}`).classList.add("hidden")
+  const j = document.getElementById(`nav-${page.startsWith("/") ? page.slice(1) : page}`);
+  const jj = document.getElementById(`nav-${extract(page)}`);
+  const k = document.getElementById(`nav-display-${page.startsWith("/") ? page.slice(1) : page}`);
+  const kk = document.getElementById(`nav-display-${extract(page)}`);
+  for (let l of routes) {
+    document.getElementById(`nav-${l.url}`).classList.remove("shadow", "text-white", "bg-zinc-800/90");
+    document.getElementById(`nav-${l.url}`).classList.add("text-gray-300");
+    document.getElementById(`nav-display-${l.url}`).classList.add("hidden");
   }
-  for (let i of userRoutes) {
-    let a = document.getElementById(`nav-${i.url}`)
-    if (a) a.classList.remove("shadow", "text-white", "bg-zinc-800/90")
-    if (document.getElementById(`nav-display-${i.url}`)) document.getElementById(`nav-display-${i.url}`).classList.add("hidden")
+  if (j) {
+    j.classList.add("text-white", "shadow", "bg-zinc-800/90");
+    k.classList.remove("hidden");
+  } else if (jj) {
+    jj.classList.add("text-white", "shadow", "bg-zinc-800/90");
+    kk.classList.remove("hidden");
   }
-  if (navItem) {
-    const sidebarItems = document.querySelectorAll("#sidebar li")
-    sidebarItems.forEach(item => {
-      item.classList.remove("text-white", "shadow", "bg-zinc-800/90")
-    })
-    const sidebarItemsU = document.querySelectorAll("#userDropdown li")
-    sidebarItemsU.forEach(item => {
-      item.classList.remove("text-white", "shadow", "bg-zinc-800/90")
-    })
-    navItem.classList.add("text-white", "shadow", "bg-zinc-800/90")
-    navDisplay.classList.remove("hidden")
-  }
+
   setTimeout(() => {
-    content.style.transition = 'opacity 1.5s ease, transform 1.5s ease'
-    content.style.opacity = 1
-    content.style.transform = 'translateY(0)'
-  }, 100)
-  changeURL(`${page}`)
+    b.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
+    b.style.opacity = 1;
+    b.style.transform = 'translateY(0)';
+  }, 100);
+  changeURL(`${page}`);
+}
+function extract(a) {
+  if (a.startsWith("/")) {
+    const b = a.indexOf("/", 1);
+    if (b !== -1) {
+      const c = a.indexOf("/", b + 1);
+      if (c !== -1) {
+        return a.slice(1, c);
+      }
+      return a.slice(1);
+    }
+  }
+  const b = a.indexOf("/");
+  if (b !== -1) {
+    const c = a.indexOf("/", b + 1);
+    if (c !== -1) {
+      return a.slice(0, c);
+    }
+    return a.slice(0, b);
+  }
+  return a;
+};
+function highlight() {
+  let a = window.location.href.replace(window.location.origin, '');
+  let b = a.startsWith("/") ? a.slice(1) : a;
+  let g = document.getElementById(`nav-${b}`);
+  let gg = document.getElementById(`nav-${extract(a)}`);
+  let h = document.getElementById(`nav-display-${b}`);
+  let hh = document.getElementById(`nav-display-${extract(a)}`);
+
+  for (let i of routes) {
+    document.getElementById(`nav-${i.url}`).classList.add("text-gray-300")
+    document.getElementById(`nav-${i.url}`).classList.remove("text-white", "shadow", "border-zinc-700/50", "backdrop-blur-xl", "bg-zinc-800/90")
+  }
+  if (g) {
+    g.classList.remove("text-gray-300");
+    g.classList.add("text-white", "shadow", "border-zinc-700/50", "backdrop-blur-xl", "bg-zinc-800/90");
+  } else if (gg) {
+    gg.classList.remove("text-gray-300");
+    gg.classList.add("text-white", "shadow", "border-zinc-700/50", "backdrop-blur-xl", "bg-zinc-800/90");
+  }
+  const i = document.querySelectorAll("[id^='nav-display']");
+  if (h) {
+    i.forEach(j => {
+      j.classList.add("hidden");
+    });
+    h.classList.remove("hidden");
+  } else if (hh) {
+    i.forEach(j => {
+      j.classList.add("hidden");
+    });
+    hh.classList.remove("hidden")
+  }
 }
 window.addEventListener('popstate', () => {
   if (window.location.pathname.endsWith("/")) {
@@ -183,6 +246,7 @@ async function load() {
       navItem.classList.add("text-white", "shadow", "bg-zinc-800/90");
       navDisplay.classList.remove("hidden");
     }
+    highlight()
   }, 100);
 }
 async function loadUserDropdown() {
@@ -1145,8 +1209,8 @@ function loadChart() {
         name: 'Registers',
         data: [
           63, 57, 87, 41, 28, 41, 20, 88, 52,
-           9, 97, 25, 76, 73, 40, 71, 81, 15,
-          78, 29, 24, 58, 84, 64,  6,  2,  0,
+          9, 97, 25, 76, 73, 40, 71, 81, 15,
+          78, 29, 24, 58, 84, 64, 6, 2, 0,
           43, 35, 33, 37
         ],
       },
@@ -1204,13 +1268,13 @@ function loadChart() {
         offsetX: 0,
         offsetY: 0,
         style: {
-            color: "#d1d5db",
-            fontSize: '12px',
-            fontFamily: 'Helvetica, Arial, sans-serif',
-            fontWeight: 600,
-            cssClass: 'apexcharts-xaxis-title',
+          color: "#d1d5db",
+          fontSize: '12px',
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 600,
+          cssClass: 'apexcharts-xaxis-title',
         },
-    },
+      },
       labels: {
         style: {
           colors: ["#d1d5db"],
@@ -1233,7 +1297,7 @@ function loadChart() {
         }
       },
     },
-  }  
+  }
 
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
@@ -1250,7 +1314,7 @@ function loadChart() {
   const date = new Date()
   options.xaxis.categories = datesArray;
   options.xaxis.title.text = `${months[date.getMonth()]} ${date.getFullYear()}`;
-  options.xaxis.labels.style = {colors: new Array(datesArray.length).fill("#d1d5db")}
+  options.xaxis.labels.style = { colors: new Array(datesArray.length).fill("#d1d5db") }
   var chart = new ApexCharts(document.querySelector("#chart"), options);
   chart.render();
 };
@@ -1264,5 +1328,8 @@ async function stats() {
     st("statsQueue", c.queue)
     st("statsNodes", c.nodes)
     st("statsCoins", c.coins)
+    st("statsMemory", `${((c.resources.memory.used / c.resources.memory.total) * 100).toFixed(0)}%`)
+    st("statsDisk", `${((c.resources.disk.used / c.resources.disk.total) * 100).toFixed(0)}%`)
+    st("statsCPU", `${((c.resources.cpu.used / c.resources.cpu.total) * 100).toFixed(0)}%`)
   }
 }
