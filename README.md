@@ -2,7 +2,7 @@
 
 <h1 align="center" dir="auto">HolaClient-X1</h1>
 <p align="center">
-HolaClient-X is the new series of HolaClient, it has been made to support only Pterodactyl panel & its forks. HolaClient-X by default has a lot of features with elegant, modern & intuitive UI along with robust security.
+HolaClient-X is the new series of HolaClient, designed specifically to support the Pterodactyl panel and its forks. HolaClient-X comes with numerous features, boasting an elegant, modern, and intuitive UI, as well as robust security measures.
 </p>
 <p align="center">
   <a href="https://discord.gg/CvqRH9TrYK"><img src="https://img.shields.io/discord/1038719273658499072?color=blue&label=Discord&logo=HolaClient&logoColor=blue" alt="discord" /></a>
