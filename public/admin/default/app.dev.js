@@ -811,7 +811,7 @@ async function users() {
 
   function i() {
     c.innerHTML = a.map(i => `
-      <tr onclick="render('admin/users/${i.id}')" class="cursor-pointer">
+      <tr onclick="showUser('${i}')" class="cursor-pointer">
       <td class="p-4 transition-all duration-300 ease-in-out text-left">
       <img class="object-cover w-12 rounded-xl" src="${i.avatar}">
       </td>
@@ -890,6 +890,9 @@ async function users() {
 
   i();
   q();
+}
+async function showUser(a) {
+  document.getElementById("userMenu").classList.toggle("opacity-0")
 }
 async function usersFake() {
   let a = await fetch('/api/admin/users')

@@ -22,7 +22,7 @@
                             <span class="text-gray-300 text-md"><%= lang.admin.users.titleText %></span>
                         </div>
                     </div>
-                    <button onclick="render('admin/users/create.html')" class="rounded-full flex items-center hover:duration-300 duration-300 hover:bg-zinc-800/50 bg-zinc-900/50 border border-zinc-800/80 text-gray-300 px-5 py-2">
+                    <button onclick="render('admin/users/create')" class="rounded-full flex items-center hover:duration-300 duration-300 hover:bg-zinc-800/50 bg-zinc-900/50 border border-zinc-800/80 text-gray-300 px-5 py-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
                           </svg>
@@ -76,6 +76,11 @@
                                 </select>
                             </div>
                             <div id="e"></div>
+                        </div>
+                    </div>
+                    <div id="userMenu" class="opacity-0 fixed backdrop-blur-xl border border-zinc-800/80 bg-zinc-900/30 md:max-w-sm flex items-center justify-between lg:max-w-screen-md rounded-xl inset-x-6 bottom-6 z-40 mx-auto">
+                        <div class="grid grid-cols-1 md:grid-cols-3">
+                            
                         </div>
                     </div>
                 </div>

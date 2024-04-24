@@ -45,7 +45,7 @@
 global.modules = require('./utils/modules');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-require('../app/database/index')(app, db)
+require('../app/database/index')(app, db);
 /**
  *--------------------------------------------------------------------------
  * Generating secrets
@@ -64,9 +64,9 @@ const c = (key, value) => {
     }
     fs.writeFileSync(a, d.join(os.EOL));
 };
-if (!process.env.APP_KEY || process.env.APP_KEY == "random") {c('APP_KEY', crypt.base64(64))};
-if (!process.env.APP_SECRET || process.env.APP_SECRET == "random") {c('APP_SECRET', crypt.base64(64))};
-if (process.env.APP_ENV == "production") {c('APP_CODE', crypt.gen88(12))};
+if (!process.env.APP_KEY || process.env.APP_KEY == "random") { c('APP_KEY', crypt.base64(64)) };
+if (!process.env.APP_SECRET || process.env.APP_SECRET == "random") { c('APP_SECRET', crypt.base64(64)) };
+if (process.env.APP_ENV == "production") { c('APP_CODE', crypt.gen88(12)) };
 /**
  *--------------------------------------------------------------------------
  * Loading website
@@ -91,7 +91,7 @@ app.use(require('express-session')({
  *--------------------------------------------------------------------------
 */
 app.use((req, res, next) => {
-    const a = ['/assets/client/default/app.css', '/assets/common/tailwind.css', '/assets/client/default/bundle.js', '/setup', '/setup/basic', '/setup/finish', '/api/setup'];
+    const a = (require('../app/config/setup.json')).whitelist;
     const b = path.join(__dirname, '..', 'storage', 'installed.txt');
     if (a.includes(req.originalUrl)) {
         next();
@@ -117,23 +117,35 @@ app.use((req, res, next) => {
  * for all endpoints even if a route exists.
  *--------------------------------------------------------------------------
 */
-(() => {
+(async () => {
     const routes = [
         '/servers',
         '/app',
         '/admin',
         '/client'
     ];
-    for (let i in routes) { load(path.join(__dirname, 'routes' + routes[i])) };
-    setTimeout( async () => { load(path.join(__dirname, 'routes', '')) }, 0);
+    async function load(route) {
+        return new Promise((resolve, reject) => {
+            const a = path.join(__dirname, 'routes', route);
+            fs.readdir(a, (err, b) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    const c = b.filter(i => i.endsWith('.js'));
+                    c.forEach(i => {
+                        const d = require(path.join(a, i));
+                        if (typeof d === 'function') {
+                            d();
+                        }
+                    });
+                    resolve();
+                }
+            });
+        });
+    }
+    await Promise.all(routes.map(load));
+    await load('');
 })();
-function load(a) {
-    const b = fs.readdirSync(a).filter(i => i.endsWith('.js'));
-    b.forEach(i => {
-        const c = require(path.join(a, i));
-        if (typeof c === 'function') { c() };
-    });
-}
 /**
  *--------------------------------------------------------------------------
  * Indicating startup

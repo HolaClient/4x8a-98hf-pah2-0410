@@ -58,7 +58,7 @@ async function cache() {
                         await db.set("pterodactyl", f.id, k.attributes);
                         l["ptl"] = k.attributes
                     } catch (e) {
-                        console.error(r)
+                        console.error(e)
                     }
                 }
                 users[i.id] = l

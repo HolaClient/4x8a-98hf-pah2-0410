@@ -1,0 +1,11 @@
+{
+    "whitelist": [
+        "/assets/client/default/app.css",
+        "/assets/common/tailwind.css",
+        "/assets/client/default/bundle.js",
+        "/setup",
+        "/setup/basic",
+        "/setup/finish",
+        "/api/setup"
+    ]
+}

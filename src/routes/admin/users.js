@@ -21,7 +21,7 @@
  *--------------------------------------------------------------------------
 */
 const page = modules.page
-const users = require('../../utils/users')
+const users = require('../../cache/users')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
@@ -124,7 +124,7 @@ module.exports = async function () {
     app.get("/api/admin/users", core.admin, async (req, res) => {
         try {
             core.log(`${req.session.userinfo.username} viewed user list.`);
-            return core.json(req, res, true, "SUCCESS", users.getAll);
+            return core.json(req, res, true, "SUCCESS", await users.getAll());
         } catch (error) {
             handle(error, "Minor", 133)
             return core.json(req, res, false, "ERROR", error);
@@ -136,13 +136,13 @@ module.exports = async function () {
             let a = req.params.id
             let b = await db.get("settings", "appearance") || {};
             let c = b.themes && b.themes.layouts || "default";
-            let d = await db.get("users", a);
+            let d = await users.get(a);
             if (!d) return res.end(fallback.error404());
             let e = await db.get("resources", a);
             let f = await db.get("economy", a);
             d["resources"] = e
             d["economy"] = f
-            return core.html(req, res, `./resources/views/admin/${c}/users/[id].ejs`, d)
+            return core.html(req, res, `./resources/views/admin/${c}/users/[id].ejs`, d);
         } catch (error) {
             handle(error, "Minor", 42)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
