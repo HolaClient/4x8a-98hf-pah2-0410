@@ -1,0 +1,127 @@
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <% function getRes(a) { let b = parseInt(resources[a].total) - parseInt(resources[a].used); if (b <= 0) { return 0 } else { return b } } %>
+            <main
+                class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+                <div id="content">
+                    <span class="hidden" id="srvFees"><%= pterodactyl.deployments.fees %></span>
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                              </svg>                              
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl"><%= lang.create.title %></h1>
+                            <span class="text-gray-300 text-md"><%= lang.create.description %></span>
+                        </div>
+                    </div>
+                    <img class="w-0 h-0" src="https://cdn.holaclientx.tech/logo.png" onload="serverCreate()">
+                    <div class="flex flex-col w-full mt-4 space-y-4">
+                        <div class="flex flex-col w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl p-4">
+                            <h1 class="text-gray-300">Server name:</h1>
+                            <input id="srvName" value="<%= userinfo.username %>'s server" type="text" class="w-full rounded-xl outline-none text-gray-300 bg-zinc-950 border border-zinc-800/80 mt-1 p-2 focus:pl-3 focus:duration-300 duration-300">
+                        </div>
+                        <div class="w-full flex flex-col">
+                            <div id="resourcesHolderBtn" onclick="toggle('resourcesHolder')" class="flex cursor-pointer relative overflow-hidden text-gray-300 w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                                <div class="w-full z-50 flex justify-between items-center p-4">
+                                    <h1 class="text-gray-300 py-2 px-4 bg-zinc-900/50 backdrop-blur-md border border-zinc-800/80 rounded-full">Resources</h1>
+                                <button id="resourcesHolderSVG" class="p-2 bg-zinc-900/50 rounded-xl border border-zinc-800/80 hover:bg-zinc-900 hover:duration-300 duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                      </svg>
+                                </button>
+                                </div>
+                            </div>
+                            <div id="resourcesHolder" class="w-full hidden relative bg-zinc-900/50 border border-zinc-800/80 rounded-b-xl p-4">
+                                <h1 class="text-gray-200">Allocate resources:</h1>
+                                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full mt-1">
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Memory:</span>
+                                        <input id="srvMemory" type="number" value="<%= getRes('memory') %>" placeholder="1024" min="64" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Storage:</span>
+                                        <input id="srvStorage" type="number" value="<%= getRes('disk') %>" placeholder="2048" min="64" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">CPU:</span>
+                                        <input id="srvCPU" type="number" value="<%= getRes('cpu') %>" placeholder="100" min="25" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Allocations:</span>
+                                        <input id="srvAllocations" type="number" value="<%= getRes('allocations') %>" placeholder="1" min="0" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Databases:</span>
+                                        <input id="srvDatabases" type="number" value="<%= getRes('databases') %>" placeholder="1" min="0" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Backups:</span>
+                                        <input id="srvBackups" type="number" value="<%= getRes('backups') %>" placeholder="1" min="0" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-col">
+                        <div id="softwaresHolderBtn" onclick="toggle('softwaresHolder')" class="flex cursor-pointer relative overflow-hidden text-gray-300 w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                            <div class="w-full z-50 flex justify-between items-center p-4">
+                                <h1 class="text-zinc-300 py-2 px-4 bg-zinc-900/50 backdrop-blur-md border border-zinc-800/80 rounded-full">Software</h1>
+                            <button id="softwaresHolderSVG" class="p-2 bg-zinc-900/50 rounded-xl border border-zinc-800/80 hover:bg-zinc-900 hover:duration-300 duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                  </svg>
+                            </button>
+                            </div>
+                        </div>
+                        <div id="softwaresHolder" class="w-full relative hidden bg-zinc-900/50 border border-zinc-800/80 rounded-b-xl p-4">
+                            <h1 class="text-gray-200">Select a software:</h1>
+                            <div id="eggsList" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full mt-1">
+
+                            </div>
+                        </div>
+                        </div>
+                        <div class="w-full flex flex-col">
+                            <div id="nodesHolderBtn" onclick="toggle('nodesHolder')" class="flex cursor-pointer relative z-50 overflow-hidden text-gray-300 w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                                <div class="w-full z-50 flex justify-between items-center p-4">
+                                    <h1 class="text-zinc-300 py-2 px-4 bg-zinc-900/50 backdrop-blur-md border border-zinc-800/80 rounded-full">Location</h1>
+                                <button id="nodesHolderSVG" class="p-2 bg-zinc-900/50 rounded-xl border border-zinc-800/80 hover:bg-zinc-900 hover:duration-300 duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                      </svg>
+                                </button>
+                                </div>
+                            </div>
+                            <div id="nodesHolder" class="w-full relative z-10 hidden opacity-0 duration-300 bg-zinc-900/50 border border-zinc-800/80 rounded-b-xl p-4">
+                                <h1 class="text-gray-200">Select a node:</h1>
+                                <div id="nodesList" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full mt-1">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex relative overflow-hidden text-gray-300 w-full bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                            <div class="w-full z-50 flex justify-between items-center p-4">
+                                <div class="flex flex-col">
+                                    <h1 class="text-gray-300">Finalize?</h1>
+                                    <span id="srvAlert" class="text-gray-400 text-sm"></span>
+                                </div>
+                            <button onclick="deploy()" class="p-2 px-5 bg-zinc-900/50 rounded-full border border-zinc-800/80 hover:bg-zinc-900 hover:duration-300 duration-300">
+                                Deploy
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
