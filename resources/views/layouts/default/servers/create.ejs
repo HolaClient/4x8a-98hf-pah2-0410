@@ -1,10 +1,10 @@
-<%- include('./partials/head') %>
+<%- include('../partials/head') %>
 
 <body class="bg-zinc-950 relative items-center h-full">
     <div class="w-screen overflow-hidden">
         <div class="antialiased">
-            <%- include('./partials/nav') %>
-            <%- include('./partials/aside') %>
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
             <% function getRes(a) { let b = parseInt(resources[a].total) - parseInt(resources[a].used); if (b <= 0) { return 0 } else { return b } } %>
             <main
                 class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
@@ -119,7 +119,7 @@
                     </div>
                 </div>
             </main>
-            <%- include('./partials/footer') %>
+            <%- include('../partials/footer') %>
         </div>
     </div>
     </div>

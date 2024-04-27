@@ -27,7 +27,7 @@
                 "route": "/create",
                 "requireAuth": true,
                 "permission": 1,
-                "path": "create.ejs"
+                "path": "servers/create.ejs"
             },
             {
                 "route": "/economy",
@@ -64,12 +64,6 @@
                 "requireAuth": true,
                 "permission": 1,
                 "path": "market/index.ejs"
-            },
-            {
-                "route": "/market/resources",
-                "requireAuth": true,
-                "permission": 1,
-                "path": "market/resources.ejs"
             },
             {
                 "route": "/market/packages",

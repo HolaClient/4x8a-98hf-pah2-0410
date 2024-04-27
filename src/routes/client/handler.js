@@ -35,9 +35,22 @@ module.exports = async function () {
     const appearance = await db.get("settings", "appearance") || {};
     const permissions = await db.get("settings", "permissions") || {};
 
-    app.get("/api/ws/activate", core.auth, async (req, res) => {
+    app.get("/api/userinfo", core.auth, async (req, res) => {
         try {
-            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), req: req.session.userinfo }));
+            let a = await db.get("users", req.session.userinfo.id)
+            a["resources"] = await db.get('resources', req.session.userinfo.id)
+            a["economy"] = await db.get("economy", req.session.userinfo.id)
+            return core.json(req, res, true, "SUCCESS", a)
+        } catch (error) {
+            console.log(error)
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+
+    app.get("/api/ws/auth", async (req, res) => {
+        try {
+            if (!req.session.userinfo) return core.json(req, res, false, "401")
+            return core.json(req, res, true, "SUCCESS", req.session.userinfo)
         } catch (error) {
             console.log(error)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
@@ -46,7 +59,9 @@ module.exports = async function () {
 
     exp.ws("/ws", async (ws) => {
         try {
-            let a = await fetch('http://localhost:2000/api/ws/activate')
+            ws.end()
+            return
+            let a = await fetch('http://localhost:2000/api/ws/auth')
             let b = await a.json()
             const req = b.req
             if (!req) ws.send(JSON.stringify({type: "redirect", redirect: "/login"}))

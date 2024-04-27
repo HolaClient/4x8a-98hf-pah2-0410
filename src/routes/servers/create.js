@@ -26,7 +26,7 @@
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    app.get("/api/servers.create", core.auth, async (req, res) => {
+    app.get("/api/servers/create", core.auth, async (req, res) => {
         try {
             async function get() {
                 let [a, b] = await Promise.all([db.get("pterodactyl", "nodes") || [],db.get("pterodactyl", "eggs") || []]);
@@ -56,7 +56,7 @@ module.exports = async function () {
         }
     });
 
-    app.post("/api/servers.create", core.auth, async (req, res) => {
+    app.post("/api/servers/create", core.auth, async (req, res) => {
         try {
             let a = req.body.resources;
             let b = req.body.environment;
@@ -71,6 +71,7 @@ module.exports = async function () {
             let l = await db.get("economy", req.session.userinfo.id);
             let m = await db.get("pterodactyl", "settings");
             if (!l.coins) return core.json(req, res, false, "INSUFFICIENT");
+            if ((await db.get("permissions", m.deployments.role)).permission > req.session.userinfo.permissions.level) return core.json(req, res, false, "403");
             if (l.coins < (f.deployments.fees + g.deployments.fees + m.deployments.fees)) return core.json(req, res, false, "INSUFFICIENT");
             l.coins = l.coins - (f.deployments.fees + g.deployments.fees + m.deployments.fees)
             await db.set("economy", req.session.userinfo.id, l);

@@ -8,6 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
+                <img src="https://cdn.holaclientx.tech/logo.png" onload="billing()" alt="lo" class="w-0 h-0">
                 <div class="flex space-x-4 items-center">
                     <div
                         class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
@@ -22,35 +23,20 @@
                     </div>
                 </div>
                 <div class="justify-between w-full mt-4 items-center">
-                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 w-full gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-4">
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">$1</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="revenue">---</h1> <span
                                 class="text-gray-300"><%= lang.admin.home.revenue %></span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">$1</h1> <span
-                                class="text-gray-300">Revenue (past 24h)</span>
-                        </div>
-                        <div
-                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="services">---</h1> <span
                                 class="text-gray-300">Services sold</span>
                         </div>
                         <div
                             class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">1</h1> <span
-                                class="text-gray-300">Plans sold</span>
-                        </div>
-                        <div
-                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">$2</h1> <span
-                                class="text-gray-300">Estimated revenue</span>
-                        </div>
-                        <div
-                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
-                            <h1 class="text-gray-200 mt-2 text-3xl font-karla">2</h1> <span
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="gateways">---</h1> <span
                                 class="text-gray-300">Gateways active</span>
                         </div>
                     </div>

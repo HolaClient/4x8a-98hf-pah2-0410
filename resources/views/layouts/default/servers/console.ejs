@@ -58,7 +58,7 @@
                                     <p class="text-gray-300 text-sm">
                                         CPU load
                                     </p>
-                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverCPUU">---</span> <span class="text-sm"> / <span id="serverCPUT"></span>%</span></h1>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverCPUU">---</span> <span class="text-sm"> / <span id="serverCPUT"><%= data.attributes.limits.cpu %></span>%</span></h1>
                                 </div>
                             </div>
                             <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
@@ -72,7 +72,7 @@
                                     <p class="text-gray-300 text-sm">
                                         Memory load
                                     </p>
-                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverRAMU">---</span> <span class="text-sm"> / <span id="serverRAMT"></span></span></h1>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverRAMU">---</span> <span class="text-sm"> / <span id="serverRAMT"><%= data.attributes.limits.memory %></span></span></h1>
                                 </div>
                             </div>
                             <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
@@ -86,7 +86,7 @@
                                     <p class="text-gray-300 text-sm">
                                         Disk usage
                                     </p>
-                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverDiskU">---</span> <span class="text-sm"> / <span id="serverDiskT"></span></span></h1>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverDiskU">---</span> <span class="text-sm"> / <span id="serverDiskT"><%= data.attributes.limits.disk %></span></span></h1>
                                 </div>
                             </div>
                             <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">

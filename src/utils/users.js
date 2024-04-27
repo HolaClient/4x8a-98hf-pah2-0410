@@ -104,10 +104,6 @@ module.exports.create = async function (req, res, email, username, avatar, first
                 used: 0,
                 total: packages.list[packages.default].resources.cpu
             },
-            servers: {
-                used: 0,
-                total: packages.list[packages.default].resources.servers
-            },
             allocations: {
                 used: 0,
                 total: packages.list[packages.default].resources.allocations

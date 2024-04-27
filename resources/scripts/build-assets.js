@@ -26,6 +26,8 @@ async function main() {
             await Promise.all([
                 buildJS(path.join(__dirname, '../../public/admin/default/app.dev.js'), path.join(__dirname, '../../public/admin/default/app.js'), "Admin  JS "),
                 buildJS(path.join(__dirname, '../../public/client/default/app.dev.js'), path.join(__dirname, '../../public/client/default/app.js'), "Client JS "),
+                buildJS(path.join(__dirname, '../../public/setup/default/app.dev.js'), path.join(__dirname, '../../public/setup/default/app.js'), "Setup  JS "),
+                buildCSS(path.join(__dirname, '../../public/setup/default/app.dev.css'), path.join(__dirname, '../../public/setup/default/app.css'), "Setup  CSS"),
                 buildCSS(path.join(__dirname, '../../public/admin/default/app.dev.css'), path.join(__dirname, '../../public/admin/default/app.css'), "Admin  CSS"),
                 buildCSS(path.join(__dirname, '../../public/client/default/app.dev.css'), path.join(__dirname, '../../public/client/default/app.css'), "Client CSS")
             ]);

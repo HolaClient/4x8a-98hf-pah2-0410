@@ -27,10 +27,9 @@ const page = modules.page;
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    const pterodactyl = await db.get("pterodactyl", "settings") || {}
-
     app.get("/api/servers/files/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             let a = req.params.id;
             let e = req.query.dir ? `?directory=${encodeURIComponent(req.query.dir)}` : '';
             await core.server(req, res, a);
@@ -51,6 +50,7 @@ module.exports = async function () {
 
     app.get("/api/servers/files/edit/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             const appearance = await db.get("settings", "appearance") || {};
             const template = appearance.themes && appearance.themes.layouts || "default";
             let a = req.params.id;
@@ -93,6 +93,7 @@ module.exports = async function () {
 
     app.get("/api/servers/files/delete/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             let a = req.params.id;
             let e = req.query.file;
             let pathSegments = e.split('/');
@@ -122,6 +123,7 @@ module.exports = async function () {
 
     app.post("/api/servers/files/edit/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             let a = req.params.id;
             let e = req.query.file ? `?file=${encodeURIComponent(req.query.file)}` : '';
             await core.server(req, res, a);
@@ -141,6 +143,7 @@ module.exports = async function () {
 
     app.post("/api/servers/files/upload/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             let a = req.params.id;
             await core.server(req, res, a);
             let b = req.body.url

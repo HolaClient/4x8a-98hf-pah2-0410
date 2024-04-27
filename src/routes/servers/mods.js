@@ -26,10 +26,9 @@
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    const pterodactyl = await db.get("pterodactyl", "settings") || {}
     const base = `https://api.modrinth.com/v2`
 
-    app.get("/api/mods", core.auth, async (req, res) => {
+    app.get("/api/servers/mods", core.auth, async (req, res) => {
         try {
             if (req.query.search) {
                 let a = await fetch(`${base}/search?query=${req.query.search}&facets=[["project_type:mod"]]`)
@@ -44,7 +43,7 @@ module.exports = async function () {
         }
     });
 
-    app.post("/api/mods", core.auth, async (req, res) => {
+    app.post("/api/servers/mods", core.auth, async (req, res) => {
         try {
             let a = req.body.mod
             let b = req.body.id
@@ -55,6 +54,7 @@ module.exports = async function () {
             g = g.replace(/[ !@#$%^&*()/]/g, '-');
             let h = await fetch(d[0].files[0].url);
             let i = await h.buffer();
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             await fetch(`${pterodactyl.domain}/api/client/servers/${b}/files/write?file=%2Fmods%2F${g}`, {
                 "method": "POST",
                 "body": i,

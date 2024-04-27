@@ -64,13 +64,17 @@ module.exports = async function () {
             let c = await ptero.servers()
             let d = c.find(i => i.attributes.identifier == e);
             if (!d || d == undefined || d == null) {
+                let f = await db.get("resources", req.session.userinfo.id)
+                let g = ["memory", "disk", "cpu", "allocations", "backups", "databases"]
+                let h = b.find(i => i.identifier == e)
+                g.forEach(i => {f[i].used = f[i].used - h.limits[i] || h.feature_limits[i]});
                 b = b.filter(i => i.identifier !== e);
                 await db.set("servers", req.session.userinfo.id, b);
             }
             if (d.attributes.suspended == true) {
-                return page.render(`./resources/views/layouts/${template}/servers/suspended.ejs`, req, res);
+                return core.html(req, res, `./resources/views/layouts/${template}/servers/suspended.ejs`, d);
             } else {
-                return page.render(`./resources/views/layouts/${template}/servers/${a}.ejs`, req, res);
+                return core.html(req, res, `./resources/views/layouts/${template}/servers/${a}.ejs`, d);
             }
         } catch (error) {
             console.error(error);

@@ -1,10 +1,13 @@
 {
     "whitelist": [
-        "/assets/client/default/app.css",
+        "/assets/setup/default/app.js",
+        "/assets/setup/default/app.css",
+        "/assets/setup/default/app.dev.js",
+        "/assets/setup/default/app.dev.css",
         "/assets/common/tailwind.css",
-        "/assets/client/default/bundle.js",
         "/setup",
         "/setup/basic",
+        "/setup/import",
         "/setup/finish",
         "/api/setup"
     ]

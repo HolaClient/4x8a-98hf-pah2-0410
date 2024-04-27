@@ -131,7 +131,7 @@ module.exports = async function () {
         }
     });
 
-    app.get("/admin/users/:id", core.admin, async (req, res) => {
+    app.get("/admin/users/view/:id", core.admin, async (req, res) => {
         try {
             let a = req.params.id
             let b = await db.get("settings", "appearance") || {};
@@ -140,9 +140,18 @@ module.exports = async function () {
             if (!d) return res.end(fallback.error404());
             let e = await db.get("resources", a);
             let f = await db.get("economy", a);
-            d["resources"] = e
-            d["economy"] = f
-            return core.html(req, res, `./resources/views/admin/${c}/users/[id].ejs`, d);
+            let g = await db.get("billing", "invoices") || []
+            let h = g.filter(i => i.user.id === parseInt(a));
+            let j = {};
+            if (d.hcx) {
+                j = d
+            } else {
+                j["hcx"] = await db.get("users", a)
+            }
+            j["resources"] = e
+            j["economy"] = f
+            j["invoices"] = h
+            return core.html(req, res, `./resources/views/admin/${c}/users/[id].ejs`, j);
         } catch (error) {
             handle(error, "Minor", 42)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));

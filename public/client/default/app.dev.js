@@ -24,8 +24,8 @@ const routes = [
   { "name": "create", "href": false, "url": "create", "svg": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" /></svg>` },
   { "name": "servers", "href": false, "url": "servers", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" /></svg>` },
   { "name": "economy", "href": false, "url": "economy", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" /></svg>` },
-  { "name": "tickets", "href": false, "url": "tickets", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" /></svg>` },
-  { "name": "chat", "href": false, "url": "chat", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>` },
+//  { "name": "tickets", "href": false, "url": "tickets", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" /></svg>` },
+//  { "name": "chat", "href": false, "url": "chat", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>` },
   { "name": "market", "href": false, "url": "market", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z" /></svg>` },
   { "name": "account", "href": false, "url": "account", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg>` },
   { "name": "admin", "href": true, "url": "/admin", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>` }
@@ -333,6 +333,7 @@ function changeURL(url) {
 window.onpopstate = function () {
   render(window.location.href.replace(window.location.origin, ''));
   highlight();
+  updateLinks()
 }
 function updateLinks() {
   const a = document.getElementById("serverLinks");
@@ -468,7 +469,7 @@ function activate() {
 }
 async function mods() {
   let a = document.getElementById("modsHolder")
-  let b = await fetch('/api/mods')
+  let b = await fetch('/api/servers/mods')
   let c = await b.json()
   if (c.success == false) return toastr.error("Error", c.message)
   let d = document.createDocumentFragment();
@@ -539,7 +540,7 @@ async function mods() {
 }
 async function modsSearch(q) {
   let a = document.getElementById("modsHolder")
-  let b = await fetch('/api/mods?search=' + q)
+  let b = await fetch('/api/servers/mods?search=' + q)
   let c = await b.json()
   if (c.success == false) return toastr.error("Error", c.message)
   let d = document.createDocumentFragment();
@@ -602,7 +603,7 @@ async function modsInstall(a) {
 </svg>
 `
   d.classList.add("animate-spin")
-  let b = await fetch(`/api/mods`, {
+  let b = await fetch(`/api/servers/mods`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -628,7 +629,7 @@ async function modsInstall(a) {
 }
 async function pluginss() {
   let a = document.getElementById("pluginsHolder")
-  let b = await fetch('/api/plugins')
+  let b = await fetch('/api/servers/plugins')
   let c = await b.json()
   if (c.success == false) return toastr.error("Error", c.message)
   let d = document.createDocumentFragment();
@@ -705,7 +706,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 });
 async function pluginsSearch(q) {
   let a = document.getElementById("pluginsHolder")
-  let b = await fetch('/api/plugins?search=' + q)
+  let b = await fetch('/api/servers/plugins?search=' + q)
   let c = await b.json()
   if (c.success == false) return toastr.error("Error", c.message)
   let d = document.createDocumentFragment();
@@ -768,7 +769,7 @@ async function pluginsInstall(a, n) {
 </svg>
 `
   d.classList.add("animate-spin")
-  let b = await fetch(`/api/plugins`, {
+  let b = await fetch(`/api/servers/plugins`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -1066,8 +1067,6 @@ async function consoleWS() {
   let a = await fetch(`/api/servers/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`)
   let b = await a.json()
   if (b.success == true) {
-    setValue("Name", b.data.name);
-    setValue("Description", b.data.description || "")
     setValue("RAMT", formatResourceMB(b.data.limits.memory) || "")
     setValue("DiskT", formatResourceMB(b.data.limits.disk) || "")
     setValue("CPUT", b.data.limits.cpu || "")
@@ -1232,8 +1231,7 @@ function formatResourceMB(a) {
   }
 }
 function consoleWSS() {
-  let serverId = `${(window.location.href).split('/servers/')[1]?.split('/')[0]}`;
-  let webSocket = new WebSocket(`ws://localhost:2001/api/servers/console/8be170d8`);
+  let webSocket = new WebSocket(`ws://localhost:2001/api/servers/console/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`);
   return webSocket;
 }
 async function files() {
@@ -1545,7 +1543,7 @@ let srvCache = {}
 let serverConfig = {}
 let fees = { node: 0, egg: 0 }
 async function serverCreate() {
-  let a = await fetch('/api/servers.create')
+  let a = await fetch('/api/servers/create')
   let b = await a.json()
   if (b.success == true) {
     let c = document.getElementById('nodesList')
@@ -1641,7 +1639,7 @@ function gv(a) {
   return document.getElementById(a).value
 }
 async function deploy() {
-  let a = await fetch('/api/servers.create', {
+  let a = await fetch('/api/servers/create', {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -1660,5 +1658,141 @@ async function deploy() {
     render('create')
   } else {
     toastr.error(b.message, "Error!")
+  }
+}
+async function modifyServer() {
+  let a = ["Memory", "Disk", "CPU", "Allocations", "Backups", "Databases"]
+  let b = {}
+  a.forEach(i => { b[i.toLowerCase()] = parseInt(document.getElementById(`srvModify${i}`).value) });
+  let c = await fetch(`/api/servers/modify/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      resources: b
+    })
+  });
+  let d = await c.json()
+  if (d.success == true) {
+    toastr.success(d.message, "Success!")
+  } else {
+    toastr.error(d.message, "Error!")
+  }
+}
+async function serverModify() {
+  let a = await fetch('/api/servers/create')
+  let b = await a.json()
+  if (b.success == true) {
+    let d = []
+    let e = []
+    for (let i of b.data.nodes) {
+      d.push(`<option value="${i.id}">${i.name} - ${(i.allocated_resources.memory / i.memory) * 100}% full</option>`)
+    }
+    for (let i of b.data.eggs) {
+      e.push(`<option value="${i.id}">${i.name}</option>`)
+    }
+    document.getElementById('nodesList').innerHTML = d.join('')
+    document.getElementById('eggsList').innerHTML = e.join('')
+  }
+}
+async function changeNode() {
+  let a = document.getElementById("nodesList").value
+  let b = await fetch(`/api/servers/transfer/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id: a
+    })
+  });
+  let c = await b.json()
+  if (c.success == true) {
+    toastr.success(c.message, "Success!")
+  } else {
+    toastr.error(c.message, "Error!")
+  }
+}
+async function connectAFKWS() {
+  let afkWS = new WebSocket(`ws://localhost:2001/ws/afk`);
+  afkWS.onmessage = async function (event) {
+    let data = JSON.parse(event.data);
+    if (data.redirect) {
+      window.location.href = '/'
+    } else {
+      st("sessionCoins", `${data.session ?? 0} coins`);
+      st("totalCoins", `${data.total ?? 0} coins`);
+      st("afkDuration", `${data.duration ?? 0} s`);
+      st("coinsIn", `${data.coinsIn ?? 0} s`);
+      st("afkStatus", 'Earning');
+    }
+  };
+  afkWS.onclose = function () {
+    st("afkStatus", 'Socket disconnected');
+  }
+}
+function st(a, b) {
+  return document.getElementById(a).innerText = b
+}
+async function loadLeaderboard() {
+  let a = await fetch('/api/economy/leaderboard')
+  let b = await a.json()
+  if (b.success == true) {
+    let c = []
+    let d = b.data.leaderboard
+    for (let i in d) {
+      c.push(`
+      <div class="flex flex-col items-center justify-center relative">
+        <div class="relative w-36 rounded-xl">
+          <img src="${d[i].avatar}" alt="user" class="w-full rounded-xl h-auto">
+          <div class="absolute z-30 top-0 right-0 text-center items-center bg-zinc-900/50 flex justify-center -mt-4 -mr-4 text-gray-300 backdrop-blur-xl w-12 h-12 rounded-full">${pos(i)}</div>
+        </div>
+        <h1 class="text-gray-300 text-xl">${d[i].nickname}</h1>
+        <span class="text-gray-400">${d[i].coins} coins</span>
+      </div>`)
+    }
+    document.getElementById("coinsLeaderboard").innerHTML = c.join('')
+  } else {
+    toastr.error(b.message, "Error!")
+  }
+}
+function pos(a) {
+  a = parseInt(a)
+  switch (a) {
+    case 0:
+      return '1st';
+      case 1:
+      return '2nd';
+      case 2:
+      return '3rd';
+      case 3:
+      return '4th';
+    default:
+      return '5th';
+  }
+}
+function addValue(a, b) {
+  let c = document.getElementById(`resourceInput${a}`)
+  let d = 0
+  if (b.startsWith("+")) {
+    d = parseInt(c.value || 0) + parseInt(b.slice(1))
+  } else {
+    d = parseInt(c.value || 0) - parseInt(b.slice(1))
+  }
+  if (d < 0) {
+    d = 0
+  }
+  c.value = d
+};
+async function buyResource(a) {
+  let b = document.getElementById(`resourceInput${a}`).value
+  let c = await fetch(`/api/market/buy/${a}/${b}`)
+  let d = await c.json()
+  if (d.success) {
+    toastr.success(d.message, "Success!")
+    document.getElementById("coins").innerText = `${d.data} coins`
+  } else {
+    toastr.error(d.message, "Error!")
   }
 }

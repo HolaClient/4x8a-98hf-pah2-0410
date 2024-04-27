@@ -28,10 +28,10 @@
 module.exports = async function() {
     const admins = await db.get("notifications", "admins") || [];
     const errors = await db.get("logs", "errors") || [];
-    const pterodactyl = await db.get("pterodactyl", "settings") || {}
 
     app.get("/api/servers/players/bans/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             await core.server(req, res, req.params.id)
             let a;
             if (req.query.type && req.query.type == "ip") {
@@ -57,6 +57,7 @@ module.exports = async function() {
 
     app.get("/api/servers/players/ops/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             await core.server(req, res, req.params.id)
             let b = await fetch(`${pterodactyl.domain}/api/client/servers/${req.params.id}/files/contents?file=%2Fops.json`, {
                 "method": "GET",
@@ -76,6 +77,7 @@ module.exports = async function() {
     
     app.post("/api/servers/players/bans/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             await core.server(req, res, req.params.id)
             let a;
             let d;

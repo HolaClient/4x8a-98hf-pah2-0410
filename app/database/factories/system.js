@@ -97,7 +97,7 @@ if (!c) await db.set("core", "about", {
     build: "HCX1042401",
     security: "January 2024",
     updater: 1,
-    marketplace: 0,
+    marketplace: 1,
     ui: {
         type: "HCX UI 0",
         admin: 0,

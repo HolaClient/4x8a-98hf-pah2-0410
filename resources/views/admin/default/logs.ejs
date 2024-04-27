@@ -1,0 +1,85 @@
+<%- include('./partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('./partials/nav') %>
+            <%- include('./partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <img src="https://cdn.holaclientx.tech/logo.png" onload="stats()" alt="" class="w-0 h-0">
+                <div class="flex space-x-4 items-center">
+                    <div
+                        class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6">
+                            <path
+                                d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                            <path
+                                d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-between w-full">
+                        <h1 class="text-gray-200 font-semibold text-xl"><%= lang.admin.home.title %></h1>
+                        <span class="text-gray-300 text-md"><%= lang.admin.home.titleText %></span>
+                    </div>
+                </div>
+                <div class="justify-between w-full mt-4 items-center">
+                    <div class="grid grid-cols-2 md:grid-cols-4 w-full gap-4">
+                        <div
+                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsServers">---</h1> <span
+                                class="text-gray-300"><%= lang.admin.home.servers %></span>
+                        </div>
+                        <div
+                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsUsers">---</h1> <span
+                                class="text-gray-300"><%= lang.admin.home.users %></span>
+                        </div>
+                        <div
+                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsQueue">---</h1> <span
+                                class="text-gray-300"><%= lang.admin.home.queue %></span>
+                        </div>
+                        <div
+                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsNodes">---</h1> <span
+                                class="text-gray-300"><%= lang.admin.home.nodes %></span>
+                        </div>
+                        <div
+                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsCoins">---</h1> <span
+                                class="text-gray-300">Coins Circulating</span>
+                        </div>
+                        <div
+                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsMemory">---</h1> <span
+                                class="text-gray-300"><%= lang.admin.home.memory %></span>
+                        </div>
+                        <div
+                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsDisk">---</h1> <span
+                                class="text-gray-300"><%= lang.admin.home.disk %></span>
+                        </div>
+                        <div
+                            class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                            <h1 class="text-gray-200 mt-2 text-3xl font-karla" id="statsCPU">---</h1> <span
+                                class="text-gray-300"><%= lang.admin.home.cpu %></span>
+                        </div>
+                    </div>
+                    <!--<div class="mt-4 w-full">
+                        <div class="w-full px-3 py-2 bg-zinc-900/50 border border-zinc-800/80 rounded-xl">
+                            <h1 class="text-center text-xl text-gray-300">New users in April 2024</h1>
+                            <div id="chart" class="relative"></div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </main>
+            <%- include('./partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

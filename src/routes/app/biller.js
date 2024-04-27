@@ -51,6 +51,25 @@ module.exports = async function () {
             return core.json(req, res, false, "ERROR", error);
         }
     });
+    app.get("/api/payments", core.admin, async (req, res) => {
+        try {
+            let a = await db.get("billing", "invoices") || []
+            let b = 0
+            a.forEach(i => {if (i.paid == true) b = b + i.price});
+            let c = await db.get("addons", "active") || [];
+            let d = [];
+            c.forEach(i => {if (i.type == "billing") d.push(i)});
+            let e = {
+                revenue: b,
+                services: a.length,
+                gateways: d.length
+            };
+            return core.json(req, res, true, "SUCCESS", e);
+        } catch (error) {
+            console.error(error);
+            return core.json(req, res, false, "ERROR", error);
+        }
+    });
     app.post("/api/payments/buy/:id", core.auth, async (req, res) => {
         try {
             let a = await db.get("addons", "active") || []

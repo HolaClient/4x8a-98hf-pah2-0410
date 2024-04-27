@@ -32,10 +32,9 @@ const WebSocket = require('ws');
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    const pterodactyl = await db.get("pterodactyl", "settings") || {}
-
-    app.get("/api/servers/:id", core.auth, async (req, res) => {
+    app.get("/api/servers/details/:id", core.auth, async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             let a = req.params.id;
             await core.server(req, res, a);
             let b = await fetch(`${pterodactyl.domain}/api/client/servers/${a}`, {
@@ -57,9 +56,10 @@ module.exports = async function () {
 
     app.get("/api/servers/console/auth/:id", async (req, res) => {
         try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
             if (!req.session.userinfo) return core.redirect(res, "/login")
-            var servers = await db.get("servers", req.session.userinfo.id) ?? [];
-            if (servers.length == 0 || !servers.find(a => a.identifier == req.params.id)) return core.json(req, res, true, "INVALID")
+            var servers = await db.get("servers", parseInt(req.session.userinfo.id)) ?? [];
+            if (servers.length == 0 || !servers.find(i => i.identifier === req.params.id)) return core.json(req, res, true, "INVALID")
             return core.json(req, res, true, "SUCCESS")
         } catch (error) {
             return core.json(req, res, false, "ERROR", error)
@@ -68,14 +68,15 @@ module.exports = async function () {
 
     exp.ws("/api/servers/console/:id", async (ws, req, res) => {
         try {
-            let e = await fetch(`${process.env.APP_URL}/api/servers/console/auth/${req.params.id}`)
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
+            let a = req.params.id;
+            let e = await fetch(`${process.env.APP_URL}/api/servers/console/auth/${a}`)
             let f = await e.json()
             if (f.success !== true) {
                 ws.send(JSON.stringify({ "event": "redirect"}));
                 ws.end()
                 return
             }
-            let a = req.params.id;
             let b = await fetch(`${pterodactyl.domain}/api/client/servers/${a}/websocket`, {
                 "method": "GET",
                 "headers": {
