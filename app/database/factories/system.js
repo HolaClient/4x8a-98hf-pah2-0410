@@ -26,7 +26,6 @@
  *--------------------------------------------------------------------------
 */
 const modules = require('../../../src/utils/modules.js')
-const crypt = modules.crypt;
 /**
  *--------------------------------------------------------------------------
  * Exporting
@@ -66,7 +65,7 @@ if (!a) {
         intents: ['*']
     });
     let users = await db.get("users", "users") || [];
-    users.push({email: email, id: id});
+    users.push({email: "system@holaclientx.tech", id: 0});
     await db.set('users', 'users', users)
     await db.set('core', "lastuser", 0);
 }
