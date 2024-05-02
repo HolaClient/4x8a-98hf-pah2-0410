@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%- include('./partials/head') %>
 
 <body class="bg-zinc-950 relative items-center h-full">
@@ -64,4 +65,70 @@
     </div>
     </div>
 </body>
+=======
+<%- include('./partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('./partials/nav') %>
+            <%- include('./partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="lo" onload="connectAFKWS('<%= req.session.userinfo.sessions.secret %>', '<%= req.session.userinfo.id %>')" class="w-0 h-0">
+                <div class="flex space-x-4 items-center">
+                    <div
+                        class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6">
+                            <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
+                            <path fill-rule="evenodd"
+                                d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 14.625v-9.75ZM8.25 9.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM18.75 9a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V9.75a.75.75 0 0 0-.75-.75h-.008ZM4.5 9.75A.75.75 0 0 1 5.25 9h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H5.25a.75.75 0 0 1-.75-.75V9.75Z"
+                                clip-rule="evenodd" />
+                            <path
+                                d="M2.25 18a.75.75 0 0 0 0 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 0 0-.75-.75H2.25Z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-between w-full">
+                        <h1 class="text-gray-200 font-semibold text-xl">Economy</h1>
+                        <span class="text-gray-300 text-md">View the current economy status & earn some coins.</span>
+                    </div>
+                </div>
+                <div class="w-full mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="w-full py-20 flex flex-col justify-center items-center bg-zinc-900/50 rounded-xl border border-zinc-800/80 p-4">
+                        <h1 class="text-gray-300 text-xl">AFK Earning</h1>
+                        <div class="flex items-center mt-4 space-x-2 text-gray-400 justify-between">
+                            <div class="flex flex-col">
+                                <span>Another coin in</span>
+                                <span>This session</span>
+                                <span>Total Coins</span>
+                                <span>Session duration</span>
+                                <span>Status</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span>:</span>
+                                <span>:</span>
+                                <span>:</span>
+                                <span>:</span>
+                                <span>:</span>
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <span class="text-gray-300" id="coinsIn">---</span>
+                                <span class="text-gray-300" id="sessionCoins">---</span>
+                                <span class="text-gray-300" id="totalCoins">---</span>
+                                <span class="text-gray-300" id="afkDuration">---</span>
+                                <span class="text-gray-300" id="afkStatus">---</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('./partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+>>>>>>> 7f9cef0 (02-05)
 </html>

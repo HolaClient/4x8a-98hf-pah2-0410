@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%- include('../partials/head') %>
 
 <body class="bg-zinc-950 relative items-center h-full">
@@ -80,4 +81,84 @@
     </div>
     </div>
 </body>
+=======
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path d="M16.5 7.5h-9v9h9v-9Z" />
+                                <path fill-rule="evenodd" d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z" clip-rule="evenodd" />
+                              </svg>                              
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl">Resources</h1>
+                            <span class="text-gray-300 text-md">Buy/sell resources here.</span>
+                        </div>
+                    </div>
+                </div>
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <% 
+                        let resources = ["memory", "disk", "cpu", "allocations", "databases", "backups"]
+                        let values = [512, 256, 128]
+                        %>
+                        <% for (let i of resources) { %>
+                            <div class="relative w-full duration-300 hover:duration-300 rounded-xl bg-zinc-900/50 border border-zinc-800/80 p-4">
+                                <span class="text-gray-300 text-md pl-1 capitalize"><%= i %>, <%= data.buy[i].price %> coins per <%= data.buy[i].per %> <%= data.buy[i].unit %>:</span>
+                                <div class="relative w-full justify-end flex items-end mt-1">
+                                    <input value="0" id="resourceInput<%= i %>" class="w-full bg-zinc-950/80 rounded-xl px-4 p-2 border border-zinc-800 text-gray-300 outline-none">
+                                    <button onclick="buyResource('<%= i %>')" class="absolute py-2 px-5 rounded-r-xl group bg-zinc-800/20 backdrop-blur-xl mt-2 text-gray-300 text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover:w-8 group-hover:duration-300 duration-300">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="w-full flex justify-between items-center my-2">
+                                    <div class="w-1/3 bg-zinc-800/80 rounded-full h-0.5"></div>
+                                    <span class="text-gray-400">PRESETS</span>
+                                    <div class="w-1/3 bg-zinc-800/80 rounded-full h-0.5"></div>
+                                </div>
+                                <div class="w-full flex items-center justify-between space-x-2">
+                                    <div class="grid grid-cols-3 md:grid-cols-4 text-rose-400 gap-2">
+                                        <div onclick="addValue('<%= i %>', '-1024')" class="cursor-pointer rounded-full px-4 py-1 text-center bg-rose-900/50 border border-rose-800/80 backdrop-blur-xl hidden md:block">
+                                            -1024
+                                        </div>
+                                        <% for (let j of values) { %>
+                                        <div onclick="addValue('<%= i %>', '-<%= j %>')" class="cursor-pointer rounded-full px-4 py-1 text-center bg-rose-900/50 border border-rose-800/80 backdrop-blur-xl">
+                                            -<%= j %>
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                    <div class="grid grid-cols-3 md:grid-cols-4 text-emerald-400 gap-2">
+                                        <% for (let j of values.reverse()) { %>
+                                            <div onclick="addValue('<%= i %>', '+<%= j %>')" class="cursor-pointer rounded-full px-4 py-1 text-center bg-emerald-900/50 border border-emerald-800/80 backdrop-blur-xl hidden md:block">
+                                                +<%= j %>
+                                            </div>
+                                            <% } %>
+                                        <div onclick="addValue('<%= i %>', '+1024')" class="cursor-pointer rounded-full px-4 py-1 text-center bg-emerald-900/50 border border-emerald-800/80 backdrop-blur-xl hidden md:block">
+                                            +1024
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+            </div>
+        </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+>>>>>>> 7f9cef0 (02-05)
 </html>

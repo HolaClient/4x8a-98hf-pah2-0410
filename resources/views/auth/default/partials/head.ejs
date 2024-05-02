@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<% if (req.session.userinfo) { %>
+<script>window.location.href = '/dashboard'</script>
+<% } %>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC, Freemium Minecraft Hosting, <%= appearance.name %>, Cloud, Minecraft, Servers, Free Servers, Hostings that uses HolaClient">
+    <meta name="author" content="HolaClient">
+    <meta name="copyright" content="<%= appearance.name %>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= appearance.name %>">
+    <meta property="og:description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta property="og:image" content="<%= appearance.logo.url %>">
+    <meta name="twitter:card" content="<%= appearance.logo.url %>">
+    <meta name="twitter:title" content="<%= appearance.name %>">
+    <meta name="twitter:description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta name="twitter:image" content="<%= appearance.logo.url %>">
+    <meta name="twitter:image:src" content="<%= appearance.logo.url %>">
+    <title><%= appearance.name %></title>
+    <link rel="shortcut icon" href="<%= appearance.logo.url %>" type="image/x-icon">
+    <link rel="icon" type="image/png" href="<%= appearance.logo.url %>">
+    <% if (process.env.APP_ENV !== "production") { %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/client/default/app.dev.js"></script>
+    <link rel="stylesheet" href="/assets/client/default/app.dev.css">
+    <% } else { %>
+    <link href="/assets/common/tailwind.css" rel="stylesheet" rel="preload">
+    <script src="/assets/client/default/app.js"></script>
+    <link rel="stylesheet" href="/assets/client/default/app.css">
+    <% } %>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.holaclientx.tech/production/assets/toastr.css">
+</head>
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        lazyLoadJS('https://cdn.holaclientx.tech/production/assets/toastr.js')
+        function lazyLoadCSS(a) {
+            return new Promise((resolve, reject) => {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = a;
+                link.onload = resolve;
+                link.onerror = reject;
+                document.head.appendChild(link);
+            });
+        };
+        function lazyLoadJS(a) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = a;
+                script.async = true;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        };
+        setTimeout(() => {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showHideTransition: 'slide',
+                positionClass: 'toast-bottom-right',
+                timeOut: 4000,
+                extendedTimeOut: 1000,
+                showDuration: 300,
+                hideDuration: 300,
+            };
+        }, 2000);
+    });
+</script>
