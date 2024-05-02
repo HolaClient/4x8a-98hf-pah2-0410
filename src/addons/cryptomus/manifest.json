@@ -13,7 +13,7 @@
         "name": "CR072",
         "github": "https://github.com/CR072"
     },
-    "routes": true,
+    "routes": false,
     "runtime": {
         "holaclient": {
             "series": "X",

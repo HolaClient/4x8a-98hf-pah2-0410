@@ -38,63 +38,80 @@ const nodemailer = require("nodemailer");
  *--------------------------------------------------------------------------
 */
 module.exports.auth = async function (req, res, next) {
-    if (!req.session.userinfo) {
-        res.setHeader('Location', '/login');
-        res.writeHead(302);
-        res.end();
+    try {
+        if (!req.session.userinfo) {
+            res.setHeader('Location', '/login');
+            res.writeHead(302);
+            res.end();
+        }
+        next()
+    } catch (error) {
+        console.error(error)
     }
-    next()
 };
 module.exports.admin = async function (req, res, next) {
-    if (!req.session.userinfo) {
-        res.setHeader('Location', '/login');
-        res.writeHead(302);
-        return res.end();
+    try {
+        if (!req.session.userinfo) {
+            res.setHeader('Location', '/login');
+            res.writeHead(302);
+            return res.end();
+        }
+        if (req.session.userinfo.permissions.level < 100) return res.end(fallback.error403());
+        next()
+    } catch (error) {
+        console.error(error)
     }
-    if (req.session.userinfo.permissions.level < 100) return res.end(fallback.error403());
-    next()
 };
 module.exports.server = async function (req, res, id) {
-    if (typeof id !== "string") return res.end(JSON.stringify({ "success": false, "message": alert("INVALID", req, res) }));
-    if (!req.session.userinfo) {
-        res.setHeader('Location', '/login');
-        res.writeHead(302);
-        res.end();
+    try {
+        if (typeof id !== "string") return res.end(JSON.stringify({ "success": false, "message": alert("INVALID", req, res) }));
+        if (!req.session.userinfo) {
+            res.setHeader('Location', '/login');
+            res.writeHead(302);
+            res.end();
+            return
+        }
+        var servers = await db.get("servers", req.session.userinfo.id) ?? [];
+        if (servers.length == 0 || !servers.find(a => a.identifier == id)) {
+            return res.end(fallback.error401());
+        }
         return
+    } catch (error) {
+        console.error(error)
     }
-    var servers = await db.get("servers", req.session.userinfo.id) ?? [];
-    if (servers.length == 0 || !servers.find(a => a.identifier == id)) {
-        return res.end(fallback.error401());
-    }
-    return
 };
 module.exports.log = async function (a) {
-    const logs = await db.get("logs", "logs") || [];
-    logs.push({
-        message: a,
-        date: Date.now()
-    })
-    await db.set("logs", "logs", logs)
-    return
+    try {
+        const logs = await db.get("logs", "logs") || [];
+        logs.push({
+            message: a,
+            date: Date.now()
+        })
+        await db.set("logs", "logs", logs)
+        return
+    } catch (error) {
+        console.error(error)
+    }
 }
 module.exports.email = async function (to, sub, title, body) {
-    const a = await db.get("settings", "smtp")
-    const c = await db.get("settings", "appearance")
-    const transporter = nodemailer.createTransport({
-        host: a.host,
-        port: a.port,
-        secure: a.port === 465 ? true : false,
-        auth: {
-            user: a.user,
-            pass: a.pass,
-        },
-        debug: true,
-    });
-    const b = await transporter.sendMail({
-        from: `${c.name} <${a.mail}>`,
-        to: to,
-        subject: sub,
-        html: `
+    try {
+        const a = await db.get("settings", "smtp")
+        const c = await db.get("settings", "appearance")
+        const transporter = nodemailer.createTransport({
+            host: a.host,
+            port: a.port,
+            secure: a.port === 465 ? true : false,
+            auth: {
+                user: a.user,
+                pass: a.pass,
+            },
+            debug: true,
+        });
+        const b = await transporter.sendMail({
+            from: `${c.name} <${a.mail}>`,
+            to: to,
+            subject: sub,
+            html: `
         <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f7f7f7; color: #333;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
             <center><h1 style="font-size: 24px; color: #333; margin-bottom: 20px;">${title}</h1>
@@ -105,26 +122,35 @@ module.exports.email = async function (to, sub, title, body) {
         </div>
     </body>
 `,
-    });
-    const logs = await db.get("logs", "emails") || [];
-    logs.push({
-        message: `Sent an email to ${to}.`,
-        data: b,
-        date: Date.now()
-    });
-    await db.set("logs", "emails", logs)
-    return b
+        });
+        const logs = await db.get("logs", "emails") || [];
+        logs.push({
+            message: `Sent an email to ${to}.`,
+            data: b,
+            date: Date.now()
+        });
+        await db.set("logs", "emails", logs)
+        return b
+    } catch (error) {
+        console.error(error)
+    }
 }
 module.exports.json = async function (req, res, a, b, c) {
-    res.setHeader('Content-Type', 'application/json')
-    if (c && a == true) {return res.end(JSON.stringify({ success: a, message: alert(b, req, res), data: c }));
-    } else if (c) {return res.end(JSON.stringify({ success: a, message: alert(b, req, res) + c  }));
-    } else { return res.end(JSON.stringify({ success: a, message: alert(b, req, res) }))};
+    try {
+        res.setHeader('Content-Type', 'application/json')
+        if (c && a == true) {
+            return res.end(JSON.stringify({ success: a, message: alert(b, req, res), data: c }));
+        } else if (c) {
+            return res.end(JSON.stringify({ success: a, message: alert(b, req, res) + c }));
+        } else { return res.end(JSON.stringify({ success: a, message: alert(b, req, res) })) };
+    } catch (error) {
+        console.error(error)
+    }
 };
 module.exports.html = async function (req, res, a, data) {
     try {
         const c = await page.data(req);
-        return ejs.renderFile(a, {...c, data}, function (error, str) {
+        return ejs.renderFile(a, { ...c, data }, function (error, str) {
             res.setHeader('Content-Type', 'text/html');
             if (error) {
                 console.error(error);
@@ -146,6 +172,23 @@ module.exports.redirect = async function (res, a) {
         console.error(error);
         return res.end(fallback.error500(error));
     }
+};
+module.exports.ws = () => {
+    const wss = new WebSocket.Server({ noServer: true });
+    return async (req, res, next) => {
+        if (req.headers.upgrade || ''.toLowerCase().includes('websocket') &&
+            req.headers.connection.toLowerCase().includes('upgrade')) {
+            req.ws = () => new Promise((resolve) => {
+                wss.handleUpgrade(req, req.socket, Buffer.alloc(0), (ws) => {
+                    resolve(ws);
+                });
+            });
+        } else {
+            res.end(fallback.error400());
+            return;
+        }
+        next();
+    };
 };
 /**
  *--------------------------------------------------------------------------

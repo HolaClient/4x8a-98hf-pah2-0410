@@ -66,12 +66,6 @@
                 "path": "market/index.ejs"
             },
             {
-                "route": "/market/packages",
-                "requireAuth": true,
-                "permission": 1,
-                "path": "market/packages.ejs"
-            },
-            {
                 "route": "/market/perks",
                 "requireAuth": true,
                 "permission": 1,

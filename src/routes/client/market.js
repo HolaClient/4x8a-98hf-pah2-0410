@@ -38,6 +38,18 @@ module.exports = async function () {
         }
     });
 
+    app.get("/market/packages", core.auth, async (req, res) => {
+        try {
+            let a = await db.get("products", "list")
+            const appearance = await db.get("settings", "appearance") || {};
+            const template = appearance.themes && appearance.themes.layouts || "default";
+            return core.html(req, res, `./resources/views/layouts/${template}/market/packages.ejs`, a)
+        } catch (error) {
+            console.error(error)
+            return fallback.error500(error)
+        }
+    });
+
     app.get("/api/market/buy/:resource/:quantity", core.auth, async (req, res) => {
         try {
             let a = await db.get("settings", "market");

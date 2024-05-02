@@ -47,38 +47,31 @@ module.exports = async function () {
         }
     });
 
-    app.get("/api/ws/auth", async (req, res) => {
+    app.use("/ws", core.ws(), async (req, res) => {
         try {
-            if (!req.session.userinfo) return core.json(req, res, false, "401")
-            return core.json(req, res, true, "SUCCESS", req.session.userinfo)
-        } catch (error) {
-            console.log(error)
-            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
-        }
-    });
-
-    exp.ws("/ws", async (ws) => {
-        try {
-            ws.end()
-            return
-            let a = await fetch('http://localhost:2000/api/ws/auth')
-            let b = await a.json()
-            const req = b.req
-            if (!req) ws.send(JSON.stringify({type: "redirect", redirect: "/login"}))
-            ws.on('message', async (message) => {
-                let e = JSON.parse(message);
-                if (!e.type) return;
-                switch (e.type) {
-                    case "render":
-                        ws.send(JSON.stringify({ type: "render", page: await render(req, e.page) }))
-                        break;
-                    default:
-                        break;
-                }
-            });
-            setTimeout(() => {
-                //ws.send(JSON.stringify({type: "redirect", redirect: "/login"}))
-            }, 1000);
+            if (req.ws) {
+                const ws = await req.ws();
+                ws.end()
+                return
+                let a = await fetch('http://localhost:2000/api/ws/auth')
+                let b = await a.json()
+                const req = b.req
+                if (!req) ws.send(JSON.stringify({ type: "redirect", redirect: "/login" }))
+                ws.on('message', async (message) => {
+                    let e = JSON.parse(message);
+                    if (!e.type) return;
+                    switch (e.type) {
+                        case "render":
+                            ws.send(JSON.stringify({ type: "render", page: await render(req, e.page) }))
+                            break;
+                        default:
+                            break;
+                    }
+                });
+                setTimeout(() => {
+                    //ws.send(JSON.stringify({type: "redirect", redirect: "/login"}))
+                }, 1000);
+            }
         } catch (error) {
             console.error(error)
             return;

@@ -189,7 +189,7 @@
           </a>
       </div>
         <script>
-          const es = ["appname", "applogo", "appbanner", "appdescription", "logorotate", "rotatespeed", "seotitle", "seoimage", "seodescription", "seokeys", "cookiealt", "ipalt", "dcauth", "dcid", "dcsecret"];
+          const es = ["appname", "applogo", "appbanner", "appdescription", "logorotate", "rotatespeed", "seotitle", "seoimage", "seodescription", "seokeys"];
           const originalValues = {};
           function ge(e) {
             return document.getElementById(e);
@@ -246,11 +246,6 @@
                 seoDes: ge("seodescription").value,
                 seoTitle: ge("seotitle").value,
                 seoKeys: ge("seokeys").value,
-                dcid: ge("dcid").value,
-                dcsecret: ge("dcsecret").value,
-                dcauth: ge("dcauth").checked,
-                cookies: ge("cookiealt").checked,
-                ip: ge("ipalt").checked
               })
             });
             let b = await a.json()

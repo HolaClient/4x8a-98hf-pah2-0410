@@ -26,7 +26,6 @@
  * Loading modules
  *--------------------------------------------------------------------------
 */
-global.env = require('dotenv').config()
 global.ejs = require("ejs");
 global.cors = require("cors");
 global.crypto = require('crypto');
@@ -37,14 +36,11 @@ global.fse = require('fs-extra');
 global.fetch = require('node-fetch');
 global.chalk = require("chalk");
 global.polka = require('polka');
+global.WebSocket = require('ws');
 global.app = polka();
-global.http = require('http');
-global.WSserver = http.createServer(app);
 global.express = require("express")
-global.exp = express()
 global.ptero = require("../utils/pterodactyl.js")
 global.queue = require('./queue.js')
-require("express-ws")(exp, WSserver)
 const { renderFile } = require('ejs')
 const theme = require('./theme.js');
 global.db = require('../handlers/database.js')

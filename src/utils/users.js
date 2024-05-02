@@ -64,7 +64,7 @@ module.exports.create = async function (req, res, email, username, avatar, first
             },
             id: id,
             username: username,
-            avatar: avatar,
+            avatar: avatar || "https://png.pngtree.com/png-vector/20230822/ourmid/pngtree-person-icon-in-a-gradient-on-a-flat-blue-and-pastel-vector-png-image_6834039.png",
             email: email,
             password: crypt.encrypt(password),
             language: "en",

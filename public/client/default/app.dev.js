@@ -24,12 +24,13 @@ const routes = [
   { "name": "create", "href": false, "url": "create", "svg": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" /></svg>` },
   { "name": "servers", "href": false, "url": "servers", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" /></svg>` },
   { "name": "economy", "href": false, "url": "economy", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" /></svg>` },
-//  { "name": "tickets", "href": false, "url": "tickets", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" /></svg>` },
-//  { "name": "chat", "href": false, "url": "chat", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>` },
+  //  { "name": "tickets", "href": false, "url": "tickets", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" /></svg>` },
+  //  { "name": "chat", "href": false, "url": "chat", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>` },
   { "name": "market", "href": false, "url": "market", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z" /></svg>` },
   { "name": "account", "href": false, "url": "account", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg>` },
   { "name": "admin", "href": true, "url": "/admin", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>` }
 ]
+let cachedRoutes = {}
 const userRoutes = [
   { "name": "notifications", "url": "notifications", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>` },
   { "name": "requests", "url": "requests", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75v16.5M2.25 12h19.5M6.375 17.25a4.875 4.875 0 0 0 4.875-4.875V12m6.375 5.25a4.875 4.875 0 0 1-4.875-4.875V12m-9 8.25h16.5a1.5 1.5 0 0 0 1.5-1.5V5.25a1.5 1.5 0 0 0-1.5-1.5H3.75a1.5 1.5 0 0 0-1.5 1.5v13.5a1.5 1.5 0 0 0 1.5 1.5Zm12.621-9.44c-1.409 1.41-4.242 1.061-4.242 1.061s-.349-2.833 1.06-4.242a2.25 2.25 0 0 1 3.182 3.182ZM10.773 7.63c1.409 1.409 1.06 4.242 1.06 4.242S9 12.22 7.592 10.811a2.25 2.25 0 1 1 3.182-3.182Z" /></svg>` },
@@ -71,7 +72,7 @@ const error500 = `
             Back</button>
     </div>
 </body>`
-const handler = new WebSocket(`ws://localhost:2001/ws`);
+const handler = new WebSocket(`ws://${window.location.host}/ws`);
 let wsa = true;
 handler.onclose = function () { wsa = false; };
 handler.onerror = function () { wsa = false; };
@@ -107,15 +108,19 @@ async function getPage(page) {
   //     };
   //   });
   //  } else {
-  let c;
-  if (page.startsWith('/')) {
-    c = await fetch(page || "/");
-  } else if (page === "") {
-    c = await fetch("/");
+  if (cachedRoutes[page]) {
+    return cachedRoutes[page]
   } else {
-    c = await fetch("/" + (page || "/"));
+    let c;
+    if (page.startsWith('/')) {
+      c = await fetch(page || "/");
+    } else if (page === "") {
+      c = await fetch("/");
+    } else {
+      c = await fetch("/" + (page || "/"));
+    }
+    return c.text();
   }
-  return c.text();
   // }
 }
 async function render(page = page || "/") {
@@ -127,7 +132,7 @@ async function render(page = page || "/") {
   }
   const b = document.getElementById('content');
   document.querySelector('main').insertAdjacentHTML('beforeend', `
-  <div id="loadOverlay" class="bg-zinc-900/50 backdrop-blur-3xl absolute z-50 flex flex-col top-0 bottom-0 items-center justify-center w-full left-0 h-screen">
+  <div id="loadOverlay" class="bg-zinc-950/50 backdrop-blur-xl absolute z-50 flex flex-col top-0 bottom-0 items-center justify-center w-full left-0 h-screen">
       <h1 class="text-transparent text-4xl md:text-9xl font-bold font-karla bg-gradient-to-br from-white to-transparent bg-clip-text">
       <svg aria-hidden="true" class="w-8 h-8 animate-load fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -149,10 +154,10 @@ async function render(page = page || "/") {
       document.getElementById('loadOverlay').remove();
     } else {
       console.error(`Page ${page} not found"`, 404);
-      let g = await fetch(`obviously-a-404-page`);
-      let h = await g.text();
+      //let g = await fetch(`obviously-a-404-page`);
+      //let h = await g.text();
       b.innerHTML = "";
-      b.innerHTML = h;
+      b.innerHTML = b;
       document.getElementById('loadOverlay').remove();
     }
   } catch (i) {
@@ -188,6 +193,7 @@ async function render(page = page || "/") {
   }, 100);
   changeURL(`${page}`);
   updateLinks();
+  cachePages()
 }
 function extract(a) {
   if (a.startsWith("/")) {
@@ -321,8 +327,20 @@ async function loadUserDropdown() {
 window.onload = () => {
   load();
   highlight();
-  updateLinks()
-};
+  updateLinks();
+  setTimeout(() => { cachePages(); }, 2000);
+}
+async function cachePages() {
+  for (let i of routes) {
+    let c;
+    if (i.url.startsWith('/')) {
+      c = await fetch(i.url || "/");
+    } else {
+      c = await fetch("/" + (i.url || "/"));
+    }
+    cachedRoutes[i.url] = c.text()
+  }
+}
 function changeURL(url) {
   if (url !== "") {
     window.history.pushState({}, '', '/' + url);
@@ -879,7 +897,7 @@ async function players() {
     });
   }, 100);
 };
-const ws = new WebSocket(`ws://${window.location.host}/chat/messages`);
+const ws = new WebSocket(`ws://${window.location.host}/ws.chat.messages`);
 async function messages() {
   let aa = await fetch('/api/chat/messages');
   let bb = await aa.json();
@@ -1034,9 +1052,12 @@ function wss() {
   return ws
 };
 let consoleSocket;
-async function consoleWS() {
+async function consoleWS(c, d) {
   visibility("startBTN", "show")
   consoleSocket = consoleWSS();
+  consoleSocket.onopen = function () {
+    consoleSocket.send(JSON.stringify({ "event": "auth", "session": c, "user": d, "server": `${(window.location.href).split('/servers/')[1]?.split('/')[0]}` }));
+  };
   consoleSocket.onmessage = async function (event) {
     let data = JSON.parse(event.data);
     if (data.event == 'console output') {
@@ -1231,7 +1252,7 @@ function formatResourceMB(a) {
   }
 }
 function consoleWSS() {
-  let webSocket = new WebSocket(`ws://localhost:2001/api/servers/console/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`);
+  let webSocket = new WebSocket(`ws://${window.location.host}/ws.servers.console`);
   return webSocket;
 }
 async function files() {
@@ -1567,7 +1588,7 @@ async function serverCreate() {
       </div>
       `)
     }
-    c.innerHTML = d
+    c.innerHTML = d.join()
     let e = document.getElementById('eggsList')
     let f = []
     for (let i of b.data.eggs) {
@@ -1583,12 +1604,20 @@ async function serverCreate() {
       </div>
       `)
     }
-    e.innerHTML = f
+    e.innerHTML = f.join('')
   } else {
     toastr.error(b.message, "Error!")
   }
 }
 function selectNode(a) {
+  let d = document.getElementById("nodesList")
+  for (let i of d.children) {
+    i.classList.add("border-zinc-800/80");
+    i.classList.remove("border-emerald-800/80");
+    i.classList.remove("bg-emerald-900/20");
+    i.classList.add("hover:bg-zinc-900");
+    document.getElementById(`nodeMark${i.id.replace("node", '')}`).classList.add("opacity-0");
+  }
   let b = document.getElementById(`node${a}`);
   b.classList.toggle("border-zinc-800/80");
   b.classList.toggle("border-emerald-800/80");
@@ -1606,6 +1635,14 @@ function selectNode(a) {
   fee();
 }
 function selectEgg(a) {
+  let d = document.getElementById("eggsList")
+  for (let i of d.children) {
+    i.classList.add("border-zinc-800/80");
+    i.classList.remove("border-emerald-800/80");
+    i.classList.remove("bg-emerald-900/20");
+    i.classList.add("hover:bg-zinc-900");
+    document.getElementById(`eggMark${i.id.replace("egg", '')}`).classList.add("opacity-0");
+  }
   let b = document.getElementById(`egg${a}`);
   b.classList.toggle("border-zinc-800/80");
   b.classList.toggle("border-emerald-800/80");
@@ -1714,8 +1751,14 @@ async function changeNode() {
     toastr.error(c.message, "Error!")
   }
 }
-async function connectAFKWS() {
-  let afkWS = new WebSocket(`ws://localhost:2001/ws/afk`);
+async function connectAFKWS(a, b) {
+  let afkWS = new WebSocket(`ws://${window.location.host}/ws.afk`);
+  st("afkStatus", 'Connecting...');
+  if (window.location.pathname !== "/economy") afkWS.close()
+  afkWS.onopen = function () {
+    afkWS.send(JSON.stringify({ "event": "auth", "session": a, "user": b }));
+    st("afkStatus", 'Socket connected');
+  };
   afkWS.onmessage = async function (event) {
     let data = JSON.parse(event.data);
     if (data.redirect) {
@@ -1726,6 +1769,7 @@ async function connectAFKWS() {
       st("afkDuration", `${data.duration ?? 0} s`);
       st("coinsIn", `${data.coinsIn ?? 0} s`);
       st("afkStatus", 'Earning');
+      document.getElementById("coins").innerText = `${data.total} coins`
     }
   };
   afkWS.onclose = function () {
@@ -1762,11 +1806,11 @@ function pos(a) {
   switch (a) {
     case 0:
       return '1st';
-      case 1:
+    case 1:
       return '2nd';
-      case 2:
+    case 2:
       return '3rd';
-      case 3:
+    case 3:
       return '4th';
     default:
       return '5th';
@@ -1795,4 +1839,22 @@ async function buyResource(a) {
   } else {
     toastr.error(d.message, "Error!")
   }
+}
+function showPaymentGateways(a) {
+  document.querySelector('main').insertAdjacentHTML('beforeend', `
+  <div id="loadOverlay" class="bg-zinc-950/50 backdrop-blur-xl absolute z-50 flex flex-col top-0 bottom-0 items-center justify-center w-full left-0 h-screen">
+  <div class="relative h-max overflow-hidden w-full max-w-sm md:max-w-md bg-zinc-800/80 backdrop-blur-xl rounded-3xl p-px">
+  <div class="relative w-full h-full rounded-3xl bg-zinc-900/80 backdrop-blur-sm p-4">
+      <h1 class="text-gray-400 text-xl">Choose a payment method:</h1>
+      <div class="flex flex-col space-y-1 mt-4">
+      <button onclick="checkout(${a})" class="mt-4 rounded-3xl w-full py-2.5 bg-zinc-400/10 shadow-xl backdrop-blur-xl text-gray-300 border border-zinc-100/10">
+      PayPal
+      </button>
+      </div>
+  </div>`);
+}
+function checkout(a) {
+  document.getElementById("loadOverlay").classList.add("hidden")
+  window.location.href = `/api/payments/buy/paypal/${a}`
+  return
 }

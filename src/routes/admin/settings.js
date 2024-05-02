@@ -28,30 +28,23 @@
 module.exports = async function() {
     app.put("/api/admin/settings", core.admin, async (req, res) => {
         try {
-            const a = await db.get('settings', 'appearance') || {}
-            const c = await db.get('settings', 'authentication') || {}
+            let a = await db.get('settings', 'appearance') || {}
 
             a.name = b('name') || a.name
-            a.logo.url = b('logo') || a.logo.url
-            a.logo.rotate = b('rotate')
-            a.logo.speed = b('speed') || a.logo.speed
+            a["logo"].url = b('logo') || a.logo.url
+            a["logo"].rotate = b('rotate')
+            a["logo"].speed = b('speed') || a.logo.speed
             a.banner = b('banner') || a.banner
             a.description = b('description') || a.description
-            a.seo.title = b('seoTitle') || a.seo.title
-            a.seo.image = b('seoImage') || a.seo.image
-            a.seo.description = b('seoDes') || a.seo.description
-            a.seo.keywords = b('seoKeys') || a.seo.keywords
-            c.discord.id = b('dcid') || c.discord.id
-            c.discord.secret = b('dcsecret') || c.discord.secret
-            c.discord.enabled = b('dcauth')
-            c.alt.ip = b('ip')
-            c.alt.cookies = b('cookies')
+            a["seo"].title = b('seoTitle') || a.seo.title
+            a["seo"].image = b('seoImage') || a.seo.image
+            a["seo"].description = b('seoDes') || a.seo.description
+            a["seo"].keywords = b('seoKeys') || a.seo.keywords
  
             function b(c) {
                 return req.body[c]
             };
             await db.set('settings', 'appearance', a);
-            await db.set('settings', 'authentication', c);
             core.log(`${req.session.userinfo.username} modified the settings.`);
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {

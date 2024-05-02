@@ -44,7 +44,7 @@
 */
 global.modules = require('./utils/modules');
 const bodyParser = require('body-parser');
-require('dotenv').config();
+process.loadEnvFile('.env')
 require('../app/database/index')(app, db);
 /**
  *--------------------------------------------------------------------------
@@ -79,9 +79,8 @@ app.use(require('express-session')({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        httpOnly: true,
-        sameSite: false,
-        secure: false
+        secure: false,
+        maxAge: 30 * 24 * 60 * 60 * 1000
     },
     name: "session"
 }));
@@ -152,7 +151,6 @@ app.use((req, res, next) => {
  *--------------------------------------------------------------------------
 */
 app.listen(process.env.APP_PORT, function (err) {
-    WSserver.listen(parseInt(process.env.APP_PORT) + 1);
     console.log(chalk.gray("  "));
     console.log(" _    _       _        _____ _ _            _  __   __");
     console.log("| |  | |     | |      / ____| (_)          | | \\ \\ / /");
@@ -170,8 +168,6 @@ app.listen(process.env.APP_PORT, function (err) {
     console.log(chalk.white("======================================================="));
     console.log(" ");
     console.log(chalk.gray("{/} 🔗") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded HolaClient at ") + chalk.cyan(process.env.APP_URL + "/"));
-    console.log(" ");
-    console.log(chalk.gray("{/} 🛜") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded Webserver Handler at: ") + chalk.cyan(parseInt(process.env.APP_PORT) + 1));
     console.log("");
     console.log(chalk.gray("{/} 🗝️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Authentication code for this session is ") + chalk.cyan(process.env.APP_CODE));
     console.log("");

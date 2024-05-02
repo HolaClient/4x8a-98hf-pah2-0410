@@ -26,9 +26,9 @@ const users = require('../../cache/users')
  * Loading modules
  *--------------------------------------------------------------------------
 */
-module.exports = async function() {
+module.exports = async function () {
     let totalCoins
-    let resources = {memory:{}, disk:{}, cpu:{}};
+    let resources = { memory: {}, disk: {}, cpu: {} };
     app.get("/api/admin/statistics", core.admin, async (req, res) => {
         try {
             let a = await users.getAll() || []
@@ -51,25 +51,30 @@ module.exports = async function() {
     });
 
     async function cache() {
-        let a = await users.getAll() || []
-        let b = []
-        for (let i of a) {
-            let c = await db.get("economy", i.id)
-            if (c && c.coins) {
-                b.push(parseInt(c.coins));
+        try {
+            let a = await users.getAll() || {};
+            let b = [];
+            for (let i in a) {
+                let c = await db.get("economy", i);
+                if (c && c.coins) {
+                    b.push(parseInt(c.coins));
+                }
             }
-        }
-        totalCoins = b.reduce((a, b) => a + b, 0);
-        let d = await ptero.nodes() || []
-        for (let i of d) {
-            resources.memory["total"] = (parseInt(resources.memory["total"] ?? 0) + parseInt(i.attributes.memory));
-            resources.memory["used"] = (parseInt(resources.memory["used"] ?? 0) + parseInt(i.attributes.allocated_resources.memory));
-            resources.disk["total"] = (parseInt(resources.disk["total"] ?? 0) + parseInt(i.attributes.disk));
-            resources.disk["used"] = (parseInt(resources.disk["used"] ?? 0) + parseInt(i.attributes.allocated_resources.disk));
-            resources.cpu["total"] = (parseInt(resources.cpu["total"] ?? 0) + parseInt(i.attributes.cpu.cpu_count * 100));
-            let e = 0
-            i.attributes.relationships.servers.data.forEach(j => {e = parseInt(e) + parseInt(j.attributes.limits.cpu)});
-            resources.cpu["used"] = (parseInt(resources.cpu["used"] ?? 0) + parseInt(e));
+            totalCoins = b.reduce((a, b) => a + b, 0);
+            let d = await ptero.nodes() || [];
+            for (let i of d) {
+                resources.memory["total"] = (parseInt(resources.memory["total"] ?? 0) + parseInt(i.attributes.memory));
+                resources.memory["used"] = (parseInt(resources.memory["used"] ?? 0) + parseInt(i.attributes.allocated_resources.memory));
+                resources.disk["total"] = (parseInt(resources.disk["total"] ?? 0) + parseInt(i.attributes.disk));
+                resources.disk["used"] = (parseInt(resources.disk["used"] ?? 0) + parseInt(i.attributes.allocated_resources.disk));
+                resources.cpu["total"] = (parseInt(resources.cpu["total"] ?? 0) + parseInt(i.attributes.cpu.cpu_count * 100));
+                let e = 0;
+                i.attributes.relationships.servers.data.forEach(j => { e = parseInt(e) + parseInt(j.attributes.limits.cpu); });
+                resources.cpu["used"] = (parseInt(resources.cpu["used"] ?? 0) + parseInt(e));
+            }
+        } catch (error) {
+            console.error(error)
+            return
         }
     }
     setInterval(() => { cache() }, 60000 * 5);

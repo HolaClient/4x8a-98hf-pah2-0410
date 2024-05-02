@@ -235,8 +235,8 @@ async function updateServers() {
                 place: "cache-servers",
                 date: Date.now()
             });
-            errors.push({ date: Date.now(), error: error, file: "Pterodactyl cache hander", line: 222 });
             await db.set("notifications", "admins", admins)
+            return
         }
         let e = await db.get("servers", d.hc) || []
         e = e.filter(j => j.identifier !== i.attributes.identifier)
@@ -244,6 +244,7 @@ async function updateServers() {
         e.push(i.attributes)
         await db.set("servers", d.hc, e)
     }
+    return
 }
 refresh()
 setInterval(() => {

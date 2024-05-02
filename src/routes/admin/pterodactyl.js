@@ -26,12 +26,10 @@
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    const pterodactyl = await db.get("pterodactyl", "settings");
-
     app.get("/api/admin/pterodactyl/nodes", core.admin, async (req, res) => {
         try {
-            const [a, b] = await Promise.all([db.get("pterodactyl", "nodes"),ptero.nodes()]);
-            const c = [];
+            let [a, b] = await Promise.all([db.get("pterodactyl", "nodes"),ptero.nodes()]);
+            let c = [];
             for (let i of a) {
                 const d = (b.find(node => node.attributes.id === i.id)).attributes
                 if (d) {
@@ -48,7 +46,7 @@ module.exports = async function () {
 
     app.post("/api/admin/pterodactyl/nodes", core.admin, async (req, res) => {
         try {
-            const [a, b] = await Promise.all([ptero.nodes(), db.get("pterodactyl", "nodes")]);
+            let [a, b] = await Promise.all([ptero.nodes(), db.get("pterodactyl", "nodes")]);
             if (b.length >= 1) {
                 a = a.filter(i => !b.map(i => i.id).includes(i.attributes.id));
             }

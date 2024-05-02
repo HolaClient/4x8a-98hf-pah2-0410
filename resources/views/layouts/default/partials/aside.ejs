@@ -3,7 +3,6 @@
     <div
         class="overflow-y-auto overflow-x-hidden bg-zinc-950/90 md:bg-gradient-to-br from-[#090b0a] to-transparent md:pt-5 p-2 text-center h-full">
         <ul class="space-y-2 relatie mt-20 pt-4 lg:mt-0 text-center mx-auto">
-            <center>
                 <li>
                     <a
                         class="flex flex-col relative justify-center p-4 items-center mx-auto px-2 text-center text-base font-medium rounded-lg group">
@@ -12,7 +11,6 @@
                         <img loading="lazy" src="<%= appearance.logo.url %>" class="absolute opacity-30 w-full blur-sm z-10">
                     </a>
                 </li>
-            </center>
         </ul>
         <div class="pt-12 justify-start text-left pl-2">
             <span class="text-sm font-karla font-extrabold text-left text-gray-400">DASHBOARD</span>
@@ -55,7 +53,7 @@
         <div class="w-full cursor-pointer relative rounded-xl bg-black p-2 flex flex-col">
             <div onclick="loadUserDropdown()" class="flex w-full items-center">
                 <img src="<%= userinfo.avatar %>"
-                    class="w-12 rounded-xl">
+                    class="w-12 rounded-xl" alt="avatar">
                 <div class="flex ml-3 flex-col">
                     <h1 class="text-gray-200 text-lg">
                         <%= userinfo.nickname %>

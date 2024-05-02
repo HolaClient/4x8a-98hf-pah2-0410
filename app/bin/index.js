@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const { program } = require('commander');
 const chalk = require('chalk');
-const env = require('dotenv').config();
+process.loadEnvFile('.env')
 
 program
     .version('X.1')

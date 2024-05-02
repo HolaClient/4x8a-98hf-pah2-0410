@@ -20,7 +20,6 @@
  * biller.js - Global billing gateways handler.
  *--------------------------------------------------------------------------
 */
-const biller = require('../../utils/billing')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
@@ -55,10 +54,10 @@ module.exports = async function () {
         try {
             let a = await db.get("billing", "invoices") || []
             let b = 0
-            a.forEach(i => {if (i.paid == true) b = b + i.price});
+            a.forEach(i => { if (i.paid == true) b = parseInt(b) + parseInt(i.price) });
             let c = await db.get("addons", "active") || [];
             let d = [];
-            c.forEach(i => {if (i.type == "billing") d.push(i)});
+            c.forEach(i => { if (i.type == "billing") d.push(i) });
             let e = {
                 revenue: b,
                 services: a.length,
@@ -70,17 +69,49 @@ module.exports = async function () {
             return core.json(req, res, false, "ERROR", error);
         }
     });
-    app.post("/api/payments/buy/:id", core.auth, async (req, res) => {
+    app.get("/api/payments/buy/:gateway/:id", core.auth, async (req, res) => {
         try {
-            let a = await db.get("addons", "active") || []
-            let b = a.find(i => i.name == req.body.gateway)
+            let g = await db.get("billing", "invoices") || []
+            let h = g.filter(i => { i.user === req.session.userinfo.id && i.paid === false})
+            if (h.length <= 2) {
+                let a = await db.get("addons", "active") || []
+                let b = a.find(i => i.name == req.params.gateway)
+                if (!b || b == undefined) return core.json(req, res, false, "INVALID")
+                let c = require(`../../addons/${b.name}/remote.js`);
+                let d = await db.get("products", "list") || []
+                let e = d.find(i => i.id == req.params.id)
+                if (!e || e == undefined) return core.json(req, res, false, "INVALID")
+                let f = await c.invoice(crypto.randomUUID(), e, req.session.userinfo.id)
+                if (f.success == false) return core.json(req, res, false, f.message);
+                return core.redirect(res, f.url);
+            } else {
+                return core.json(req, res, false, "MAXINVOICES");
+            }
+        } catch (error) {
+            console.error(error);
+            return core.json(req, res, false, "ERROR", error);
+        }
+    });
+    app.get("/payments/complete/:id", core.auth, async (req, res) => {
+        try {
+            let a = await db.get("billing", "orders") || []
+            let b = a.find(i => i.secret === req.params.id)
             if (!b || b == undefined) return core.json(req, res, false, "INVALID")
-            let c = require(`../../addons/${b.name}/remote.js`);
-            let d = await db.get("products", "products") || []
-            let e = d.find(i => i.id == product)
-            if (!e || e == undefined) return core.json(req, res, false, "INVALID")
-            let f = c.invoice(await uuid(), e)
-            console.log(f)
+            let c = require(`../../addons/${b.gateway}/remote.js`);
+            c.complete(b.id, req.session.userinfo)
+            if (c.success === false) return core.json(req, res, false, c.message);
+            let d = await db.get("products", "list") || []
+            let e = d.find(i => i.id === parseInt(b.product))
+            let f = await db.get("resources", req.session.userinfo.id)
+            let g = await db.get("economy", req.session.userinfo.id)
+            for ([i, j] of Object.entries(e.resources)) {
+                j = parseInt(j) ?? 0
+                f[i].total = parseInt(f[i].total) + j
+            }
+            g["coins"] = parseInt(g["coins"]) + parseInt(e.coins)
+            await db.set("resources", req.session.userinfo.id, f)
+            await db.set("economy", req.session.userinfo.id, g)
+            return core.redirect(res, '/dashboard')
         } catch (error) {
             console.error(error);
             return core.json(req, res, false, "ERROR", error);

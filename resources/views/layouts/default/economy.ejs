@@ -8,7 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
-                <img src="https://cdn.holaclientx.tech/logo.png" alt="lo" onload="connectAFKWS(), loadLeaderboard()" class="w-0 h-0">
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="lo" onload="connectAFKWS('<%= req.session.userinfo.sessions.secret %>', '<%= req.session.userinfo.id %>')" class="w-0 h-0">
                 <div class="flex space-x-4 items-center">
                     <div
                         class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
@@ -54,8 +54,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="coinsLeaderboard" class="w-full grid grid-cols-2 md:grid-cols-5 mt-4 bg-zinc-900/50 border border-zinc-800/80 overflow-x-auto rounded-xl p-4">
                 </div>
             </div>
         </main>
