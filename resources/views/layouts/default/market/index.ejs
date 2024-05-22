@@ -1,0 +1,106 @@
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6">
+                                <path
+                                    d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 0 0 7.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 0 0 4.902-5.652l-1.3-1.299a1.875 1.875 0 0 0-1.325-.549H5.223Z" />
+                                <path fill-rule="evenodd"
+                                    d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 0 0 9.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 0 0 2.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3Zm3-6a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75v-3Zm8.25-.75a.75.75 0 0 0-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-5.25a.75.75 0 0 0-.75-.75h-3Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl"><%= lang.market.title %></h1>
+                            <span class="text-gray-300 text-md"><%= lang.market.titleText %></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <div class="grid grid-cols-1 w-full gap-4">
+                        <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_0.webp')]">
+                            <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Resources</h1>
+                                <span class="text-gray-300 text-xl">Buy resources</span>
+                            </div>
+                            <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                <button onclick="render('market/resources')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                    Shop resources
+                                </button>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_4.webp')]">
+                            <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Auctions</h1>
+                                <span class="text-gray-300 text-xl">Trade your vault items for coins.</span>
+                            </div>
+                            <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                <button onclick="render('market/auctions')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                    Go to auctions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full col-span-2 grid grid-cols-1 gap-4 h-full">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                            <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-bottom bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_1.webp')]">
+                                <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                    <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Packages</h1>
+                                    <span class="text-gray-300 text-xl">Buy kits or packages.</span>
+                                </div>
+                                <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                    <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                    <button onclick="render('market/packages')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                        Shop packages
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_3.webp')]">
+                                <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                    <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Blackmart</h1>
+                                    <span class="text-gray-300 text-xl">The goofy place.</span>
+                                </div>
+                                <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                    <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                    <button onclick="render('market/blackmart')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                        Go to blackmart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_2.webp')]">
+                            <div class="absolute w-full h-full bg-zinc-950/50"></div>
+                            <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Perks</h1>
+                                <span class="text-gray-300 text-xl">Buy memberships.</span>
+                            </div>
+                            <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                <button class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                    Shop perks
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

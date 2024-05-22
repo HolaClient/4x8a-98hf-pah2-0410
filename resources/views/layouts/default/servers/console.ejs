@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <%- include('../partials/head') %>
 
 <body class="bg-zinc-950 relative items-center h-full">
@@ -285,4 +286,148 @@
     </div>
 </body>
 >>>>>>> 7f9cef0 (02-05)
+=======
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+                class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+                <div id="content">
+                    <%- include('../partials/links') %>
+                    <div id="page" class="relative">
+                    <img onload="consoleWS('<%= req.session.userinfo.sessions.secret %>', '<%= req.session.userinfo.id %>')" src="https://cdn.holaclientx.tech/logo.png" class="w-0 h-0">
+                    <div class="mt-2 grid grid-cols-1 md:grid-cols-4 w-full gap-4">
+                        <div class="w-full md:col-span-3 h-full">
+                            <div class="w-full h-[450px] xl:h-[555px] relative overflow-y-scroll overflow-x-clip whitespace-pre-wrap rounded-xl rounded-b-none text-gray-300 text-sm p-2 bg-black border border-zinc-800/80">
+                                <code class="overflow-x-clip relative max-w-full" id="console"></code>
+                            </div>
+                        <div class="rounded-b-xl flex relative items-center bg-zinc-900 w-full">
+                            <span class="text-gray-300 py-2 pl-2">$</span> <input id="cmdInput" onkeydown="sendConsole(event)" type="text" placeholder="Send a command" class="p-2 text-gray-300 placeholder-gray-400 w-full bg-transparent outline-none">
+                        </div>
+                        </div>
+                        <div class="w-full mt-12 md:mt-0 flex flex-col relative space-y-2">
+                            <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
+                                <div class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path d="M4.08 5.227A3 3 0 0 1 6.979 3H17.02a3 3 0 0 1 2.9 2.227l2.113 7.926A5.228 5.228 0 0 0 18.75 12H5.25a5.228 5.228 0 0 0-3.284 1.153L4.08 5.227Z"></path>
+                                        <path fill-rule="evenodd" d="M5.25 13.5a3.75 3.75 0 1 0 0 7.5h13.5a3.75 3.75 0 1 0 0-7.5H5.25Zm10.5 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm3.75-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-gray-300 text-sm">
+                                        Connection
+                                    </p>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverIP"></span></h1>
+                                </div>
+                            </div>
+                            <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
+                                <div class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+                                      </svg>                                                                         
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-gray-300 text-sm">
+                                        Uptime
+                                    </p>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverUptime">Offline</span></h1>
+                                </div>
+                            </div>
+                            <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
+                                <div class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clip-rule="evenodd" />
+                                      </svg>                                      
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-gray-300 text-sm">
+                                        CPU load
+                                    </p>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverCPUU">---</span> <span class="text-sm"> / <span id="serverCPUT"><%= data.attributes.limits.cpu %></span>%</span></h1>
+                                </div>
+                            </div>
+                            <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
+                                <div class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path d="M16.5 7.5h-9v9h9v-9Z" />
+                                        <path fill-rule="evenodd" d="M8.25 2.25A.75.75 0 0 1 9 3v.75h2.25V3a.75.75 0 0 1 1.5 0v.75H15V3a.75.75 0 0 1 1.5 0v.75h.75a3 3 0 0 1 3 3v.75H21A.75.75 0 0 1 21 9h-.75v2.25H21a.75.75 0 0 1 0 1.5h-.75V15H21a.75.75 0 0 1 0 1.5h-.75v.75a3 3 0 0 1-3 3h-.75V21a.75.75 0 0 1-1.5 0v-.75h-2.25V21a.75.75 0 0 1-1.5 0v-.75H9V21a.75.75 0 0 1-1.5 0v-.75h-.75a3 3 0 0 1-3-3v-.75H3A.75.75 0 0 1 3 15h.75v-2.25H3a.75.75 0 0 1 0-1.5h.75V9H3a.75.75 0 0 1 0-1.5h.75v-.75a3 3 0 0 1 3-3h.75V3a.75.75 0 0 1 .75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h10.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V6.75Z" clip-rule="evenodd" />
+                                      </svg>                                                                          
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-gray-300 text-sm">
+                                        Memory load
+                                    </p>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverRAMU">---</span> <span class="text-sm"> / <span id="serverRAMT"><%= data.attributes.limits.memory %></span></span></h1>
+                                </div>
+                            </div>
+                            <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
+                                <div class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path d="M4.08 5.227A3 3 0 0 1 6.979 3H17.02a3 3 0 0 1 2.9 2.227l2.113 7.926A5.228 5.228 0 0 0 18.75 12H5.25a5.228 5.228 0 0 0-3.284 1.153L4.08 5.227Z" />
+                                        <path fill-rule="evenodd" d="M5.25 13.5a3.75 3.75 0 1 0 0 7.5h13.5a3.75 3.75 0 1 0 0-7.5H5.25Zm10.5 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm3.75-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" clip-rule="evenodd" />
+                                      </svg>                                                                          
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-gray-300 text-sm">
+                                        Disk usage
+                                    </p>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverDiskU">---</span> <span class="text-sm"> / <span id="serverDiskT"><%= data.attributes.limits.disk %></span></span></h1>
+                                </div>
+                            </div>
+                            <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
+                                <div class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path d="M4.08 5.227A3 3 0 0 1 6.979 3H17.02a3 3 0 0 1 2.9 2.227l2.113 7.926A5.228 5.228 0 0 0 18.75 12H5.25a5.228 5.228 0 0 0-3.284 1.153L4.08 5.227Z" />
+                                        <path fill-rule="evenodd" d="M5.25 13.5a3.75 3.75 0 1 0 0 7.5h13.5a3.75 3.75 0 1 0 0-7.5H5.25Zm10.5 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm3.75-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" clip-rule="evenodd" />
+                                      </svg>
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-gray-300 text-sm">
+                                        Network Inbound
+                                    </p>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverNetI">---</span></h1>
+                                </div>
+                            </div>
+                            <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
+                                <div class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path d="M4.08 5.227A3 3 0 0 1 6.979 3H17.02a3 3 0 0 1 2.9 2.227l2.113 7.926A5.228 5.228 0 0 0 18.75 12H5.25a5.228 5.228 0 0 0-3.284 1.153L4.08 5.227Z" />
+                                        <path fill-rule="evenodd" d="M5.25 13.5a3.75 3.75 0 1 0 0 7.5h13.5a3.75 3.75 0 1 0 0-7.5H5.25Zm10.5 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm3.75-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" clip-rule="evenodd" />
+                                      </svg>                                                                          
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-gray-300 text-sm">
+                                        Network outbound
+                                    </p>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverNetO">---</span></h1>
+                                </div>
+                            </div>
+                            <div class="bg-zinc-900/50 flex p-2 border border-zinc-800/80 space-x-2 w-full rounded-xl items-center">
+                                <div class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path fill-rule="evenodd" d="M12 5.25c1.213 0 2.415.046 3.605.135a3.256 3.256 0 0 1 3.01 3.01c.044.583.077 1.17.1 1.759L17.03 8.47a.75.75 0 1 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l3-3a.75.75 0 0 0-1.06-1.06l-1.752 1.751c-.023-.65-.06-1.296-.108-1.939a4.756 4.756 0 0 0-4.392-4.392 49.422 49.422 0 0 0-7.436 0A4.756 4.756 0 0 0 3.89 8.282c-.017.224-.033.447-.046.672a.75.75 0 1 0 1.497.092c.013-.217.028-.434.044-.651a3.256 3.256 0 0 1 3.01-3.01c1.19-.09 2.392-.135 3.605-.135Zm-6.97 6.22a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 1 0 1.06 1.06l1.752-1.751c.023.65.06 1.296.108 1.939a4.756 4.756 0 0 0 4.392 4.392 49.413 49.413 0 0 0 7.436 0 4.756 4.756 0 0 0 4.392-4.392c.017-.223.032-.447.046-.672a.75.75 0 0 0-1.497-.092c-.013.217-.028.434-.044.651a3.256 3.256 0 0 1-3.01 3.01 47.953 47.953 0 0 1-7.21 0 3.256 3.256 0 0 1-3.01-3.01 47.759 47.759 0 0 1-.1-1.759L6.97 15.53a.75.75 0 0 0 1.06-1.06l-3-3Z" clip-rule="evenodd" />
+                                      </svg>                                                                          
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-gray-300 text-sm">
+                                        Renewal
+                                    </p>
+                                    <h1 class="text-gray-100 cursor-pointer text-xl"><span id="serverReneval">---</span></h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+>>>>>>> 6db1d9f (21-05)
 </html>

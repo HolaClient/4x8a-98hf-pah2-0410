@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC, Freemium Minecraft Hosting, <%= appearance.name %>, Cloud, Minecraft, Servers, Free Servers, Hostings that uses HolaClient">
+    <meta name="author" content="HolaClient">
+    <meta name="copyright" content="<%= appearance.name %>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= appearance.name %>">
+    <meta property="og:description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta property="og:image" content="<%= appearance.logo.url %>">
+    <meta name="twitter:card" content="<%= appearance.logo.url %>">
+    <meta name="twitter:title" content="<%= appearance.name %>">
+    <meta name="twitter:description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta name="twitter:image" content="<%= appearance.logo.url %>">
+    <meta name="twitter:image:src" content="<%= appearance.logo.url %>">
+    <title>HolaClient</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#18181b">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&family=Urbanist&family=Quicksand&family=Karla&family=Raleway&family=Inspiration&family=Rajdhani&family=Poppins&display=swap">
+    <script type="speculationrules">
+        {
+          "prerender": [
+            {
+              "urls": ["login", "register"]
+            }
+          ]
+        }
+        </script>
+    <% if (process.env.APP_ENV !== "production") { %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/client/default/app.dev.css">
+    <% } else { %>
+    <link href="/assets/common/tailwind.css" rel="stylesheet" rel="preload">
+    <link rel="stylesheet" href="/assets/client/default/app.css" defer>
+    <% } %>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/assets/common/worker.js');
+            });
+        }
+    </script>
+</head>
+
+<body class="bg-zinc-950 w-screen h-full overflow-x-hidden">
+    <nav class="bg-zinc-900/20 backdrop-blur-xl fixed w-full z-20 top-0">
+        <div class="max-w-screen xl:px-8 flex flex-wrap items-center justify-between mx-auto p-4">
+            <div class="md:flex items-center space-x-4">
+                <p class="flex items-center space-x-3">
+                    <img alt="logo" src="https://cdn.holaclientx.tech/logo.png" class="h-8">
+                    <span
+                        class="self-center text-2xl font-semibold whitespace-nowrap font-nunito text-white">HolaClient</span>
+                </p>
+                <div class="w-0.5 h-8 rounded-full bg-zinc-700/80"></div>
+                <div class="hidden items-center text-center justify-between w-full md:flex md:w-auto md:order-1"
+                    id="navbar">
+                    <ul
+                        class="flex flex-col items-center p-4 md:p-0 mt-4 font-medium rounded-lg md:space-x-4 md:flex-row md:mt-0 md:border-0">
+                        <li>
+                            <a href="/pricing" class="block py-2 px-3 text-gray-300">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="/tos" class="block py-2 px-3 text-gray-300">ToS</a>
+                        </li>
+                        <li>
+                            <a href="/pp" class="block py-2 px-3 text-gray-300">Privacy Policy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex md:order-2 space-x-3 md:space-x-0">
+                <button type="button"
+                    class="text-white bg-zinc-700/20 backdrop-blur-xl shadow-sm hover:bg-zinc-800 hover:duration-300 duration-300 border border-zinc-700 rounded-full text-sm px-4 py-2 text-center">Get
+                    started</button>
+                <button data-collapse-toggle="navbar" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 md:hidden"
+                    aria-controls="navbar" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <main class="w-screen h-full overflow-x-hidden" id="holder">
+        <section class="section" id="section1">
+            <div class="absolute -z-20 md:h-screen md:w-screen bg-no-repeat bg-cover"
+                style="background-image: url('https://cdn.holaclientx.tech/production/assets/pattern.png');"></div>
+            <div class="absolute bg-gradient-to-b from-transparent to-zinc-950 w-screen h-screen"></div>
+        </section>
+        <section class="relative w-screen h-screen flex flex-col items-center justify-center section" id="section2">
+            <h1
+                class="text-3x z-20l mt-2 xl:mt-8 text-center md:text-5xl xl:text-7xl bg-gradient-to-br from-white to-transparent bg-clip-text text-transparent">
+                Welcome to the <span class="font-rajdhani font-bold">Future</span> of
+            </h1>
+            <h1 class="text-3xl font-urbanist font-urbanist z-20 text-center md:text-5xl xl:text-7xl text-white">
+                Game Hosting
+            </h1>
+            <p
+                class="text-gray-300 z-20 max-w-sm px-4 text-center md:px-0 md:max-w-md xl:max-w-xl mt-4 text-xs md:text-lg">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna.
+            </p>
+            <div
+                class="relative mt-4 md:mt-8 overflow-hidden shadow-inner shadow-black items-center justify-center rounded-full p-1 group hover:duration-300 duration-300 border-spacing-96 border-dotted border border-zinc-600">
+                <div
+                    class="w-full absolute h-full blur-3xl bg-gradient-to-r rounded-xl from-[#ff80b5] to-[#9089fc] opacity-50 group-hover:opacity-100">
+                </div>
+                <button onclick="location.href='/dashboard'"
+                    class="bg-zinc-500/20 border border-zinc-700 shadow-xl group-hover:shadow-black backdrop-blur-xl z-20 group-hover:m-1 group-hover:border-zinc-600 text-gray-200 hover:-m-1 group-hover:px-8 group-hover:py-3 group-hover:duration-300 duration-300 text-xs md:text-xl rounded-full relative px-5 py-2">Get
+                    Started</button>
+            </div>
+        </section>
+    </main>
+</body>
+<style>
+    .section {
+        transition: opacity 0.5s ease-in-out;
+        opacity: 0;
+    }
+</style>
+<script>
+    const a = document.querySelectorAll('.section');
+    const b = document.getElementById('holder');
+
+    const c = new IntersectionObserver(d => {
+        d.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.style.opacity = '1';
+            } else {
+                e.target.style.opacity = '0';
+            }
+        });
+    }, { threshold: 0.5 });
+    a.forEach(f => {
+        c.observe(f);
+    });
+    let g = false;
+    function h() {
+        if (g) return;
+        g = true;
+        b.style.transform =
+            b.style.transform === 'translateX(-100%)' ? 'translateX(0)' : 'translateX(-100%)';
+        b.addEventListener('transitionend', () => {
+            g = false;
+        }, { once: true });
+    }
+</script>
+
+</html>

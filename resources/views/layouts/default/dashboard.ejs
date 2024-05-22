@@ -1,0 +1,188 @@
+<%- include('./partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('./partials/nav') %>
+            <%- include('./partials/aside') %>
+            <main
+                class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+                <div id="content">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6">
+                                <path
+                                    d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                                <path
+                                    d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl"><%= lang.dashboard.home %></h1>
+                            <span class="text-gray-300 text-md"><%= lang.dashboard.homeText %></span>
+                        </div>
+                    </div>
+                    <div class="md:flex justify-between w-full mt-4 items-center">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-4">
+                            <div
+                                class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                                <div class="absolute -left-14 -top-14 opacity-50">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-40 rotate-45">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
+                                    </svg>
+                                </div>
+                                <div class="absolute opacity-50">
+                                    <h1
+                                        class="font-rajdhani font-semibold text-4xl text-transparent bg-gradient-to-br from-white to-transparent bg-clip-text">
+                                        MEMORY</h1>
+                                </div>
+                                <div
+                                    class="bg-zinc-800/50 group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
+                                    </svg>
+                                </div>
+                                <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= resources.memory.total - resources.memory.used %></h1> <span
+                                    class="text-gray-300">of <%= resources.memory.total %> MB</span>
+                            </div>
+                            <div
+                                class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                                <div class="absolute -left-14 -top-14 opacity-50">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-40 rotate-0">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                                    </svg>
+                                </div>
+                                <div class="absolute opacity-50">
+                                    <h1
+                                        class="font-rajdhani font-semibold text-4xl text-transparent bg-gradient-to-br from-white to-transparent bg-clip-text">
+                                        CPU</h1>
+                                </div>
+                                <div
+                                    class="bg-zinc-800/50 group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                                    </svg>
+                                </div>
+                                <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= resources.cpu.total - resources.cpu.used %></h1> <span
+                                    class="text-gray-300">of <%= resources.cpu.total %> %</span>
+                            </div>
+                            <div
+                                class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                                <div class="absolute -left-14 -top-14 opacity-50">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-40 rotate-45">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
+                                    </svg>
+                                </div>
+                                <div class="absolute opacity-50">
+                                    <h1
+                                        class="font-rajdhani font-semibold text-4xl text-transparent bg-gradient-to-br from-white to-transparent bg-clip-text">
+                                        STORAGE</h1>
+                                </div>
+                                <div
+                                    class="bg-zinc-800/50 group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
+                                    </svg>
+                                </div>
+                                <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= resources.disk.total - resources.disk.used %></h1> <span
+                                    class="text-gray-300">of <%= resources.disk.total %> MB</span>
+                            </div>
+                            <div
+                                class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                                <div class="absolute -left-14 -top-14 opacity-50">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-40 rotate-45">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                    </svg>
+                                </div>
+                                <div class="absolute opacity-50">
+                                    <h1
+                                        class="font-rajdhani font-semibold text-4xl text-transparent bg-gradient-to-br from-white to-transparent bg-clip-text">
+                                        BACKUPS</h1>
+                                </div>
+                                <div
+                                    class="bg-zinc-800/50 group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                    </svg>
+                                </div>
+                                <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= resources.backups.total - resources.backups.used %></h1> <span class="text-gray-300">of
+                                    <%= resources.backups.total %></span>
+                            </div>
+                            <div
+                                class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                                <div class="absolute -left-14 -top-14 opacity-50">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-40 rotate-45">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
+                                    </svg>
+                                </div>
+                                <div class="absolute opacity-50">
+                                    <h1
+                                        class="font-rajdhani font-semibold text-4xl text-transparent bg-gradient-to-br from-white to-transparent bg-clip-text">
+                                        ALLOCATIONS</h1>
+                                </div>
+                                <div
+                                    class="bg-zinc-800/50 group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
+                                    </svg>
+                                </div>
+                                <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= resources.allocations.total - resources.allocations.used %></h1> <span class="text-gray-300">of
+                                    <%= resources.allocations.total %></span>
+                            </div>
+                            <div
+                                class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
+                                <div class="absolute -left-14 -top-14 opacity-50">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-40 rotate-45">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                                    </svg>
+                                </div>
+                                <div class="absolute opacity-50">
+                                    <h1
+                                        class="font-rajdhani font-semibold text-4xl text-transparent bg-gradient-to-br from-white to-transparent bg-clip-text">
+                                        DATABASES</h1>
+                                </div>
+                                <div
+                                    class="bg-zinc-800/50 group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                                    </svg>
+                                </div>
+                                <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= resources.databases.total - resources.databases.used %></h1> <span class="text-gray-300">of
+                                    <%= resources.databases.total %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('./partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

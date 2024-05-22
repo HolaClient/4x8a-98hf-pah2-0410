@@ -39,49 +39,53 @@ module.exports = async function () {
         }
     });
 
-    app.use("/ws.afk", core.ws(), async (req, res) => {
+    app.use("/ws.afk", core.ws(), core.auth, async (req, res) => {
         try {
-            if (req.ws) {
-                const ws = await req.ws();
-                let d = true;
-                let b = req.session.userinfo.id;
-                try {
-                    if (totalUsers[b] === true) return ws.end();
-                    totalUsers[b] = true;
-                    let c = await db.get("settings", "afk") || {};
-                    let k = c.every ?? 60;
-                    let e = 0;
-                    let f = await db.get("economy", b) || { coins: 0 };
-                    let g = Date.now();
-                    let h = f.coins;
-                    let j = k;
-                    setInterval(async () => {
-                        if (d === true) {
-                            f["coins"] = parseInt(h + e);
-                            e++;
-                            await db.set("economy", b, f);
-                        }
-                    }, k * 1000);
-                    setInterval(async () => {
-                        if (d === true) {
-                            if (ws.readyState == WebSocket.OPEN) {
-                                if (j > 0) {
-                                    j -= 1;
-                                } else {
-                                    j = k;
-                                }
-                                ws.send(JSON.stringify({ session: e, total: parseInt(h + e), duration: ((Date.now() - g) / 1000).toFixed(0), coinsIn: j }));
-                            }
-                        }
-                    }, 1 * 1000);
-                } catch (error) {
-                    console.error(error);
+            if (!req.ws) return res.end()
+            const ws = await req.ws();
+            let d = true;
+            let b = req.session.userinfo.id;
+            try {
+                if (totalUsers[b] === true) return ws.end();
+                totalUsers[b] = true;
+                let c = await db.get("settings", "afk") || {};
+                let k = c.every ?? 60;
+                let e = 0;
+                let f = await db.get("economy", b) || { coins: 0 };
+                let g = Date.now();
+                let h = f.coins;
+                let j = k;
+                setInterval(async () => {
+                    if (d === true) {
+                        f["coins"] = parseInt(h + e);
+                        e++;
+                        await db.set("economy", b, f);
+                    }
+                }, k * 1000);
+                if (d === true) {
+                    if (ws.readyState == WebSocket.OPEN) {
+                        ws.send(JSON.stringify({ session: e, total: parseInt(h + e), duration: ((Date.now() - g) / 1000).toFixed(0), coinsIn: k }));
+                    }
                 }
-                ws.on('close', () => {
-                    d = false;
-                    if (b) totalUsers[b] = false;
-                });
+                setInterval(async () => {
+                    if (d === true) {
+                        if (ws.readyState == WebSocket.OPEN) {
+                            if (j > 0) {
+                                j -= 5;
+                            } else {
+                                j = k;
+                            }
+                            ws.send(JSON.stringify({ session: e, total: parseInt(h + e), duration: ((Date.now() - g) / 1000).toFixed(0), coinsIn: j }));
+                        }
+                    }
+                }, 1 * 5000);
+            } catch (error) {
+                console.error(error);
             }
+            ws.on('close', () => {
+                d = false;
+                if (b) totalUsers[b] = false;
+            });
         } catch (error) {
             console.error(error);
             return;

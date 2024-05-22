@@ -1,0 +1,80 @@
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+                class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+                <div id="content">
+                    <%- include('../partials/links') %>
+                    <div id="page" class="relative">
+                        <img onload="players()" src="https://cdn.holaclientx.tech/logo.png" class="w-0 h-0">
+                        <div class="mt-4 gap-4 grid grid-cols-1 md:grid-cols-2 space-y-0.5 w-full">
+                            <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-4 px-4 justify-between">
+                                    <h1 class="text-gray-200 text-xl">Ban Players</h1>
+                                    <button class="bg-zinc-800/50 flex text-gray-300 items-center justify-center rounded-full border border-zinc-800/80 p-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                          </svg>
+                                          Read-only
+                                    </button>
+                                </div>
+                                <div id="playersBans" class="flex flex-col relative p-2 space-y-1 w-full">
+                                    <h1 class="text-gray-200 py-10 text-center">List is empty</h1>
+                                </div>
+                            </div>
+                            <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-4 px-4 justify-between">
+                                    <h1 class="text-gray-200 text-xl">Ban IPs</h1>
+                                    <button class="bg-zinc-800/50 flex text-gray-300 items-center justify-center rounded-full border border-zinc-800/80 p-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                          </svg>
+                                          Readonly
+                                    </button>
+                                </div>
+                                <div id="playersBansIPs" class="flex flex-col space-y-1 w-full p-2">
+                                    <h1 class="text-gray-200 py-10 text-center">List is empty</h1>
+                                </div>
+                            </div>
+                            <!--<div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-4 px-4 justify-between">
+                                    <h1 class="text-gray-200 text-xl">Blacklist</h1>
+                                    <button class="bg-zinc-800/50 flex text-gray-300 items-center justify-center rounded-full border border-zinc-800/80 p-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                          </svg>
+                                          Readonly
+                                    </button>
+                                </div>
+                                <div id="playersBlacklist" class="flex flex-col space-x-1 w-full mt-2">
+                                    <h1 class="text-gray-200 py-10 text-center">Coming Soon!</h1>
+                                </div>
+                            </div>-->
+                            <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-4 px-4 justify-between">
+                                    <h1 class="text-gray-200 text-xl">Administrators (OPs)</h1>
+                                    <button class="bg-zinc-800/50 flex text-gray-300 items-center justify-center rounded-full border border-zinc-800/80 p-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                          </svg>
+                                          Readonly
+                                    </button>
+                                </div>
+                                <div id="playersAdmins" class="flex flex-col space-x-1 w-full mt-2">
+                                    <h1 class="text-gray-200 py-10 text-center">List is empty</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
