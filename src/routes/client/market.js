@@ -40,10 +40,38 @@ module.exports = async function () {
 
     app.get("/market/packages", core.auth, async (req, res) => {
         try {
-            let a = await db.get("products", "list")
+            let a = await db.get("products", "list") || []
+            let b = await db.get("products", "categories") || []
             const appearance = await db.get("settings", "appearance") || {};
             const template = appearance.themes && appearance.themes.layouts || "default";
-            return core.html(req, res, `./resources/views/layouts/${template}/market/packages.ejs`, a)
+            return core.html(req, res, `./resources/views/layouts/${template}/market/packages/index.ejs`, {categories: b, packages: a})
+        } catch (error) {
+            console.error(error)
+            return fallback.error500(error)
+        }
+    });
+
+    app.get("/market/packages/:id", core.auth, async (req, res) => {
+        try {
+            let a = await db.get("products", "list") || []
+            let b = await db.get("products", "categories") || []
+            let c = a.filter(i => parseInt(i.category) === parseInt(req.params.id))
+            const appearance = await db.get("settings", "appearance") || {};
+            const template = appearance.themes && appearance.themes.layouts || "default";
+            return core.html(req, res, `./resources/views/layouts/${template}/market/packages/[id].ejs`, c)
+        } catch (error) {
+            console.error(error)
+            return fallback.error500(error)
+        }
+    });
+
+    app.get("/market/packages/checkout/:id", core.auth, async (req, res) => {
+        try {
+            let a = await db.get("products", "list") || []
+            let b = a.find(i => parseInt(i.id) === parseInt(req.params.id))
+            const appearance = await db.get("settings", "appearance") || {};
+            const template = appearance.themes && appearance.themes.layouts || "default";
+            return core.html(req, res, `./resources/views/layouts/${template}/market/packages/checkout.ejs`, b)
         } catch (error) {
             console.error(error)
             return fallback.error500(error)

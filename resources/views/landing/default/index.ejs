@@ -3,10 +3,48 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC, Freemium Minecraft Hosting, <%= appearance.name %>, Cloud, Minecraft, Servers, Free Servers, Hostings that uses HolaClient">
+    <meta name="author" content="HolaClient">
+    <meta name="copyright" content="<%= appearance.name %>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= appearance.name %>">
+    <meta property="og:description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta property="og:image" content="<%= appearance.logo.url %>">
+    <meta name="twitter:card" content="<%= appearance.logo.url %>">
+    <meta name="twitter:title" content="<%= appearance.name %>">
+    <meta name="twitter:description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta name="twitter:image" content="<%= appearance.logo.url %>">
+    <meta name="twitter:image:src" content="<%= appearance.logo.url %>">
     <title>HolaClient</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#18181b">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&family=Urbanist&family=Quicksand&family=Karla&family=Raleway&family=Inspiration&family=Rajdhani&family=Poppins&display=swap">
+    <script type="speculationrules">
+        {
+          "prerender": [
+            {
+              "urls": ["login", "register"]
+            }
+          ]
+        }
+        </script>
+    <% if (process.env.APP_ENV !== "production") { %>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="/assets/client/default/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/client/default/app.dev.css">
+    <% } else { %>
+    <link href="/assets/common/tailwind.css" rel="stylesheet" rel="preload">
+    <link rel="stylesheet" href="/assets/client/default/app.css" defer>
+    <% } %>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/assets/common/worker.js');
+            });
+        }
+    </script>
 </head>
 
 <body class="bg-zinc-950 w-screen h-full overflow-x-hidden">
@@ -14,7 +52,7 @@
         <div class="max-w-screen xl:px-8 flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="md:flex items-center space-x-4">
                 <p class="flex items-center space-x-3">
-                    <img alt="logo" src="https://cdn.holaclient.tech/logo.png" class="h-8">
+                    <img alt="logo" src="https://cdn.holaclientx.tech/logo.png" class="h-8">
                     <span
                         class="self-center text-2xl font-semibold whitespace-nowrap font-nunito text-white">HolaClient</span>
                 </p>
@@ -54,7 +92,7 @@
     <main class="w-screen h-full overflow-x-hidden" id="holder">
         <section class="section" id="section1">
             <div class="absolute -z-20 md:h-screen md:w-screen bg-no-repeat bg-cover"
-                style="background-image: url('https://cdn.holaclient.tech/production/X1/assets/pattern.png');"></div>
+                style="background-image: url('https://cdn.holaclientx.tech/production/assets/pattern.png');"></div>
             <div class="absolute bg-gradient-to-b from-transparent to-zinc-950 w-screen h-screen"></div>
         </section>
         <section class="relative w-screen h-screen flex flex-col items-center justify-center section" id="section2">

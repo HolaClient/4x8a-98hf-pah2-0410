@@ -90,6 +90,12 @@ if (!e) await db.set("pterodactyl", "settings", {
             fees: 0
         }
 });
+let f = await db.get("app", "console")
+if (!f) await db.set("app", "console", {"domain": "http://console.holaclient.local"});
+let g = await db.get("settings", "antidiskfill")
+if (!g) await db.set("settings", "antidiskfill", {enabled: false});
+let h = await db.get("settings", "antivm")
+if (!h) await db.set("settings", "antivm", {enabled: false});
 };
 /**
  *--------------------------------------------------------------------------

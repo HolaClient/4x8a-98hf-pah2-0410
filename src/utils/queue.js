@@ -91,7 +91,7 @@ module.exports.servers = async function () {
                     });
                     let n = await g.json()
                     if (n.attributes) {
-                        let o = await db.get("servers", i.environment.user)
+                        let o = await db.get("servers", i.environment.user) || []
                         n.attributes["queue"] = false
                         o.push(n.attributes)
                         await db.set("servers", i.environment.user, o);

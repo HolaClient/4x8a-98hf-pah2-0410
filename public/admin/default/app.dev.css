@@ -47,7 +47,7 @@ body {
 }
 
 .swal2-popup {
-  background-color: #18181b7c;
+  background-color: #18181b7c !important;
   border-radius: 20px !important;
   border: 1px solid #27272a !important;
   backdrop-filter: blur(20px) !important;
@@ -195,6 +195,16 @@ progress {
   content: var(--tw-content);
   inset: 0;
   position: absolute
+}
+
+.animate-load {
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg)
+  }
 }
 
 @keyframes progress-increase {

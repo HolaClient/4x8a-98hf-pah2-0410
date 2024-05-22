@@ -72,7 +72,7 @@ async function cache() {
 };
 cache();
 module.exports.get = async function (a) {
-    if (users[a]) { return users[a] } else {
+    if (users[a] && users[a] !== null) { return users[a] } else {
         return await db.get("users", a);
     }
 }

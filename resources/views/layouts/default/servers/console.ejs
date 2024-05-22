@@ -11,8 +11,8 @@
                     <%- include('../partials/links') %>
                     <div id="page" class="relative">
                     <img onload="consoleWS('<%= req.session.userinfo.sessions.secret %>', '<%= req.session.userinfo.id %>')" src="https://cdn.holaclientx.tech/logo.png" class="w-0 h-0">
-                    <div class="mt-2 grid grid-cols-1 md:grid-cols-3 w-full gap-4">
-                        <div class="w-full md:col-span-2 h-full">
+                    <div class="mt-2 grid grid-cols-1 md:grid-cols-4 w-full gap-4">
+                        <div class="w-full md:col-span-3 h-full">
                             <div class="w-full h-[450px] xl:h-[555px] relative overflow-y-scroll overflow-x-clip whitespace-pre-wrap rounded-xl rounded-b-none text-gray-300 text-sm p-2 bg-black border border-zinc-800/80">
                                 <code class="overflow-x-clip relative max-w-full" id="console"></code>
                             </div>

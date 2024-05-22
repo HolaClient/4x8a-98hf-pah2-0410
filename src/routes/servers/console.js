@@ -51,11 +51,12 @@ module.exports = async function () {
             c.attributes.reneval = d.date || "Disabled"
             return res.end(JSON.stringify({ success: true, data: c.attributes }));
         } catch (error) {
+            handle(error, "Minor", 36)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
         }
     });
 
-    app.use("/ws.servers.console", core.ws(), async (req, res) => {
+    app.use("/ws.servers.console", core.ws(), core.auth, async (req, res) => {
         try {
             const ws = await req.ws();
             let l = false;
@@ -99,6 +100,9 @@ module.exports = async function () {
                             setTimeout(() => {
                                 d.send(JSON.stringify({ "event": "send logs", "args": [null] }));
                             }, 100);
+                            if (j.event !== "auth") {
+                                d.send(JSON.stringify(j))
+                            }
                         });
                         d.on('message', async (message) => {
                             let f = JSON.parse(message);
@@ -124,7 +128,8 @@ module.exports = async function () {
                 }
             });
         } catch (error) {
-            console.error(error);
+            handle(error, "Minor", 59)
+            return
         }
     });
 

@@ -20,12 +20,12 @@
  *--------------------------------------------------------------------------
 */
 const routes = [
-  { "name": "home", "href": false, "url": "dashboard", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>` },
+  { "name": "dashboard", "href": false, "url": "dashboard", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>` },
   { "name": "create", "href": false, "url": "create", "svg": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" /></svg>` },
   { "name": "servers", "href": false, "url": "servers", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" /></svg>` },
   { "name": "economy", "href": false, "url": "economy", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" /></svg>` },
-  //  { "name": "tickets", "href": false, "url": "tickets", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" /></svg>` },
-  //  { "name": "chat", "href": false, "url": "chat", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>` },
+  { "name": "tickets", "href": false, "url": "tickets", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" /></svg>` },
+  { "name": "chat", "href": false, "url": "chat", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>` },
   { "name": "market", "href": false, "url": "market", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z" /></svg>` },
   { "name": "account", "href": false, "url": "account", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg>` },
   { "name": "admin", "href": true, "url": "/admin", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>` }
@@ -72,42 +72,12 @@ const error500 = `
             Back</button>
     </div>
 </body>`
-const handler = new WebSocket(`ws://${window.location.host}/ws`);
-let wsa = true;
-handler.onclose = function () { wsa = false; };
-handler.onerror = function () { wsa = false; };
-handler.onmessage = async function (event) {
-  let a = JSON.parse(event.data);
-  switch (a.type) {
-    case "render":
-      alert(1)
-      reload("content", a.page)
-      break;
-    case "reload":
-      reload(a.partial, a.data)
-      break;
-    case "redirect":
-      window.location.href = a.redirect
-      break;
-    default:
-      break;
-  }
-};
 function reload(a, b) {
   if (a && b) {
     document.getElementById(a).innerHTML = b
   }
 }
 async function getPage(page) {
-  //if (wsa == true) {
-  //  handler.send(JSON.stringify({ type: "render", page: `/${page}` }));
-  //  return new Promise((resolve, reject) => {
-  //    handler.onmessage = function (event) {
-  //       let data = JSON.parse(event.data);
-  //      resolve(data.page.page);
-  //     };
-  //   });
-  //  } else {
   if (cachedRoutes[page]) {
     return cachedRoutes[page]
   } else {
@@ -121,7 +91,6 @@ async function getPage(page) {
     }
     return c.text();
   }
-  // }
 }
 async function render(page = page || "/") {
   for (let a of routes) {
@@ -132,7 +101,7 @@ async function render(page = page || "/") {
   }
   const b = document.getElementById('content');
   document.querySelector('main').insertAdjacentHTML('beforeend', `
-  <div id="loadOverlay" class="bg-zinc-950/50 backdrop-blur-xl absolute z-50 flex flex-col top-0 bottom-0 items-center justify-center w-full left-0 h-screen">
+  <div id="loadOverlay" class="bg-zinc-950/50 backdrop-blur-xl absolute z-50 flex flex-col top-0 bottom-0 items-center justify-center w-full left-0 min-h-screen h-full">
       <h1 class="text-transparent text-4xl md:text-9xl font-bold font-karla bg-gradient-to-br from-white to-transparent bg-clip-text">
       <svg aria-hidden="true" class="w-8 h-8 animate-load fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -208,7 +177,7 @@ function extract(a) {
     return a.slice(0, c);
   }
   return a;
-} //This shit was implemented at last, idh time to use this for everything else.
+}
 function highlight() {
   let a = window.location.href.replace(window.location.origin, '');
   let b = a.startsWith("/") ? a.slice(1) : a;
@@ -897,92 +866,93 @@ async function players() {
     });
   }, 100);
 };
-const ws = new WebSocket(`ws://${window.location.host}/ws.chat.messages`);
+let ws
+let msg = { last: {} }
 async function messages() {
-  let aa = await fetch('/api/chat/messages');
-  let bb = await aa.json();
-  let cc = document.getElementById("messages")
-  cc.innerHTML = ''
-  show(bb.data);
-}
-document.addEventListener('DOMContentLoaded', function () {
-  ws.onmessage = function (event) {
-    let a = event.data;
-    show(JSON.parse(a));
-  };
-});
-async function show(data) {
-  const container = document.getElementById("messages");
-  if (!container) {
-    return;
+  ws = new WebSocket(`ws://${window.location.host}/ws.chat`);
+  ws.onmessage = async function (event) {
+    let data = JSON.parse(event.data);
+    if (data.event == 'history') {
+      show(data.args, true);
+    } else if (data.event == 'message') {
+      show(data.args, false);
+    }
   }
-  let lastUserId = null;
-  for (let a of data) {
-    let b = document.createElement("div");
-    b.className = "flex relative space-x-2 items-start";
-    let c = document.createElement("div");
-    c.className = "flex flex-col";
-    if (lastUserId !== a.id) {
-      let d = document.createElement("img");
-      d.className = "object-cover top-0 aspect-square mt-4 w-12 start-6 rounded-xl";
-      d.src = a.avatar;
-      b.appendChild(d);
-      let e = idk(a.username, a.time);
-      c.appendChild(e);
-    }
-    let f = document.createElement("div");
-    f.className = "flex ml-14 mr-14 flex-col bg-zinc-900 max-w-fit rounded-xl";
-    if (lastUserId !== a.id) {
-      f.classList.remove("ml-14");
-    }
-    let g = document.createElement("div");
-    g.className = "grow px-4 py-2";
-    let h = document.createElement("p");
-    h.className = "text-gray-100";
-    h.textContent = a.message;
-    g.appendChild(h);
-    f.appendChild(g);
-    c.appendChild(f);
-    b.appendChild(c);
-    container.appendChild(b);
-    lastUserId = a.id;
-  };
-  container.lastElementChild.scrollIntoView({ behavior: 'smooth' });
-  const j =
-    container.lastElementChild.getBoundingClientRect().bottom <= container.getBoundingClientRect().bottom;
-  if (j) {
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1000);
-  }
-}
-function idk(a, b) {
-  let c = document.createElement("div");
-  c.className = "flex items-center mt-4 space-x-2";
-  let d = document.createElement("h1");
-  d.className = "text-gray-200 text-md capitalize";
-  d.textContent = a;
-  let e = document.createElement("span");
-  e.className = "text-gray-300 text-sm";
-  e.textContent = date(b);
-  c.appendChild(d);
-  c.appendChild(e);
-  return c;
-}
-async function send(a) {
-  if (a.key === 'Enter') {
-    a.preventDefault();
-    const b = document.getElementById('msgInput');
-    const c = b.value.trim();
-    if (c !== '') {
-      ws.send(c);
-      b.value = '';
-    }
+  ws.onclose = () => {
+    messages()
   }
 };
-function date(eeeeeeeeeeee) {
-  const options = { hour: 'numeric', minute: 'numeric', weekday: 'short', month: 'short', day: 'numeric' };
-  return new Date(eeeeeeeeeeee).toLocaleString('en-US', options);
+async function show(data, b) {
+  const a = document.getElementById("messages");
+  if (!a) return;
+  if (b === true) {
+    document.getElementById("messages").innerHTML = ""
+  }
+  for (let i of data) {
+    if (msg.last.id > i.id) {
+      msg.last = {}
+    }
+    if (!msg.last || !msg.last.user || msg.last.user !== i.user) {
+      a.innerHTML += messageHeader(i);
+    } else if (msg.last.user === i.user && parseInt((parseInt(i.time) - parseInt(msg.last?.time)) / 60000) < 15) {
+      a.innerHTML += `
+        <div id="message${i.id}" class="flex ml-14 flex-col bg-zinc-900 w-max rounded-xl">
+          <div class="grow px-4 py-2">
+            <p class="text-gray-100">${i.message}</p>
+          </div>
+        </div>`;
+    } else {
+      a.innerHTML += messageHeader(i);
+    }
+    msg["last"] = i;
+  }
+  a.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  a.scrollTop = a.scrollHeight
+  if (b === true) {
+    if (a.scrollHeight - a.clientHeight <= a.scrollTop + 1) {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1000);
+    }
+  }
+}
+function messageInput(event) {
+  if (event.key === 'Enter' && event.shiftKey) {
+      event.preventDefault();
+      const textarea = event.target;
+      const currentRows = textarea.rows;
+      console.log(currentRows)
+      textarea.rows = currentRows + 1;
+      textarea.scrollTop = textarea.scrollHeight;
+  }
+}
+function messageHeader(a) {
+  return `
+  <div class="flex relative space-x-2 items-start pt-4">
+  <img class="object-cover top-0 aspect-square w-12 start-6 rounded-xl" src="${a.avatar}">
+  <div class="flex flex-col">
+      <div class="flex items-center space-x-2">
+          <h1 class="text-gray-200 text-md">${a.username}</h1>
+          <span class="text-gray-300 text-sm">${date(a.time)}</span>
+      </div>
+      <div class="flex flex-col bg-zinc-900 w-max rounded-xl">
+          <div class="grow px-4 py-2">
+              <p class="text-gray-100">${a.message}</p>
+          </div>
+      </div>
+  </div>
+</div>`
+}
+async function send() {
+  const b = document.getElementById('msgInput');
+  const c = b.value.trim();
+  if (c !== '') {
+    ws.send(JSON.stringify({ "event": "message", "args": [c] }));
+    b.value = '';
+  }
+};
+function date(a) {
+  return new Date(a).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', weekday: 'short', month: 'short', day: 'numeric' });
 }
 async function ticket(id) {
   let aa = await fetch(`/api/tickets/${id}`);
@@ -1054,14 +1024,23 @@ function wss() {
 let consoleSocket;
 async function consoleWS(c, d) {
   visibility("startBTN", "show")
-  consoleSocket = consoleWSS();
+  if (window.location.protocol == "https:") {
+    consoleSocket = new WebSocket(`wss://${window.location.host}/ws.servers.console`);
+  } else {
+    consoleSocket = new WebSocket(`ws://${window.location.host}/ws.servers.console`);
+  }
+  let consoleDiv = document.getElementById("console");
+  consoleDiv.innerHTML = ''
   consoleSocket.onopen = function () {
     consoleSocket.send(JSON.stringify({ "event": "auth", "session": c, "user": d, "server": `${(window.location.href).split('/servers/')[1]?.split('/')[0]}` }));
   };
   consoleSocket.onmessage = async function (event) {
     let data = JSON.parse(event.data);
     if (data.event == 'console output') {
-      showConsole(data.args[0], { first: true });
+      let b = data.args[0]
+      let c = consoleDiv.scrollHeight - consoleDiv.clientHeight <= consoleDiv.scrollTop + 1;
+      if (b != ' ') { consoleDiv.innerHTML += `<p>${ANSI(b)}</p>`; }
+      //if (c) consoleDiv.lastElementChild.scrollIntoView({ behavior: 'smooth' });
     } else if (data.event == 'stats') {
       let a = (JSON.parse(data.args[0]).state)
       if (a == "offline") {
@@ -1085,7 +1064,7 @@ async function consoleWS(c, d) {
       window.location.href = '/servers'
     }
   };
-  let a = await fetch(`/api/servers/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`)
+  let a = await fetch(`/api/servers/details/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`)
   let b = await a.json()
   if (b.success == true) {
     setValue("RAMT", formatResourceMB(b.data.limits.memory) || "")
@@ -1093,6 +1072,9 @@ async function consoleWS(c, d) {
     setValue("CPUT", b.data.limits.cpu || "")
     setValue("Reneval", b.data.reneval || "")
     setValue("IP", `${b.data.relationships.allocations.data[0].attributes.ip_alias || b.data.relationships.allocations.data[0].attributes.ip}:${b.data.relationships.allocations.data[0].attributes.port}`)
+  }
+  consoleSocket.onclose = function () {
+    consoleWS(c, d)
   }
 }
 function setValue(e, v) {
@@ -1155,12 +1137,6 @@ function sendConsole(a) {
     toastr.error("WebSocket is not open.");
   }
 }
-function showConsole(b, c) {
-  let a = document.getElementById("console");
-  a.innerHTML += `<p>${ANSI(b)}</p>`;
-  if (c) a.lastElementChild.scrollIntoView({ behavior: 'smooth' });
-  return
-}
 function ANSI(a) {
   let b = '';
   let c = '';
@@ -1171,7 +1147,7 @@ function ANSI(a) {
     const g = getStyle(f[1]);
     c += a.substring(e, f.index);
     if (g !== b) {
-      c += `<span style="${g}">`;
+      c += `<span class="${g}">`;
       b = g;
     }
     e = d.lastIndex;
@@ -1183,25 +1159,25 @@ function ANSI(a) {
 function getStyle(a) {
   switch (a) {
     case '1':
-      return 'font-weight: bold;';
+      return 'font-bold';
     case '30':
-      return 'color: black;';
+      return 'text-black';
     case '31':
-      return 'color: red;';
+      return 'text-rose-400';
     case '32':
-      return 'color: green;';
+      return 'text-emerald-400';
     case '33':
-      return 'color: #f59e0b;';
+      return 'text-amber-400';
     case '34':
-      return 'color: blue;';
+      return 'text-blue-400';
     case '35':
-      return 'color: magenta;';
+      return 'text-pink-400';
     case '36':
-      return 'color: cyan;';
+      return 'text-cyan-400';
     case '37':
-      return 'color: #f3f4f6;';
+      return 'text-gray-100';
     case '0':
-      return 'color: #d1d5db;';
+      return 'text-gray-300';
     default:
       return '';
   }
@@ -1250,10 +1226,6 @@ function formatResourceMB(a) {
   } else {
     return `${(a).toFixed(2)} MB`;
   }
-}
-function consoleWSS() {
-  let webSocket = new WebSocket(`ws://${window.location.host}/ws.servers.console`);
-  return webSocket;
 }
 async function files() {
   let a = await fetch(`/api/servers/files/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`);
@@ -1717,22 +1689,6 @@ async function modifyServer() {
     toastr.error(d.message, "Error!")
   }
 }
-async function serverModify() {
-  let a = await fetch('/api/servers/create')
-  let b = await a.json()
-  if (b.success == true) {
-    let d = []
-    let e = []
-    for (let i of b.data.nodes) {
-      d.push(`<option value="${i.id}">${i.name} - ${(i.allocated_resources.memory / i.memory) * 100}% full</option>`)
-    }
-    for (let i of b.data.eggs) {
-      e.push(`<option value="${i.id}">${i.name}</option>`)
-    }
-    document.getElementById('nodesList').innerHTML = d.join('')
-    document.getElementById('eggsList').innerHTML = e.join('')
-  }
-}
 async function changeNode() {
   let a = document.getElementById("nodesList").value
   let b = await fetch(`/api/servers/transfer/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`, {
@@ -1752,28 +1708,42 @@ async function changeNode() {
   }
 }
 async function connectAFKWS(a, b) {
-  let afkWS = new WebSocket(`ws://${window.location.host}/ws.afk`);
+  let afkWS
+  let c;
+  if (window.location.protocol == "https:") {
+    afkWS = new WebSocket(`wss://${window.location.host}/ws.afk`);
+  } else {
+    afkWS = new WebSocket(`ws://${window.location.host}/ws.afk`);
+  }
   st("afkStatus", 'Connecting...');
   if (window.location.pathname !== "/economy") afkWS.close()
   afkWS.onopen = function () {
     afkWS.send(JSON.stringify({ "event": "auth", "session": a, "user": b }));
     st("afkStatus", 'Socket connected');
+    if (!c || c === null || c === undefined) c = Date.now()
   };
   afkWS.onmessage = async function (event) {
-    let data = JSON.parse(event.data);
-    if (data.redirect) {
-      window.location.href = '/'
+    if (window.location.pathname == "/economy") {
+      let data = JSON.parse(event.data);
+      if (data.redirect) {
+        window.location.href = '/'
+      } else {
+        st("sessionCoins", `${data.session ?? 0} coins`);
+        st("totalCoins", `${data.total ?? 0} coins`);
+        st("coinsIn", `${data.coinsIn ?? 0} s`);
+        st("afkStatus", 'Earning');
+        document.getElementById("coins").innerText = `${data.total} coins`
+        setInterval(() => {
+          st("afkDuration", `${((Date.now() - c) / 1000).toFixed(0)} s`);
+        }, 1000);
+      }
     } else {
-      st("sessionCoins", `${data.session ?? 0} coins`);
-      st("totalCoins", `${data.total ?? 0} coins`);
-      st("afkDuration", `${data.duration ?? 0} s`);
-      st("coinsIn", `${data.coinsIn ?? 0} s`);
-      st("afkStatus", 'Earning');
-      document.getElementById("coins").innerText = `${data.total} coins`
+      afkWS.close()
     }
   };
   afkWS.onclose = function () {
     st("afkStatus", 'Socket disconnected');
+    if (window.location.pathname == "/economy") connectAFKWS(a, b)
   }
 }
 function st(a, b) {
@@ -1840,21 +1810,83 @@ async function buyResource(a) {
     toastr.error(d.message, "Error!")
   }
 }
-function showPaymentGateways(a) {
-  document.querySelector('main').insertAdjacentHTML('beforeend', `
-  <div id="loadOverlay" class="bg-zinc-950/50 backdrop-blur-xl absolute z-50 flex flex-col top-0 bottom-0 items-center justify-center w-full left-0 h-screen">
-  <div class="relative h-max overflow-hidden w-full max-w-sm md:max-w-md bg-zinc-800/80 backdrop-blur-xl rounded-3xl p-px">
-  <div class="relative w-full h-full rounded-3xl bg-zinc-900/80 backdrop-blur-sm p-4">
-      <h1 class="text-gray-400 text-xl">Choose a payment method:</h1>
-      <div class="flex flex-col space-y-1 mt-4">
-      <button onclick="checkout(${a})" class="mt-4 rounded-3xl w-full py-2.5 bg-zinc-400/10 shadow-xl backdrop-blur-xl text-gray-300 border border-zinc-100/10">
-      PayPal
-      </button>
-      </div>
-  </div>`);
+async function countries() {
+  let a = new Intl.DisplayNames(["en"], { type: 'region' });
+  let b = []
+  b.push(`<option value="" hidden class="capitalize">Country</option>`)
+  for (let i = 65; i <= 90; ++i) {
+    for (let j = 65; j <= 90; ++j) {
+      let c = String.fromCharCode(i) + String.fromCharCode(j)
+      let d = a.of(c)
+      if (c !== d) {
+        b.push(`<option value="${c}" class="capitalize">${d}</option>`)
+      }
+    }
+  }
+  document.getElementById("countriesList").innerHTML = b.join('')
+  let c = await fetch('/api/payments/gateways')
+  let d = await c.json()
+  if (d.success == true) {
+    let e = []
+    d.data.forEach(i => {
+      let f
+      if (i.icon.type == "image") {
+        f = `<img src="${i.icon.src}" alt="bill" class="w-6 h-6">`
+      } else {
+        f = i.icon.src
+      }
+      e.push(`<div id="paymentGateway${i.name}" onclick="selectGateway('${i.name}')" class="w-full rounded-xl p-2 px-4 cursor-pointer text-gray-400 hover:text-gray-200 hover:duration-300 transition-all hover:bg-zinc-900/20 backdrop-blur-xl bg-zinc-900/80 border border-zinc-800/80 flex items-center space-x-2">
+        ${f}
+      <span>${i.display}</span>
+  </div>`)
+    });
+    document.getElementById("paymentGateways").innerHTML = e.join('')
+  }
 }
-function checkout(a) {
-  document.getElementById("loadOverlay").classList.add("hidden")
-  window.location.href = `/api/payments/buy/paypal/${a}`
-  return
+let gatewayConfig = ""
+function selectGateway(a) {
+  gatewayConfig = a
+  let d = document.getElementById("paymentGateways")
+  for (let i of d.children) {
+    i.classList.add("border-zinc-800/80");
+    i.classList.remove("border-emerald-800/80");
+    i.classList.remove("bg-emerald-900/20");
+    i.classList.add("hover:bg-zinc-900");
+    i.classList.remove("text-emerald-400")
+    i.classList.add("text-gray-400");
+  }
+  let b = document.getElementById(`paymentGateway${a}`);
+  b.classList.add("border-emerald-800/80");
+  b.classList.add("bg-emerald-900/20");
+  b.classList.add("text-emerald-400");
+}
+async function checkout(a) {
+  let b = {
+    name: gv("Name"),
+    address_0: gv("address_0"),
+    address_1: gv("address_1"),
+    city: gv("city"),
+    state: gv("state"),
+    zip: gv("zip"),
+    country: gv("country"),
+    gateway: gatewayConfig
+  }
+  if (a.price.type === "coins") b = {}
+  let c = await fetch(`/api/payments/buy/products/coins/${a.id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(b)
+  });
+  let d = await c.json()
+  if (d.success == true) {
+    if (a.price.type !== "coins") {
+      window.location.href = d.data
+    } else {
+      render(`/account/invoices/${d.data.id}`)
+    }
+  } else {
+    toastr.error(d.message, "Error!")
+  }
 }

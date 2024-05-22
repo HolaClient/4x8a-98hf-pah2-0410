@@ -28,6 +28,16 @@ const usersCache = require('../../cache/users')
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
+    app.get("/api/auth/gateways", async (req, res) => {
+        try {
+            let a = await db.get("core", "authenticators") || []
+            return core.json(req, res, true, "SUCCESS", a)
+        } catch (error) {
+            console.error(error)
+            return core.json(req, res, false, "ERROR", error)
+        }
+    });
+
     app.post("/auth/email", async (req, res) => {
         try {
             if (req.session.userinfo) return core.json(req, res, true, "SUCCESS");
@@ -37,9 +47,14 @@ module.exports = async function () {
             let c = Object.values(b).find(i => i.email === a.email || i.username === a.email);
             if (!c) return core.json(req, res, false, "404");
             if (crypt.decrypt(c.password) !== a.password) return core.json(req, res, false, "WRONGSECRET");
-            const d = await db.get("users", c.id)
+            let d = c
+            d.sessions["key"] = `hc.sk_${crypt.gen88(64)}`
+            await db.set("users", c.id, d)
             req.session.userinfo = d;
             req.session.permission = await db.get('permissions', c.id);
+            let e = crypt.encrypt(d?.sessions?.key || req.session.userinfo.sessions.key, d.sessions.secret);
+            e["user"] = d.id
+            core.setCookie(res, "hc.sk", JSON.stringify(e))
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {
             console.error(error)
@@ -55,8 +70,33 @@ module.exports = async function () {
             let b = await usersCache.getAll();
             let c = Object.values(b).find(i => i.email === a.email || i.username === a.username);
             if (c) return core.json(req, res, false, "USEREXISTS");
+            let g = await db.get("app", "console")
+            if (g.license && g.secret) {
+                try {
+                    let f = await fetch(`${g.domain}/api/application/validate/emails`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-auth-type": "holaclient/secret",
+                            "x-app-version": "X1",
+                            "Authorization": `Secret ${g.secret}`
+                        },
+                        body: JSON.stringify({
+                            "email": crypt.encrypt(a.email, g.keys.server),
+                        })
+                    });
+                    let h = await f.json()
+                    if (h.success !== true && h.code === 200) return core.json(req, res, false, "INVALIDEMAIL");
+                } catch (error) {
+                    console.error(error)
+                }
+            }
             let d = await users.create(req, res, a.email, a.username, "https://png.pngtree.com/png-vector/20230822/ourmid/pngtree-person-icon-in-a-gradient-on-a-flat-blue-and-pastel-vector-png-image_6834039.png", a.username, a.username, 1, a.password);
-            if (!d) return core.json(req, res, false, "ERROR");
+            if (d.success !== true) return core.json(req, res, false, d.message);
+            d = d.data
+            let e = crypt.encrypt(d?.sessions?.key || req.session.userinfo.sessions.key, d.session.secret || req.session.userinfo.sessions.secret);
+            e["user"] = d.id
+            core.setCookie(res, "hc.sk", JSON.stringify(e))
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {
             console.error(error)
@@ -70,6 +110,7 @@ module.exports = async function () {
             res.setHeader('Location', '/');
             return res.end();
         }
+        core.delCookie(res, "hc.sk")
         req.session.destroy(() => {
             res.statusCode = 302;
             res.setHeader('Location', '/');

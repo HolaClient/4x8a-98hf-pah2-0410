@@ -4,7 +4,7 @@ const chalk = require('chalk');
 process.loadEnvFile('.env')
 
 program
-    .version('X.1')
+    .version('X1')
     .description("Welcome to HolaClientX's CLI");
 
 program
@@ -17,18 +17,45 @@ program
     });
 
 program
-    .command('migrate')
-    .description('Migrate default factory settings & values to the database.')
+    .command('db:seed')
+    .description('Seed default factory settings & values to the database.')
     .action(() => {
-        require('./migrateFactory')()
-        process.exit()
+        require('./seedFactories')()
     });
 
 program
-    .command('create:user')
+    .command('build:assets')
+    .description('Build JS & CSS for the frontend.')
+    .action(() => {
+        require('./buildAssets')()
+    });
+
+program
+    .command('build:all')
+    .description('Builds Tailwind CSS, CSS & JS.')
+    .action(() => {
+        require('./buildAll')()
+    });
+
+program
+    .command('user:create')
     .description('Create a user.')
     .action(() => {
-        require('./createUser')();
+        require('./userCreate')();
+    });
+
+program
+    .command('user:modify')
+    .description("Modify an user's permission level.")
+    .action(() => {
+        require('./userModify')();
+    });
+
+program
+    .command('reset:factory')
+    .description('Reset application to factory settings.')
+    .action(() => {
+        require('./resetFactory')()
     });
 
 program.parse(process.argv);

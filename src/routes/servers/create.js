@@ -39,19 +39,21 @@ module.exports = async function () {
                         g.push(f.attributes);
                     }
                 };
-                const [c, d] = await Promise.all([check(g), check(b)]);
+                let [c, d] = await Promise.all([check(g), check(b)]);
                 return { nodes: c, eggs: d };
             };
+            let h = await db.get("permissions", req.session.userinfo.id)
             async function check(a) {
-                const b = await Promise.all(a.map(async (i) => {
-                    const c = await db.get("permissions", i.deployments.role);
-                    if (c.permission <= req.session.userinfo.permissions.level) return i;
+                let b = await Promise.all(a.map(async (i) => {
+                    let c = await db.get("permissions", i.deployments.role);
+                    if (c.permission <= h.level) return i;
                     return null;
                 }));
                 return b.filter(i => i !== null);
             };
             core.json(req, res, true, "SUCCESS", await get());
         } catch (error) {
+            handle(error, "Major", 29)
             return core.json(req, res, false,"ERROR", error);
         }
     });
@@ -70,8 +72,10 @@ module.exports = async function () {
             if (typeof (a) !== "object" || typeof (b) !== "object") return core.json(req, res, false, "INVALID");
             let l = await db.get("economy", req.session.userinfo.id);
             let m = await db.get("pterodactyl", "settings");
+            let p = await db.get("permissions", req.session.userinfo.id);
             if (!l.coins) return core.json(req, res, false, "INSUFFICIENT");
-            if ((await db.get("permissions", m.deployments.role)).permission > req.session.userinfo.permissions.level) return core.json(req, res, false, "403");
+            if ((await db.get("permissions", f.deployments.role)).permission > p.level) return core.json(req, res, false, "403");
+            if ((await db.get("permissions", g.deployments.role)).permission > p.level) return core.json(req, res, false, "403");
             if (l.coins < (f.deployments.fees + g.deployments.fees + m.deployments.fees)) return core.json(req, res, false, "INSUFFICIENT");
             l.coins = l.coins - (f.deployments.fees + g.deployments.fees + m.deployments.fees)
             await db.set("economy", req.session.userinfo.id, l);
@@ -95,6 +99,7 @@ module.exports = async function () {
             await db.get("core", "lastserver", o + 1)
             return core.json(req, res, true, "SERVERQUEUE");
         } catch (error) {
+            handle(error, "Major", 59)
             return core.json(req, res, false, "ERROR", error);
         }
     });

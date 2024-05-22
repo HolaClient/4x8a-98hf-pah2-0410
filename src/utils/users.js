@@ -41,6 +41,9 @@ module.exports.get = async function (a) {
 };
 module.exports.create = async function (req, res, email, username, avatar, first, last, permission, password) {
     try {
+        let a = await db.get("ips", "ips") || []
+        let b = a.find(i => i.ip === req.ip)
+        if (b && b !== undefined) return {success: false, message: "ALTACC"}
         let packages = await db.get("settings", "packages");
         let lastUser = await db.get("core", "lastuser") ?? 0;
         let id = parseInt(lastUser) + 1;
@@ -79,7 +82,8 @@ module.exports.create = async function (req, res, email, username, avatar, first
             },
             sessions: {
                 status: false,
-                secret: `hc.ss_${crypt.gen88(24)}`
+                secret: `hc.ss_${crypt.gen88(48)}`,
+                key: `hc.sk_${crypt.gen88(64)}`
             },
             settings: {},
             status: {
@@ -118,6 +122,9 @@ module.exports.create = async function (req, res, email, username, avatar, first
             }
         }
         await register(req, res, first, last, username, email, password, user);
+        let e = crypt.encrypt(user?.sessions?.key || req.session.userinfo.sessions.key, user.sessions.secret);
+        e["user"] = id
+        core.setCookie(res, "hc.sk", JSON.stringify(e))
         await db.set("users", "users", users);
         await db.set("core", "lastuser", id);
         await db.set('users', id, user);
@@ -126,7 +133,7 @@ module.exports.create = async function (req, res, email, username, avatar, first
         await db.set('economy', id, balance);
         req.session.userinfo = user;
         req.session.permission = await db.get('permissions', id);
-        core.redirect(res, '/onboarding')
+        return {success: true, data: user}
     } catch (error) {
         console.error(error);
         return res.end(fallback.error500(error));
@@ -139,6 +146,9 @@ module.exports.login = async function (req, res, a) {
         const user = await db.get("users", c.id)
         req.session.userinfo = user;
         req.session.permission = await db.get('permissions', c.id);
+        let e = crypt.encrypt(user?.sessions?.key || req.session.userinfo.sessions.key, user.sessions.secret);
+        e["user"] = user.id
+        core.setCookie(res, "hc.sk", JSON.stringify(e))
         return user
     } catch (error) {
         console.error(error);
@@ -155,9 +165,7 @@ module.exports.authenticate = async function (req, res, a) {
     let c = b.find(i => i.email == a.email);
     if (!c || c == null || c == undefined) return cf.create(req, res, a.email, (a.username).replace(/[^\w\s]/g, ''), `https://cdn.discordapp.com/avatars/${a.id}/${a.avatar}`, a.global_name, a.global_name, 1)
     if (g !== undefined) return core.html(req, res, `./resources/views/errors/banned.ejs`, g)
-    let h = await cf.login(req, res, a);
-    req.session.userinfo = h
-    req.session.permission = await db.get('permissions', h.id);
+    await cf.login(req, res, a);
     core.redirect(res, '/dashboard')
 }
 async function register(req, res, a, b, c, d, e, f) {

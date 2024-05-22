@@ -17,77 +17,86 @@
  * @version 1
  *
  *--------------------------------------------------------------------------
- * chat.js - Server side char handler.
+ * chat.js - Global chat handler.
  *--------------------------------------------------------------------------
 */
+const users = require('../../utils/users')
+const usersCache = require('../../cache/users')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
  *--------------------------------------------------------------------------
 */
-module.exports = async function() {
-    const admins = await db.get("notifications", "admins") || [];
-    const errors = await db.get("logs", "errors") || [];
-
-    app.get("/api/chat/messages", core.auth, async (req, res) => {
+module.exports = async function () {
+    let clients = []
+    let spamCounter = {}
+    let badWords
+    try {
+        const req = await fetch('https://cdn.holaclientx.tech/production/security/explicit.json')
+        badWords = await req.json()
+    } catch (error) {
+        console.error(error)
+    }
+    app.use("/ws.chat", core.ws(), core.auth, async (req, res) => {
         try {
-            let a = await db.get("messages", 'chat') ?? [];
-            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: a }));
-        } catch (error) {
-            handle(error, "Minor", 37);
-            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
-        }
-    });
-
-    app.get("/chat/messages", async (ws, req) => {
-        try {
-            const a = await db.get("messages", "chat") || []
-            const d = await fetch('https://cdn.holaclient.tech/production/common/profanity.json')
-            const e = await d.json()
-            //ws.send(JSON.stringify(a));
-            let id = await db.get("messages", "last") || 0
-            ws.on('message', async (message) => {
-                let b = req.session.userinfo
-                let c = {
-                    id: id + 1,
-                    user: b.id,
-                    username: b.nickname || b.username,
-                    avatar: b.avatar,
-                    message: censor(message),
-                    permission: b.permissions.value,
-                    time: new Date()
-                };
-                ws.send(JSON.stringify([c]));
-                a.push(c)
-                function censor(message) {
-                    const f = new RegExp(e.join('|'), 'gi');
-                    return message.replace(f, '***');
+            if (!req.ws) return res.end()
+            const ws = await req.ws();
+            clients.push(ws)
+            let a = await db.get("messages", "chat") || []
+            ws.send(JSON.stringify({ "event": "history", "args": a }));
+            ws.on('message', async (data) => {
+                try {
+                    let b = JSON.parse(data)
+                    if (b.event === "message") {
+                        let c = await db.get("messages", "last") ?? 0
+                        let d = await db.get("permissions", req.session.userinfo.id);
+                        let g = spamCounter[req.session.userinfo.id] || { message: "", counter: 0, muted: false };
+                        let e = {
+                            "id": parseInt(c) + 1,
+                            "user": req.session.userinfo.id,
+                            "username": req.session.userinfo.nickname,
+                            "avatar": req.session.userinfo.avatar,
+                            "message": censor(b.args[0]),
+                            "permission": d.level,
+                            "time": Date.now()
+                        }
+                        if (((Date.now() - g.time) / 60000) >= 1) g["counter"] = 0
+                        if (g.message.toLowerCase() == b.args[0].toLowerCase()) { g.counter++ }
+                        if (g.counter >= 3) {
+                            if (g.muted !== true) {
+                                g["time"] = Date.now();
+                                e["message"] = `${req.session.userinfo.nickname} has been timedout for 1 minute due to violation of our policy.`
+                                clients.forEach(i => {
+                                    i.send(JSON.stringify({ "event": "message", "args": [e] }));
+                                });
+                            }
+                            g.muted = true
+                        }
+                        function censor(message) {
+                            const f = new RegExp(badWords.join('|'), 'gi');
+                            return message.replace(f, (match) => '*'.repeat(match.length));
+                        }
+                        if (g.counter <= 2) {
+                            g.message = b.args[0]
+                            a.push(e);
+                            await db.set("messages", "chat", a);
+                            await db.set("messages", "last", parseInt(c) + 1);
+                            clients.forEach(i => {
+                                i.send(JSON.stringify({ "event": "message", "args": [e] }));
+                            });
+                        }
+                        spamCounter[req.session.userinfo.id] = g
+                    }
+                } catch (error) {
+                    console.error(error);
                 }
-                await db.set("messages", "last", id + 1)
-                await db.set("messages", "chat", a);
+            });
+            ws.on('close', async () => {
+                clients = clients.filter(i => i !== ws)
             });
         } catch (error) {
-            return
+            console.error(error);
+            return;
         }
     });
-
-    async function handle(error, a, b) {
-        console.error(error)
-        admins.push({
-            title: `${a} Error`,
-            message: `${error}`,
-            type: "error",
-            place: "core-chat",
-            date: Date.now()
-        });
-        errors.push({ date: Date.now(), error: error, file: "routes/core/chat.js", line: b });
-        await db.set("notifications", "admins", admins);
-        await db.set("logs", "errors", errors);
-        return
-    };
 }
-/**
- *--------------------------------------------------------------------------
- * End of the file.
- *--------------------------------------------------------------------------
-*/

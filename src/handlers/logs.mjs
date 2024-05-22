@@ -25,8 +25,6 @@
  * importing modules
  *--------------------------------------------------------------------------
 */
-import fs from 'fs';
-import path from 'path';
 import { Console } from 'console';
 /**
  *--------------------------------------------------------------------------
@@ -34,17 +32,47 @@ import { Console } from 'console';
  *--------------------------------------------------------------------------
 */
 const a = './storage/logs/dashboard';
-const b = `log_${new Date().toISOString().replace(/[:.]/g, '')}.txt`;
-const c = path.join(a, b);
-const d = fs.createWriteStream(c, { flags: 'a' });
-d.write(`==========LOG ${new Date().toISOString().replace(/[:.]/g, '')}==============\n`);
-const e = new Console(process.stdout, d);
-global.console = e;
-const f = console.log;
-console.log = (...g) => {
-  f(...g);
-  d.write(g.join(' ') + '\n');
-};
+if (process.env.APP_ENV !== "production") {
+  const b = `log_${formatDate(new Date(), true).replace(" ", "_").replace(":", "-")}.txt`;
+  const c = fs.createWriteStream(path.join(a, b), { flags: 'a' });
+  c.write(`==========LOG ${formatDate(new Date(), true)}==============\n`);
+  const d = new Console(process.stdout, c);
+  d.error = (...f) => {
+    c.write(f.join(' ') + '\n');
+  };
+  const e = console.log;
+  console.log = (...f) => {
+    e(chalk.gray(`[${formatTime()}]`), ...f);
+    c.write(f.join(' ') + '\n');
+  };
+  global.console = d;
+} else {
+  const b = `log_${formatDate(new Date())}.txt`;
+  const c = fs.createWriteStream(path.join(a, b), { flags: 'a' });
+  c.write(`\n==========LOG ${formatDate(new Date(), true)}==============\n\n`);
+  const d = new Console(process.stdout, c);
+  d.error = (...f) => {
+    c.write(f.join(' ') + '\n');
+  };
+  global.console = d;
+  const e = console.log;
+  console.log = (...f) => {
+    e(chalk.gray(`[${formatTime()}]`), ...f);
+    c.write(f.join(' ') + '\n');
+  };
+}
+function formatDate(a, b) {
+  const c = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  if (!b || b !== true) {
+    return `${a.getDate().toString().padStart(2, '0')}-${c[a.getMonth()]}-${a.getFullYear()}`;
+  } else {
+    return `${a.getDate().toString().padStart(2, '0')}-${c[a.getMonth()]}-${a.getFullYear()} ${a.getHours().toString().padStart(2, '0')}:${a.getMinutes().toString().padStart(2, '0')}`;
+  }
+}
+function formatTime() {
+  const a = new Date()
+  return `${a.getDate().toString().padStart(2, '0')}/${[a.getMonth() + 1]} ${a.getHours().toString().padStart(2, '0')}:${a.getMinutes().toString().padStart(2, '0')}`;
+}
 /**
  *--------------------------------------------------------------------------
  * End of file

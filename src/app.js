@@ -46,6 +46,8 @@ global.modules = require('./utils/modules');
 const bodyParser = require('body-parser');
 process.loadEnvFile('.env')
 require('../app/database/index')(app, db);
+require('./clusters/core')()
+import('./handlers/logs.mjs')
 /**
  *--------------------------------------------------------------------------
  * Generating secrets
@@ -65,11 +67,15 @@ const c = (key, value) => {
     fs.writeFileSync(a, d.join(os.EOL));
 };
 if (!process.env.APP_KEY || process.env.APP_KEY == "random") { c('APP_KEY', crypt.base64(64)) };
+if (!process.env.APP_HMAC || process.env.APP_HMAC == "random") { c('APP_HMAC', crypt.base64(64)) };
 if (!process.env.APP_SECRET || process.env.APP_SECRET == "random") { c('APP_SECRET', crypt.base64(64)) };
 if (process.env.APP_ENV == "production") { c('APP_CODE', crypt.gen88(12)) };
 /**
  *--------------------------------------------------------------------------
  * Loading website
+ *--------------------------------------------------------------------------
+ * Middlewares to register bodyparser & express-session, the session cookies
+ * will be preserved for 30 days.
  *--------------------------------------------------------------------------
 */
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -82,11 +88,14 @@ app.use(require('express-session')({
         secure: false,
         maxAge: 30 * 24 * 60 * 60 * 1000
     },
-    name: "session"
+    name: "exp.ss"
 }));
 /**
  *--------------------------------------------------------------------------
  * Checking installation status
+ *--------------------------------------------------------------------------
+ * Middleware to check if the application is setup'd successfully, if not
+ * it will redirect all users to /setup with a status code of 302.
  *--------------------------------------------------------------------------
 */
 app.use((req, res, next) => {
@@ -120,29 +129,36 @@ app.use((req, res, next) => {
     const routes = [
         '/servers',
         '/app',
+        '/api',
         '/admin',
-        '/client'
+        '/client',
+        '/security'
     ];
     async function load(route) {
-        return new Promise((resolve, reject) => {
-            const a = path.join(__dirname, 'routes', route);
-            fs.readdir(a, (err, b) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    const c = b.filter(i => i.endsWith('.js'));
-                    c.forEach(i => {
-                        const d = require(path.join(a, i));
-                        if (typeof d === 'function') {
-                            d();
-                        }
-                    });
-                    resolve();
-                }
+        try {
+            return new Promise((resolve, reject) => {
+                const a = path.join(__dirname, 'routes', route);
+                fs.readdir(a, (err, b) => {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        const c = b.filter(i => i.endsWith('.js'));
+                        c.forEach(i => {
+                            const d = require(path.join(a, i));
+                            if (typeof d === 'function') {
+                                d();
+                            }
+                        });
+                        resolve();
+                    }
+                });
             });
-        });
+        } catch (error) {
+            console.error(error)
+            return
+        }
     }
-    await Promise.all(routes.map(load));
+    Promise.all(routes.map(load));
     await load('');
 })();
 /**
@@ -172,7 +188,6 @@ app.listen(process.env.APP_PORT, function (err) {
     console.log(chalk.gray("{/} 🗝️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Authentication code for this session is ") + chalk.cyan(process.env.APP_CODE));
     console.log("");
     console.log(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
-    import('./handlers/logs.mjs')
     require('./cache/users')
 });
 /**

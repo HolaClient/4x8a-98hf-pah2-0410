@@ -28,29 +28,57 @@
                     </div>
                 </div>
                 <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                    <div class="rounded-xl overflow-hidden relative w-full h-[616px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_0.webp')]">
-                        <div class="relative px-5 top-5 w-full flex flex-col justify-start">
-                            <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Resources</h1>
-                            <span class="text-gray-300 text-xl">Buy & sell resources.</span>
-                        </div>
-                        <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
-                            <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
-                            <button onclick="render('market/resources')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
-                                Shop resources
-                            </button>
-                        </div>
-                    </div>
-                    <div class="w-full col-span-2 grid grid-cols-1 gap-4 h-full">
-                        <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_1.webp')]">
+                    <div class="grid grid-cols-1 w-full gap-4">
+                        <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_0.webp')]">
                             <div class="relative px-5 top-5 w-full flex flex-col justify-start">
-                                <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Packages</h1>
-                                <span class="text-gray-300 text-xl">Buy kits or packages.</span>
+                                <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Resources</h1>
+                                <span class="text-gray-300 text-xl">Buy resources</span>
                             </div>
                             <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
                                 <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
-                                <button onclick="render('market/packages')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
-                                    Shop packages
+                                <button onclick="render('market/resources')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                    Shop resources
                                 </button>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_4.webp')]">
+                            <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Auctions</h1>
+                                <span class="text-gray-300 text-xl">Trade your vault items for coins.</span>
+                            </div>
+                            <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                <button onclick="render('market/auctions')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                    Go to auctions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full col-span-2 grid grid-cols-1 gap-4 h-full">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                            <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-bottom bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_1.webp')]">
+                                <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                    <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Packages</h1>
+                                    <span class="text-gray-300 text-xl">Buy kits or packages.</span>
+                                </div>
+                                <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                    <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                    <button onclick="render('market/packages')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                        Shop packages
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_3.webp')]">
+                                <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                    <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Blackmart</h1>
+                                    <span class="text-gray-300 text-xl">The goofy place.</span>
+                                </div>
+                                <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                    <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                    <button onclick="render('market/blackmart')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                        Go to blackmart
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('https://cdn.holaclientx.tech/production/assets/res_2.webp')]">
@@ -62,7 +90,7 @@
                             <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
                                 <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
                                 <button class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
-                                    Coming soon!
+                                    Shop perks
                                 </button>
                             </div>
                         </div>

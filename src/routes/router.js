@@ -52,8 +52,8 @@ module.exports = async function () {
     */
     app.use('/assets', (req, res, next) => { express.static(path.join(__dirname, '..', '..', 'public'))(req, res, next) });
     app.use('/cdn', (req, res, next) => { express.static(path.join(__dirname, '..', '..', 'storage', 'cdn'))(req, res, next) });
-    app.use('/robots.txt', (req, res, next) => {fs.readFile(path.join(__dirname, '..', '..', 'public', 'robots.txt'), 'utf8', (err, data) => {if (err) {res.end(err);} else {res.end(data);}});});
-    app.use(async (req, res, next) => {req.session.userinfo = await db.get("users", 1);next();});//developmental line
+    app.use('/robots.txt', (req, res, next) => { fs.readFile(path.join(__dirname, '..', '..', 'public', 'robots.txt'), 'utf8', (err, data) => { if (err) { res.end(err); } else { res.end(data); } }); });
+    app.use('/manifest.json', (req, res, next) => { fs.readFile(path.join(__dirname, '..', '..', 'public', 'manifest.json'), 'utf8', (err, data) => { if (err) { res.end(err); } else { res.end(data); } }); });
     app.use((req, res, next) => {
         if (blacklist.countries && blacklist.countries.length > 0 && blacklist.countries.includes(geoip.lookup(req.ip)?.country)) {
             res.status(403)
@@ -70,7 +70,17 @@ module.exports = async function () {
         if (process.env.APP_MAINTENANCE == "true") return page.error("maintenance", req, res);
         if (blacklist && blacklist.ip && blacklist.ip.includes(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.headers['x-client-ip'] || req.headers['x-forwarded'] || req.socket.remoteAddress)) return page.error("blacklisted", req, res)
         try {
-            if (!(req.url).startsWith("/api")) await render();
+            if (!req.session.userinfo && core.getCookie(req, "hc.sk")) {
+                let a = JSON.parse(core.getCookie(req, "hc.sk"))
+                let b = await db.get("users", a.user)
+                if (b) {
+                    let c = crypt.decrypt(a, b.sessions.secret)
+                    if (c && c === b.sessions.key) {
+                        req.session.userinfo = b
+                    }
+                }
+            }
+            await render();
             async function render() {
                 const a = permissions.auth?.routes || require('../../app/config/permissions.json').auth.routes;
                 const b = permissions.landing?.routes || require('../../app/config/permissions.json').landing.routes;
@@ -84,7 +94,7 @@ module.exports = async function () {
                 ];
                 const f = await Promise.all(e.map(async ({ name, routes }) => {
                     let l
-                    if (req.url == "/") {l = "/"} else if (req.url.endsWith("/")) {l = req.url.slice(0, -1)} else {l = req.url};
+                    if (req.url == "/") { l = "/" } else if (req.url.endsWith("/")) { l = req.url.slice(0, -1) } else { l = req.url };
                     const g = routes.find(h => h.route == l);
                     if (g) {
                         await r(name, g);
@@ -100,7 +110,8 @@ module.exports = async function () {
                     res.writeHead(302);
                     res.end();
                 }
-                if (req.session.userinfo && req.session.userinfo.permissions && i && i.permission > req.session.userinfo.permissions.level) return res.end(fallback.error401());
+                let s = await db.get("permissions", req.session.userinfo.id);
+                if (s && i && parseInt(i.permission) > parseInt(s.level)) return res.end(fallback.error401());
                 return await page.render(`./resources/views/${f}/${appearance.themes && appearance.themes[f] || "default"}/${i.path}`, req, res);
             }
             return page.render(`./resources/views/errors/404.ejs`, req, res);

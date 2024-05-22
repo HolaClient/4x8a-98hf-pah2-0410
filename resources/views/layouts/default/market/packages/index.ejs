@@ -1,0 +1,53 @@
+<%- include('../../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../../partials/nav') %>
+            <%- include('../../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
+                                <path fill-rule="evenodd" d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087Zm6.163 3.75A.75.75 0 0 1 10 12h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                              </svg>                              
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl">Packages</h1>
+                            <span class="text-gray-300 text-md">Buy packages/plans here.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full mt-4 flex flex-col space-y-4">
+                    <% for (let i of data.categories) { %>
+                        <div onclick="render('market/packages/<%= i.id %>')" class="w-full h-96 cursor-pointer rounded-xl relative overflow-hidden bg-no-repeat bg-cover bg-[url('<%= i.banner %>')]">
+                            <div class="absolute w-full h-full bg-gradient-to-tr from-zinc-950 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 flex flex-col justify-start">
+                                <h1 class="text-7xl capitalize font-bold font-raleway text-zinc-100/10 blur-xs bg-no-repeat bg-cover bg-clip-text bg-[url('<%= i.banner %>')]">
+                                    <%= i.name %>
+                                </h1>
+                                <button class="px-4 py-2 w-max bg-gradient-to-t from-zinc-950/50 to-transparent hover:bg-zinc-950/80 border-b border-zinc-700 text-2xl text-gray-300 rounded-full flex items-center">
+                                    <span class="pr-2">
+                                        Shop category
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>                                  
+                                </button>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </main>
+            <%- include('../../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

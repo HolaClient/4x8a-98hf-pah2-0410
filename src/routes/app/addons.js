@@ -36,6 +36,9 @@ module.exports = async function () {
             let f = await db.get("addons", "active") || [];
             for (let i of f) { d[i.name] = i };
             for ([i, j] of Object.entries(c)) { if (!d[i]) e[i] = j };
+            for ([i, j] of Object.entries(e)) {
+                require(`../../addons/${i}/remote.js`).seed()
+            }
             return core.json(req, res, true, "SUCCESS", { total: c, active: d, inactive: e });
         } catch (error) {
             handle(error, "Minor", 28);
@@ -52,7 +55,6 @@ module.exports = async function () {
             if (!c.find(i => i.name == req.body.addon)) {
                 c.push(require(`../../addons/${b}/manifest.json`) || {})
                 await db.set("addons", "active", c);
-                require(`../../addons/${b}/remote.js`).seed()
             }
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {

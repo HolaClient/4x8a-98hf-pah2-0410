@@ -33,7 +33,7 @@ module.exports = async function () {
             let c = []
             for (let i of a) {
                 let d = b.find(j => j.name == i)
-                c.push(d)
+                if (d && d !== null && d !== undefined) c.push(d)
             }
             return core.json(req, res, true, "SUCCESS", c)
         } catch (error) {
@@ -69,7 +69,7 @@ module.exports = async function () {
             return core.json(req, res, false, "ERROR", error);
         }
     });
-    app.get("/api/payments/buy/:gateway/:id", core.auth, async (req, res) => {
+    app.post("/api/payments/buy/products/:gateway/:id", core.auth, async (req, res) => {
         try {
             let g = await db.get("billing", "invoices") || []
             let h = g.filter(i => { i.user === req.session.userinfo.id && i.paid === false})
@@ -83,7 +83,7 @@ module.exports = async function () {
                 if (!e || e == undefined) return core.json(req, res, false, "INVALID")
                 let f = await c.invoice(crypto.randomUUID(), e, req.session.userinfo.id)
                 if (f.success == false) return core.json(req, res, false, f.message);
-                return core.redirect(res, f.url);
+                return core.json(req, res, true, "SUCCESS", f.url);
             } else {
                 return core.json(req, res, false, "MAXINVOICES");
             }

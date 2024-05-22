@@ -13,28 +13,31 @@
         </nav>
         <section class="section" id="section1">
             <div class="absolute -z-20 md:h-screen md:w-screen bg-no-repeat bg-cover"
-                style="background-image: url('https://cdn.holaclient.tech/production/X1/assets/pattern.png');"></div>
+                style="background-image: url('https://cdn.holaclientx.tech/production/assets/pattern.png');"></div>
             <div class="absolute bg-gradient-to-b from-transparent to-zinc-950 w-screen h-screen"></div>
         </section>
         <section class="relative w-screen h-screen flex flex-col items-center justify-center section" id="section2">
-            <div class="relative overflow-hidden rounded-3xl bg-zinc-900/80 backdrop-blur-md w-max h-max p-[1px]">
+            <div class="relative overflow-hidden rounded-3xl bg-zinc-900/80 backdrop-blur-md max-w-sm md:max-w-md lg:max-w-lg w-full h-max p-[1px]">
                   <div class="dot blur-md -ml-8 -mt-8 animate-flow absolute p-20 rounded-full bg-sky-400/50"></div>
-                  <div class="relative max-w-sm md:max-w-md text-center z-20 w-full h-full p-8 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-900 to-zinc-950/90 outline-none rounded-3xl">
+                  <div class="relative max-w-sm md:max-w-md lg:max-w-lg text-center z-20 w-full h-full p-8 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-900 to-zinc-950/90 outline-none rounded-3xl">
                     <h1 class="text-zinc-200 text-2xl text-center font-urbanist">Login to continue</h1>
                     <div class="w-full mt-6 flex flex-col space-y-2">
                         <div class="w-full text-left">
                             <span class="text-gray-400 text-left text-sm pl-2">Email or username:</span>
-                            <input id="email" type="text" class="w-full bg-zinc-950/50 focus:bg-zinc-950/80 focus:duration-300 duration-300 backdrop-blur-xl rounded-3xl outline-none border border-zinc-800/80 p-2 px-3 items-center text-left text-gray-300">
+                            <input id="email" type="text" autocomplete="email username" class="w-full bg-zinc-950/50 focus:bg-zinc-950/80 focus:duration-300 duration-300 backdrop-blur-xl rounded-3xl outline-none border border-zinc-800/80 p-2 px-3 items-center text-left text-gray-300">
                         </div>
                         <div class="w-full text-left">
                             <span class="text-gray-400 text-left text-sm pl-2">Password:</span>
-                            <input id="password" type="password" class="w-full bg-zinc-950/50 focus:bg-zinc-950/80 focus:duration-300 duration-300 backdrop-blur-xl rounded-3xl outline-none border border-zinc-800/80 p-2 px-3 items-center text-left text-gray-300">
+                            <input id="password" type="password" autocomplete="current-password" class="w-full bg-zinc-950/50 focus:bg-zinc-950/80 focus:duration-300 duration-300 backdrop-blur-xl rounded-3xl outline-none border border-zinc-800/80 p-2 px-3 items-center text-left text-gray-300">
                         </div>
                     </div>
                         <div class="mt-6">
                             <button onclick="submit()" id="submitButton" class="w-full bg-zinc-950/50 hover:bg-zinc-950/80 hover:duration-300 duration-300 backdrop-blur-xl rounded-3xl border border-zinc-800/80 p-2 items-center text-center text-gray-300">Continue</button>
                         </div>
-                        <div class="mt-4"></div>
+                        <div class="my-4">
+                            <span class="text-zinc-400 text-xs font-bold hidden" id="Oauth2">OR CONTINUE WITH</span>
+                            <div class="w-full flex space-x-4 items-center justify-center mt-2" id="authGateways"></div>
+                        </div>
                         <span class="text-sm text-gray-400">New to <%= appearance.name %>? <a class="text-gray-300" href="/register">Get started now!</a></span>
                   </div>
               </div>
@@ -75,6 +78,25 @@
         } catch (error) {
             toastr.error(error)
             c.innerHTML = `Continue`
+        }
+    }
+    window.onload = async () => {
+        let a = await fetch('/api/auth/gateways')
+        let b = await a.json()
+        let c = document.getElementById("authGateways")
+        let d = []
+        let e = document.getElementById("Oauth2")
+        for (let i of b.data) {
+            d.push(`
+            <div onclick="location.href='/auth/${i.name}'" class="w-max cursor-pointer px-4 py-4 border border-zinc-800/80 bg-zinc-950/50 rounded-xl text-center flex flex-col items-center justify-center">
+                <img src="${i.logo}" class="w-auto h-4">
+            </div>
+            `)
+        }
+        c.innerHTML = d.join('')
+        e.classList.remove("hidden")
+        if (b.data.length === 0) {
+            e.classList.add("hidden")
         }
     }
 </script>

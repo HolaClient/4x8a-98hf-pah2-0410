@@ -17,7 +17,7 @@
  * @version 1
  *
  *--------------------------------------------------------------------------
- * vm.js - Anti-PteroVM handler.
+ * anti-vm.js - Anti-PteroVM handler.
  *--------------------------------------------------------------------------
 */
 /**
@@ -26,135 +26,52 @@
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    const pterodactyl = await db.get("pterodactyl", "settings") || {}
-    const config = await db.get("settings", "antipterovm") || {}
-    let sus = []
-    try {
-        let x = await fetch('https://cdn.holaclientx.tech/production/security/suspeciousFiles.json')
-        sus = await x.json()
-    } catch (error) {
-        console.error(error)
-        return
-    }
-    let susServers = []
-    
-    app.get("/api/admin/antivm", core.auth, async (req, res) => {
+    const config = await db.get("settings", "antivm") || {}
+    const host = await db.get("core", "console") || {}
+
+    app.get("/api/admin/antivm", core.admin, async (req, res) => {
         try {
-            cache()
-            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res)}));
+            if (config.enabled === true) {
+                check()
+                return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
+            }
+            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 27);
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
         }
     });
-
-    cache()
-    async function cache() {
-        try {
-            const servers = await ptero.servers()
-            await Promise.all(servers.map(async (c) => {
-                let a = await directory(c, "");
-                let b = await cacheDB.get("pterodactyl-files") || {};
-                b[c.attributes.identifier] = a;
-                await cacheDB.set("pterodactyl-files", b);
-            }));
-            suspend()
-        } catch (error) {
-            console.error(error);
-        }
+    if (host?.license !== undefined && host?.license && config.enabled === true) {
+        check()
+        setInterval(() => {
+            check() 
+        }, 60000 * 5);
     }
-
-    async function directory(f, g) {
+    async function check() {
         try {
-            let e = [];
-            let a = await fetch(`${pterodactyl.domain}/api/client/servers/${f.attributes.identifier}/files/list?directory=${g}`, {
-                method: "GET",
+            let c = crypt.gen88(32)
+            let d = crypt.encrypt(await ptero.servers(), `${c}::${host.secret}`);
+            let a = await fetch(`${host.domain}/api/application/security/anti-vms`, {
+                method: "POST",
                 headers: {
-                    Accept: "application/json",
-                    Authorization: `Bearer ${pterodactyl.acc}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
                 },
+                body: JSON.stringify({ license: host?.license, secret: c, servers: d, config})
             });
-            let b = await a.json();
-            if (!Array.isArray(b.data)) return e;
-            await Promise.all(b.data.map(async (c) => {
-                e.push(c);
-                check(c, f.attributes.identifier)
-                if (c.attributes.mimetype === "inode/directory") {
-                    let d = await directory(f, `${g}/${c.attributes.name}`);
-                    e.push(d);
-                }
-            }));
-            return e;
-        } catch (error) {
-            console.error(error);
-            return {};
-        }
-    }
-
-    async function check(a, id) {
-        let b = sus[config.mode || "MEDIUM"];
-        return new Promise((resolve, reject) => {
-            try {
-                for (let i of b) {
-                    if (i.endsWith("/") && a.attributes.mimetype == "inode/directory" && a.attributes.name == i.slice(0, -1)) {
-                        let c = susServers.find(x => x.file == a.attributes.name)
-                        if (!c) susServers.push({ server: id, file: a.attributes.name });
-                    } else if (i == a.attributes.name) {
-                        susServers.push({ server: id, file: a.attributes.name });
+            let b = await a.json()
+            if (b.success === true) {
+                b.data.forEach(i => {
+                    if (i.action === "suspend") {
+                        ptero.suspend(i.server, i.message)
                     }
-                }
-                resolve();
-            } catch (error) {
-                reject(error);
+                });
+            } else {
+                console.error(b.message)
+                core.log(b.message)
             }
-        });
-    }
-
-    async function suspend() {
-        let a = await ptero.servers();
-        for (let i of a) {
-            let b = susServers.filter(c => c.server === i.attributes.identifier);
-            let c = config.mode || "MEDIUM"
-            if (c == "LOW" && b.length >= 4) {
-                terminate(i, b.length)
-            } else if (c == "MEDIUM" && b.length >= 3) {
-                terminate(i, b.length)
-            } else if (c == "HIGH" && b.length >= 2) {
-                terminate(i, b.length)
-            } else if (c == "STRICT" && b.length >= 1) {
-                terminate(i, b.length)
-            }
-        }
-        return
-    }
-
-    async function terminate(a, b) {
-        try {
-            let e = await fetch(`${pterodactyl.domain}/api/application/servers/${a.attributes.id}/details`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${pterodactyl.app}`,
-                    Accept: "application/vnd.pterodactyl.v1+json"
-                },
-                body: JSON.stringify({
-                    "name": a.attributes.name,
-                    "user": a.attributes.user,
-                    "description": `Server suspended by HolaClientX due to high chances of malicious activities. ${b} suspicious files have been found.`
-                })
-            });
-            let c = await fetch(`${pterodactyl.domain}/api/application/servers/${a.attributes.id}/suspend`, {
-                "method": "POST",
-                "headers": {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${pterodactyl.app}`,
-                }
-            });
-            core.log(`${a.attributes.name} has been suspended for suspecious activities (${b} suspecious files found).`);
         } catch (error) {
             console.error(error)
-            return
         }
     };
 

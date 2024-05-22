@@ -50,7 +50,14 @@ async function seed() {
             guilds: "",
             rewards: {
                 coins: 0,
-                resources: {}
+                resources: {
+                    memory: "",
+                    disk: "",
+                    cpu: "",
+                    allocations: "",
+                    backups: "",
+                    databases: ""
+                }
             }
         },
         webhook: {
@@ -59,7 +66,7 @@ async function seed() {
         }
     }
     let b = await db.get("core", "authenticators") || [];
-    if (b.find(i => i == "discord") == undefined) b.push("discord");
+    if (b.find(i => i == "discord") == undefined) b.push({"name": "discord", "logo": "https://cdn.holaclientx.tech/production/assets/logo_discord.png"});
     await db.set("core", "authenticators", b);
     await db.set("discord", "settings", a);
 };

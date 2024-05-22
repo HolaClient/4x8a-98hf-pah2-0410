@@ -31,28 +31,21 @@ const crypto = require('crypto')
 const crypt = require('./crypt')
 /**
  *--------------------------------------------------------------------------
- * Exporting gen(88, 62, 52, 36), base64(x), hash, encrypt, decrypt & cookies.
+ * Exporting gen(88, 62, 52, 36, 10), base64(x), hash, encrypt & decrypt.
  *--------------------------------------------------------------------------
 */
-module.exports.gen88 = function (a) {
-    const b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?';
-    return generate(a, b);
-};
+const gens = {
+    "88": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?",
+    "62": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    "52": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+    "36": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    "26": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "10": "1234567890"
+}
 
-module.exports.gen62 = function (a) {
-    const b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    return generate(a, b);
-};
-
-module.exports.gen52 = function (a) {
-    const b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    return generate(a, b);
-};
-
-module.exports.gen36 = function (a) {
-    const b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    return generate(a, b);
-};
+for ([i, j] of Object.entries(gens)) {
+    module.exports[`gen${i}`] = (a) => { return generate(a, j); };
+}
 
 module.exports.base64 = function (a) {
     return `base64:${Buffer.from(crypt.gen62(a), 'utf-8').toString('base64')}`
@@ -78,74 +71,43 @@ module.exports.hash = function (key) {
     }
     return hash(check(key));
 };
-
-module.exports.encrypt = function (l) {
-    const a = process.env.APP_KEY;
-
-    function b(c) {
-        const d = 32;
-        const e = Buffer.from(c, 'utf-8').length;
-
-        if (e < d) {
-            const f = d - e;
-            const g = Buffer.alloc(f, '\0');
-            return Buffer.concat([Buffer.from(c, 'utf-8'), g], d);
-        } else if (e > d) {
-            return Buffer.from(c, 'utf-8').slice(0, d);
-        }
-
-        return Buffer.from(c, 'utf-8');
+function getKey(key) {
+    const a = 32;
+    const b = Buffer.from(key, 'utf-8');
+    if (b.length < a) {
+        const c = Buffer.alloc(a);
+        b.copy(c);
+        return c;
+    } else if (b.length > a) {
+        return b.slice(0, a);
     }
-
-    const h = b(a);
-    const i = crypto.randomBytes(16);
-    const j = crypto.createCipheriv('aes-256-cbc', h, i);
-    let k = j.update(l, 'utf-8', 'hex');
-    k += j.final('hex');
-    return { iv: i.toString('hex'), hash: k };
-};
-
-module.exports.decrypt = function (l) {
-    const m = process.env.APP_KEY;
-    
-    function n(o) {
-        const p = 32;
-        const q = Buffer.from(o, 'utf-8').length;
-
-        if (q < p) {
-            const r = p - q;
-            const s = Buffer.alloc(r, '\0');
-            return Buffer.concat([Buffer.from(o, 'utf-8'), s], p);
-        } else if (q > p) {
-            return Buffer.from(o, 'utf-8').slice(0, p);
-        }
-
-        return Buffer.from(o, 'utf-8');
-    }
-
-    const t = n(m);
-    const u = crypto.createDecipheriv('aes-256-cbc', t, Buffer.from(l.iv, 'hex'));
-    let v = u.update(l.hash, 'hex', 'utf-8');
-    v += u.final('utf-8');
-    return v;
-};
-
-module.exports.cookie = function (req, cname) {
-    let cookies = req.headers.cookie;
-    if (!cookies) return null;
-    let name = cname + "=";
-    let ca = cookies.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return decodeURIComponent(c.substring(name.length, c.length));
-        }
-    }
-    return "";
+    return b;
 }
+module.exports.encrypt = function (a, b) {
+    const c = crypto.randomBytes(16);
+    const d = crypto.createCipheriv('aes-256-cbc', b ? getKey(b) : getKey(process.env.APP_KEY), c);
+    let e = d.update(a, 'utf-8', 'hex');
+    e += d.final('hex');
+    const f = getKey(process.env.APP_HMAC);
+    const g = crypto.createHmac('sha256', f);
+    g.update(e);
+    return { iv: c.toString('hex'), hash: e, hmac: g.digest('hex') };
+};
+module.exports.decrypt = function (a, b) {
+    const c = Buffer.from(a.iv, 'hex');
+    const d = crypto.createDecipheriv('aes-256-cbc', b ? getKey(b) : getKey(process.env.APP_KEY), c);
+    let e = d.update(a.hash, 'hex', 'utf-8');
+    e += d.final('utf-8');
+    const f = getKey(process.env.APP_HMAC);
+    const g = crypto.createHmac('sha256', f);
+    g.update(a.hash);
+    const h = g.digest('hex');
+    if (h !== a.hmac) {
+        console.error(`HMAC mismatch. Possible tampering detected! ${JSON.stringify(a)}`);
+        return '';
+    }
+    return e;
+};
 function generate(a, b) {
     const c = crypto.randomBytes(a);
     let d = '';

@@ -47,7 +47,9 @@ async function seed() {
         lifespan: 3600
     }
     let b = await db.get("core", "billers") || [];
-    if (b.find(i => i == "cryptomus") == undefined) b.push("cryptomus");
+    if (!b.includes("cryptomus")) {
+        b.push("cryptomus");
+    }
     await db.set("core", "billers", b);
     await db.set("cryptomus", "settings", a);
 };

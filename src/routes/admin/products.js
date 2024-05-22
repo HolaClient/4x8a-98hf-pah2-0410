@@ -28,7 +28,13 @@
 module.exports = async function () {
     app.get("/api/admin/products", core.admin, async (req, res) => {
         try {
-            return core.json(req, res, true, "SUCCESS", await db.get("products", "list") || [])
+            let a = await db.get("products", "categories") || []
+            let b = await db.get("products", "list") || []
+            for (let i of a) {
+                let c = b.filter(j => j.category == i.name.toLowerCase())
+                i["products"] = c.length
+            }
+            return core.json(req, res, true, "SUCCESS", {products: b, categories: a});
         } catch (error) {
             handle(error, "Minor", 29)
             return core.json(req, res, false, "ERROR", error)
@@ -41,7 +47,7 @@ module.exports = async function () {
             let b = await db.get("core", "lastproduct") ?? 0
             let c = req.body
             if (!c.name || !c.type || !c.coins || !c.credits || !c.icon) return core.json(req, res, false, "MISSING")
-            c.id = parseInt(b) + 1
+            c["id"] = parseInt(b) + 1
             let d = a.find(i => i.id == c.id)
             if (d !== undefined) c.id = a.length + 1
             a.push(c)
@@ -74,7 +80,7 @@ module.exports = async function () {
         try {
             let a = await db.get("products", "list") || []
             let c = req.body
-            c.id = parseInt(c.id)
+            c["id"] = parseInt(c.id)
             let b = a.findIndex(i => i.id == c.id)
             if (b == -1) return core.json(req, res, false, "INVALID")
             a = a.filter(i => i.id !== req.body.id);

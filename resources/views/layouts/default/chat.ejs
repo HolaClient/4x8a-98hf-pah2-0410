@@ -8,7 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
-            <div class="h-screen max-h-screen -mt-28 md:mt-0">
+            <div class="h-screen max-h-screen overflow-hidden -mt-28 md:mt-0">
                 <div class="fixed pt-20 md:pt-0 z-50 bg-zinc-950 w-full">
                     <div class="flex space-x-4 items-center">
                         <div
@@ -29,13 +29,14 @@
                     <div class="w-full bg-zinc-900 px-5 rounded-full h-0.5 mt-4"></div>
                 </div>
                 <div class="h-full overflow-y-scroll relative">
-                    <img onload="messages()" src="https://cdn.holaclient.tech/logo.png" class="w-0 h-0">
-                    <div id="messages" class="flex flex-col pb-20 relative mt-20 -pt-40 my-8 space-y-1 w-full"></div>
+                    <img onload="messages()" src="https://cdn.holaclientx.tech/logo.png" class="w-0 h-0">
+                    <div id="messages" class="flex flex-col pb-20 relative mt-36 md:mt-16 -pt-40 my-8 space-y-1 w-full"></div>
                 </div>
             </div>
-            <div class="bottom-0 md:pb-8 fixed w-full items-center flex justify-between bg-zinc-950 p-2">
-                <div class="rounded-xl w-full flex items-center space-x-2 text-gray-300 bg-zinc-900/80">
-                    <input id="msgInput" onkeydown="send(event)" placeholder="Send a message..." type="text" class="bg-transparent p-3 outline-none w-full text-gray-200">
+            <div class="bottom-0 md:pb-12 fixed w-full pr-8 items-center flex justify-between bg-zinc-950 p-2">
+                <div class="relative rounded-xl w-full mb-8 flex items-end justify-end space-x-2 text-gray-300 bg-zinc-900/80">
+                    <button onclick="send()" class="absolute bottom-1.5 right-2 py-1.5 px-3 w-max bg-zinc-950/70 rounded-xl">Send</button>
+                    <textarea id="msgInput" onkeydown="messageInput(event)" rows="1" maxlength="2048" autocomplete="off" placeholder="Send a message..." type="text" class="bg-transparent p-3 outline-none w-full text-gray-200"></textarea>
                 </div>
             </div>
             </div>

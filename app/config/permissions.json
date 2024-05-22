@@ -160,6 +160,12 @@
                 "path": "products/create.ejs"
             },
             {
+                "route": "/admin/categories/create",
+                "requireAuth": true,
+                "permission": 100,
+                "path": "products/categories/create.ejs"
+            },
+            {
                 "route": "/admin/permissions",
                 "requireAuth": true,
                 "permission": 100,

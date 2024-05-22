@@ -22,21 +22,24 @@
 */
 const modules = require('../../src/utils/modules.js')
 const readline = require('readline');
-
+const { Console } = require('console');
 module.exports = function () {
+    const a = new Console(process.stdout);
+    a.error = () => {};
+    global.console = a;
     console.log(chalk.white("======================================================="));
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
     rl.question('Username: ', async (username) => {
-        if (!username) { console.log(`This is a required field!`); process.exit()};
+        if (!username) { console.log(`This is a required field!`); process.exit() };
         rl.question('Email: ', async (email) => {
-            if (!username) { console.log(`This is a required field!`); process.exit()};
+            if (!username) { console.log(`This is a required field!`); process.exit() };
             rl.question('First name: ', async (first) => {
-                if (!username) { console.log(`This is a required field!`); process.exit()};
+                if (!username) { console.log(`This is a required field!`); process.exit() };
                 rl.question('Last name: ', async (last) => {
-                    if (!username) { console.log(`This is a required field!`); process.exit()};
+                    if (!username) { console.log(`This is a required field!`); process.exit() };
                     rl.question('Permission integer: ', async (permission) => {
                         rl.question('Password (leave empty to generate): ', async (password) => {
                             const users = await db.get("users", "users") || [];
@@ -46,12 +49,12 @@ module.exports = function () {
                                     console.log(chalk.white("======================================================="));
                                     console.log(`${chalk.white(`Username is already assigned to ${i.id}`)}`);
                                     console.log(chalk.white("======================================================="));
-                                    process.kill()
+                                    process.exit()
                                 } else if (user.email === email) {
                                     console.log(chalk.white("======================================================="));
                                     console.log(`${chalk.white(`Email is already assigned to ${i.id}`)}`);
                                     console.log(chalk.white("======================================================="));
-                                    process.kill()
+                                    process.exit()
                                 }
                             }));
                             await create(email, username, first, last, permission, password);
@@ -69,7 +72,7 @@ async function create(email, username, first, last, permission, password) {
     let lastUser = await db.get("core", "lastuser") ?? 0;
     let id = parseInt(lastUser) + 1;
     if (!password) password = crypt.gen88(12);
-    let roles = await db.get("permissions", "roles");
+    let roles = await db.get("permissions", "roles") || [];
     let role;
     for (let i of roles) {
         let roleData = await db.get("permissions", i);
@@ -145,14 +148,14 @@ async function create(email, username, first, last, permission, password) {
             total: packages.list[packages.default].resources.backups
         }
     };
-    user.password = password
-    await queue.add.user(user);
     await db.set("users", "users", users);
     await db.set("core", "lastuser", id);
     await db.set('users', id, user);
     await db.set('permissions', id, user.permissions);
     await db.set("resources", id, resources)
     await db.set('economy', id, balance);
+    user.password = password
+    await queue.add.user(user);
     console.log(chalk.white("======================================================="));
     console.log(`${chalk.white('An user with the below details will be created soon.')}`)
     console.log(`${chalk.white(`Username: ${username}`)}`);

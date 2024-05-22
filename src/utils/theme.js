@@ -87,6 +87,7 @@ module.exports.error = async function (page, req, res) {
         ejs.renderFile(`./resources/views/errors/${page}.ejs`, null,
             function (error, str) {
                 res.setHeader('Content-Type', 'text/html');
+                res.setHeader('X-Powered-By', 'HolaClient-X1');
                 if (error) {
                     console.error(error);
                     return res.end(fallback.error500(error));

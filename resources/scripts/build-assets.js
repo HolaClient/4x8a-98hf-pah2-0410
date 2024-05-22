@@ -1,8 +1,7 @@
 var UJS = require("uglify-js");
 var UCS = require('uglifycss');
 const fs = require('fs').promises;
-const path = require('path');
-const chalk = require('chalk')
+const modules = require('../../src/utils/modules.js')
 
 async function main() {
     try {

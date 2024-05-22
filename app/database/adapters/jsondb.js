@@ -1,57 +1,63 @@
 const fs = require('fs/promises');
 const path = require('path');
 
-let cache = []
+//let cache = []
 
 async function set(a, b, c) {
     const d = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     let e;
     try {
         e = await fs.readFile(d, 'utf-8');
-        const f = JSON.parse(e);
+        let f = JSON.parse(e);
         f[b] = c;
+        const g = JSON.stringify(f, null, 2);
+        try {
+            JSON.parse(g);
+        } catch (err) {
+            console.error(`Invalid JSON format at table ${a}. Running auto-fixer.`);
+            f = JSON.parse(e);
+        }
         await fs.writeFile(d, JSON.stringify(f, null, 2));
-    } catch (g) {
-        if (g.code === 'ENOENT') {
+    } catch (error) {
+        if (error.code === 'ENOENT') {
             const h = { [b]: c };
             await fs.writeFile(d, JSON.stringify(h, null, 2));
         } else {
-            console.error('Error in set:', g);
+            console.error('Error in set:', error);
             await fs.writeFile(d, '{}');
             if (e) {
                 await fs.writeFile(d, e);
             }
-            throw g;
+            console.error(error)
+            return
         }
+        return
     }
+    return
 }
 
 async function get(a, b) {
-    if (cache[a]) {
-        return (cache[a]).b
-    } else {
-        const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
-        return fs.readFile(c, 'utf-8')
-            .then(d => {
-                const e = JSON.parse(d || '{}');
+    const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
+    return fs.readFile(c, 'utf-8')
+        .then(d => {
+            const e = JSON.parse(d || '{}');
 
-                if (e && e[b] !== undefined) {
-                    return e[b];
-                } else {
-                    return null;
-                }
-            })
-            .catch(f => {
-                if (f.code === 'ENOENT') {
-                    const g = {};
-                    return fs.writeFile(c, JSON.stringify(g, null, 2))
-                        .then(() => undefined);
-                } else {
-                    console.error('Error in get:', f);
-                    throw f;
-                }
-            });
-    }
+            if (e && e[b] !== undefined) {
+                return e[b];
+            } else {
+                return null;
+            }
+        })
+        .catch(f => {
+            if (f.code === 'ENOENT') {
+                const g = {};
+                return fs.writeFile(c, JSON.stringify(g, null, 2))
+                    .then(() => undefined);
+            } else {
+                console.error('Error in get:', f);
+                return
+            }
+        });
 }
 
 async function remove(a, b) {
@@ -69,7 +75,7 @@ async function remove(a, b) {
         })
         .catch(f => {
             console.error('Error in remove:', f);
-            throw f;
+            return
         });
 }
 
@@ -80,7 +86,7 @@ async function reset(a) {
         .then(() => true)
         .catch(d => {
             console.error('Error in reset:', d);
-            throw d;
+            return
         });
 }
 
@@ -106,7 +112,7 @@ async function scan(a, b) {
                 return {};
             } else {
                 console.error('Error in scan:', h);
-                throw h;
+                return
             }
         });
 }
@@ -123,7 +129,7 @@ async function exists(a, b) {
                 return false;
             } else {
                 console.error('Error in exists:', f);
-                throw f;
+                return
             }
         });
 }
@@ -146,9 +152,10 @@ async function load() {
         for (let i of b) {
             if (i.endsWith(".json")) {
                 let c = await fs.readFile(path.join(a, i), 'utf-8')
-                cache[i] = JSON.parse(c)
+                //cache[i] = JSON.parse(c)
             }
         }
+        return
     } catch (error) {
         console.error(error)
         return

@@ -32,7 +32,7 @@ const modules = require('../../../src/utils/modules.js')
  *--------------------------------------------------------------------------
 */
 module.exports = async function (db) {
-    let a = await db.get('core', "lastuser");
+    let a = await db.get('users', "0");
     if (!a) {
         await db.set('users', "0", {
             nickname: "System",
@@ -56,7 +56,7 @@ module.exports = async function (db) {
             },
             sessions: {
                 status: true,
-                secret: `hc.ss_${crypt.gen88(12)}privtIsADickHead${crypt.gen88(12)}`
+                secret: `hc.ss_${crypt.gen88(12)}HeliactylSucks${crypt.gen88(12)}`
             }
         });
         await db.set('permissions', 0, {
@@ -106,6 +106,12 @@ module.exports = async function (db) {
         },
         warranty: "Active"
     });
+    let d = await db.get("core", "authenticators")
+    if (!d) await db.set("core", "authenticators", []);
+    let e = await db.get("core", "billers")
+    if (!e) await db.set("core", "billers", []);
+    let f = await db.get('core', "lastuser");
+    if (!f) await db.set("core", "lastuser", 0)
 };
 /**
  *--------------------------------------------------------------------------
