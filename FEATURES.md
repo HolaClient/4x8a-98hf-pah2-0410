@@ -77,7 +77,7 @@
 
 ## Coming soon
 * A lot, can't reveal tho.
-* 91 features will be included on X1 where 4 are premium.
+* 92 features will be included on X1 where 4 are premium.
 ---
 
 <p align="center">
