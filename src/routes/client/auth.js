@@ -38,16 +38,47 @@ module.exports = async function () {
         }
     });
 
+    app.get("/logout", core.auth, (req, res) => {
+        try {
+            if (!req.session.userinfo) {
+                res.statusCode = 302;
+                res.setHeader('Location', '/');
+                return res.end();
+            }
+            core.delCookie(res, "hc.sk")
+            req.session.destroy(() => {
+                res.statusCode = 302;
+                res.setHeader('Location', '/');
+                return res.end();
+            });
+        } catch (error) {
+            console.error(error)
+        }
+    });
+
+    app.get("/auth/password", core.auth, async (req, res) => {
+        try {
+            let a = await db.get("users", req.session.userinfo.id)
+            let b = crypt.gen88(12)
+            a["password"] = crypt.encrypt(b)
+            await db.set("users", req.session.userinfo.id, a)
+            return core.json(req, res, true, "SUCCESS", b)
+        } catch (error) {
+            console.error(error)
+            return core.json(req, res, false, "ERROR", error)
+        }
+    });
+
     app.post("/auth/email", async (req, res) => {
         try {
             if (req.session.userinfo) return core.json(req, res, true, "SUCCESS");
             let a = req.body;
             if (!a || !a.email || !a.password) return core.json(req, res, false, "MISSING");
-            let b = await usersCache.getAll();
-            let c = Object.values(b).find(i => i.email === a.email || i.username === a.email);
+            let b = await db.get("users", "users") || [];
+            let c = b.find(i => i.email === a.email || i.username === a.email);
             if (!c) return core.json(req, res, false, "404");
-            if (crypt.decrypt(c.password) !== a.password) return core.json(req, res, false, "WRONGSECRET");
-            let d = c
+            let d = await db.get("users", c.id)
+            if (crypt.decrypt(d.password) !== a.password) return core.json(req, res, false, "WRONGSECRET");
             d.sessions["key"] = `hc.sk_${crypt.gen88(64)}`
             await db.set("users", c.id, d)
             req.session.userinfo = d;
@@ -65,6 +96,17 @@ module.exports = async function () {
     app.post("/auth/email/register", async (req, res) => {
         try {
             if (req.session.userinfo) return core.json(req, res, true, "SUCCESS");
+            let f = await db.get("settings", "authentication")
+            if (f.enabled !== true) return core.json(req, res, false, "INACTIVE");
+            if (f.antialt.cookies === true) {
+                let g = core.getCookie(req, "user")
+                if (g) return core.json(req, res, false, "ALTACC");
+            }
+            if (f.antialt.ip === true) {
+                let a = await db.get("ips", "ips") || []
+                let b = a.find(i => i.ip == req.ip)
+                if (b) return core.json(req, res, false, "ALTACC");
+            }
             let a = req.body;
             if (!a || !a.email || !a.username || !a.password) return core.json(req, res, false, "MISSING");
             let b = await usersCache.getAll();
@@ -97,25 +139,12 @@ module.exports = async function () {
             let e = crypt.encrypt(d?.sessions?.key || req.session.userinfo.sessions.key, d.session.secret || req.session.userinfo.sessions.secret);
             e["user"] = d.id
             core.setCookie(res, "hc.sk", JSON.stringify(e))
+            core.setCookie(res, "user", d.id)
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {
             console.error(error)
             return core.json(req, res, false, "ERROR", error)
         }
-    });
-
-    app.get("/logout", core.auth, (req, res) => {
-        if (!req.session.userinfo) {
-            res.statusCode = 302;
-            res.setHeader('Location', '/');
-            return res.end();
-        }
-        core.delCookie(res, "hc.sk")
-        req.session.destroy(() => {
-            res.statusCode = 302;
-            res.setHeader('Location', '/');
-            return res.end();
-        });
     });
 }
 /**
