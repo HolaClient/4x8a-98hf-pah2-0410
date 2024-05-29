@@ -1,5 +1,5 @@
 const Keyv = require('keyv');
-const env = require('dotenv').config()
+process.loadEnvFile('.env')
 
 const SELECT = (b) => {
     return new Keyv(`mysql://${process.env.MYSQL_USERNAME}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}/${process.env.MYSQL_DATABASE}`, { table: b });

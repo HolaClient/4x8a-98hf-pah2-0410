@@ -8,6 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
+              <img src="https://cdn.holaclientx.tech/logo.png" onload="nodesOnLoad(), pushEggs(), pushNodes()" class="w-0 h-0" alt="logo">
                 <div class="flex space-x-4 items-center">
                     <div
                         class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
@@ -21,20 +22,20 @@
                 <div class="lg:flex mt-4 lg:justify-between">
                   <div class="w-full">
                     <div class="mb-4 rounded-xl">
-                      <ul class="text-sm font-medium text-center text-gray-300 divide-x divide-gray-800/80 rounded-xl shadow sm:flex" id="resourceTab" data-tabs-toggle="#settings" role="tablist">
-                        <li class="w-full" role="presentation">
-                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl" data-tabs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="false">General</button>
+                      <ul class="text-sm font-medium text-center text-gray-300 divide-x divide-gray-800/80 rounded-xl shadow sm:flex">
+                        <li class="w-full" role="presentation" id="tab-general" onclick="showTab1('general')">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl">General</button>
                         </li>
-                        <li class="w-full" role="presentation">
-                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300" data-tabs-target="#nodes" type="button" role="tab" aria-controls="nodes" aria-selected="false">Nodes</button>
+                        <li class="w-full" role="presentation" id="tab-nodes" onclick="showTab1('nodes')">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300">Nodes</button>
                         </li>
-                        <li class="w-full" role="presentation">
-                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300" data-tabs-target="#softwares" type="button" role="tab" aria-controls="softwares" aria-selected="false">Softwares</button>
+                        <li class="w-full" role="presentation" id="tab-softwares" onclick="showTab1('softwares')">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300">Softwares</button>
                         </li>
                       </ul>
                     </div>
-                    <div id="settings">
-                      <div class="hidden rounded-xl mb-4" id="general" role="tabpanel">
+                    <div>
+                      <div class="rounded-xl mb-4" id="general" role="tabpanel">
                         <div class="flex bg-zinc-900/50 text-gray-300 rounded-xl border border-zinc-800/80 flex-wrap content-start">
                           <h1 class="text-2xl text-gray-100 p-4">General Settings</h1>
                           <hr class="w-full border-b border-zinc-800/80">
@@ -135,173 +136,6 @@
               <span class="text-sm w-full h-full group-hover:px-5 group-hover:duration-300 duration-300 px-3 bg-zinc-900 rounded-xl p-3 tracking-wide text-white">Save Changes</span>
           </a>
       </div>
-        <script>
-          const f = ["pteroDomain", "pteroAPP", "pteroACC", "pteroFees"];
-          const a = {};
-          function b(e) { return document.getElementById(e) };
-          document.addEventListener("DOMContentLoaded", function () { c() });
-          function c() {
-            for (const e of f) {
-              const element = b(e);
-              a[e] = element.value || element.checked;
-              element.addEventListener("input", function () {
-                b("savealert").style.transition = "opacity 0.5s";
-                b("savealert").style.opacity = "1";
-                if (element.value === a[e]) {
-                  b("savealert").style.transition = "opacity 0.5s";
-                  b("savealert").style.opacity = "0";
-                }
-              });
-              element.addEventListener("change", function () {
-                b("savealert").style.transition = "opacity 0.5s";
-                b("savealert").style.opacity = "1";
-                if (element.value === a[e]) {
-                  b("savealert").style.transition = "opacity 0.5s";
-                  b("savealert").style.opacity = "0";
-                }
-              });
-            }
-          }
-          async function submitPtero() {
-            let domain
-            if ((b("pteroDomain").value).endsWith("/")) {
-              domain = b("pteroDomain").value.slice(0, -1)
-            } else {
-              domain = b("pteroDomain").value
-            };
-            let d = await fetch(`/api/admin/settings/pterodactyl`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                domain: domain,
-                app: b("pteroAPP").value,
-                acc: b("pteroACC").value,
-                deployments: {
-                  fees: b("pteroFees").value
-                }
-              })
-            });
-            let e = await d.json()
-            if (e.success == true) {
-              c()
-              b("savealert").style.transition = "opacity 0.5s";
-              b("savealert").style.opacity = "0";
-              toastr.success(e.message, "Success")
-            }
-          }
-          async function pushNodes() {
-            try {
-              let a = await fetch('/api/admin/pterodactyl/nodes');
-              let b = await a.json()
-              if (b.success == true) {
-                let c = document.getElementById("nodesList")
-                c.innerHTML = ""
-                const e = []
-                for (let i of b.data) {
-                  let d = `
-                        <div onclick="render('admin/pterodactyl/nodes/${i.id}')" class="w-full bg-zinc-900/50 cursor-pointer border hover:bg-zinc-900/80 hover:duration-300 duration-300 border-zinc-800/80 rounded-xl p-2">
-                          <div class="flex items-center justify-between">
-                            <div class="flex flex-col justify-start">
-                              <h1 class="text-gray-300">${i.name}</h1>
-                              <span class="text-gray-400">${format((i.memory) / 1024)}GB Memory</span>
-                            </div>
-                            <div class="flex flex-col justify-end text-right">
-                              <h1 class="text-gray-300">${i.relationships.location.attributes.short} - ${i.relationships.location.attributes.long}</h1>
-                              <span class="text-gray-400">${(i.relationships.allocations.data).length} slots</span>
-                            </div>
-                          </div>
-                          <div class="w-full flex items-center text-base space-x-1 mt-2 justify-between">
-                            <div class="progress mt-3 h-1.5 bg-zinc-800">
-                              <div class="is-active relative w-[${format((i.relationships.servers.data.length / i.relationships.allocations.data.length) * 100)}%] overflow-hidden rounded-full bg-amber-500"></div>
-                            </div>
-                            <h1 class="text-gray-300 text-xl">${format((i.relationships.servers.data.length / i.relationships.allocations.data.length) * 100)}%</h1>
-                          </div>
-                          <div class="w-full flex items-center text-base space-x-1 mt-2 justify-between">
-                            <div class="progress mt-3 h-1.5 bg-zinc-800">
-                              <div class="is-active relative w-[${format((i.allocated_resources.memory / i.memory) * 100)}%] overflow-hidden rounded-full bg-sky-500"></div>
-                            </div>
-                            <h1 class="text-gray-300 text-xl">${format((i.allocated_resources.memory / i.memory) * 100)}%</h1>
-                          </div>
-                          <div class="w-full flex items-center text-base space-x-1 mt-2 justify-between">
-                            <div class="progress mt-3 h-1.5 bg-zinc-800">
-                              <div class="is-active relative w-[${format((i.allocated_resources.disk / i.disk) * 100)}%] overflow-hidden rounded-full bg-purple-500"></div>
-                            </div>
-                            <h1 class="text-gray-300 text-xl">${format((i.allocated_resources.disk / i.disk) * 100)}%</h1>
-                          </div>
-                          <div class="w-full flex items-center text-base space-x-1 mt-2 justify-between">
-                            <div class="progress mt-3 h-1.5 bg-zinc-800">
-                              <div class="is-active relative w-[${format(((i.allocated_resources.disk / i.disk) + (i.relationships.servers.data.length / i.relationships.allocations.data.length) + (i.relationships.servers.data.length / i.relationships.allocations.data.length)) / 3 * 100)}%] overflow-hidden rounded-full bg-rose-500"></div>
-                            </div>
-                            <h1 class="text-gray-300 text-xl">${format(((i.allocated_resources.disk / i.disk) + (i.relationships.servers.data.length / i.relationships.allocations.data.length) + (i.relationships.servers.data.length / i.relationships.allocations.data.length)) / 3 * 100)}%</h1>
-                          </div>
-                        </div>`
-                  e.push(d)
-                }
-                if (b.data.length == 0) e.push(`<div class="w-full col-span-3 flex items-center justify-center py-4 md:py-8 lg:py-12 xl:py-16">
-                      <span class="text-lg text-gray-300">Nothing to view here, add nodes to continue...</span></div>`)
-                c.innerHTML = e
-              }
-            } catch (error) {
-              toastr.error(error)
-            }
-          }
-          async function pushEggs() {
-            try {
-              const a = await fetch('/api/admin/pterodactyl/eggs');
-              const b = await a.json();
-              if (b.success) {
-                const c = document.getElementById("eggsList");
-                c.innerHTML = "";
-                const d = await Promise.all(b.data.map(async (egg) => {
-                  return `<div onclick="deleteEgg(${egg.id})" class="w-full flex justify-center items-center backdrop-blur-xl cursor-pointer hover:bg-transparent hover:duration-300 duration-300 shadow-md bg-zinc-900 text-center rounded-full py-2 border border-zinc-800/80">${egg.name}</div>`;
-                }));
-                if (d.length === 0) {
-                  d.push(`<div class="w-full col-span-5 flex items-center justify-center py-4 md:py-8 lg:py-12 xl:py-16">
-                        <span class="text-lg text-gray-300">Nothing to view here, add nodes to continue...</span></div>`);
-                }
-                c.innerHTML = d.join('');
-              }
-            } catch (error) {
-              toastr.error(error);
-            }
-          }
-          pushEggs()
-          pushNodes()
-          async function deleteEgg(a) {
-            Swal.fire({
-              title: 'Confirm Deletion',
-              text: "Please confirm if you want to remove this software. This will not affect any of the servers!",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonText: 'Yes',
-              cancelButtonText: 'No',
-            }).then(async (result) => {
-              if (result.isConfirmed) {
-                try {
-                  let c = await fetch(`/api/admin/pterodactyl/eggs`, {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ id: a })
-                  });
-                  let b = await c.json();
-                  if (b.success == true) {
-                    toastr.success(b.message, "Success!");
-                    pushEggs()
-                  } else {
-                    toastr.error(b.message, "Error!");
-                  }
-                } catch (error) {
-                  toastr.error('An error occurred while processing your request. ' + error, "Error!");
-                }
-              }
-            });
-          }
-
-        </script>
             <%- include('../partials/footer') %>
         </div>
     </div>

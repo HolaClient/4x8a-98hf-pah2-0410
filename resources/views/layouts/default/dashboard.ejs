@@ -8,6 +8,7 @@
             <main
                 class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
                 <div id="content">
+                    <img src="https://cdn.holaclientx.tech/logo.png" class="w-0 h-0" alt="logo" onload="dashboardpage()">
                     <div class="flex space-x-4 items-center">
                         <div
                             class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
@@ -24,7 +25,7 @@
                             <span class="text-gray-300 text-md"><%= lang.dashboard.homeText %></span>
                         </div>
                     </div>
-                    <div class="md:flex justify-between w-full mt-4 items-center">
+                    <div class="w-full mt-4 items-center">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-4">
                             <div
                                 class="flex flex-col justify-center overflow-hidden items-center bg-zinc-900/50 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-3xl p-3">
@@ -175,6 +176,25 @@
                                 </div>
                                 <h1 class="text-gray-200 mt-2 text-3xl font-karla"><%= resources.databases.total - resources.databases.used %></h1> <span class="text-gray-300">of
                                     <%= resources.databases.total %></span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 mt-4 md:mt-8">
+                            <div id="hoverBox" class="relative overflow-hidden w-full md:col-start-2 rounded-xl">
+                                <div class="w-ful flex relative z-20 flex-col items-center justify-center rounded-xl overflow-hidden bg-zinc-900/50 border-t border-zinc-100/10 shadow shadow-black">
+                                    <div class="p-4">
+                                        <h1 class="text-transparent font-raleway text-center bg-gradient-to-br from-white to-transparent bg-clip-text text-2xl font-bold">
+                                            HolaClient-<span class="font-karla">X0</span> beta advisory
+                                        </h1>
+                                        <p class="mt-4 w-full text-center text-zinc-400">
+                                            Please note that this software is currently in its beta phase. Use it at your own risk. Support is limited at this time and is only available for major outages. If you encounter any bugs, please report them on our <a target="_blank" href="https://discord.gg/CvqRH9TrYK" class="text-zinc-300">Discord server</a>, via <a target="_blank" href="mailto:support@holaclientx.tech" class="text-zinc-300">Email</a>, or on <a target="_blank" href="https://github.com/HolaClient/X" class="text-zinc-300">GitHub</a>. Thanks for using HolaClient-X0!
+                                        </p>
+                                        <p class="mt-4 text-center w-full text-zinc-400">
+                                            CR072<br>
+                                            May 31, 2024
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="cursorBG" class="absolute -z-10 bg-cyan-400 p-4 blur-xl rounded-full pointer-events-none"></div>
                             </div>
                         </div>
                     </div>

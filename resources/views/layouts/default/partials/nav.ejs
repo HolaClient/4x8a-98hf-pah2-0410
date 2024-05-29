@@ -2,7 +2,7 @@
     <div class="flex flex-wrap justify-between items-center">
         <div class="flex justify-start items-center">
             <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
-                aria-controls="drawer-navigation"
+                aria-controls="drawer-navigation" aria-label="nothing"
                 class="p-2 mr-2 rounded-lg cursor-pointer md:hidden text-gray-400 hover:text-white">
                 <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@
             </h1>
         </div>
         <div class="flex mr-4 lg:mr-8 items-center lg:order-2">
-            <button onclick="render('notifications')"
+            <button onclick="render('notifications')" aria-label="notifications"
                 class="p-2 mr-1 rounded-lg text-gray-400 hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
@@ -31,8 +31,8 @@
                 </svg>
             </button>
             <button class="flex mx-3 text-sm rounded-full md:mr-0" id="user-menu-button"
-                aria-expanded="false" data-dropdown-toggle="dropdown">
-                <img class="w-8 h-8 rounded-full" src="<%= userinfo.avatar %>" />
+                aria-expanded="false" data-dropdown-toggle="dropdown" aria-label="user dropdown">
+                <img class="w-8 h-8 rounded-full" src="<%= userinfo.avatar %>" aria-label="user avatar" />
             </button>
             <div class="hidden z-30 my-4 w-56 relative text-base list-none divide-y shadow bg-zinc-950 border border-zinc-800/80 divide-zinc-800/80 rounded-xl"
                 id="dropdown">

@@ -4,11 +4,11 @@
         class="overflow-y-auto overflow-x-hidden bg-zinc-950/90 md:bg-gradient-to-br from-[#090b0a] to-transparent md:pt-5 p-2 text-center h-full">
         <ul class="space-y-2 relatie mt-20 pt-4 md:mt-0 text-center mx-auto">
                 <li>
-                    <a
+                    <a href="https://x.holaclient.io"
                         class="flex flex-col relative justify-center p-4 items-center mx-auto px-2 text-center text-base font-medium rounded-lg group">
                         <span
                             class="text-center bg-gradient-to-br from-white via-gray-100/80 to-transparent bg-clip-text leading-[1.2] tracking-tighter text-transparent font-semibold text-4xl font-nunito"><%= appearance.name %></span>
-                        <img loading="lazy" src="<%= appearance.logo.url %>" class="absolute opacity-30 w-full blur-sm z-10">
+                        <img loading="lazy" src="<%= appearance.logo.url %>" class="absolute opacity-30 w-full blur-sm z-10" alt="logo">
                     </a>
                 </li>
         </ul>
@@ -23,7 +23,7 @@
         </div>
         <ul class="space-y-1 mb-1 md:pb-24 mx-2 pr-4 pt-2 w-full text-left">
             <li>
-                <a onclick="render('licenses')"
+                <span onclick="render('licenses')"
                     class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 backdrop-blur-3xl hover:duration-300 duration-300 hover:bg-zinc-900/80">
                     <div class="p-2 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -31,7 +31,7 @@
                           </svg>
                         <span class="text-lg ml-2 capitalize">Licenses</span>
                     </div>
-                </a>
+                </span>
             </li>
             <% for (let [name, link] of Object.entries(links)) { %>
                 <li>

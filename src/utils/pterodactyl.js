@@ -26,325 +26,113 @@ const db = require('../handlers/database.js')
  * Bunch of codes...
  *--------------------------------------------------------------------------
 */
-//servers
-async function serversRefresh() {
-    try {
-        let pterodactyl = await db.get("pterodactyl", "settings")
-        if (pterodactyl && pterodactyl.domain && pterodactyl.app) {
-            try {
-                let a = 1;
-                let b = 1;
-                let c = [];
-                while (a <= b) {
-                    let d = await fetch(`${pterodactyl.domain}/api/application/servers?per_page=100&page=${a}`, {
-                        method: "GET",
-                        headers: {
-                            Accept: "application/json",
-                            Authorization: `Bearer ${pterodactyl.app}`,
-                        },
-                    });
-                    let e = await d.json();
-                    c.push(...e.data);
-                    b = e.meta.pagination.total_pages;
-                    a++;
-                }
-                await cacheDB.set("pterodactyl-servers", c);
-                updateServers()
-                return c
-            } catch (error) {
-                console.error(error)
-                return
-            }
-        } else {
-            return
-        }
-    } catch (error) {
-        console.error(error)
-        return
-    }
-};
-async function servers() {
-    let a = await cacheDB.get("pterodactyl-servers")
-    if (a) {
-        return a
-    } else {
-        return await serversRefresh()
-    }
-}
-//nodes
-async function nodesRefresh() {
-    let pterodactyl = await db.get("pterodactyl", "settings")
-    if (pterodactyl && pterodactyl.domain && pterodactyl.app) {
-        try {
-            let a = 1;
-            let b = 1;
-            let c = [];
-            while (a <= b) {
-                let d = await fetch(`${pterodactyl.domain}/api/application/nodes?include=allocations,location,servers&per_page=100&page=${a}`, {
-                    method: "GET",
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: `Bearer ${pterodactyl.app}`,
-                    },
-                });
-                let e = await d.json();
-                let k = {}
-                for (let i of e.data) {
-                    k = i
-                    let f = await fetch(`${pterodactyl.domain}/api/application/nodes/${i.attributes.id}/configuration`, {
-                        method: "GET",
-                        headers: {
-                            Accept: "application/json",
-                            Authorization: `Bearer ${pterodactyl.app}`,
-                        },
-                    });
-                    let g = await f.json()
-                    let h = await fetch(`${i.attributes.scheme}://${i.attributes.fqdn}:${i.attributes.daemon_listen}/api/system`, {
-                        method: "GET",
-                        headers: {
-                            Accept: "application/json",
-                            Authorization: `Bearer ${g.token}`,
-                        },
-                    });
-                    let j = await h.json()
-                    k.attributes["cpu"] = j
-                }
-                c.push(k);
-                b = e.meta.pagination.total_pages;
-                a++;
-            }
-            await cacheDB.set("pterodactyl-nodes", c);
-            return c
-        } catch (error) {
-            console.error(error)
-            return
-        }
-    } else {
-        return
-    }
-}
-async function nodes() {
-    let a = await cacheDB.get("pterodactyl-nodes")
-    if (a) {
-        return a
-    } else {
-        return await nodesRefresh()
-    }
-}
-//eggs
-async function eggsRefresh() {
-    try {
-        let pterodactyl = await db.get("pterodactyl", "settings")
-        if (pterodactyl && pterodactyl.domain && pterodactyl.app) {
-            try {
-                let a = 1;
-                let b = 1;
-                let c = [];
-                while (a <= b) {
-                    let d = await fetch(`${pterodactyl.domain}/api/application/nests?include=eggs&per_page=100&page=${a}`, {
-                        method: "GET",
-                        headers: {
-                            Accept: "application/json",
-                            Authorization: `Bearer ${pterodactyl.app}`,
-                        },
-                    });
-                    let e = await d.json();
-                    for (let i of e.data) {
-                        let f = await fetch(`${pterodactyl.domain}/api/application/nests/${i.attributes.id}/eggs?include=config,script,variables`, {
-                            method: "GET",
-                            headers: {
-                                Accept: "application/json",
-                                Authorization: `Bearer ${pterodactyl.app}`,
-                            },
-                        });
-                        let g = await f.json()
-                        i.attributes.relationships.eggs = g
-                        c.push(i)
-                    }
-                    b = e.meta.pagination.total_pages;
-                    a++;
-                }
-                await cacheDB.set("pterodactyl-eggs", c);
-                return c
-            } catch (error) {
-                console.error(error)
-                return
-            }
-        } else {
-            return
-        }
-    } catch (error) {
-        console.error(error)
-        return
-    }
-};
-async function eggs() {
-    let a = await cacheDB.get("pterodactyl-eggs")
-    if (a) {
-        return a
-    } else {
-        return await eggsRefresh()
-    }
-}
-//files
-async function filesRefresh() {
-    try {
-        let pterodactyl = await db.get("pterodactyl", "settings")
-        if (pterodactyl && pterodactyl.domain && pterodactyl.app) {
-            const servers = await servers()
-            await Promise.all(servers.map(async (c) => {
-                let a = await directory(c, "");
-                let b = await cacheDB.get("pterodactyl-files") || {};
-                b[c.attributes.identifier] = a;
-                await cacheDB.set("pterodactyl-files", b);
-            }));
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
-async function directory(f, g) {
-    try {
-        let e = [];
-        let a = await fetch(`${pterodactyl.domain}/api/client/servers/${f.attributes.identifier}/files/list?directory=${g}`, {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${pterodactyl.acc}`,
-            },
-        });
-        let b = await a.json();
-        if (!Array.isArray(b.data)) return e;
-        await Promise.all(b.data.map(async (c) => {
-            e.push(c);
-            if (c.attributes.mimetype === "inode/directory") {
-                let d = await directory(f, `${g}/${c.attributes.name}`);
-                e.push(d);
-            }
-        }));
-        return e;
-    } catch (error) {
-        console.error(error);
-        return {};
-    }
-}
-async function files() {
-    let a = await cacheDB.get("pterodactyl-files")
-    if (a) {
-        return a
-    } else {
-        return await filesRefresh()
-    }
-}
-//misc
-async function verify() {
-    let a = true
-    try {
-        let pterodactyl = await db.get("pterodactyl", "settings")
-        if (pterodactyl && pterodactyl.domain && pterodactyl.app) {
-            let b = await fetch(`${pterodactyl.domain}/api/application/locations`, {
-                "method": "GET",
-                "headers": {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${pterodactyl.app}`,
-                }
-            });
-            let c = await b.json()
-            if (b.status !== 200) {
-                a = false;
-            }
-            let d = await fetch(`${pterodactyl.domain}/api/client/permissions`, {
-                "method": "GET",
-                "headers": {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${pterodactyl.acc}`,
-                }
-            });
-            let e = await d.json()
-            if (b.status !== 200) {
-                a = false;
-            }
-        } else {
-            a = false;
-        }
-        return a
-    } catch (e) {
-        console.error(e)
-        return false
-    }
-}
 async function refresh() {
-    serversRefresh()
-    nodesRefresh()
-    eggsRefresh()
+    require('../libraries/pterodactyl.servers.js')
+    require('../libraries/pterodactyl.nodes.js')
+    require('../libraries/pterodactyl.eggs.js')
+    require('../libraries/pterodactyl.servers.js').files
+    require('../libraries/pterodactyl.servers.js').validate
 }
-async function updateServers() {
-    let a = await db.get("pterodactyl", "settings")
-    let b = await servers()
-    for (let i of b) {
-        let c = await db.get("pterodactyl", "users") || []
-        let d = c.find(j => j.id == i.attributes.user)
-        if (!d) {
-            const admins = await db.get("notifications", "admins") || [];
-            admins.push({
-                title: `Alert!`,
-                message: `Server ${i.attributes.identifier} doesn't belong to any user registered in HolaClient-X.`,
-                type: "alert",
-                place: "cache-servers",
-                date: Date.now()
-            });
-            await db.set("notifications", "admins", admins)
-            return
-        }
-        let e = await db.get("servers", d.hc) || []
-        e = e.filter(j => j.identifier !== i.attributes.identifier)
-        i.attributes["queue"] = false
-        e.push(i.attributes)
-        await db.set("servers", d.hc, e)
-    }
-    return
-}
-async function suspendServer(a, b) {
-    try {
-        let pterodactyl = await db.get("pterodactyl", "settings")
-        if (b) {
-            await fetch(`${pterodactyl.domain}/api/application/servers/${a.attributes.id}/details`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${pterodactyl.app}`,
-                    Accept: "application/json"
-                },
-                body: JSON.stringify({
-                    "name": a.attributes.name,
-                    "user": a.attributes.user,
-                    "description": b
-                })
-            });
-        }
-        await fetch(`${pterodactyl.domain}/api/application/servers/${a.attributes.id}/suspend`, {
-            "method": "POST",
-            "headers": {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${pterodactyl.app}`,
-            }
-        });
-        core.log(`${a.attributes.name} ${b}`);
-        serversRefresh()
-    } catch (error) {
-        console.error(error)
-        return
-    }
-};
 refresh()
-setInterval(() => {
-    refresh()
-}, 60000 * 5);
+setInterval(refresh, 60000 * 5);
 module.exports = {
-    verify, refresh, servers, serversRefresh, nodes, nodesRefresh, eggs, eggsRefresh, updateServers, files, filesRefresh, suspendServer
+    "servers": {
+        "get": async function (a) {
+            let c = cacheDB.get("pterodactyl-servers")
+            if (!c) c = await require('../libraries/pterodactyl.servers.js')
+            let b = c.find(i => i.attributes.id === parseInt(a))
+            return b ?? ""
+        },
+        "getAll": async function () {
+            let a = cacheDB.get("pterodactyl-servers")
+            if (!a) a = await require('../libraries/pterodactyl.servers.js')
+            return a || []
+        },
+        "suspend": async function (a, b) {
+            return await require('../libraries/pterodactyl.servers.js').suspend(a, b) || {success: false, message: "", error: 0}
+        },
+        "assign": async function (a, b) {
+            return await require('../libraries/pterodactyl.servers.js').assign(a, b) || {success: false, message: "", error: 0}
+        },
+        "files": {
+            "get": async function (a) {
+                let b = await cacheDB.get("pterodactyl-files")
+                let c = b[a]
+                return c ?? []
+            },
+            "getAll": async function () {
+                let c = cacheDB.get("pterodactyl-files")
+                if (!c) c = await require('../libraries/pterodactyl.servers.js').files()
+                return c || {}
+            },
+        }
+    },
+    "nodes": {
+        "get": async function (a) {
+            let c = cacheDB.get("pterodactyl-nodes")
+            if (!c) c = await require('../libraries/pterodactyl.nodes.js')
+            let b = c.find(i => i.attributes.id === parseInt(a))
+            return b ?? ""
+        },
+        "getAll": async function () {
+            let a = cacheDB.get("pterodactyl-nodes")
+            if (!a) a = await require('../libraries/pterodactyl.nodes.js')
+            return a || []
+        }
+    },
+    "eggs": {
+        "get": async function (a) {
+            let c = cacheDB.get("pterodactyl-eggs")
+            if (!c) c = await require('../libraries/pterodactyl.eggs.js')
+            let b = c.find(i => i.attributes.id === parseInt(a))
+            return b ?? ""
+        },
+        "getAll": async function () {
+            let a = cacheDB.get("pterodactyl-eggs")
+            if (!a) a = await require('../libraries/pterodactyl.eggs.js')
+            return a || []
+        }
+    },
+    "verify": {
+        "all": async function () {
+            let a = true
+            try {
+                let pterodactyl = await db.get("pterodactyl", "settings")
+                if (pterodactyl && pterodactyl.domain && pterodactyl.app) {
+                    let b = await fetch(`${pterodactyl.domain}/api/application/locations`, {
+                        "method": "GET",
+                        "headers": {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${pterodactyl.app}`,
+                        }
+                    });
+                    let c = await b.json()
+                    if (b.status !== 200) {
+                        a = false;
+                    }
+                    let d = await fetch(`${pterodactyl.domain}/api/client/permissions`, {
+                        "method": "GET",
+                        "headers": {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${pterodactyl.acc}`,
+                        }
+                    });
+                    let e = await d.json()
+                    if (b.status !== 200) {
+                        a = false;
+                    }
+                } else {
+                    a = false;
+                }
+                return a
+            } catch (e) {
+                console.error(e)
+                return false
+            }
+    }
+    }
 }
 /**
  *--------------------------------------------------------------------------

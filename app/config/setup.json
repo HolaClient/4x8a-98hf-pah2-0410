@@ -6,7 +6,7 @@
         "/assets/setup/default/app.dev.css",
         "/assets/common/tailwind.css",
         "/setup",
-        "/setup/basic",
+        "/setup/pterodactyl",
         "/setup/import",
         "/setup/finish",
         "/api/setup"

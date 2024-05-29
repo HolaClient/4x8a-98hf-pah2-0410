@@ -11,7 +11,7 @@
                     <%- include('../partials/links') %>
                     <% function getRes(a) { let b = parseInt(resources[a].total) - parseInt(resources[a].used); let c = servers.find(i => i.identifier === (req.url).split('/servers/')[1]?.split('/')[0]); b = b + c.limits[a] || c.feature_limits[a]; if (b <=0) { return 0 }else { return b } } %>
                     <div id="page" class="relative">
-                        <img src="https://cdn.holaclientx.tech/logo.png" alt="lol" onload="serverModify()" class="w-0 h-0">
+                        <img src="https://cdn.holaclientx.tech/logo.png" alt="lol" onload="serverModify('<%= data.attributes.node %>')" class="w-0 h-0">
                         <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">
                             <div id="resourcesHolder" class="w-full col-span-3 relative bg-zinc-900/50 border border-zinc-800/80 rounded-xl p-4">
                                 <h1 class="text-gray-100 text-xl">Allocate resources:</h1>
@@ -63,7 +63,7 @@
                                     Update
                                 </button>
                             </div>
-                            <!--<div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
+                            <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
                                 <h1 class="text-gray-100 text-xl">Change Node</h1>
                                 <p class="text-gray-400">Warning, taking a backup is always recommended!</p>
                                 <div class="mt-2">
@@ -99,23 +99,9 @@
                                     Transfer
                                 </button>
                             </div>
-                            <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
-                                <h1 class="text-gray-100 text-xl">Rename server</h1>
-                                <p class="text-gray-400">Rename your server.</p>
-                                <div class="mt-2">
-                                    <h1 class="text-gray-300">Type your new server name:</h1>
-                                    <input type="text" value="My Server" class="p-2 bg-zinc-950 outline-none border border-zinc-800/80 rounded-xl w-full text-gray-300">
-                                </div>
-                                <button class="p-2 bg-zinc-950 mt-2 w-full border border-zinc-800/80 rounded-xl text-gray-300">
-                                    Update
-                                </button>
-                            </div>-->
                             <div class="bg-zinc-900/50 h-max justify-between border items-center border-zinc-800/80 rounded-xl p-2 w-full">
                                 <h1 class="text-gray-100 text-xl">Danger Zone</h1>
                                 <p class="text-gray-400">Warning, these are permanent actions and cannot be reverted!</p>
-                                <!--<button class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
-                                    Reinstall
-                                </button>-->
                                 <button onclick="display('delete')" class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
                                     Delete
                                 </button>

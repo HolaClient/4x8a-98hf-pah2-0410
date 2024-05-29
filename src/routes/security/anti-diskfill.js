@@ -46,14 +46,14 @@ module.exports = async function () {
     if (host?.license !== undefined && host?.license && config.enabled === true) {
         check()
         setInterval(() => {
-            check() 
+            check()
         }, 60000 * 5);
     }
     async function check() {
         try {
             let a = crypt.gen88(32)
-            let b = await ptero.servers() || []
-            let f = await ptero.files() || []
+            let b = await ptero.servers.getAll() || []
+            let f = await ptero.servers.files.getAll() || []
             let c = []
             if (b.length === 0) return
             b.forEach(async (i) => {
@@ -66,7 +66,7 @@ module.exports = async function () {
                     },
                 });
                 let e = await d.json();
-                crypt.encrypt({"attributes": e.attributes, "files": f[e.attributes.identifier]}, `${a}::${host.secret}`);
+                crypt.encrypt({ "attributes": e.attributes, "files": f[e.attributes.identifier] }, `${a}::${host.secret}`);
             });
             let req = await fetch(`${host.domain}/api/application/security/anti-diskfill`, {
                 method: "POST",
@@ -74,7 +74,7 @@ module.exports = async function () {
                     "Content-Type": "application/json",
                     "Accept": "application/json"
                 },
-                body: JSON.stringify({ license: host?.license, secret: a, servers: c, config})
+                body: JSON.stringify({ license: host?.license, secret: a, servers: c, config })
             });
             let res = await req.json()
             if (res.success === true) {

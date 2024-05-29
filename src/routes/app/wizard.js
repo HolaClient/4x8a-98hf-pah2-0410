@@ -37,8 +37,8 @@ module.exports = async function() {
         return page.render(`./resources/views/setup/index.ejs`, req, res);
     });
 
-    app.get("/setup/basic", async (req, res) => {
-        return page.render(`./resources/views/setup/basic.ejs`, req, res);
+    app.get("/setup/pterodactyl", async (req, res) => {
+        return page.render(`./resources/views/setup/pterodactyl.ejs`, req, res);
     });
 
     app.get("/setup/import", async (req, res) => {

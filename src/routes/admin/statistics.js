@@ -32,9 +32,9 @@ module.exports = async function () {
     app.get("/api/admin/statistics", core.admin, async (req, res) => {
         try {
             let a = await users.getAll() || []
-            let b = await ptero.servers() || []
+            let b = await ptero.servers.getAll() || []
             let c = queue.get.server() || []
-            let d = await ptero.nodes() || []
+            let d = await ptero.nodes.getAll() || []
             let data = {
                 users: a.length ?? 0,
                 servers: b.length ?? 0,

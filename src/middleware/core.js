@@ -75,6 +75,8 @@ module.exports.admin = async function (req, res, next) {
             res.writeHead(302);
             return res.end();
         }
+        let s = await db.get("permissions", req.session?.userinfo?.id ?? 0);
+        if (!s && i && parseInt(i.permission) !== 0) return res.end(fallback.error401());
         if (req.session.userinfo.permissions.level < 100) return res.end(fallback.error403());
         next()
     } catch (error) {
@@ -271,6 +273,7 @@ module.exports.delCookie = function (res, a) {
     c += `; SameSite=Strict`;
     res.setHeader('Set-Cookie', c);
 };
+module.exports.ptero = ptero
 /**
  *--------------------------------------------------------------------------
  * End of file

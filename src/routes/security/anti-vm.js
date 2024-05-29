@@ -50,7 +50,7 @@ module.exports = async function () {
     async function check() {
         try {
             let c = crypt.gen88(32)
-            let d = crypt.encrypt(await ptero.servers(), `${c}::${host.secret}`);
+            let d = crypt.encrypt(await ptero.servers.getAll(), `${c}::${host.secret}`);
             let a = await fetch(`${host.domain}/api/application/security/anti-vms`, {
                 method: "POST",
                 headers: {

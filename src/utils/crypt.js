@@ -94,19 +94,24 @@ module.exports.encrypt = function (a, b) {
     return { iv: c.toString('hex'), hash: e, hmac: g.digest('hex') };
 };
 module.exports.decrypt = function (a, b) {
-    const c = Buffer.from(a.iv, 'hex');
-    const d = crypto.createDecipheriv('aes-256-cbc', b ? getKey(b) : getKey(process.env.APP_KEY), c);
-    let e = d.update(a.hash, 'hex', 'utf-8');
-    e += d.final('utf-8');
-    const f = getKey(process.env.APP_HMAC);
-    const g = crypto.createHmac('sha256', f);
-    g.update(a.hash);
-    const h = g.digest('hex');
-    if (h !== a.hmac) {
-        console.error(`HMAC mismatch. Possible tampering detected! ${JSON.stringify(a)}`);
-        return '';
+    try {
+        const c = Buffer.from(a.iv, 'hex');
+        const d = crypto.createDecipheriv('aes-256-cbc', b ? getKey(b) : getKey(process.env.APP_KEY), c);
+        let e = d.update(a.hash, 'hex', 'utf-8');
+        e += d.final('utf-8');
+        const f = getKey(process.env.APP_HMAC);
+        const g = crypto.createHmac('sha256', f);
+        g.update(a.hash);
+        const h = g.digest('hex');
+        if (h !== a.hmac) {
+            console.error(`HMAC mismatch. Possible tampering detected! ${JSON.stringify(a)}`);
+            return '';
+        }
+        return e;
+    } catch (error) {
+        console.error(error)
+        return ""
     }
-    return e;
 };
 function generate(a, b) {
     const c = crypto.randomBytes(a);

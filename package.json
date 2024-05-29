@@ -14,8 +14,10 @@
         "dev": "nodemon --verbose",
         "build:tw": "npx tailwindcss -i ./public/common/tailwind.conf -o ./public/common/tailwind.css",
         "build:assets": "node resources/scripts/build-assets.js",
+        "build:prod": "node resources/scripts/build.js",
         "test:db": "node resources/scripts/test-db.js",
-        "codebase:lines": "node resources/scripts/lines.js"
+        "codebase:lines": "node resources/scripts/lines.js",
+        "user:create": "node resources/scripts/userCreate.js"
     },
     "engines": {
         "node": ">=20.7"
@@ -31,15 +33,14 @@
         "commander": "^11.1.0",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
-        "cron": "^2.0.0",
         "ejs": "^3.1.6",
-        "express": "^4.18.2",
-        "express-rate-limit": "^6.11.2",
+        "express": "^4.19.2",
         "express-session": "^1.17.2",
         "fs-extra": "^11.2.0",
         "geoip-lite": "^1.4.7",
         "http": "^0.0.1-security",
         "ioredis": "^5.3.2",
+        "jsonwebtoken": "^9.0.2",
         "keyv": "^4.5.4",
         "lodash": "^4.17.21",
         "mailparser": "^3.6.5",

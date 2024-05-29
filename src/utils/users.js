@@ -58,7 +58,7 @@ module.exports.create = async function (req, res, email, username, avatar, first
             }
         }
         let users = await db.get("users", "users") || [];
-        users.push({email: email, id: id});
+        users.push({email: email, username: username, id: id});
         let user = {
             nickname: username,
             name: {
@@ -125,6 +125,7 @@ module.exports.create = async function (req, res, email, username, avatar, first
         let e = crypt.encrypt(user?.sessions?.key || req.session.userinfo.sessions.key, user.sessions.secret);
         e["user"] = id
         core.setCookie(res, "hc.sk", JSON.stringify(e))
+        core.setCookie(res, "user", id)
         await db.set("users", "users", users);
         await db.set("core", "lastuser", id);
         await db.set('users', id, user);

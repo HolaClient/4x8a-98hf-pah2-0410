@@ -76,8 +76,10 @@ module.exports = async function () {
             } catch (e) {
                 d = c
             }
-            const data = await page.data(req);
-            return ejs.renderFile(`./resources/views/layouts/${template}/servers/editor.ejs`, { ...data, text: d },
+            let cc = await ptero.servers.getAll()
+            let dd = cc.find(i => i.attributes.identifier == a);
+            const dat = await page.data(req);
+            return ejs.renderFile(`./resources/views/layouts/${template}/servers/editor.ejs`, { ...dat, data: dd, text: d },
                 function (error, str) {
                     if (error) {
                         console.error(error);

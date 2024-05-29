@@ -23,20 +23,20 @@
                 <div class="lg:flex mt-4 lg:justify-between">
                   <div class="w-full">
                     <div class="mb-4 rounded-xl">
-                      <ul class="text-sm font-medium text-center text-gray-300 divide-x divide-gray-800/80 rounded-xl shadow sm:flex" id="resourceTab" data-tabs-toggle="#settings" role="tablist">
-                        <li class="w-full" role="presentation">
-                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl" data-tabs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="false">General</button>
+                      <ul class="text-sm font-medium text-center text-gray-300 divide-x divide-gray-800/80 rounded-xl shadow sm:flex">
+                        <li class="w-full" role="presentation"  id="tab-general" onclick="showTab2('general')">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl">General</button>
                         </li>
-                        <li class="w-full" role="presentation">
-                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300" data-tabs-target="#landing" type="button" role="tab" aria-controls="landing" aria-selected="false">Landing</button>
+                        <li class="w-full" role="presentation"  id="tab-landing" onclick="showTab2('landing')">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300">Landing</button>
                         </li>
-                        <!--<li class="w-full" role="presentation">
+                        <li class="w-full" role="presentation" id="tab-href" onclick="showTab2('href')">
                           <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300" data-tabs-target="#href" type="button" role="tab" aria-controls="href" aria-selected="false">Redirects</button>
-                        </li>-->
+                        </li>
                       </ul>
                     </div>
-                    <div id="settings">
-                      <div class="hidden rounded-xl mb-4" id="general" role="tabpanel">
+                    <div>
+                      <div class="rounded-xl mb-4" id="general" role="tabpanel">
                         <div class="flex bg-zinc-900/50 text-gray-300 rounded-xl border border-zinc-800/80 flex-wrap content-start">
                           <h1 class="text-2xl text-gray-100 p-4">General Settings</h1>
                           <hr class="w-full border-b border-zinc-800/80">

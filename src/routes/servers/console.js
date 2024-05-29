@@ -25,7 +25,6 @@
  * Loading modules
  *--------------------------------------------------------------------------
 */
-const WebSocket = require('ws');
 const users = require('../../cache/users')
 /**
  *--------------------------------------------------------------------------
@@ -59,77 +58,76 @@ module.exports = async function () {
     app.use("/ws.servers.console", core.ws(), core.auth, async (req, res) => {
         try {
             const ws = await req.ws();
-            let l = false;
-            let a;
+            const WebSocket = require('ws');
+            let a = false;
+            let b;
+            let c;
             ws.on('message', async (event) => {
                 try {
-                    let j = JSON.parse(event);
-                    if (j.event === "auth") {
-                        if (!j.user) return ws.end();
-                        if (!j.server) return ws.end();
-                        a = j.server
-                        let m = await users.get(parseInt(j.user));
-                        if (m.hcx.sessions.secret === j.session) {
-                            l = true;
-                            let n = await db.get("servers", parseInt(m.hcx.id)) || [];
-                            if (n.length == 0 || !n.find(i => i.identifier === a)) {
-                                ws.send(JSON.stringify({ "event": "redirect" }));
-                                ws.end();
-                                return;
-                            }
-                        } else {
-                            ws.send(JSON.stringify({ "event": "redirect" }));
-                            ws.end();
+                    let d = JSON.parse(event);
+                    if (d.event === "auth") {
+                        if (!d.server) return ws.close();
+                        b = d.server;
+                        let e = await db.get("servers", parseInt(req.session.userinfo.id)) || [];
+                        if (e.length === 0 || !e.find(i => i.identifier === b)) {
+                            ws.send(JSON.stringify({ event: "redirect" }));
+                            ws.close();
                             return;
                         }
-                    }
-                    if (l === true) {
                         let pterodactyl = await db.get("pterodactyl", "settings") || {};
-                        let b = await fetch(`${pterodactyl.domain}/api/client/servers/${a}/websocket`, {
-                            "method": "GET",
-                            "headers": {
-                                "Accept": "application/json",
+                        let f = await fetch(`${pterodactyl.domain}/api/client/servers/${b}/websocket`, {
+                            method: "GET",
+                            headers: {
+                                Accept: "application/json",
                                 "Content-Type": "application/json",
-                                "Authorization": `Bearer ${pterodactyl.acc}`,
+                                Authorization: `Bearer ${pterodactyl.acc}`,
                             },
                         });
-                        let c = await b.json();
-                        let d = new WebSocket(c.data.socket, { origin: pterodactyl.domain });
-                        d.on('open', () => {
-                            d.send(JSON.stringify({ "event": "auth", "args": [c.data.token] }));
+                        let g = await f.json();
+                        c = new WebSocket(g.data.socket, { origin: pterodactyl.domain });
+                        c.on('open', () => {
+                            c.send(JSON.stringify({ event: "auth", args: [g.data.token] }));
                             setTimeout(() => {
-                                d.send(JSON.stringify({ "event": "send logs", "args": [null] }));
+                                c.send(JSON.stringify({ event: "send logs", args: [null] }));
                             }, 100);
-                            if (j.event !== "auth") {
-                                d.send(JSON.stringify(j))
-                            }
                         });
-                        d.on('message', async (message) => {
-                            let f = JSON.parse(message);
-                            if (f.event == "token expired") {
-                                let g = await fetch(`${pterodactyl.domain}/api/client/servers/${a}/websocket`, {
-                                    "method": "GET",
-                                    "headers": {
-                                        "Accept": "application/json",
+                        c.on('message', async (message) => {
+                            let h = JSON.parse(message);
+                            if (h.event === "token expired") {
+                                let j = await fetch(`${pterodactyl.domain}/api/client/servers/${b}/websocket`, {
+                                    method: "GET",
+                                    headers: {
+                                        Accept: "application/json",
                                         "Content-Type": "application/json",
-                                        "Authorization": `Bearer ${pterodactyl.acc}`,
+                                        Authorization: `Bearer ${pterodactyl.acc}`,
                                     },
                                 });
-                                let h = await g.json();
-                                d.send(JSON.stringify({ "event": "auth", "args": [h.data.token] }));
+                                let k = await j.json();
+                                c.send(JSON.stringify({ event: "auth", args: [k.data.token] }));
                             }
-                            if (ws.readyState == WebSocket.OPEN) {
-                                ws.send(JSON.stringify(f));
+                            if (ws.readyState === WebSocket.OPEN) {
+                                ws.send(JSON.stringify(h));
                             }
                         });
+                        a = true;
+                    }
+                    if (a && d.event !== "auth") {
+                        if (c && c.readyState === WebSocket.OPEN) {
+                            c.send(JSON.stringify(d));
+                        }
                     }
                 } catch (error) {
                     console.error(error);
                 }
             });
+            ws.on('close', () => {
+                if (c && c.readyState === WebSocket.OPEN) {
+                    c.close();
+                }
+            });
         } catch (error) {
-            handle(error, "Minor", 59)
-            return
+            console.error(error);
+            res.status(500).send('Internal Server Error');
         }
     });
 

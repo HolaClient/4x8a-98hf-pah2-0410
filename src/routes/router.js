@@ -67,9 +67,9 @@ module.exports = async function () {
     *--------------------------------------------------------------------------
     */
     app.all("*", async (req, res) => {
-        if (process.env.APP_MAINTENANCE == "true") return page.error("maintenance", req, res);
-        if (blacklist && blacklist.ip && blacklist.ip.includes(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.headers['x-client-ip'] || req.headers['x-forwarded'] || req.socket.remoteAddress)) return page.error("blacklisted", req, res)
         try {
+            if (process.env.APP_MAINTENANCE == "true") return page.error("maintenance", req, res);
+            if (blacklist && blacklist.ip && blacklist.ip.includes(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.headers['x-client-ip'] || req.headers['x-forwarded'] || req.ip || req.socket.remoteAddress)) return page.error("blacklisted", req, res)
             if (!req.session.userinfo && core.getCookie(req, "hc.sk")) {
                 let a = JSON.parse(core.getCookie(req, "hc.sk"))
                 let b = await db.get("users", a.user)
@@ -110,8 +110,10 @@ module.exports = async function () {
                     res.writeHead(302);
                     res.end();
                 }
-                let s = await db.get("permissions", req.session.userinfo.id);
-                if (s && i && parseInt(i.permission) > parseInt(s.level)) return res.end(fallback.error401());
+                let s;
+                if (req.session.userinfo) s = await db.get("permissions", req.session?.userinfo?.id ?? 0);
+                if (s && i && parseInt(i.permission) > parseInt(s.level)) return res.end(fallback.error403());
+                if (!s && i && parseInt(i.permission) !== 0) return res.end(fallback.error401());
                 return await page.render(`./resources/views/${f}/${appearance.themes && appearance.themes[f] || "default"}/${i.path}`, req, res);
             }
             return page.render(`./resources/views/errors/404.ejs`, req, res);

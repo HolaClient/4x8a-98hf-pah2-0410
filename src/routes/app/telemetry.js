@@ -31,7 +31,7 @@ module.exports = async function() {
             var a = await db.get("settings", "telemetry");
             var b = await db.get("settings", "holaclient");
             var c = await db.get("settings", "appearance");
-            let d = "https://console.holaclient.tech";
+            let d = "https://console.holacorp.org";
             if (a.enabled === true) {
                 let e = await fetch(d + '/api/telemetry/X');
                 if (e.status !== 200) return;

@@ -18,10 +18,11 @@
         "USEREXISTS": "An user with these credentials already exists.",
         "EXISTS": "This item already exists in the database.",
         "NOTAUTHENTICATEDVIADISCORD": "You're not authenticated via Discord!",
-        "SERVERQUEUE": "Your server has been added to the queue and will be created shortly.",
+        "QUEUED": "Request has been queued and will be executed shortly!",
         "UNCONFIGURED": "A configuration seed related to this feature is unconfigured, please wait until the administrators fix this. They've been alerted about this already!",
         "MAXINVOICES": "Maximum invoice limit for your account has been reached, please pay your dues first!",
         "WRONGSECRET": "No matching account with these credentials could be found!",
-        "INACTIVE": "Feature or addon is not active! Please activate it and try again.",
+        "REQUESTED": "Request has been sent to the user, resource transfer will be initiated once confirmed!",
+        "INACTIVE": "Feature or addon is not active! Please ask admins to activate it and try again.",
         "MISSINGLICENSE": "An official license key is required for this feature to work!"
 }

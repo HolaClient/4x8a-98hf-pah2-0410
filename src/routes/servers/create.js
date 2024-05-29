@@ -30,9 +30,11 @@ module.exports = async function () {
         try {
             async function get() {
                 let [a, b] = await Promise.all([db.get("pterodactyl", "nodes") || [],db.get("pterodactyl", "eggs") || []]);
+                if (!Array.isArray(a)) a = [];
+                if (!Array.isArray(b)) b = [];
                 let g = [];
                 for (let i of a) {
-                    let e = await ptero.nodes()
+                    let e = await ptero.nodes.getAll()
                     let f = e.find(j => j.attributes.id == i.id)
                     if (f) {
                         f.attributes["deployments"] = i.deployments
@@ -97,7 +99,7 @@ module.exports = async function () {
             queue.add.server(k);
             await db.set("resources", req.session.userinfo.id, h);
             await db.get("core", "lastserver", o + 1)
-            return core.json(req, res, true, "SERVERQUEUE");
+            return core.json(req, res, true, "QUEUED");
         } catch (error) {
             handle(error, "Major", 59)
             return core.json(req, res, false, "ERROR", error);

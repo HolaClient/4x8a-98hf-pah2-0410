@@ -1,3 +1,25 @@
+/**
+ *--------------------------------------------------------------------------
+ *  _    _       _        _____ _ _            _  __   __
+ * | |  | |     | |      / ____| (_)          | | \ \ / /
+ * | |__| | ___ | | __ _| |    | |_  ___ _ __ | |_ \ V / 
+ * |  __  |/ _ \| |/ _` | |    | | |/ _ \ '_ \| __| > <  
+ * | |  | | (_) | | (_| | |____| | |  __/ | | | |_ / . \ 
+ * |_|  |_|\___/|_|\__,_|\_____|_|_|\___|_| |_|\__/_/ \_\
+ *--------------------------------------------------------------------------
+ *
+ * https://holaclientx.tech
+ * https://github.com/HolaClient/X
+ * https://discord.gg/CvqRH9TrYK
+ * 
+ * @author CR072 <crazymath072.tech>
+ * @copyright 2022-2024 HolaClient
+ * @version 1
+ *
+ *--------------------------------------------------------------------------
+ * build-assets.js - Application assets builder.
+ *--------------------------------------------------------------------------
+*/
 var UJS = require("uglify-js");
 var UCS = require('uglifycss');
 const fs = require('fs').promises;
@@ -36,6 +58,7 @@ async function main() {
         console.log(chalk.white("======================================================="));
         console.log(`${chalk.white('All files built successfully...')} ${calculate(a, Date.now())}`);
         console.log(chalk.white("======================================================="));
+        process.exit()
     } catch (error) {
         console.error('Error:', error);
     }

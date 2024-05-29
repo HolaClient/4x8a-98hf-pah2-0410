@@ -61,7 +61,7 @@ module.exports = async function () {
             let b = await db.get("servers", req.session.userinfo.id) || [];
             if (b.length === 0 || !b.find(i => i.identifier == e)) return res.end(fallback.error401());
             core.server(req, res, e)
-            let c = await ptero.servers()
+            let c = await ptero.servers.getAll()
             let d = c.find(i => i.attributes.identifier == e);
             if (!d || d == undefined || d == null) {
                 let f = await db.get("resources", req.session.userinfo.id)
