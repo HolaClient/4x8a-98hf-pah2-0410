@@ -11,7 +11,7 @@ Copyright (c) <year>, CR072 and HolaClient-X
 ```
 <!-- 
     * APPENDIX FOR LEGAL PURPOSES *
-    Copyright (c) 2024, CR072 and HolaClient-X
+    Copyright (c) <year>, CR072 and HolaClient-X
  -->
 ```
 
