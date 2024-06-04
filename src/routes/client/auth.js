@@ -21,7 +21,6 @@
  *--------------------------------------------------------------------------
 */
 const users = require('../../utils/users')
-const usersCache = require('../../cache/users')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
@@ -40,16 +39,10 @@ module.exports = async function () {
 
     app.get("/logout", core.auth, (req, res) => {
         try {
-            if (!req.session.userinfo) {
-                res.statusCode = 302;
-                res.setHeader('Location', '/');
-                return res.end();
-            }
-            core.delCookie(res, "hc.sk")
+            if (!req.session.userinfo) return res.redirect('/')
+            hcx.core.cookies.delete(res, "hc.sk")
             req.session.destroy(() => {
-                res.statusCode = 302;
-                res.setHeader('Location', '/');
-                return res.end();
+                return res.redirect('/login')
             });
         } catch (error) {
             console.error(error)
@@ -85,7 +78,7 @@ module.exports = async function () {
             req.session.permission = await db.get('permissions', c.id);
             let e = crypt.encrypt(d?.sessions?.key || req.session.userinfo.sessions.key, d.sessions.secret);
             e["user"] = d.id
-            core.setCookie(res, "hc.sk", JSON.stringify(e))
+            hcx.core.cookies.set(res, "hc.sk", JSON.stringify(e))
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {
             console.error(error)
@@ -99,7 +92,7 @@ module.exports = async function () {
             let f = await db.get("settings", "authentication")
             if (f.enabled !== true) return core.json(req, res, false, "INACTIVE");
             if (f.antialt.cookies === true) {
-                let g = core.getCookie(req, "user")
+                let g = hcx.core.cookies.get(req, "user")
                 if (g) return core.json(req, res, false, "ALTACC");
             }
             if (f.antialt.ip === true) {
@@ -109,7 +102,7 @@ module.exports = async function () {
             }
             let a = req.body;
             if (!a || !a.email || !a.username || !a.password) return core.json(req, res, false, "MISSING");
-            let b = await usersCache.getAll();
+            let b = await users.getAll();
             let c = Object.values(b).find(i => i.email === a.email || i.username === a.username);
             if (c) return core.json(req, res, false, "USEREXISTS");
             let g = await db.get("app", "console")
@@ -138,8 +131,8 @@ module.exports = async function () {
             d = d.data
             let e = crypt.encrypt(d?.sessions?.key || req.session.userinfo.sessions.key, d.session.secret || req.session.userinfo.sessions.secret);
             e["user"] = d.id
-            core.setCookie(res, "hc.sk", JSON.stringify(e))
-            core.setCookie(res, "user", d.id)
+            hcx.core.cookies.set(res, "hc.sk", JSON.stringify(e))
+            hcx.core.cookies.set(res, "user", d.id)
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {
             console.error(error)

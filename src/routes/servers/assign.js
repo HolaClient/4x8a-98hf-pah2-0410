@@ -20,7 +20,7 @@
  * settings.js - Server settings handler.
  *--------------------------------------------------------------------------
 */
-const users = require("../../cache/users")
+const users = require("../../utils/users")
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
@@ -35,11 +35,12 @@ module.exports = async function () {
             let a = await users.getAll();
             let b = []
             a.forEach(i => {
-                b.push({
-                    id: i.hcx.id,
-                    nickname: i.hcx.nickname,
-                    avatar: i.hcx.avatar
-                })
+                if (i.hcx.id && i.hcx.id !== req.session.userinfo.id) {
+                    b.push({
+                        id: i.hcx.id,
+                        nickname: i.hcx.nickname || i.hcx.username,
+                    })
+                }
             });
             return core.json(req, res, true, "SUCCESS", b)
         } catch (error) {
@@ -63,22 +64,31 @@ module.exports = async function () {
             ]);
             let e = d.find(i => i.identifier === a)
             if (!f || !e) return core.json(req, res, true, "404")
+            let k = Object.values(g.sent)
+            if (k.find(i => i.server === a)) return core.json(req, res, false, "EXISTS")
+            let j = `req_${Date.now()}-${crypt.gen10(12)}`
             let request = {
+                id: j,
                 user: c.user,
                 from: b,
+                username: req.session.userinfo.username,
                 type: "server",
-                server: c.server
+                message: `${req.session.userinfo.username} sent a request to ${f?.username} to transfer ownership of their server named: ${e?.name}.`,
+                server: a,
+                date: Date.now()
             };
-            let j = `req_${Date.now()}-${crypt.gen10(12)}`
-            g["sent"] = g.sent || {}
+            g = g || {}
+            h = h || {}
+            g["sent"] = g?.sent || {}
             g.sent[j] = request
-            h["incoming"] = h.incoming || {}
+            h["incoming"] = h?.incoming || {}
             h.incoming[j] = request
             await db.set("requests", c.user, h)
             await db.set("requests", b, g)
-            core.log(`${req.session.userinfo.username} sent a request to ${c?.user} to transferred their server: ${c?.name}'s ownership.`);
+            core.log(`${req.session.userinfo.username} sent a request to ${c?.user} to transfer their server: ${c?.name}'s ownership.`);
             return core.json(req, res, true, "REQUESTED")
         } catch (error) {
+            console.log(error)
             handle(error, "Minor", 39)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
         }

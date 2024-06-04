@@ -26,25 +26,25 @@
                         <div class="w-full">
                           <div class="mb-4 rounded-xl">
                             <ul class="text-sm font-medium text-center text-gray-300 divide-x divide-gray-800/80 rounded-xl shadow sm:flex">
-                              <li class="w-full" id="tab-all" onclick="showTab('all')">
-                                <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl">All</button>
-                              </li>
                               <li class="w-full" id="tab-incoming" onclick="showTab('incoming')">
                                 <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300">Incoming</button>
                               </li>
                               <li class="w-full" id="tab-sent" onclick="showTab('sent')">
                                 <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300">Sent</button>
                               </li>
+                              <li class="w-full" id="tab-sent" onclick="showTab('rejected')">
+                                <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300">Rejected</button>
+                              </li>
                             </ul>
                           </div>
                           <div id="panels">
-                            <div class="rounded-xl mb-4 space-y-2" id="panel-all">
-                                
-                            </div>
-                            <div class="hidden rounded-xl mb-4 space-y-2" id="panel-incoming">
-
+                            <div class="rounded-xl mb-4 space-y-2" id="panel-incoming">
+                              
                             </div>
                             <div class="hidden rounded-xl mb-4 space-y-2" id="panel-sent">
+
+                            </div>
+                            <div class="hidden rounded-xl mb-4 space-y-2" id="panel-rejected">
 
                             </div>
                           </div>

@@ -81,7 +81,7 @@ async function main() {
     const p = new AdmZip();
     p.addLocalFolder(g);
     p.writeZip(o);
-    //await fs.remove(g);
+    await fs.remove(g);
 }
 
 main().catch(error => {
