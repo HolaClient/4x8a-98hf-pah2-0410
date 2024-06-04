@@ -20,7 +20,7 @@
  * economy.js - Server side economy handler.
  *--------------------------------------------------------------------------
 */
-const users = require('../../cache/users')
+const users = require('../../utils/users')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
@@ -39,12 +39,18 @@ module.exports = async function () {
         }
     });
 
-    app.use("/ws.afk", core.ws(), core.auth, async (req, res) => {
+    app.ws("/ws.afk", core.auth, async (req, res, ws) => {
         try {
-            if (!req.ws) return res.end()
-            const ws = await req.ws();
+            let cc = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
+            let ee = await db.get("users", cc.user)
+            let userinfo;
+            if (ee) {
+                let ff = crypt.decrypt(cc, ee.sessions.secret)
+                if (ff && ff === ee.sessions.key) userinfo = ee
+            };
+            if (!userinfo) ws.close();
             let d = true;
-            let b = req.session.userinfo.id;
+            let b = userinfo.id;
             try {
                 if (totalUsers[b] === true) return ws.end();
                 totalUsers[b] = true;

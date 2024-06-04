@@ -28,7 +28,7 @@
 module.exports = async function () {
     app.get("/api/admin/pterodactyl/nodes", core.admin, async (req, res) => {
         try {
-            let [a, b] = await Promise.all([db.get("pterodactyl", "nodes"), ptero.nodes()]);
+            let [a, b] = await Promise.all([db.get("pterodactyl", "nodes"), ptero.nodes.getAll()]);
             if (!Array.isArray(a)) a = [];
             let c = [];
             for (let i of a) {
@@ -47,7 +47,7 @@ module.exports = async function () {
 
     app.post("/api/admin/pterodactyl/nodes", core.admin, async (req, res) => {
         try {
-            let [a, b] = await Promise.all([ptero.nodes(), db.get("pterodactyl", "nodes")]);
+            let [a, b] = await Promise.all([ptero.nodes.getAll(), db.get("pterodactyl", "nodes")]);
             if (!Array.isArray(b)) b = [];
             a = a.filter(i => !b.map(j => j.id).includes(i.attributes.id));
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: a }));
@@ -59,7 +59,7 @@ module.exports = async function () {
 
     app.put("/api/admin/pterodactyl/nodes", core.admin, async (req, res) => {
         try {
-            let a = await ptero.nodes()
+            let a = await ptero.nodes.getAll()
             let b = await db.get("pterodactyl", "nodes") || []
             if (b.find(i => i.id == req.body.id) !== undefined) return res.end(JSON.stringify({ success: false, message: alert("EXISTS", req, res) }));
             let c = (a.find(c => c.attributes.id == req.body.id)).attributes
@@ -89,7 +89,7 @@ module.exports = async function () {
     app.get("/api/admin/pterodactyl/eggs", core.admin, async (req, res) => {
         try {
             let a = await db.get("pterodactyl", "eggs")
-            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: a }));
+            return res.json({ success: true, message: alert("SUCCESS", req, res), data: a });
         } catch (error) {
             handle(error, "Minor", 30)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
@@ -98,7 +98,7 @@ module.exports = async function () {
 
     app.post("/api/admin/pterodactyl/eggs", core.admin, async (req, res) => {
         try {
-            let a = await ptero.eggs();
+            let a = await ptero.eggs.getAll();
             let b = await db.get("pterodactyl", "eggs") || [];
             if (b.length !== 0) {
                 for (let i of a) {
@@ -118,7 +118,7 @@ module.exports = async function () {
 
     app.put("/api/admin/pterodactyl/eggs", core.admin, async (req, res) => {
         try {
-            let a = await ptero.eggs()
+            let a = await ptero.eggs.getAll()
             let b = await db.get("pterodactyl", "eggs") || []
             if (b.find(i => i.id == req.body.id) !== undefined) return res.end(JSON.stringify({ success: false, message: alert("EXISTS", req, res) }));
             let c = (a.find(c => c.attributes.id == req.body.nest)).attributes.relationships.eggs.data
@@ -142,6 +142,30 @@ module.exports = async function () {
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 30);
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+
+    const appearance = await db.get("settings", "appearance") || {};
+    const template = appearance.themes && appearance.themes.admin || "default";
+    app.get("/admin/pterodactyl/nodes/:id", core.admin, async (req, res) => {
+        try {
+            var id = req.params.id
+            if (typeof id !== "string") return res.end(fallback.error404());
+            let a = (await db.get("pterodactyl", "nodes")).find(i => i.id == id);
+            let node = ((await ptero.nodes.getAll()).find(i => i.attributes.id == id).attributes);
+            node["deployments"] = a.deployments
+            const data = await page.data(req);
+            return ejs.renderFile(`./resources/views/admin/${template}/pterodactyl/nodes/[id].ejs`, {...data,node},
+                function (error, str) {
+                    if (error) {
+                        console.error(error);
+                        return res.end(fallback.error500(error));
+                    };
+                    return res.end(str);
+                }
+            );
+        } catch (error) {
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
         }
     });

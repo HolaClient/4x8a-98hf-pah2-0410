@@ -32,12 +32,6 @@
 */
 /**
  *--------------------------------------------------------------------------
- * Loading modules
- *--------------------------------------------------------------------------
-*/
-const page = modules.page;
-/**
- *--------------------------------------------------------------------------
  * Bunch of codes...
  *--------------------------------------------------------------------------
 */
@@ -50,16 +44,21 @@ module.exports = async function () {
      * Loading static endpoints
      *--------------------------------------------------------------------------
     */
-    app.use('/assets', (req, res, next) => { express.static(path.join(__dirname, '..', '..', 'public'))(req, res, next) });
-    app.use('/cdn', (req, res, next) => { express.static(path.join(__dirname, '..', '..', 'storage', 'cdn'))(req, res, next) });
+    app.static('/assets', path.join(__dirname, '..', '..', 'public'));
+    app.static('/cdn', path.join(__dirname, '..', '..', 'storage', 'cdn'));
     app.use('/robots.txt', (req, res, next) => { fs.readFile(path.join(__dirname, '..', '..', 'public', 'robots.txt'), 'utf8', (err, data) => { if (err) { res.end(err); } else { res.end(data); } }); });
     app.use('/manifest.json', (req, res, next) => { fs.readFile(path.join(__dirname, '..', '..', 'public', 'manifest.json'), 'utf8', (err, data) => { if (err) { res.end(err); } else { res.end(data); } }); });
     app.use((req, res, next) => {
-        if (blacklist.countries && blacklist.countries.length > 0 && blacklist.countries.includes(geoip.lookup(req.ip)?.country)) {
-            res.status(403)
-            return res.end(fallback.errorBlacklisted())
+        try {
+            if (blacklist.countries && blacklist.countries.length > 0 && blacklist.countries.includes(geoip.lookup(req.ip)?.country)) {
+                res.status(403)
+                return res.end(fallback.errorBlacklisted());
+            }
+            return next();
+        } catch (error) {
+            console.error(error)
+            return next();
         }
-        return next();
     });
     /**
     *--------------------------------------------------------------------------
@@ -70,14 +69,12 @@ module.exports = async function () {
         try {
             if (process.env.APP_MAINTENANCE == "true") return page.error("maintenance", req, res);
             if (blacklist && blacklist.ip && blacklist.ip.includes(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.headers['x-client-ip'] || req.headers['x-forwarded'] || req.ip || req.socket.remoteAddress)) return page.error("blacklisted", req, res)
-            if (!req.session.userinfo && core.getCookie(req, "hc.sk")) {
-                let a = JSON.parse(core.getCookie(req, "hc.sk"))
+            if (!req.session.userinfo && hcx.core.cookies.get(req, "hc.sk")) {
+                let a = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
                 let b = await db.get("users", a.user)
                 if (b) {
                     let c = crypt.decrypt(a, b.sessions.secret)
-                    if (c && c === b.sessions.key) {
-                        req.session.userinfo = b
-                    }
+                    if (c && c === b.sessions.key) req.session.userinfo = b
                 }
             }
             await render();
@@ -105,18 +102,14 @@ module.exports = async function () {
                 if (!f.includes(true)) return
             }
             async function r(f, i) {
-                if (i.requireAuth && !req.session.userinfo) {
-                    res.setHeader('Location', '/login');
-                    res.writeHead(302);
-                    res.end();
-                }
+                if (i.requireAuth === true && !req.session.userinfo) return res.redirect('/login')
                 let s;
                 if (req.session.userinfo) s = await db.get("permissions", req.session?.userinfo?.id ?? 0);
-                if (s && i && parseInt(i.permission) > parseInt(s.level)) return res.end(fallback.error403());
-                if (!s && i && parseInt(i.permission) !== 0) return res.end(fallback.error401());
-                return await page.render(`./resources/views/${f}/${appearance.themes && appearance.themes[f] || "default"}/${i.path}`, req, res);
+                if (s && i && parseInt(i.permission) > parseInt(s.level)) return res.html(fallback.error403());
+                if (!s && i && parseInt(i.permission) !== 0) return res.html(fallback.error401());
+                return await pages.render(req, res, `./resources/views/${f}/${appearance.themes && appearance.themes[f] || "default"}/${i.path}`);
             }
-            return page.render(`./resources/views/errors/404.ejs`, req, res);
+            return pages.render(req, res, `./resources/views/errors/404.ejs`);
         } catch (e) {
             console.error(e);
             res.end(fallback.error500(e));

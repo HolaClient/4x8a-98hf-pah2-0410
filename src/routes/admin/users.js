@@ -20,8 +20,7 @@
  * users.js - User management for admins router.
  *--------------------------------------------------------------------------
 */
-const page = modules.page
-const users = require('../../cache/users')
+const users = require('../../utils/users')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...

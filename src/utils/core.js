@@ -27,7 +27,7 @@
  *--------------------------------------------------------------------------
 */
 const modules = require('../utils/modules.js')
-const page = require('../utils/theme.js')
+const page = require('./pages.js')
 const core = require('./core.js')
 const db = require('../handlers/database.js')
 const nodemailer = require("nodemailer");
@@ -38,8 +38,8 @@ const nodemailer = require("nodemailer");
 */
 module.exports.auth = async function (req, res, next) {
     try {
-        if (!req.session.userinfo && core.getCookie(req, "hc.sk")) {
-            let a = JSON.parse(core.getCookie(req, "hc.sk"))
+        if (!req.session.userinfo && hcx.core.cookies.get(req, "hc.sk")) {
+            let a = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
             let b = await db.get("users", a.user)
             if (b) {
                 let c = crypt.decrypt(a, b.sessions.secret)
@@ -48,11 +48,7 @@ module.exports.auth = async function (req, res, next) {
                 }
             }
         }
-        if (!req.session.userinfo) {
-            res.setHeader('Location', '/login');
-            res.writeHead(302);
-            res.end();
-        }
+        if (!req.session.userinfo) return res.redirect('/login');
         next()
     } catch (error) {
         console.error(error)
@@ -60,8 +56,8 @@ module.exports.auth = async function (req, res, next) {
 };
 module.exports.admin = async function (req, res, next) {
     try {
-        if (!req.session.userinfo && core.getCookie(req, "hc.sk")) {
-            let a = JSON.parse(core.getCookie(req, "hc.sk"))
+        if (!req.session.userinfo && hcx.core.cookies.get(req, "hc.sk")) {
+            let a = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
             let b = await db.get("users", a.user)
             if (b) {
                 let c = crypt.decrypt(a, b.sessions.secret)
@@ -70,11 +66,7 @@ module.exports.admin = async function (req, res, next) {
                 }
             }
         }
-        if (!req.session.userinfo) {
-            res.setHeader('Location', '/login');
-            res.writeHead(302);
-            return res.end();
-        }
+        if (!req.session.userinfo) return res.redirect('/login');
         let s = await db.get("permissions", req.session?.userinfo?.id ?? 0);
         if (!s && i && parseInt(i.permission) !== 0) return res.end(fallback.error401());
         if (req.session.userinfo.permissions.level < 100) return res.end(fallback.error403());
@@ -85,8 +77,8 @@ module.exports.admin = async function (req, res, next) {
 };
 module.exports.api = async function (req, res, next) {
     try {
-        if (!req.session.userinfo && core.getCookie(req, "hc.sk")) {
-            let a = JSON.parse(core.getCookie(req, "hc.sk"))
+        if (!req.session.userinfo && hcx.core.cookies.get(req, "hc.sk")) {
+            let a = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
             let b = await db.get("users", a.user)
             if (b) {
                 let c = crypt.decrypt(a, b.sessions.secret)
@@ -188,92 +180,15 @@ module.exports.email = async function (to, sub, title, body) {
 }
 module.exports.json = async function (req, res, a, b, c, d) {
     try {
-        res.setHeader('Content-Type', 'application/json')
         if (c && a == true) {
-            return res.end(JSON.stringify({ success: a, code: d ?? 200, message: alert(b, req, res), data: c }));
+            return res.json({ success: a, code: d ?? 200, message: alert(b, req, res), data: c });
         } else if (c) {
-            return res.end(JSON.stringify({ success: a, code: d ?? 200, message: alert(b, req, res) + c }));
-        } else { return res.end(JSON.stringify({ success: a, code: d ?? 200, message: alert(b, req, res) })) };
+            return res.json({ success: a, code: d ?? 200, message: alert(b, req, res) + c });
+        } else { return res.json({ success: a, code: d ?? 200, message: alert(b, req, res) }) };
     } catch (error) {
         console.error(error)
     }
 };
-module.exports.html = async function (req, res, a, data) {
-    try {
-        const c = await page.data(req);
-        return ejs.renderFile(a, { ...c, data }, function (error, str) {
-            res.setHeader('Content-Type', 'text/html');
-            if (error) {
-                console.error(error);
-                return res.end(fallback.error500(error));
-            }
-            return res.end(str);
-        });
-    } catch (error) {
-        console.error(error);
-        return res.end(fallback.error500(error));
-    }
-};
-module.exports.redirect = async function (res, a) {
-    try {
-        res.statusCode = 302;
-        res.setHeader('Location', a);
-        return res.end();
-    } catch (error) {
-        console.error(error);
-        return res.end(fallback.error500(error));
-    }
-};
-module.exports.ws = () => {
-    const wss = new WebSocket.Server({ noServer: true });
-    return async (req, res, next) => {
-        if (req.headers.upgrade || ''.toLowerCase().includes('websocket') &&
-            req.headers.connection.toLowerCase().includes('upgrade')) {
-            req.ws = () => new Promise((resolve) => {
-                wss.handleUpgrade(req, req.socket, Buffer.alloc(0), (ws) => {
-                    resolve(ws);
-                });
-            });
-        } else {
-            res.end(fallback.error400());
-            return;
-        }
-        next();
-    };
-};
-module.exports.getCookie = function (req, a) {
-    let b = req.headers.cookie;
-    if (!b) return null;
-    let d = a + "=";
-    let ca = b.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(d) == 0) {
-            return decodeURIComponent(c.substring(d.length, c.length));
-        }
-    }
-    return "";
-}
-module.exports.setCookie = function (res, a, b) {
-    let c = `${encodeURIComponent(a)}=${encodeURIComponent(b)}`;
-    c += `; Max-Age=${30 * 24 * 60 * 60}`;
-    c += `; Path=/`;
-    c += `; Secure`;
-    c += `; SameSite=Strict`;
-    res.setHeader('Set-Cookie', c);
-}
-module.exports.delCookie = function (res, a) {
-    let c = `${encodeURIComponent(a)}=;`;
-    c += `; Max-Age=0`;
-    c += `; Path=/`;
-    c += `; Secure`;
-    c += `; SameSite=Strict`;
-    res.setHeader('Set-Cookie', c);
-};
-module.exports.ptero = ptero
 /**
  *--------------------------------------------------------------------------
  * End of file

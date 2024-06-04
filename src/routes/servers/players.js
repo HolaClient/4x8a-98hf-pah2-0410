@@ -29,6 +29,57 @@ module.exports = async function() {
     const admins = await db.get("notifications", "admins") || [];
     const errors = await db.get("logs", "errors") || [];
 
+    app.get("/api/servers/players", core.auth, async (req, res) => {
+        try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
+            async function getPlayers(a) {
+                let pterodactyl = await db.get("config");
+                if (pterodactyl && pterodactyl.domain && pterodactyl.acc) {
+                    try {
+                        let b = new consoleWS(a);
+                        await b.init();
+                        let c;
+                        let h = {
+                            total: 0,
+                            online: 0,
+                            players: []
+                        };
+                        const e = new Promise((resolve) => {
+                            const f = setTimeout(() => {
+                                return { success: false, message: "Timeout of 10000ms exceeded!" };
+                            }, 10000);
+                            b.stream((g) => {
+                                if (g.event === 'console output' && g.args[0] !== "list") {
+                                    c = g.args[0];
+                                    const d = c.match(/There are (\d+) of a max of (\d+) players online: (.*)/);
+                                    if (d) {
+                                        h.total = parseInt(d[2]);
+                                        h.online = parseInt(d[1]);
+                                        h.players = d[3].split(", ").map(i => i.trim());
+                                    }
+                                    clearTimeout(f);
+                                    resolve();
+                                }
+                            });
+                            setTimeout(() => {
+                                b.sendCommand('list');
+                            }, 100);
+                        });
+                        await e;
+                        b.close();
+                        return { success: true, data: h };
+                    } catch (error) {
+                        return { success: false, message: error };
+                    }
+                }
+            }
+            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: c }));
+        } catch (error) {
+            handle(error, "Minor", 40)
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+
     app.get("/api/servers/players/bans/:id", core.auth, async (req, res) => {
         try {
             let pterodactyl = await db.get("pterodactyl", "settings") || {}

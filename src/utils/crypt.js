@@ -34,17 +34,21 @@ const crypt = require('./crypt')
  * Exporting gen(88, 62, 52, 36, 10), base64(x), hash, encrypt & decrypt.
  *--------------------------------------------------------------------------
 */
-const gens = {
-    "88": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?",
-    "62": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-    "52": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-    "36": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-    "26": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    "10": "1234567890"
-}
 
-for ([i, j] of Object.entries(gens)) {
-    module.exports[`gen${i}`] = (a) => { return generate(a, j); };
+module.exports[`gen88`] = (a) => { return generate(a, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?"); };
+module.exports[`gen62`] = (a) => { return generate(a, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"); };
+module.exports[`gen52`] = (a) => { return generate(a, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"); };
+module.exports[`gen36`] = (a) => { return generate(a, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"); };
+module.exports[`gen26`] = (a) => { return generate(a, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"); };
+module.exports[`gen10`] = (a) => { return generate(a, "1234567890"); };
+
+function generate(a, b) {
+    const c = crypto.randomBytes(a);
+    let d = '';
+    for (let i = 0; i < a; i++) {
+        d += b.charAt(c[i] % b.length);
+    }
+    return d;
 }
 
 module.exports.base64 = function (a) {
@@ -113,14 +117,6 @@ module.exports.decrypt = function (a, b) {
         return ""
     }
 };
-function generate(a, b) {
-    const c = crypto.randomBytes(a);
-    let d = '';
-    for (let i = 0; i < a; i++) {
-        d += b.charAt(c[i] % b.length);
-    }
-    return d;
-}
 /**
  *--------------------------------------------------------------------------
  * End of file

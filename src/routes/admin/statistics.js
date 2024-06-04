@@ -20,7 +20,7 @@
  * statistics.js - Admin home statistics updater.
  *--------------------------------------------------------------------------
 */
-const users = require('../../cache/users')
+const users = require('../../utils/users')
 /**
  *--------------------------------------------------------------------------
  * Loading modules
@@ -61,13 +61,13 @@ module.exports = async function () {
                 }
             }
             totalCoins = b.reduce((a, b) => a + b, 0);
-            let d = await ptero.nodes() || [];
+            let d = await ptero.nodes.getAll() || [];
             for (let i of d) {
                 resources.memory["total"] = (parseInt(resources.memory["total"] ?? 0) + parseInt(i.attributes.memory));
                 resources.memory["used"] = (parseInt(resources.memory["used"] ?? 0) + parseInt(i.attributes.allocated_resources.memory));
                 resources.disk["total"] = (parseInt(resources.disk["total"] ?? 0) + parseInt(i.attributes.disk));
                 resources.disk["used"] = (parseInt(resources.disk["used"] ?? 0) + parseInt(i.attributes.allocated_resources.disk));
-                resources.cpu["total"] = (parseInt(resources.cpu["total"] ?? 0) + parseInt(i.attributes.cpu.cpu_count * 100));
+                resources.cpu["total"] = (parseInt(resources.cpu["total"] ?? 0) + parseInt(i.attributes.cpu.system.cpu_threads * 100));
                 let e = 0;
                 i.attributes.relationships.servers.data.forEach(j => { e = parseInt(e) + parseInt(j.attributes.limits.cpu); });
                 resources.cpu["used"] = (parseInt(resources.cpu["used"] ?? 0) + parseInt(e));

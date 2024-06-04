@@ -22,12 +22,6 @@
 */
 /**
  *--------------------------------------------------------------------------
- * Loading modules
- *--------------------------------------------------------------------------
-*/
-const users = require('../../cache/users')
-/**
- *--------------------------------------------------------------------------
  * Bunch of codes...
  *--------------------------------------------------------------------------
 */
@@ -55,65 +49,58 @@ module.exports = async function () {
         }
     });
 
-    app.use("/ws.servers.console", core.ws(), core.auth, async (req, res) => {
+    app.ws("/ws.servers.console", async (req, res, ws) => {
         try {
-            const ws = await req.ws();
-            const WebSocket = require('ws');
-            let a = false;
-            let b;
-            let c;
+            let a = null;
+            let c = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
+            let e = await db.get("users", c.user)
+            let userinfo;
+            if (e) {
+                let f = crypt.decrypt(c, e.sessions.secret)
+                if (f && f === e.sessions.key) userinfo = e
+            };
+            if (!userinfo) ws.close();
             ws.on('message', async (event) => {
                 try {
-                    let d = JSON.parse(event);
-                    if (d.event === "auth") {
-                        if (!d.server) return ws.close();
-                        b = d.server;
-                        let e = await db.get("servers", parseInt(req.session.userinfo.id)) || [];
-                        if (e.length === 0 || !e.find(i => i.identifier === b)) {
+                    const b = JSON.parse(event);
+                    if (b.event === "auth") {
+                        if (!b.server) return ws.close();
+                        const d = await db.get("servers", userinfo.id) || [];
+                        if (d.length === 0 || !d.find(i => i.identifier === b.server)) {
                             ws.send(JSON.stringify({ event: "redirect" }));
                             ws.close();
                             return;
                         }
-                        let pterodactyl = await db.get("pterodactyl", "settings") || {};
-                        let f = await fetch(`${pterodactyl.domain}/api/client/servers/${b}/websocket`, {
-                            method: "GET",
-                            headers: {
-                                Accept: "application/json",
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${pterodactyl.acc}`,
-                            },
-                        });
-                        let g = await f.json();
-                        c = new WebSocket(g.data.socket, { origin: pterodactyl.domain });
-                        c.on('open', () => {
-                            c.send(JSON.stringify({ event: "auth", args: [g.data.token] }));
-                            setTimeout(() => {
-                                c.send(JSON.stringify({ event: "send logs", args: [null] }));
-                            }, 100);
-                        });
-                        c.on('message', async (message) => {
-                            let h = JSON.parse(message);
-                            if (h.event === "token expired") {
-                                let j = await fetch(`${pterodactyl.domain}/api/client/servers/${b}/websocket`, {
-                                    method: "GET",
-                                    headers: {
-                                        Accept: "application/json",
-                                        "Content-Type": "application/json",
-                                        Authorization: `Bearer ${pterodactyl.acc}`,
-                                    },
-                                });
-                                let k = await j.json();
-                                c.send(JSON.stringify({ event: "auth", args: [k.data.token] }));
-                            }
+                        a = new hcx.pterodactyl.servers.console(b.server);
+                        const f = await a.init();
+                        if (f && f.event === 'error') {
+                            ws.send(JSON.stringify(f));
+                            ws.close();
+                            return;
+                        }
+                        a.stream((data) => {
                             if (ws.readyState === WebSocket.OPEN) {
-                                ws.send(JSON.stringify(h));
+                                ws.send(JSON.stringify(data));
                             }
                         });
-                        a = true;
-                    }
-                    if (a && d.event !== "auth") {
-                        if (c && c.readyState === WebSocket.OPEN) {
-                            c.send(JSON.stringify(d));
+                        setTimeout(() => {
+                            a.sendLogs();
+                        }, 100);
+                    } else if (a && b.event !== "auth") {
+                        switch (b.event) {
+                            case "send command":
+                                a.sendCommand(b.args[0]);
+                                break;
+                            case "send stats":
+                                a.sendStats();
+                                break;
+                            case "set state":
+                                a.setState(b.args[0]);
+                                break;
+                            default:
+                                if (a.ws && a.ws.readyState === WebSocket.OPEN) {
+                                    a.ws.send(JSON.stringify(b));
+                                }
                         }
                     }
                 } catch (error) {
@@ -121,15 +108,16 @@ module.exports = async function () {
                 }
             });
             ws.on('close', () => {
-                if (c && c.readyState === WebSocket.OPEN) {
-                    c.close();
+                if (a) {
+                    a.close();
                 }
             });
         } catch (error) {
             console.error(error);
-            res.status(500).send('Internal Server Error');
+            return
         }
     });
+
 
     async function handle(error, a, b) {
         const admins = await db.get("notifications", "admins") || [];

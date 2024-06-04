@@ -20,8 +20,6 @@
  * chat.js - Global chat handler.
  *--------------------------------------------------------------------------
 */
-const users = require('../../utils/users')
-const usersCache = require('../../cache/users')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
@@ -37,10 +35,16 @@ module.exports = async function () {
     } catch (error) {
         console.error(error)
     }
-    app.use("/ws.chat", core.ws(), core.auth, async (req, res) => {
+    app.ws("/ws.chat", core.auth, async (req, res, ws) => {
         try {
-            if (!req.ws) return res.end()
-            const ws = await req.ws();
+            let h = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
+            let j = await db.get("users", h.user)
+            let userinfo;
+            if (j) {
+                let k = crypt.decrypt(h, j.sessions.secret)
+                if (k && k === j.sessions.key) userinfo = j
+            };
+            if (!userinfo) ws.close();
             clients.push(ws)
             let a = await db.get("messages", "chat") || []
             ws.send(JSON.stringify({ "event": "history", "args": a }));

@@ -43,7 +43,6 @@
  *--------------------------------------------------------------------------
 */
 global.modules = require('./utils/modules');
-const bodyParser = require('body-parser');
 process.loadEnvFile('.env')
 require('../app/database/index')(app, db);
 require('./clusters/core')()
@@ -72,14 +71,11 @@ if (!process.env.APP_SECRET || process.env.APP_SECRET == "random") { c('APP_SECR
 if (process.env.APP_ENV == "production") { c('APP_CODE', crypt.gen88(12)) };
 /**
  *--------------------------------------------------------------------------
- * Loading website
+ * Loading sessions
  *--------------------------------------------------------------------------
- * Middlewares to register bodyparser & express-session, the session cookies
- * will be preserved for 30 days.
+ * Middlewares to register express-session.
  *--------------------------------------------------------------------------
 */
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(require('express-session')({
     secret: process.env.APP_SECRET,
     resave: false,
@@ -106,9 +102,7 @@ app.use((req, res, next) => {
     } else {
         fs.access(b, fs.constants.F_OK, (err) => {
             if (err) {
-                res.statusCode = 302;
-                res.setHeader('Location', '/setup');
-                return res.end();
+                return res.redirect('/setup');
             } else {
                 next();
             }
@@ -166,7 +160,7 @@ app.use((req, res, next) => {
  * Indicating startup
  *--------------------------------------------------------------------------
 */
-app.listen(process.env.APP_PORT, function (err) {
+app.listen(process.env.APP_PORT, async function (err) {
     console.log(chalk.gray("  "));
     console.log(" _    _       _        _____ _ _            _  __   __");
     console.log("| |  | |     | |      / ____| (_)          | | \\ \\ / /");
@@ -188,7 +182,11 @@ app.listen(process.env.APP_PORT, function (err) {
     console.log(chalk.gray("{/} 🗝️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Authentication code for this session is ") + chalk.cyan(process.env.APP_CODE));
     console.log("");
     console.log(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
-    require('./cache/users')
+    require('./utils/users')
+    let a = await db.get("pterodactyl", "settings")
+    if (a && a.domain && a.app && a.acc) {
+        hcx.configure(a.domain, a.app, a.acc)
+    }
 });
 /**
 *--------------------------------------------------------------------------

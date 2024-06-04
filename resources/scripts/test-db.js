@@ -65,14 +65,12 @@ async function b() {
                     a = require('../../app/database/adapters/' + n.file);
                 }
                 const o = performance.now();
-                let p = Array.from({ length: m }, (_, q) => q);
-                for (let r of p) {
-                    await a.set("test", r, r)
-                    await a.delete("test", r)
-                }
+                await Promise.all(Array.from({ length: m }, (_, r) => 
+                    a.set("test", r, r).then(() => a.delete("test", r))
+                ));
                 const s = performance.now();
                 const t = s - o;
-                console.log(`Total time taken to set ${p.length} table(s) for ${n.name}: ${t} milliseconds`);
+                console.log(`Total time taken to set ${m} table(s) for ${n.name}: ${t} milliseconds`);
             } catch (u) {
                 console.error(`${n.name} ${u}`);
             }

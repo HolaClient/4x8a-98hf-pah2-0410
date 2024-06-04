@@ -50,7 +50,6 @@ async function database() {
   } else {
     const k = require("../../" + i[process.env.DB_CONNECTION].path);
     module.exports = k;
-    require("../../" + i[process.env.DB_CONNECTION].path).load()
   }
 }
 database();

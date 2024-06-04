@@ -20,13 +20,6 @@
  * router.js - server backend handler.
  *--------------------------------------------------------------------------
 */
-
-/**
- *--------------------------------------------------------------------------
- * Loading modules
- *--------------------------------------------------------------------------
-*/
-const page = modules.page;
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
@@ -72,9 +65,9 @@ module.exports = async function () {
                 await db.set("servers", req.session.userinfo.id, b);
             }
             if (d.attributes.suspended == true) {
-                return core.html(req, res, `./resources/views/layouts/${template}/servers/suspended.ejs`, d);
+                return pages.render(req, res, `./resources/views/layouts/${template}/servers/suspended.ejs`, d);
             } else {
-                return core.html(req, res, `./resources/views/layouts/${template}/servers/${a}.ejs`, d);
+                return pages.render(req, res, `./resources/views/layouts/${template}/servers/${a}.ejs`, d);
             }
         } catch (error) {
             console.error(error);

@@ -30,15 +30,11 @@ const modules = require("./modules.js")
 const crypt = require("./crypt.js")
 const page = modules.page;
 const cf = require("./users.js")
-const af = require('../cache/users.js')
 /**
  *--------------------------------------------------------------------------
  * Exporting create user function.
  *--------------------------------------------------------------------------
 */
-module.exports.get = async function (a) {
-    return await af.get(a)
-};
 module.exports.create = async function (req, res, email, username, avatar, first, last, permission, password) {
     try {
         let a = await db.get("ips", "ips") || []
@@ -220,3 +216,88 @@ async function register(req, res, a, b, c, d, e, f) {
     }
     return;
 }
+let users = {}
+let total = []
+let num
+async function cache() {
+    try {
+        let a = await db.get("users", "users") || [];
+        let pterodactyl = await db.get("pterodactyl", "settings");
+        if (a.length === 0) return;
+        const avatar = async (b) => {
+            let c = await fetch(b);
+            let d = await c.buffer();
+            return `data:${c.headers.get('content-type')};base64,${d.toString('base64')}`;
+        };
+        const get = async (b) => {
+            let c = await db.get("users", b);
+            c.avatar = c.avatar ? await avatar(c.avatar) : await avatar("https://png.pngtree.com/png-vector/20230822/ourmid/pngtree-person-icon-in-a-gradient-on-a-flat-blue-and-pastel-vector-png-image_6834039.png");
+            let d = {};
+            let e = await db.get("pterodactyl", "users") || [];
+            let f = e.find(j => j.hc == b);
+            if (f) {
+                try {
+                    let g = await fetch(`${pterodactyl.domain}/api/application/users/${f.id}?include=servers`, {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${pterodactyl.app}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+                    let h = await g.json();
+                    await db.set("pterodactyl", f.id, h.attributes);
+                    d = h.attributes;
+                    if (d && d.email !== c.email) {
+                        let k = await fetch(`${pterodactyl.domain}/api/application/users?include=servers&filter[email]=${encodeURIComponent(c.email)}`, {
+                            method: "GET",
+                            headers: {
+                                Authorization: `Bearer ${pterodactyl.app}`,
+                                "Content-Type": "application/json"
+                            }
+                        });
+                        let l = await k.json();
+                        if (l.data.length > 0) {
+                            let m = l.data.find(i => i.attributes.email === c.email)
+                            if (m) {
+                                d = m.attributes;
+                                await db.set("pterodactyl", m.id, d);
+                                let n = e.findIndex(i => i.hc === c.id)
+                                e[n] = { hc: c.id, id: d.id, email: d.email };
+                                await db.set("pterodactyl", "users", e);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            return { hcx: c, ptl: d };
+        };
+        let b = [];
+        let c = {};
+        await Promise.all(a.map(i => {
+            if (i.id === 0) return null;
+            return get(i.id).then(j => {
+                b.push(j);
+                c[i.id] = j;
+            });
+        }).filter(i => i !== null));
+        await cacheDB.set("users", b);
+    } catch (error) {
+        console.error(error);
+    }
+};
+setInterval(cache, 60000 * 5);
+module.exports.reload = cache()
+module.exports.get = async function (a) {
+    if (users[a] && users[a] !== null) { return users[a] } else {
+        return await db.get("users", a);
+    }
+};
+module.exports.getAll = async function () {
+    if (num !== total.length) {
+        return await cacheDB.get("users")
+    } else {
+        return total
+    }
+};

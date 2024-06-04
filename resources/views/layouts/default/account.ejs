@@ -26,10 +26,10 @@
                             <div class="w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent to-zinc-950"></div>
                         </div>
                         <div class="absolute rounded-xl top-28 left-8 flex items-end space-x-4">
-                            <img src="https://cdn.discordapp.com/avatars/863452735998656512/127dc355eb6e4a095f86d3d9c1942a53" alt="user" class="size-20 rounded-xl">
+                            <img src="<%= userinfo.avatar %>" alt="user" class="size-20 rounded-xl">
                             <div class="flex flex-col">
-                                <h1 class="text-zinc-300 font-bold text-xl">CR072</h1>
-                                <span class="text-zinc-400">@crazymath072</span>
+                                <h1 class="text-zinc-300 font-bold text-xl"><%= userinfo.nickname %></h1>
+                                <span class="text-zinc-400">@<%= userinfo.username %></span>
                             </div>
                         </div>
                         <div class="mt-12 mb-2 w-full px-2">

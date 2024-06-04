@@ -23,7 +23,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const chalk = require('chalk')
-const extensions = ['.js', '.ts', '.jsx', '.tsx', '.html', '.css', '.ejs', '.json'];
+const extensions = ['.js', '.html', '.css', '.ejs', '.json'];
 const exclude = ['node_modules', 'storage'];
 
 async function getAllFiles(dir) {
@@ -77,6 +77,7 @@ async function main() {
     let a = await getAllFiles(path.resolve(__dirname, '../../'));
     let b = a.filter(i => extensions.includes(path.extname(i)));
     let c = 0;
+    let n = 0;
     let variables = {};
     let alphabets = {};
     let functions = {};
@@ -95,6 +96,7 @@ async function main() {
         for (let [i, j] of Object.entries(f)) {
             alphabets[i] = (alphabets[i] || 0) + j;
         }
+        n++
     }
     let g = Object.entries(variables).sort((a, b) => b[1] - a[1]);
     let h = g.slice(0, 3);
@@ -120,6 +122,7 @@ async function main() {
         m = m + j
     });
     console.log('Total functions:', m);
+    console.log('Total Files:', n);
     console.log(chalk.white("======================================================="));
 }
 

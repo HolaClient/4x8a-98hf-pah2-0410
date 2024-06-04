@@ -47,7 +47,7 @@
                         <span class="text-gray-300 text-md">Get a detailed view of <%= node.name %> from <%= node.relationships.location.attributes.short %>-<%= node.relationships.location.attributes.long %></span>
                     </div>
                 </div>
-                <img src="https://cdn.holaclientx.tech/logo.png" alt="fun" class="w-0 h-0" onload="version('<%= node.cpu.version %>')">
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="fun" class="w-0 h-0" onload="version('<%= node?.cpu?.version %>')">
                 <div id="nodeVersion"></div>
                 <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                     <div class="w-full col-span-2 h-max grid grid-cols-1 gap-4">
@@ -57,15 +57,39 @@
                             <div class="w-full mt-4 px-4 pb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Operating System:</h1>
-                                <span class="text-gray-200"><%= node.cpu.os %></span>
+                                <span class="text-gray-200"><%= node?.cpu?.system?.os %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Architecture:</h1>
-                                <span class="text-gray-200"><%= node.cpu.architecture %></span>
+                                <span class="text-gray-200"><%= node?.cpu?.system?.architecture %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">CPU Information:</h1>
-                                <span class="text-gray-200"><%= node.cpu.kernel_version %></span>
+                                <span class="text-gray-200"><%= node?.cpu?.system?.kernel_version %></span>
+                              </div>
+                              <div class="flex flex-col">
+                                <h1 class="text-gray-300">Kernel:</h1>
+                                <span class="text-gray-200"><%= node?.cpu?.system?.os_type %></span>
+                              </div>
+                              <div class="flex flex-col">
+                                <h1 class="text-gray-300">Filesystem:</h1>
+                                <span class="text-gray-200"><%= node?.cpu?.docker?.storage?.filesystem %></span>
+                              </div>
+                              <div class="flex flex-col">
+                                <h1 class="text-gray-300">Docker version:</h1>
+                                <span class="text-gray-200"><%= node?.cpu?.docker?.version %></span>
+                              </div>
+                              <div class="flex flex-col">
+                                <h1 class="text-gray-300">Online servers:</h1>
+                                <span class="text-gray-200"><%= node?.cpu?.docker?.containers?.running %></span>
+                              </div>
+                              <div class="flex flex-col">
+                                <h1 class="text-gray-300">Offline servers:</h1>
+                                <span class="text-gray-200"><%= node?.cpu?.docker?.containers?.stopped %></span>
+                              </div>
+                              <div class="flex flex-col">
+                                <h1 class="text-gray-300">Total servers:</h1>
+                                <span class="text-gray-200"><%= node?.cpu?.docker?.containers?.total %></span>
                               </div>
                             </div>
                         </div>
@@ -146,13 +170,28 @@
                                 <div class="p-2 overflow-hidden z-40">
                                     <div class="flex justify-between w-full">
                                         <h1 class="text-gray-200 text-xl">CPU</h1>
-                                        <h1 class="text-gray-200 text-xl"><%= format(cpuUsage) %> <span class="text-gray-300">of </span> <%= (node.cpu.cpu_count) %> threads</h1>
+                                        <h1 class="text-gray-200 text-xl"><%= format(cpuUsage) %> <span class="text-gray-300">of </span> <%= (node.cpu?.system.cpu_threads) %> threads</h1>
                                     </div>
                                     <div class="w-full flex items-center text-base space-x-1 justify-between">
                                         <div class="progress mt-3 h-1.5 bg-zinc-800">
-                                          <div class="is-active relative w-[<%= format((cpuUsage / node.cpu.cpu_count) * 100) %>%] overflow-hidden rounded-full <%= color(format((cpuUsage / node.cpu.cpu_count) * 100)) %>"></div>
+                                          <div class="is-active relative w-[<%= format((cpuUsage / node.cpu?.system.cpu_threads) * 100) %>%] overflow-hidden rounded-full <%= color(format((cpuUsage / node.cpu?.system.cpu_threads) * 100)) %>"></div>
                                         </div>
-                                        <h1 class="text-gray-300 text-xl"><%= format((cpuUsage / node.cpu.cpu_count) * 100) %>%</h1>
+                                        <h1 class="text-gray-300 text-xl"><%= format((cpuUsage / node.cpu?.system.cpu_threads) * 100) %>%</h1>
+                                      </div>
+                                </div>
+                                <div class="bg-gradient-to-r from-transparent via-zinc-700 to-transparent w-full h-0.5"></div>
+                            </div>
+                            <div class="rounded-xl overflow-hidden relative border border-zinc-800/80">
+                                <div class="p-2 overflow-hidden z-40">
+                                    <div class="flex justify-between w-full">
+                                        <h1 class="text-gray-200 text-xl">Instances</h1>
+                                        <h1 class="text-gray-200 text-xl"><%= node?.cpu?.docker?.containers?.running %> <span class="text-gray-300">of </span> <%= node?.cpu?.docker?.containers?.total %></h1>
+                                    </div>
+                                    <div class="w-full flex items-center text-base space-x-1 justify-between">
+                                        <div class="progress mt-3 h-1.5 bg-zinc-800">
+                                          <div class="is-active relative w-[<%= format((node?.cpu?.docker?.containers?.running / node?.cpu?.docker?.containers?.total) * 100) %>%] overflow-hidden rounded-full <%= color(format((node?.cpu?.docker?.containers?.running / node?.cpu?.docker?.containers?.total) * 100)) %>"></div>
+                                        </div>
+                                        <h1 class="text-gray-300 text-xl"><%= format((node?.cpu?.docker?.containers?.running / node?.cpu?.docker?.containers?.total) * 100) %>%</h1>
                                       </div>
                                 </div>
                                 <div class="bg-gradient-to-r from-transparent via-zinc-700 to-transparent w-full h-0.5"></div>

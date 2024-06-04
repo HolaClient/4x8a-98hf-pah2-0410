@@ -44,35 +44,43 @@ module.exports = async function () {
     app.delete("/api/requests/:id", core.auth, async (req, res) => {
         try {
             let a = req.params.id;
-            let b = await db.get("requests", req.session.userinfo.id) || {};
-            if (b.sent[a]) {
-                let c = await db.get("requests", b.sent[a].user) || {};
-                if (c.incoming[a]) {
-                    delete c.incoming[a];
-                    await db.set("requests", b.sent[a].user, c);
+            let b = req.session.userinfo.id;
+            let c = await db.get("requests", b) || {};
+
+            if (c.sent && c.sent[a]) {
+                let d = c.sent[a].user;
+                let e = await db.get("requests", d) || {};
+                if (e.incoming && e.incoming[a]) {
+                    delete e.incoming[a];
+                    await db.set("requests", d, e);
                 }
-                delete b.sent[a];
-                await db.set("requests", req.session.userinfo.id, b);
-            }
-            if (b.incoming[a]) {
-                let c = await db.get("requests", b.incoming[a].from) || {};
-                if (c.sent[a]) {
-                    delete c.sent[a];
-                    c.rejected = c.rejected || {};
-                    c.rejected[a] = b.incoming[a];
-                    await db.set("requests", b.incoming[a].from, c);
-                }
-                delete b.incoming[a];
-                await db.set("requests", req.session.userinfo.id, b);
+                delete c.sent[a];
+                await db.set("requests", b, c);
                 return core.json(req, res, true, "SUCCESS");
             }
+
+            if (c.incoming && c.incoming[a]) {
+                let f = c.incoming[a].from;
+                let g = await db.get("requests", f) || {};
+                if (g.sent && g.sent[a]) {
+                    delete g.sent[a];
+                    g.rejected = g.rejected || {};
+                    (c.incoming[a])["rejected"] = Date.now()
+                    g.rejected[a] = c.incoming[a];
+                    await db.set("requests", f, g);
+                }
+                delete c.incoming[a];
+                await db.set("requests", b, c);
+                return core.json(req, res, true, "SUCCESS");
+            }
+
             return core.json(req, res, false, "404");
         } catch (error) {
             console.error(error);
-            return core.json(req, res, false, "ERROR", error);
+            return core.json(req, res, false, "ERROR", error.message);
         }
     });
-
+   
     app.patch("/api/requests/:id", core.auth, async (req, res) => {
         try {
             let a = req.params.id;
@@ -81,6 +89,7 @@ module.exports = async function () {
                 let c = await db.get("requests", b.incoming[a].from) || {};
                 let d = c.sent[a];
                 if (d && parseInt(d.user) === req.session.userinfo.id) {
+
                     if (d.type === "coins") {
                         let e = await db.get("economy", d.from) || { coins: 0 };
                         let f = await db.get("economy", req.session.userinfo.id) || { coins: 0 };
@@ -132,13 +141,15 @@ module.exports = async function () {
                         await db.set("resources", d.from, e);
                         await db.set("resources", req.session.userinfo.id, f);
                     }
+
+                    let g = b.incoming[a]
                     delete c.sent[a];
                     delete b.incoming[a];
                     c.rejected = c.rejected || {};
                     c.rejected[a] = d;
                     b.rejected = b.rejected || {};
                     b.rejected[a] = d;
-                    await db.set("requests", b.incoming[a].from, c);
+                    await db.set("requests", g.from, c);
                     await db.set("requests", req.session.userinfo.id, b);
                     return core.json(req, res, true, "SUCCESS");
                 }
@@ -146,7 +157,7 @@ module.exports = async function () {
             }
             return core.json(req, res, false, "404");
         } catch (error) {
-            console.error(error);
+            console.log(error);
             return core.json(req, res, false, "ERROR", error);
         }
     });
@@ -157,10 +168,14 @@ module.exports = async function () {
             if (!a || !a.user || !a.server && !a.coins && !a.resources || !a.type) return core.json(req, res, false, "MISSING")
             let b = await db.get("requests", req.session.userinfo.id) || {}
             let c = await db.get("requests", a.user) || {}
+            let e = `req_${Date.now()}-${crypt.gen10(12)}`
             let request = {
+                id: e,
                 user: a.user,
                 from: req.session.userinfo.id,
-                type: a.type
+                username: req.session.userinfo.username,
+                type: a.type,
+                date: Date.now()
             }
             if (a.type === "coins") {
                 let d = await db.get("economy", a.user) || { coins: 0 }
@@ -178,7 +193,6 @@ module.exports = async function () {
                 }
                 request["resources"] = a.resources
             }
-            let e = `req_${Date.now()}-${crypt.gen10(12)}`
             b["sent"] = b.sent || {}
             b.sent[e] = request
             c["incoming"] = c.incoming || {}
