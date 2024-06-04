@@ -1,0 +1,94 @@
+{
+    "name": "settings.packages",
+    "properties": {
+        "default": {
+            "type": "string",
+            "default": "default",
+            "description": "Default package.",
+            "required": true
+        },
+        "list": {
+            "type": "object",
+            "properties": {
+                "default": {
+                    "type": "object",
+                    "properties": {
+                        "display": {
+                            "type": "string",
+                            "default": "Default",
+                            "description": "Display name of the package.",
+                            "required": true
+                        },
+                        "price": {
+                            "type": "number",
+                            "default": 0,
+                            "description": "Price of the package.",
+                            "required": true
+                        },
+                        "store": {
+                            "type": "boolean",
+                            "default": false,
+                            "description": "Whether the package is stored.",
+                            "required": true
+                        },
+                        "resources": {
+                            "type": "object",
+                            "properties": {
+                                "memory": {
+                                    "type": "integer",
+                                    "default": 3072,
+                                    "description": "Memory allocated to the package (in MB).",
+                                    "required": true
+                                },
+                                "disk": {
+                                    "type": "integer",
+                                    "default": 5120,
+                                    "description": "Disk space allocated to the package (in MB).",
+                                    "required": true
+                                },
+                                "cpu": {
+                                    "type": "integer",
+                                    "default": 150,
+                                    "description": "CPU percentage allocated to the package.",
+                                    "required": true
+                                },
+                                "servers": {
+                                    "type": "integer",
+                                    "default": 1,
+                                    "description": "Number of servers allocated to the package.",
+                                    "required": true
+                                },
+                                "databases": {
+                                    "type": "integer",
+                                    "default": 1,
+                                    "description": "Number of databases allocated to the package.",
+                                    "required": true
+                                },
+                                "allocations": {
+                                    "type": "integer",
+                                    "default": 1,
+                                    "description": "Number of allocations for the package.",
+                                    "required": true
+                                },
+                                "backups": {
+                                    "type": "integer",
+                                    "default": 1,
+                                    "description": "Number of backups for the package.",
+                                    "required": true
+                                }
+                            },
+                            "required": ["memory", "disk", "cpu", "servers", "databases", "allocations", "backups"],
+                            "additionalProperties": false
+                        }
+                    },
+                    "required": ["display", "price", "store", "resources"],
+                    "additionalProperties": false
+                }
+            },
+            "required": ["default"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["default", "list"],
+    "additionalProperties": false
+}

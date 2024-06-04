@@ -1921,38 +1921,19 @@ async function loadRequests() {
   if (b.success == true) {
     let c = {}
     let d = []
-    b.data.all.forEach(i => {
+    if (Object.values(b.data.incoming).length !== 0) {
+    Object.values(b.data.incoming).forEach(i => {
       d.push(`<div class="w-full px-4 py-2 rounded-xl bg-zinc-900/50">
       <div class="flex items-center justify-between w-full">
           <div class="flex flex-col">
               <h1 class="text-zinc-300 text-lg">${i.message}</h1>
-              <span class="text-zinc-400">From <span onclick="render('users/${i.user.id}')" class="text-cyan-400">${i.user.nickname}</span></span>
+              <span class="text-zinc-400">From <span onclick="render('users/${i.from}')" class="text-cyan-400">${i.username}</span></span>
           </div>
           <div class="flex items-center space-x-4">
-              <a href="#" onclick="rejectRequest(${i.id})" class="text-zinc-400">
+              <a href="#" onclick="rejectRequest('${i.id}')" class="text-zinc-400">
                   Reject
               </a>
-              <button onclick="acceptRequest(${i.id})" class="p-2 px-4 rounded-xl bg-zinc-900 text-zinc-300">
-                  Accept
-              </button>
-          </div>
-      </div>
-  </div>`)
-    });
-    c["all"] = d
-    d = []
-    b.data.incoming.forEach(i => {
-      d.push(`<div class="w-full px-4 py-2 rounded-xl bg-zinc-900/50">
-      <div class="flex items-center justify-between w-full">
-          <div class="flex flex-col">
-              <h1 class="text-zinc-300 text-lg">${i.message}</h1>
-              <span class="text-zinc-400">From <span onclick="render('users/${i.user.id}')" class="text-cyan-400">${i.user.nickname}</span></span>
-          </div>
-          <div class="flex items-center space-x-4">
-              <a href="#" onclick="rejectRequest(${i.id})" class="text-zinc-400">
-                  Reject
-              </a>
-              <button onclick="acceptRequest(${i.id})" class="p-2 px-4 rounded-xl bg-zinc-900 text-zinc-300">
+              <button onclick="acceptRequest('${i.id}')" class="p-2 px-4 rounded-xl bg-zinc-900 text-zinc-300">
                   Accept
               </button>
           </div>
@@ -1960,8 +1941,13 @@ async function loadRequests() {
   </div>`)
     });
     c["incoming"] = d
+    document.getElementById("panel-incoming").innerHTML = d.join("")
+  } else {
+    document.getElementById("panel-incoming").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">No new incoming requests.</div>`
+  }
     d = []
-    b.data.sent.forEach(i => {
+    if (Object.values(b.data.sent).length !== 0) {
+    Object.values(b.data.sent).forEach(i => {
       d.push(`<div class="w-full px-4 py-2 rounded-xl bg-zinc-900/50">
       <div class="flex items-center justify-between w-full">
           <div class="flex flex-col">
@@ -1969,13 +1955,33 @@ async function loadRequests() {
               <span class="text-zinc-400">Sent at ${date(i.date)}</span>
           </div>
           <div class="flex items-center space-x-4">
-              <button onclick="cancelRequest(${i.id})" class="p-2 px-4 rounded-xl bg-zinc-900 text-zinc-300">
+              <button onclick="cancelRequest('${i.id}')" class="p-2 px-4 rounded-xl bg-zinc-900 text-zinc-300">
                   Cancel
               </button>
           </div>
       </div>
   </div>`)
     });
+    document.getElementById("panel-sent").innerHTML = d.join("")
+  } else {
+    document.getElementById("panel-sent").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
+  }
+  d = []
+    if (Object.values(b.data.rejected).length !== 0) {
+    Object.values(b.data.rejected).forEach(i => {
+      d.push(`<div class="w-full px-4 py-2 rounded-xl bg-zinc-900/50">
+      <div class="flex items-center justify-between w-full">
+          <div class="flex flex-col">
+              <h1 class="text-zinc-300 text-lg">${i.message}</h1>
+              <span class="text-zinc-400">Sent at ${date(i.date)}, Rejected at ${date(i.rejected)}</span>
+          </div>
+      </div>
+  </div>`)
+    });
+    document.getElementById("panel-rejected").innerHTML = d.join("")
+  } else {
+    document.getElementById("panel-rejected").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
+  }
   } else {
     toastr.error(b.message, "Error!")
   }
@@ -1987,23 +1993,27 @@ async function rejectRequest(a) {
       "Content-Type": "application/json",
     }
   });
-  if (b.success == true) {
-    toastr.success(b.message, "Success!")
+  let c = await b.json()
+  if (c.success == true) {
+    loadRequests()
+    toastr.success(c.message, "Success!")
   } else {
-    toastr.error(b.message, "Error!")
+    toastr.error(c.message, "Error!")
   }
 }
 async function acceptRequest(a) {
   let b = await fetch(`/api/requests/${a}`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     }
   });
-  if (b.success == true) {
-    toastr.success(b.message, "Success!")
+  let c = await b.json()
+  if (c.success == true) {
+    loadRequests()
+    toastr.success(c.message, "Success!")
   } else {
-    toastr.error(b.message, "Error!")
+    toastr.error(c.message, "Error!")
   }
 }
 async function cancelRequest(a) {
@@ -2013,10 +2023,12 @@ async function cancelRequest(a) {
       "Content-Type": "application/json",
     }
   });
-  if (b.success == true) {
-    toastr.success(b.message, "Success!")
+  let c = await b.json()
+  if (c.success == true) {
+    loadRequests()
+    toastr.success(c.message, "Success!")
   } else {
-    toastr.error(b.message, "Error!")
+    toastr.error(c.message, "Error!")
   }
 }
 async function regenPassword() {
@@ -2046,4 +2058,36 @@ function dashboardpage() {
     cursorBG.style.left = `${x - cursorBG.offsetWidth / 2}px`;
     cursorBG.style.top = `${y - cursorBG.offsetHeight / 2}px`;
   });
+}
+async function getTransferUsers() {
+  let a = await fetch('/api/servers/transfer')
+  let b = await a.json()
+  if (b.success === true) {
+    let c = document.getElementById('usersList')
+    let d = []
+    for (let i of b.data) {
+      d.push(`<option value="${i.id}">${i.nickname}, (${i.id})</option>`)
+    }
+    c.innerHTML = d.join('')
+  } else {
+    toastr.error(c.message, "Error!")
+  }
+}
+async function transferOwnership(a) {
+  let b = await fetch(`/api/servers/transfer/${a}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "type": "server",
+      "user": parseInt(document.getElementById('usersList').value)
+    })
+  });
+  let c = await b.json()
+  if (c.success === true) {
+    toastr.success(c.message, "Success!")
+  } else {
+    toastr.error(c.message, "Error!")
+  }
 }

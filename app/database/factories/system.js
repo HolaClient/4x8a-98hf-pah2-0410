@@ -94,7 +94,7 @@ module.exports = async function (db) {
     let c = await db.get("core", "about")
     if (!c) await db.set("core", "about", {
         version: "X1",
-        codename: "Virtuo",
+        codename: "Hydrogen",
         build: "HCX1042401",
         security: "January 2024",
         updater: 0,

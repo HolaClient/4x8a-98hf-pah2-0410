@@ -1,0 +1,30 @@
+{
+    "structure": {
+        "app": {
+            "settings": {
+                "appearance": {
+                    "name": "settings",
+                    "type": "scaleable",
+                    "values": [
+                        {
+                            "name": "appearance",
+                            "type": "object",
+                            "scaleability": "value"
+                        },
+                        {
+                            "name": "authentication",
+                            "type": "object",
+                            "scaleability": "value"
+                        }
+                    ]
+                },
+                "packages": {
+
+                }
+            },
+            "users": {
+
+            }
+        }
+    }
+}
