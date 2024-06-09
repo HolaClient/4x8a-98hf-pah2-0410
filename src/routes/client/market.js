@@ -33,7 +33,7 @@ module.exports = async function () {
             const template = appearance.themes && appearance.themes.layouts || "default";
             return core.html(req, res, `./resources/views/layouts/${template}/market/resources.ejs`, a.resources)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return fallback.error500(error)
         }
     });
@@ -46,7 +46,7 @@ module.exports = async function () {
             const template = appearance.themes && appearance.themes.layouts || "default";
             return core.html(req, res, `./resources/views/layouts/${template}/market/packages/index.ejs`, {categories: b, packages: a})
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return fallback.error500(error)
         }
     });
@@ -60,7 +60,7 @@ module.exports = async function () {
             const template = appearance.themes && appearance.themes.layouts || "default";
             return core.html(req, res, `./resources/views/layouts/${template}/market/packages/[id].ejs`, c)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return fallback.error500(error)
         }
     });
@@ -73,7 +73,7 @@ module.exports = async function () {
             const template = appearance.themes && appearance.themes.layouts || "default";
             return core.html(req, res, `./resources/views/layouts/${template}/market/packages/checkout.ejs`, b)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return fallback.error500(error)
         }
     });
@@ -87,6 +87,7 @@ module.exports = async function () {
             if (!a.resources.list.includes(b)) return core.json(req, res, false, "INVALID");
             if (isNaN(c)) return core.json(req, res, false, "INVALIDINTEGER");
             if (c <= 0) return core.json(req, res, false, "INTEGERBELOWZERO");
+            if (c >= 999999999999999) return core.json(req, res, false, "INTEGERTOOBIG");
             let d = await db.get('economy', req.session.userinfo.id);
             let e = a.resources.buy[b].per;
             if (e !== 1) e = a.resources.buy[b].price / a.resources.buy[b].per;
@@ -99,7 +100,7 @@ module.exports = async function () {
             await db.set("resources", req.session.userinfo.id, g);
             return core.json(req, res, true, "SUCCESS", d.coins)
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return core.json(req, res, false, "ERROR", error);
         }
     });

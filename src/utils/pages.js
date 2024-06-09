@@ -52,13 +52,13 @@ async function render(req, res, a, b) {
         const c = await data(req);
         return ejs.renderFile(a, {...c, data: b || {}}, function (error, str) {
             if (error) {
-                console.error(error);
+                System.err.println(error);
                 return res.html(fallback.error500(error));
             }
             return res.html(str);
         });
     } catch (error) {
-        console.error(error);
+        System.err.println(error);
         return res.end(fallback.error500(error));
     }
 };
@@ -67,7 +67,7 @@ async function error(req, res, page) {
         ejs.renderFile(`./resources/views/errors/${page}.ejs`, null,
             function (error, str) {
                 if (error) {
-                    console.error(error);
+                    System.err.println(error);
                     return res.html(fallback.error500(error));
                 };
                 return res.html(str);

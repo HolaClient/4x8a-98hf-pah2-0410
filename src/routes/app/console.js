@@ -57,7 +57,7 @@ module.exports = async function () {
                 }
             }
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     }
@@ -79,7 +79,7 @@ module.exports = async function () {
                 await db.set("app", "console", c)
             }
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     }

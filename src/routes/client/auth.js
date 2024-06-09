@@ -32,7 +32,7 @@ module.exports = async function () {
             let a = await db.get("core", "authenticators") || []
             return core.json(req, res, true, "SUCCESS", a)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return core.json(req, res, false, "ERROR", error)
         }
     });
@@ -45,7 +45,7 @@ module.exports = async function () {
                 return res.redirect('/login')
             });
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
         }
     });
 
@@ -57,7 +57,7 @@ module.exports = async function () {
             await db.set("users", req.session.userinfo.id, a)
             return core.json(req, res, true, "SUCCESS", b)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return core.json(req, res, false, "ERROR", error)
         }
     });
@@ -81,7 +81,7 @@ module.exports = async function () {
             hcx.core.cookies.set(res, "hc.sk", JSON.stringify(e))
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return core.json(req, res, false, "ERROR", error)
         }
     });
@@ -123,7 +123,7 @@ module.exports = async function () {
                     let h = await f.json()
                     if (h.success !== true && h.code === 200) return core.json(req, res, false, "INVALIDEMAIL");
                 } catch (error) {
-                    console.error(error)
+                    System.err.println(error)
                 }
             }
             let d = await users.create(req, res, a.email, a.username, "https://png.pngtree.com/png-vector/20230822/ourmid/pngtree-person-icon-in-a-gradient-on-a-flat-blue-and-pastel-vector-png-image_6834039.png", a.username, a.username, 1, a.password);
@@ -135,7 +135,7 @@ module.exports = async function () {
             hcx.core.cookies.set(res, "user", d.id)
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return core.json(req, res, false, "ERROR", error)
         }
     });

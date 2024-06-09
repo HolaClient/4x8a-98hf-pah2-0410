@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';"> 
+    <meta name="description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC, Freemium Minecraft Hosting, <%= appearance.name %>, Cloud, Minecraft, Servers, Free Servers, Hostings that uses HolaClient">
+    <meta name="author" content="HolaClient">
+    <meta name="copyright" content="<%= appearance.name %>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= appearance.name %>">
+    <meta property="og:description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta property="og:image" content="https://cdn.holaclientx.tech/logo.png">
+    <meta name="twitter:card" content="https://cdn.holaclientx.tech/logo.png">
+    <meta name="twitter:title" content="<%= appearance.name %>">
+    <meta name="twitter:description" content="<%= appearance.description %> | Powered by HolaClient.">
+    <meta name="twitter:image" content="https://cdn.holaclientx.tech/logo.png">
+    <meta name="twitter:image:src" content="https://cdn.holaclientx.tech/logo.png">
+    <title>HolaClient-X1 | Admin</title>
+    <link rel="shortcut icon" href="https://cdn.holaclientx.tech/logo.png" type="image/x-icon">
+    <link rel="icon" type="image/png" href="https://cdn.holaclientx.tech/logo.png">
+    <% if (process.env.APP_ENV !== "production") { %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/admin/default/app.dev.js"></script>
+    <link rel="stylesheet" href="/assets/admin/default/app.dev.css">
+    <% } else { %>
+    <script src="/assets/admin/default/app.js"></script>
+    <link href="/assets/common/tailwind.css" rel="stylesheet" rel="preload">
+    <link rel="stylesheet" href="/assets/admin/default/app.css">
+    <% } %>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script>
+        function lazyLoadCSS(a) {
+                return new Promise((resolve, reject) => {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = a;
+                    link.onload = resolve;
+                    link.onerror = reject;
+                    document.head.appendChild(link);
+                });
+            };
+            function lazyLoadJS(a) {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = a;
+                    script.async = true;
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            };
+        document.addEventListener("DOMContentLoaded", function () {
+            lazyLoadJS('https://cdn.jsdelivr.net/npm/sweetalert2@10')
+            lazyLoadCSS('https://cdn.holaclientx.tech/production/assets/toastr.css')
+            lazyLoadJS('https://cdn.holaclientx.tech/production/assets/toastr.js')
+            lazyLoadJS('/assets/admin/default/charts.js')
+            lazyLoadJS('https://cdn.holaclientx.tech/production/assets/flowbite.js')
+            setTimeout(() => {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showHideTransition: 'slide',
+                    positionClass: 'toast-bottom-right',
+                    timeOut: 4000,
+                    extendedTimeOut: 1000,
+                    showDuration: 300,
+                    hideDuration: 300,
+                };
+            }, 5000);
+        });
+    </script>
+</head>

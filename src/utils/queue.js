@@ -107,7 +107,7 @@ module.exports.servers = async function () {
                 } catch (error) {
                     console.log(error)
                     notify({ user: i.environment.user, message: "SERVER_CREATION_ERROR" });
-                    console.error(error)
+                    System.err.println(error)
                     let f = await db.get("resources", i.environment.user);
                     for (let [k, j] of Object.entries(i.resources)) { f[k].used = f[k].used - j };
                     await db.set("resources", i.environment.user, f);
@@ -118,7 +118,7 @@ module.exports.servers = async function () {
         }
         serverStatus = false;
     } catch (error) {
-        console.error(error)
+        System.err.println(error)
         return
     }
 }
@@ -181,7 +181,7 @@ module.exports.users = async function () {
         };
         userStatus = false;
     } catch (error) {
-        console.error(error)
+        System.err.println(error)
         return
     }
 }

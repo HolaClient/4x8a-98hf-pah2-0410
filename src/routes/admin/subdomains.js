@@ -22,11 +22,6 @@
 */
 /**
  *--------------------------------------------------------------------------
- * Loading modules
- *--------------------------------------------------------------------------
-*/
-/**
- *--------------------------------------------------------------------------
  * Bunch of codes...
  *--------------------------------------------------------------------------
 */
@@ -103,7 +98,7 @@ module.exports = async function() {
                         f = j.result_info && j.result_info.page < j.result_info.total_pages;
                         e++;
                     } else {
-                        console.error(`Failed to fetch data for zone ${zone}, page ${e}:`, j.errors);
+                        System.err.println(`Failed to fetch data for zone ${zone}, page ${e}:`, j.errors);
                         f = false;
                     }
                 }
@@ -114,7 +109,7 @@ module.exports = async function() {
         async function handle(error, a, b) {
             const admins = await db.get("notifications", "admins") || [];
             const errors = await db.get("logs", "errors") || [];
-            console.error(error)
+            System.err.println(error)
             admins.push({
                 title: `${a} Error`,
                 message: `${error}`,
