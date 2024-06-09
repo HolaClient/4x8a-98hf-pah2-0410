@@ -155,16 +155,7 @@ module.exports = async function () {
             let a = (await db.get("pterodactyl", "nodes")).find(i => i.id == id);
             let node = ((await ptero.nodes.getAll()).find(i => i.attributes.id == id).attributes);
             node["deployments"] = a.deployments
-            const data = await page.data(req);
-            return ejs.renderFile(`./resources/views/admin/${template}/pterodactyl/nodes/[id].ejs`, {...data,node},
-                function (error, str) {
-                    if (error) {
-                        console.error(error);
-                        return res.end(fallback.error500(error));
-                    };
-                    return res.end(str);
-                }
-            );
+            return pages.render(req, res, `./resources/views/admin/${template}/pterodactyl/nodes/[id].ejs`, node)
         } catch (error) {
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
         }
@@ -174,7 +165,7 @@ module.exports = async function () {
         try {
             const admins = await db.get("notifications", "admins") || [];
             const errors = await db.get("logs", "errors") || [];
-            console.error(error)
+            System.err.println(error)
             if (typeof admins == "array" && typeof errors == "array") {
                 admins.push({
                     title: `${a} Error`,
@@ -189,7 +180,7 @@ module.exports = async function () {
             }
             return
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     };

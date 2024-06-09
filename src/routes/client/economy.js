@@ -30,50 +30,56 @@ module.exports = async function () {
     let totalCoins = 0
     let leaderboard = []
     let totalUsers = {}
+    let onlineUsers = []
+    let usersCoins = {}
     app.get("/api/economy/leaderboard", core.auth, async (req, res) => {
         try {
             return core.json(req, res, true, "SUCCESS", { total: totalCoins, leaderboard: leaderboard.sort((a, b) => b.coins - a.coins) })
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return core.json(req, res, false, "ERROR", error)
         }
     });
 
-    app.ws("/ws.afk", core.auth, async (req, res, ws) => {
+    app.ws("/ws.afk", async (req, res, ws) => {
         try {
-            let cc = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
-            let ee = await db.get("users", cc.user)
+            let cc = JSON.parse(hcx.core.cookies.get(req, "hc.sk"));
+            let ee = await db.get("users", cc.user);
             let userinfo;
             if (ee) {
-                let ff = crypt.decrypt(cc, ee.sessions.secret)
-                if (ff && ff === ee.sessions.key) userinfo = ee
-            };
-            if (!userinfo) ws.close();
+                let ff = crypt.decrypt(cc, ee.sessions.secret);
+                if (ff && ff === ee.sessions.key) userinfo = ee;
+            }
+            if (!userinfo) return ws.close();
             let d = true;
             let b = userinfo.id;
+            let l = onlineUsers.findIndex(i => i.userinfo.id === b);
+            if (l === -1) {
+                onlineUsers.push({ userinfo, ws });
+            } else {
+                ws.close();
+                return;
+            }
             try {
-                if (totalUsers[b] === true) return ws.end();
+                if (totalUsers[b] === true) return ws.close();
                 totalUsers[b] = true;
                 let c = await db.get("settings", "afk") || {};
-                let k = c.every ?? 60;
+                let k = c.every ?? 5;
                 let e = 0;
                 let f = await db.get("economy", b) || { coins: 0 };
                 let g = Date.now();
                 let h = f.coins;
                 let j = k;
-                setInterval(async () => {
-                    if (d === true) {
-                        f["coins"] = parseInt(h + e);
+                usersCoins[userinfo.id] = h;
+                const coinInterval = setInterval(async () => {
+                    if (d === true && f.coins < 999999999999999) {
+                        f.coins = parseInt(h + e);
                         e++;
+                        usersCoins[userinfo.id] = parseInt(h + e);
                         await db.set("economy", b, f);
                     }
                 }, k * 1000);
-                if (d === true) {
-                    if (ws.readyState == WebSocket.OPEN) {
-                        ws.send(JSON.stringify({ session: e, total: parseInt(h + e), duration: ((Date.now() - g) / 1000).toFixed(0), coinsIn: k }));
-                    }
-                }
-                setInterval(async () => {
+                const sendInterval = setInterval(async () => {
                     if (d === true) {
                         if (ws.readyState == WebSocket.OPEN) {
                             if (j > 0) {
@@ -81,22 +87,26 @@ module.exports = async function () {
                             } else {
                                 j = k;
                             }
-                            ws.send(JSON.stringify({ session: e, total: parseInt(h + e), duration: ((Date.now() - g) / 1000).toFixed(0), coinsIn: j }));
+                            let m = [];
+                            onlineUsers.forEach(i => m.push({ nickname: i.userinfo.nickname, avatar: i.userinfo.avatar, coins: usersCoins[i.userinfo.id] }));
+                            ws.send(JSON.stringify({ session: e, total: parseInt(h + e), duration: ((Date.now() - g) / 1000).toFixed(0), coinsIn: j, party: m }));
                         }
                     }
-                }, 1 * 5000);
+                }, 5000);
+                ws.on('close', () => {
+                    d = false;
+                    clearInterval(coinInterval);
+                    clearInterval(sendInterval);
+                    totalUsers[b] = false;
+                    onlineUsers = onlineUsers.filter(i => i.userinfo.id !== b);
+                });
             } catch (error) {
-                console.error(error);
+                System.err.println(error);
             }
-            ws.on('close', () => {
-                d = false;
-                if (b) totalUsers[b] = false;
-            });
         } catch (error) {
-            console.error(error);
-            return;
+            System.err.println(error);
         }
-    });
+    });    
 
     async function cache() {
         try {
@@ -120,7 +130,7 @@ module.exports = async function () {
             leaderboard = d;
             totalCoins = b.reduce((a, b) => a + b, 0);
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     }

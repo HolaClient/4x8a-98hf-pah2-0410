@@ -37,7 +37,7 @@ module.exports = async function () {
             }
             return core.json(req, res, true, "SUCCESS", c)
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return core.json(req, res, false, "ERROR", error);
         }
     });
@@ -46,7 +46,7 @@ module.exports = async function () {
             let a = await db.get("billing", "invoices") || []
             return core.json(req, res, true, "SUCCESS", a)
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return core.json(req, res, false, "ERROR", error);
         }
     });
@@ -65,7 +65,7 @@ module.exports = async function () {
             };
             return core.json(req, res, true, "SUCCESS", e);
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return core.json(req, res, false, "ERROR", error);
         }
     });
@@ -88,7 +88,7 @@ module.exports = async function () {
                 return core.json(req, res, false, "MAXINVOICES");
             }
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return core.json(req, res, false, "ERROR", error);
         }
     });
@@ -113,7 +113,7 @@ module.exports = async function () {
             await db.set("economy", req.session.userinfo.id, g)
             return core.redirect(res, '/dashboard')
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return core.json(req, res, false, "ERROR", error);
         }
     });
@@ -131,7 +131,7 @@ module.exports = async function () {
             const template = appearance.themes && appearance.themes.admin || "default";
             core.html(req, res, `./resources/views/admin/${template}/billing/gateways/[id].ejs`, e)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return core.json(req, res, false, "ERROR", error);
         }
     });
@@ -144,7 +144,7 @@ module.exports = async function () {
             const template = appearance.themes && appearance.themes.admin || "default";
             core.html(req, res, `./resources/views/admin/${template}/billing/invoices/[id].ejs`, b)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return core.json(req, res, false, "ERROR", error);
         }
     });

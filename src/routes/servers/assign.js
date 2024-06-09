@@ -44,7 +44,7 @@ module.exports = async function () {
             });
             return core.json(req, res, true, "SUCCESS", b)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     });
@@ -95,7 +95,7 @@ module.exports = async function () {
     });
 
     async function handle(error, a, b) {
-        console.error(error)
+        System.err.println(error)
         admins.push({
             title: `${a} Error`,
             message: `${error}`,

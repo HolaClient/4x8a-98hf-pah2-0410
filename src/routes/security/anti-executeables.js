@@ -17,16 +17,16 @@
  * @version 1
  *
  *--------------------------------------------------------------------------
- * anti-diskfill.js - Anti-DiskFillers handler.
+ * anti-vm.js - Anti-PteroVM handler.
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
     const pterodactyl = await db.get("pterodactyl", "settings") || {}
     const config = await db.get("settings", "security") || {}
     const host = await db.get("app", "console") || {}
-    let scannedSRVs = await db.get("stats", "antidiskfill") || []
+    let scannedSRVs = await db.get("stats", "antiexecuteables") || []
 
-    if (host?.license !== undefined && host?.license && config?.antidiskfill?.enabled === true) {
+    if (host?.license !== undefined && host?.license && config?.antiexecuteables?.enabled === true) {
         check()
         setInterval(async () => {
             await check()
@@ -41,16 +41,7 @@ module.exports = async function () {
             if (b.length === 0) return
             b.forEach(async (i) => {
                 try {
-                    let d = await fetch(`${pterodactyl.domain}/api/client/servers/${i.attributes.identifier}/resources`, {
-                        "method": "GET",
-                        "headers": {
-                            "Accept": "application/json",
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${pterodactyl.acc}`,
-                        },
-                    });
-                    let e = await d.json();
-                    let g = JSON.stringify({ resources: e, files: f[i.attributes.identifier], attributes: i.attributes })
+                    let g = JSON.stringify({ files: f[i.attributes.identifier], attributes: i.attributes })
                     c.push(g)
                     let h = scannedSRVs.find(j => j === i.attributes.identifier)
                     if (!h) scannedSRVs.push(i.attributes.identifier)

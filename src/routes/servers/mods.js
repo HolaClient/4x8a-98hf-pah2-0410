@@ -106,7 +106,7 @@ module.exports = async function () {
     async function handle(error, a, b) {
         const admins = await db.get("notifications", "admins") || [];
         const errors = await db.get("logs", "errors") || [];
-        console.error(error)
+        System.err.println(error)
         admins.push({
             title: `${a} Error`,
             message: `${error}`,

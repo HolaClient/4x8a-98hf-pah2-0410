@@ -83,26 +83,26 @@ async function render(page = page || "/") {
     </div>`);
   let d = await getPage(page);
   let e = document.createElement('div');
-  e.innerHTML = d;
+  e.textContent = d;
   let f = e.querySelector('#content');
   b.style.transition = 'opacity 0.5s ease, transform 0.2s ease';
   b.style.opacity = 0;
   b.style.transform = 'translateY(20px)';
   try {
     if (b && f) {
-      b.innerHTML = ``;
-      b.innerHTML = f.innerHTML;
+      b.textContent = ``;
+      b.textContent = f.textContent;
       document.getElementById('loadOverlay').remove();
     } else {
       console.error(`Page ${page} not found"`, 404);
       let g = await fetch(`obviously-a-404-page`);
       let h = await g.text();
-      b.innerHTML = "";
-      b.innerHTML = h;
+      b.textContent = "";
+      b.textContent = h;
       document.getElementById('loadOverlay').remove();
     }
   } catch (i) {
-    b.innerHTML = error500;
+    b.textContent = error500;
     document.getElementById('loadOverlay').remove();
   }
   const j = document.getElementById(`nav-${page.startsWith("/") ? page.slice(1) : page}`);
@@ -197,7 +197,7 @@ async function load() {
   const page = location.startsWith("/") ? location.slice(1) : location;
   for (let i of routes) {
     const li = document.createElement("li");
-    li.innerHTML = `
+    li.textContent = `
           <a onclick="render('${i.url}')" id="nav-${i.url}"
               class="flex items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 backdrop-blur-3xl hover:duration-300 duration-300 hover:bg-zinc-900/80">
               <div id="nav-display-${i.url}" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
@@ -263,7 +263,7 @@ async function loadUserDropdown() {
 
     for (let i of userRoutes) {
       const li = document.createElement("li")
-      li.innerHTML = `
+      li.textContent = `
       <a onclick="render('${i.url}')" id="nav-${i.url}"
           class="flex items-center mx-auto font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 backdrop-blur-3xl hover:duration-300 duration-300 hover:bg-zinc-900/80">
           <div id="nav-display-${i.url}" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
@@ -294,7 +294,7 @@ async function loadUserDropdown() {
     b.style.transition = 'opacity 1.5s ease, transform 1.5s ease'
     b.style.transform = 'translateY(0)'
     b.style.opacity = 0
-    c.innerHTML = ''
+    c.textContent = ''
   }
 }
 function changeURL(url) {
@@ -325,7 +325,7 @@ async function nodes() {
     let b = await a.json()
     if (b.success == true) {
       let c = document.getElementById("nodesHolder")
-      c.innerHTML = ""
+      c.textContent = ""
       const e = []
       for (let i of b.data) {
         nodesCache.push(i)
@@ -370,7 +370,7 @@ async function nodes() {
       }
       if (b.data.length == 0) e.push(`<div class="w-full col-span-3 flex items-center justify-center py-4 md:py-8 lg:py-12 xl:py-16">
       <span class="text-lg text-gray-300">Nothing to view here...</span></div>`)
-      c.innerHTML = e.join('')
+      c.textContent = e.join('')
     }
   } catch (error) {
     toastr.error(error)
@@ -427,10 +427,10 @@ function showNode(a) {
       </div>`;
 
     if (cache && cache.node && cache.node == a) {
-      b.innerHTML = "";
+      b.textContent = "";
       cache.node = ""
     } else {
-      b.innerHTML = d;
+      b.textContent = d;
       cache.node = a
     }
 
@@ -450,7 +450,7 @@ async function addNode(a) {
   let c = await b.json()
   if (c.success == true) {
     await nodes()
-    document.getElementById("nodeViewer").innerHTML = ""
+    document.getElementById("nodeViewer").textContent = ""
     toastr.success(c.message, "Success!")
   } else {
     toastr.error(c.message, "Error!")
@@ -462,9 +462,9 @@ async function version(a) {
   let d = (c.tag_name).replace("v", "")
   let e = document.getElementById("nodeVersion")
   if (d == a) {
-    e.innerHTML = `<div class="mt-4 w-full rounded-xl p-2 px-4 bg-zinc-900/50 border border-zinc-800/80 text-gray-300">You're using the latest version of Wings (<b>${a}</b>).</div>`;
+    e.textContent = `<div class="mt-4 w-full rounded-xl p-2 px-4 bg-zinc-900/50 border border-zinc-800/80 text-gray-300">You're using the latest version of Wings (<b>${a}</b>).</div>`;
   } else {
-    e.innerHTML = `<div class="mt-4 w-full rounded-xl p-2 px-4 bg-rose-700/50 border border-rose-700 text-rose-300">You're using Wings version <b>${a}</b>, but the latest version is <b>${d}</b>. Please update the wings to prohibit security vulnerabilities!</div>`;
+    e.textContent = `<div class="mt-4 w-full rounded-xl p-2 px-4 bg-rose-700/50 border border-rose-700 text-rose-300">You're using Wings version <b>${a}</b>, but the latest version is <b>${d}</b>. Please update the wings to prohibit security vulnerabilities!</div>`;
   }
 }
 async function removeNode(a) {
@@ -495,7 +495,7 @@ async function eggs() {
     let b = await a.json();
     if (b.success === true) {
       let c = document.getElementById("eggsHolder");
-      c.innerHTML = "";
+      c.textContent = "";
       const e = [];
       for (let i of b.data) {
         let f = [];
@@ -515,7 +515,7 @@ async function eggs() {
       if (b.data.length === 0) {
         e.push(`<div class="w-full col-span-3 flex items-center justify-center py-4 md:py-8 lg:py-12 xl:py-16"><span class="text-lg text-gray-300">Nothing to view here...</span></div>`);
       }
-      c.innerHTML = e.join('');
+      c.textContent = e.join('');
     }
   } catch (error) {
     toastr.error(error.message);
@@ -572,10 +572,10 @@ function showEgg(a) {
         </div>
       </div>`;
     if (cache && cache.egg && cache.egg == a) {
-      b.innerHTML = "";
+      b.textContent = "";
       cache.egg = ""
     } else {
-      b.innerHTML = d;
+      b.textContent = d;
       cache.egg = a
     }
   }
@@ -647,7 +647,7 @@ async function addons() {
       </tr>
     `)
     }
-    c.innerHTML = d.join("")
+    c.textContent = d.join("")
   } else {
     toastr.error(b.message, "Error!")
   }
@@ -665,7 +665,7 @@ async function activateAddon(a) {
   let c = await b.json()
   if (c.success == true) {
     toastr.success(c.message, "Success!")
-    document.getElementById("addonStatus").innerHTML = `
+    document.getElementById("addonStatus").textContent = `
     <button onclick="configAddon(${a})" class="px-4 py-2 rounded-xl bg-emerald-900/50 border border-emerald-800/80 text-emerald-400">
     Save changes
 </button>
@@ -689,7 +689,7 @@ async function deactivateAddon(a) {
   let c = await b.json()
   if (c.success == true) {
     toastr.success(c.message, "Success!")
-    document.getElementById("addonStatus").innerHTML = `
+    document.getElementById("addonStatus").textContent = `
     <button onclick="configAddon(${a})" class="px-4 py-2 rounded-xl bg-emerald-900/50 border border-emerald-800/80 text-emerald-400">
     Save changes
 </button>
@@ -811,7 +811,7 @@ async function users() {
     const k = (g - 1) * h;
     const l = k + h;
     const m = a.slice(k, l);
-    c.innerHTML = m.map(i => `
+    c.textContent = m.map(i => `
       <tr onclick="render('admin/users/view/${i.id}')" class="cursor-pointer">
         <td class="p-4 transition-all duration-300 ease-in-out text-left">
           <img class="object-cover w-12 rounded-xl" src="${i.avatar}">
@@ -862,8 +862,8 @@ async function users() {
       o.push(`<a href="#" class="outline-0 text-white bg-zinc-800 hover:bg-zinc-800/70 border-2 border-transparent hover:border-blue-500 px-4 py-2 mx-1 rounded-lg">${n}</a>`);
     }
     const t = document.createElement('div');
-    t.innerHTML = o.join('');
-    f.innerHTML = '';
+    t.textContent = o.join('');
+    f.textContent = '';
     f.appendChild(t);
     t.querySelectorAll('a').forEach((u, v) => {
       u.addEventListener('click', (w) => {
@@ -916,7 +916,7 @@ async function usersFake() {
         </tr>
         `)
     }
-    document.getElementById("usersHolder").innerHTML = c
+    document.getElementById("usersHolder").textContent = c
   }
 }
 async function createProduct() {
@@ -969,7 +969,7 @@ async function productsLoad() {
   for (let i of b.data.eggs) {
     c.push(`<option value="${i.id}">${i.deployments.name}</option>`)
   }
-  z.innerHTML += c.join('')
+  z.textContent += c.join('')
   document.getElementById("productIcon").addEventListener("input", function () {
     document.getElementById("productIconPreview").src = gv("productIcon")
   });
@@ -1008,7 +1008,7 @@ async function products() {
       </td>
   </tr>`)
     }
-    document.getElementById("productsHolder").innerHTML = c.join('')
+    document.getElementById("productsHolder").textContent = c.join('')
     let d = []
     for (let i of b.data.categories) {
       d.push(`<tr onclick="render('admin/categories/view/${i.id}')" class="cursor-pointer">
@@ -1029,7 +1029,7 @@ async function products() {
       </td>
   </tr>`)
     }
-    document.getElementById("categoriesHolder").innerHTML = d.join('')
+    document.getElementById("categoriesHolder").textContent = d.join('')
   }
 }
 async function modifyProduct(a) {
@@ -1094,7 +1094,7 @@ async function gateways() {
     </div>
     `)
   }
-  document.getElementById("gatewaysHolder").innerHTML = c
+  document.getElementById("gatewaysHolder").textContent = c
 }
 async function invoices() {
   let a = await fetch('/api/payments/invoices')
@@ -1128,7 +1128,7 @@ async function invoices() {
         </tr>
       `)
     }
-    document.getElementById("invoicesHolder").innerHTML = c.join('')
+    document.getElementById("invoicesHolder").textContent = c.join('')
   } else {
     toastr.error(b.message, "Error!")
   }
@@ -1160,9 +1160,9 @@ async function updates() {
       </div>
       `)
     }
-    d.innerHTML = c
+    d.textContent = c
   } else {
-    d.innerHTML = `<div class="w-full  h-40 md:h-52 xl:h-72 flex justify-center items-center"><span class="text-gray-300">No updates available.</span></div>`
+    d.textContent = `<div class="w-full  h-40 md:h-52 xl:h-72 flex justify-center items-center"><span class="text-gray-300">No updates available.</span></div>`
   }
 }
 async function sysInfo() {
@@ -1519,7 +1519,7 @@ async function pushNodes() {
     let b = await a.json()
     if (b.success == true) {
       let c = document.getElementById("nodesList")
-      c.innerHTML = ""
+      c.textContent = ""
       const e = []
       for (let i of b.data) {
         let d = `
@@ -1563,7 +1563,7 @@ async function pushNodes() {
       }
       if (b.data.length == 0) e.push(`<div class="w-full col-span-3 flex items-center justify-center py-4 md:py-8 lg:py-12 xl:py-16">
             <span class="text-lg text-gray-300">Nothing to view here, add nodes to continue...</span></div>`)
-      c.innerHTML = e.join('')
+      c.textContent = e.join('')
     }
   } catch (error) {
     toastr.error(error)
@@ -1575,7 +1575,7 @@ async function pushEggs() {
     const b = await a.json();
     if (b.success) {
       const c = document.getElementById("eggsList");
-      c.innerHTML = "";
+      c.textContent = "";
       const d = await Promise.all(b.data.map(async (egg) => {
         return `<div onclick="deleteEgg(${egg.id})" class="w-full flex justify-center items-center backdrop-blur-xl cursor-pointer hover:bg-transparent hover:duration-300 duration-300 shadow-md bg-zinc-900 text-center rounded-full py-2 border border-zinc-800/80">${egg.name}</div>`;
       }));
@@ -1583,7 +1583,7 @@ async function pushEggs() {
         d.push(`<div class="w-full col-span-5 flex items-center justify-center py-4 md:py-8 lg:py-12 xl:py-16">
               <span class="text-lg text-gray-300">Nothing to view here, add nodes to continue...</span></div>`);
       }
-      c.innerHTML = d.join('');
+      c.textContent = d.join('');
     }
   } catch (error) {
     toastr.error(error);

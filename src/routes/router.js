@@ -20,21 +20,6 @@
  * router.js - Endpoints handler.
  *--------------------------------------------------------------------------
 */
-/**
- *--------------------------------------------------------------------------
- * Message from the Creator
- *--------------------------------------------------------------------------
- * This crap file took me hours to figuire out how it is suppose to work,
- * but now that I got it working, It's pretty easy to understand and use.
- * If you have any questions or need help with anything please don't fucking
- * ask me. I am done with this shit.
- *--------------------------------------------------------------------------
-*/
-/**
- *--------------------------------------------------------------------------
- * Bunch of codes...
- *--------------------------------------------------------------------------
-*/
 module.exports = async function () {
     const appearance = await db.get("settings", "appearance") || {};
     const permissions = await db.get("settings", "permissions") || {};
@@ -56,7 +41,7 @@ module.exports = async function () {
             }
             return next();
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return next();
         }
     });
@@ -111,7 +96,7 @@ module.exports = async function () {
             }
             return pages.render(req, res, `./resources/views/errors/404.ejs`);
         } catch (e) {
-            console.error(e);
+            System.err.println(e);
             res.end(fallback.error500(e));
         }
     });

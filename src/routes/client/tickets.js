@@ -48,7 +48,7 @@ module.exports = async function() {
             return ejs.renderFile(`./resources/views/layouts/${template}/tickets/[id].ejs`, {...data,ticket: ticket},
                 function (error, str) {
                     if (error) {
-                        console.error(error);
+                        System.err.println(error);
                         return res.end(fallback.error500(error));
                     };
                     return res.end(str);
@@ -71,7 +71,7 @@ module.exports = async function() {
             return ejs.renderFile(`./resources/views/layouts/${template}/tickets/delete.ejs`, {...data,ticket: ticket},
                 function (error, str) {
                     if (error) {
-                        console.error(error);
+                        System.err.println(error);
                         return res.end(fallback.error500(error));
                     };
                     return res.end(str);
@@ -175,7 +175,7 @@ module.exports = async function() {
     });
 
     async function handle(error, a, b) {
-        console.error(error)
+        System.err.println(error)
         admins.push({
             title: `${a} Error`,
             message: `${error}`,

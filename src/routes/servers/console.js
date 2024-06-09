@@ -104,7 +104,7 @@ module.exports = async function () {
                         }
                     }
                 } catch (error) {
-                    console.error(error);
+                    System.err.println(error);
                 }
             });
             ws.on('close', () => {
@@ -113,7 +113,7 @@ module.exports = async function () {
                 }
             });
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return
         }
     });
@@ -122,7 +122,7 @@ module.exports = async function () {
     async function handle(error, a, b) {
         const admins = await db.get("notifications", "admins") || [];
         const errors = await db.get("logs", "errors") || [];
-        console.error(error)
+        System.err.println(error)
         admins.push({
             title: `${a} Error`,
             message: `${error}`,

@@ -96,7 +96,7 @@ module.exports = async function () {
         try {
             const admins = await db.get("notifications", "admins") || [];
             const errors = await db.get("logs", "errors") || [];
-            console.error(error)
+            System.err.println(error)
             if (typeof admins == "array" && typeof errors == "array") {
                 admins.push({
                     title: `${a} Error`,
@@ -111,7 +111,7 @@ module.exports = async function () {
             }
             return
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     };

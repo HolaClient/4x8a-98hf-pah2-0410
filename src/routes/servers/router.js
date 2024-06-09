@@ -45,12 +45,15 @@ module.exports = async function () {
         { a: "/settings", b: "settings" },
         { a: "/delete", b: "delete" }
     ];
+    const views = [ "self", "directory", "events", "subdomains" ]
     routers.forEach(route => {
         app.get(`/servers/:id${route.a}`, core.auth, (req, res) => handle(req, res, route.b));
     });
     const handle = async (req, res, a) => {
         try {
             let e = req.params.id;
+            let j = views.find(i => i == e)
+            if (j) return pages.render(req, res, `./resources/views/layouts/${template}/servers/${e}.ejs`);
             let b = await db.get("servers", req.session.userinfo.id) || [];
             if (b.length === 0 || !b.find(i => i.identifier == e)) return res.end(fallback.error401());
             core.server(req, res, e)
@@ -70,7 +73,7 @@ module.exports = async function () {
                 return pages.render(req, res, `./resources/views/layouts/${template}/servers/${a}.ejs`, d);
             }
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             res.end(fallback.error500(error));
         }
     };

@@ -14,6 +14,7 @@
         "INVALIDEMAIL": "The email you've provided is either in invalid format or it's from a temporary mail service.",
         "INTEGERBELOWZERO": "Numbers specified must not be zero or negative.",
         "INSUFFICIENT": "You do not have enough coins or resources to perform this action.",
+        "INTEGERTOOBIG": "The number provided exceeds the maximum limit, please try a smaller number!",
         "MISSING": "Please fill in all required fields.",
         "USEREXISTS": "An user with these credentials already exists.",
         "EXISTS": "This item already exists in the database.",

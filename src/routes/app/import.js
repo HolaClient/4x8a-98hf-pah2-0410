@@ -17,25 +17,27 @@
  * @version 1
  *
  *--------------------------------------------------------------------------
- * users.js - Application API handler for users related routes.
- *--------------------------------------------------------------------------
-*/
-/**
- *--------------------------------------------------------------------------
- * Loading modules
+ * import.js - Application imports handler.
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    app.get("/api/application/users", core.api, async (req, res) => {
+    app.get('/api/app/import', core.admin, async (req, res) => {
         try {
-            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
+            let a = await fs.readdirSync(path.join(__dirname, "../../addons"));
+            let c = {}
+            let d = {}
+            let e = {}
+            for (let i of a) { let b = require(`../../addons/${i}/manifest.json`); if (b) c[i] = b };
+            let f = await db.get("addons", "active") || [];
+            for (let i of f) { d[i.name] = i };
+            for ([i, j] of Object.entries(c)) { if (!d[i]) e[i] = j };
+            for ([i, j] of Object.entries(e)) {
+                require(`../../addons/${i}/remote.js`).seed()
+            }
+            return core.json(req, res, true, "SUCCESS", { total: c, active: d, inactive: e });
         } catch (error) {
-            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+            handle(error, "Minor", 28);
+            return core.json(req, res, true, "ERROR", error);
         }
     });
 }
-/**
- *--------------------------------------------------------------------------
- * End of file.
- *--------------------------------------------------------------------------
-*/

@@ -1,0 +1,10 @@
+{
+    "name": "Heliactyl",
+    "versions": [ "12.x", "14.x", "20.x" ],
+    "database": "sqlite",
+    "github": "https://github.com/heliactyloss/heliactyl",
+    "recoverable": {
+        "economy": ["coins"],
+        "resources": ["memory", "disk", "cpu"]
+    }
+}

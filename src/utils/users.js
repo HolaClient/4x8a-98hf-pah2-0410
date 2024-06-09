@@ -132,7 +132,7 @@ module.exports.create = async function (req, res, email, username, avatar, first
         req.session.permission = await db.get('permissions', id);
         return {success: true, data: user}
     } catch (error) {
-        console.error(error);
+        System.err.println(error);
         return res.end(fallback.error500(error));
     }
 };
@@ -148,7 +148,7 @@ module.exports.login = async function (req, res, a) {
         core.setCookie(res, "hc.sk", JSON.stringify(e))
         return user
     } catch (error) {
-        console.error(error);
+        System.err.println(error);
         return res.end(fallback.error500(error));
     }
 };
@@ -268,7 +268,7 @@ async function cache() {
                         }
                     }
                 } catch (error) {
-                    console.error(error);
+                    System.err.println(error);
                 }
             }
             return { hcx: c, ptl: d };
@@ -284,7 +284,7 @@ async function cache() {
         }).filter(i => i !== null));
         await cacheDB.set("users", b);
     } catch (error) {
-        console.error(error);
+        System.err.println(error);
     }
 };
 setInterval(cache, 60000 * 5);

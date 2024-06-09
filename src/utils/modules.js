@@ -45,8 +45,8 @@ global.fallback = require('../../resources/views/fallback/errors.js');
 global.alert = require('./alerts.js');
 global.core = require('../utils/core.js');
 global.wh = import('../handlers/webhook.mjs');
-global.dl = import('../handlers/debug.mjs');
 global.ptero = hcx.pterodactyl
+global.System = { out: { println: (...args) => console.log(...args) }, err: { println: (...args) => console.error(...args) } }
 /**
  *--------------------------------------------------------------------------
  * End of the file

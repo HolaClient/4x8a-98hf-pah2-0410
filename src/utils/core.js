@@ -51,7 +51,7 @@ module.exports.auth = async function (req, res, next) {
         if (!req.session.userinfo) return res.redirect('/login');
         next()
     } catch (error) {
-        console.error(error)
+        System.err.println(error)
     }
 };
 module.exports.admin = async function (req, res, next) {
@@ -72,7 +72,7 @@ module.exports.admin = async function (req, res, next) {
         if (req.session.userinfo.permissions.level < 100) return res.end(fallback.error403());
         next()
     } catch (error) {
-        console.error(error)
+        System.err.println(error)
     }
 };
 module.exports.api = async function (req, res, next) {
@@ -102,7 +102,7 @@ module.exports.api = async function (req, res, next) {
         }
         return core.json(req, res, false, "ERROR", "", 1400)
     } catch (error) {
-        console.error(error)
+        System.err.println(error)
     }
 };
 module.exports.server = async function (req, res, id) {
@@ -120,41 +120,38 @@ module.exports.server = async function (req, res, id) {
         }
         return
     } catch (error) {
-        console.error(error)
+        System.err.println(error)
     }
 };
-module.exports.log = async function (a) {
-    try {
-        const logs = await db.get("logs", "logs") || [];
+module.exports.log = {
+    "security": async function (a) {
+        const logs = await db.get("logs", "security") || [];
         logs.push({
             message: a,
             date: Date.now()
-        })
+        });
         await db.set("logs", "logs", logs)
-        return
-    } catch (error) {
-        console.error(error)
     }
 }
 module.exports.email = async function (to, sub, title, body) {
-    try {
-        const a = await db.get("settings", "smtp")
-        const c = await db.get("settings", "appearance")
-        const transporter = nodemailer.createTransport({
-            host: a.host,
-            port: a.port,
-            secure: a.port === 465 ? true : false,
-            auth: {
-                user: a.user,
-                pass: a.pass,
-            },
-            debug: true,
-        });
-        const b = await transporter.sendMail({
-            from: `${c.name} <${a.mail}>`,
-            to: to,
-            subject: sub,
-            html: `
+        try {
+            const a = await db.get("settings", "smtp")
+            const c = await db.get("settings", "appearance")
+            const transporter = nodemailer.createTransport({
+                host: a.host,
+                port: a.port,
+                secure: a.port === 465 ? true : false,
+                auth: {
+                    user: a.user,
+                    pass: a.pass,
+                },
+                debug: true,
+            });
+            const b = await transporter.sendMail({
+                from: `${c.name} <${a.mail}>`,
+                to: to,
+                subject: sub,
+                html: `
         <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f7f7f7; color: #333;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
             <center><h1 style="font-size: 24px; color: #333; margin-bottom: 20px;">${title}</h1>
@@ -165,30 +162,30 @@ module.exports.email = async function (to, sub, title, body) {
         </div>
     </body>
 `,
-        });
-        const logs = await db.get("logs", "emails") || [];
-        logs.push({
-            message: `Sent an email to ${to}.`,
-            data: b,
-            date: Date.now()
-        });
-        await db.set("logs", "emails", logs)
-        return b
-    } catch (error) {
-        console.error(error)
+            });
+            const logs = await db.get("logs", "emails") || [];
+            logs.push({
+                message: `Sent an email to ${to}.`,
+                data: b,
+                date: Date.now()
+            });
+            await db.set("logs", "emails", logs)
+            return b
+        } catch (error) {
+            System.err.println(error)
+        }
     }
-}
 module.exports.json = async function (req, res, a, b, c, d) {
-    try {
-        if (c && a == true) {
-            return res.json({ success: a, code: d ?? 200, message: alert(b, req, res), data: c });
-        } else if (c) {
-            return res.json({ success: a, code: d ?? 200, message: alert(b, req, res) + c });
-        } else { return res.json({ success: a, code: d ?? 200, message: alert(b, req, res) }) };
-    } catch (error) {
-        console.error(error)
-    }
-};
+        try {
+            if (c && a == true) {
+                return res.json({ success: a, code: d ?? 200, message: alert(b, req, res), data: c });
+            } else if (c) {
+                return res.json({ success: a, code: d ?? 200, message: alert(b, req, res) + c });
+            } else { return res.json({ success: a, code: d ?? 200, message: alert(b, req, res) }) };
+        } catch (error) {
+            System.err.println(error)
+        }
+    };
 /**
  *--------------------------------------------------------------------------
  * End of file

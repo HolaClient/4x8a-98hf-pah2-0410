@@ -33,9 +33,9 @@ module.exports = async function () {
         const req = await fetch('https://cdn.holaclientx.tech/production/security/explicit.json')
         badWords = await req.json()
     } catch (error) {
-        console.error(error)
+        System.err.println(error)
     }
-    app.ws("/ws.chat", core.auth, async (req, res, ws) => {
+    app.ws("/ws.chat", async (req, res, ws) => {
         try {
             let h = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
             let j = await db.get("users", h.user)
@@ -92,14 +92,14 @@ module.exports = async function () {
                         spamCounter[req.session.userinfo.id] = g
                     }
                 } catch (error) {
-                    console.error(error);
+                    System.err.println(error);
                 }
             });
             ws.on('close', async () => {
                 clients = clients.filter(i => i !== ws)
             });
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return;
         }
     });

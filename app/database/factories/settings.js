@@ -92,10 +92,21 @@ if (!e) await db.set("pterodactyl", "settings", {
 });
 let f = await db.get("app", "console")
 if (!f) await db.set("app", "console", {"domain": "https://console.holacorp.org"});
-let g = await db.get("settings", "antidiskfill")
-if (!g) await db.set("settings", "antidiskfill", {enabled: false});
-let h = await db.get("settings", "antivm")
-if (!h) await db.set("settings", "antivm", {enabled: false});
+let g = await db.get("settings", "security")
+if (!g) await db.set("settings", "security", {
+    "antidiskfill": {
+        "enabled": false
+    },
+    "antiantivm": {
+        "enabled": false
+    },
+    "antinezha": {
+        "enabled": false
+    },
+    "antiexecuteables": {
+        "enabled": false
+    }
+});
 let i = await db.get("settings", "authentication")
 if (!i) await db.set("settings", "authentication", {
     enabled: true,

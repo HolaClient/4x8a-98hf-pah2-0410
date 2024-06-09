@@ -82,7 +82,7 @@ module.exports = async function () {
             return ejs.renderFile(`./resources/views/layouts/${template}/servers/editor.ejs`, { ...dat, data: dd, text: d },
                 function (error, str) {
                     if (error) {
-                        console.error(error);
+                        System.err.println(error);
                         return res.end(fallback.error500(error));
                     };
                     return res.end(str);
@@ -172,7 +172,7 @@ module.exports = async function () {
     async function handle(error, a, b) {
         const admins = await db.get("notifications", "admins") || [];
     const errors = await db.get("logs", "errors") || [];
-        console.error(error)
+        System.err.println(error)
         admins.push({
             title: `${a} Error`,
             message: `${error}`,

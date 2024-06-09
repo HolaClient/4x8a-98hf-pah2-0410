@@ -45,7 +45,7 @@ module.exports = async function () {
             };
             core.json(req, res, true, "SUCCESS", data);
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             core.json(req, res, false, "ERROR", error)
         }
     });
@@ -73,7 +73,7 @@ module.exports = async function () {
                 resources.cpu["used"] = (parseInt(resources.cpu["used"] ?? 0) + parseInt(e));
             }
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     }

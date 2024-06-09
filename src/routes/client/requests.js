@@ -36,7 +36,7 @@ module.exports = async function () {
                 rejected: a.rejected || {}
             });
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return core.json(req, res, false, "ERROR", error);
         }
     });
@@ -76,7 +76,7 @@ module.exports = async function () {
 
             return core.json(req, res, false, "404");
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return core.json(req, res, false, "ERROR", error.message);
         }
     });
@@ -201,7 +201,7 @@ module.exports = async function () {
             await db.set("requests", request.from, b)
             return core.json(req, res, true, "SUCCESS");
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return fallback.error500(error);
         }
     });

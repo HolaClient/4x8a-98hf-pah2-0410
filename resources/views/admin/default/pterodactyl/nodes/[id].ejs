@@ -26,7 +26,7 @@
                 }
             } %>
             <% let a = 0
-               for (let i of node.relationships.servers.data) {
+               for (let i of data.relationships.servers.data) {
                 a = a + i.attributes.limits.cpu
                }
                const cpuUsage = a / 100
@@ -43,11 +43,12 @@
                           </svg>
                     </div>
                     <div class="flex flex-col justify-between w-full">
-                        <h1 class="text-gray-200 font-semibold text-xl"><%= node.name %></h1>
-                        <span class="text-gray-300 text-md">Get a detailed view of <%= node.name %> from <%= node.relationships.location.attributes.short %>-<%= node.relationships.location.attributes.long %></span>
+                        <h1 class="text-gray-200 font-semibold text-xl"><%= data.name %></h1>
+                        <span class="text-gray-300 text-md">Get a detailed view of <%= data.name %> from <%= data.relationships.location.attributes.short %>-<%= data.relationships.location.attributes.long %></span>
                     </div>
                 </div>
-                <img src="https://cdn.holaclientx.tech/logo.png" alt="fun" class="w-0 h-0" onload="version('<%= node?.cpu?.version %>')">
+                <% console.log(data) %>
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="fun" class="w-0 h-0" onload="version('<%= data?.system?.version %>')">
                 <div id="nodeVersion"></div>
                 <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                     <div class="w-full col-span-2 h-max grid grid-cols-1 gap-4">
@@ -57,39 +58,39 @@
                             <div class="w-full mt-4 px-4 pb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Operating System:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.system?.os %></span>
+                                <span class="text-gray-200"><%= data?.system?.system?.os %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Architecture:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.system?.architecture %></span>
+                                <span class="text-gray-200"><%= data?.system?.system?.architecture %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">CPU Information:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.system?.kernel_version %></span>
+                                <span class="text-gray-200"><%= data?.system?.system?.kernel_version %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Kernel:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.system?.os_type %></span>
+                                <span class="text-gray-200"><%= data?.system?.system?.os_type %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Filesystem:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.docker?.storage?.filesystem %></span>
+                                <span class="text-gray-200"><%= data?.system?.docker?.storage?.filesystem %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Docker version:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.docker?.version %></span>
+                                <span class="text-gray-200"><%= data?.system?.docker?.version %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Online servers:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.docker?.containers?.running %></span>
+                                <span class="text-gray-200"><%= data?.system?.docker?.containers?.running %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Offline servers:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.docker?.containers?.stopped %></span>
+                                <span class="text-gray-200"><%= data?.system?.docker?.containers?.stopped %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Total servers:</h1>
-                                <span class="text-gray-200"><%= node?.cpu?.docker?.containers?.total %></span>
+                                <span class="text-gray-200"><%= data?.system?.docker?.containers?.total %></span>
                               </div>
                             </div>
                         </div>
@@ -99,19 +100,19 @@
                             <div class="w-full mt-4 px-4 pb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div class="flex flex-col">
                                     <h1 class="text-gray-300">Name:</h1>
-                                    <span class="text-gray-200"><%= node.deployments.name %></span>
+                                    <span class="text-gray-200"><%= data.deployments.name %></span>
                                   </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Role:</h1>
-                                <span class="text-gray-200"><%= node.deployments.role %></span>
+                                <span class="text-gray-200"><%= data.deployments.role %></span>
                               </div>
                               <div class="flex flex-col">
                                 <h1 class="text-gray-300">Fees:</h1>
-                                <span class="text-gray-200"><%= node.deployments.fees %> coins</span>
+                                <span class="text-gray-200"><%= data.deployments.fees %> coins</span>
                               </div>
                             </div>
                             <div class="px-2 pb-2 flex items-center w-full justify-center">
-                                <button onclick="removeNode('<%= node.id %>')" class="relative shadow-sm shadow-black bg-transparent border border-zinc-800/80 p-[1.5px] px-5 py-2 rounded-full">
+                                <button onclick="removeNode('<%= data.id %>')" class="relative shadow-sm shadow-black bg-transparent border border-zinc-800/80 p-[1.5px] px-5 py-2 rounded-full">
                                     Remove
                                 </button>
                             </div>
@@ -125,13 +126,13 @@
                                 <div class="p-2 overflow-hidden z-40">
                                     <div class="flex justify-between w-full">
                                         <h1 class="text-gray-200 text-xl">Slots</h1>
-                                        <h1 class="text-gray-200 text-xl"><%= node.relationships.servers.data.length %> <span class="text-gray-300">of </span> <%= node.relationships.allocations.data.length %></h1>
+                                        <h1 class="text-gray-200 text-xl"><%= data.relationships.servers.data.length %> <span class="text-gray-300">of </span> <%= data.relationships.allocations.data.length %></h1>
                                     </div>
                                     <div class="w-full flex items-center text-base space-x-1 justify-between">
                                         <div class="progress mt-3 h-1.5 bg-zinc-800">
-                                          <div class="is-active relative w-[<%= format((node.relationships.servers.data.length / node.relationships.allocations.data.length) * 100) %>%] overflow-hidden rounded-full <%= color(format((node.relationships.servers.data.length / node.relationships.allocations.data.length) * 100)) %>"></div>
+                                          <div class="is-active relative w-[<%= format((data.relationships.servers.data.length / data.relationships.allocations.data.length) * 100) %>%] overflow-hidden rounded-full <%= color(format((data.relationships.servers.data.length / data.relationships.allocations.data.length) * 100)) %>"></div>
                                         </div>
-                                        <h1 class="text-gray-300 text-xl"><%= format((node.relationships.servers.data.length / node.relationships.allocations.data.length) * 100) %>%</h1>
+                                        <h1 class="text-gray-300 text-xl"><%= format((data.relationships.servers.data.length / data.relationships.allocations.data.length) * 100) %>%</h1>
                                       </div>
                                 </div>
                                 <div class="bg-gradient-to-r from-transparent via-zinc-700 to-transparent w-full h-0.5"></div>
@@ -140,13 +141,13 @@
                                 <div class="p-2 overflow-hidden z-40">
                                     <div class="flex justify-between w-full">
                                         <h1 class="text-gray-200 text-xl">Memory</h1>
-                                        <h1 class="text-gray-200 text-xl"><%= format(node.allocated_resources.memory / 1024) %> <span class="text-gray-300">of </span> <%= format(node.memory / 1024) %>GB</h1>
+                                        <h1 class="text-gray-200 text-xl"><%= format(data.allocated_resources.memory / 1024) %> <span class="text-gray-300">of </span> <%= format(data.memory / 1024) %>GB</h1>
                                     </div>
                                     <div class="w-full flex items-center text-base space-x-1 justify-between">
                                         <div class="progress mt-3 h-1.5 bg-zinc-800">
-                                          <div class="is-active relative w-[<%= format((node.allocated_resources.memory / node.memory) * 100) %>%] overflow-hidden rounded-full <%= color(format((node.allocated_resources.memory / node.memory) * 100)) %>"></div>
+                                          <div class="is-active relative w-[<%= format((data.allocated_resources.memory / data.memory) * 100) %>%] overflow-hidden rounded-full <%= color(format((data.allocated_resources.memory / data.memory) * 100)) %>"></div>
                                         </div>
-                                        <h1 class="text-gray-300 text-xl"><%= format((node.allocated_resources.memory / node.memory) * 100) %>%</h1>
+                                        <h1 class="text-gray-300 text-xl"><%= format((data.allocated_resources.memory / data.memory) * 100) %>%</h1>
                                       </div>
                                 </div>
                                 <div class="bg-gradient-to-r from-transparent via-zinc-700 to-transparent w-full h-0.5"></div>
@@ -155,13 +156,13 @@
                                 <div class="p-2 overflow-hidden z-40">
                                     <div class="flex justify-between w-full">
                                         <h1 class="text-gray-200 text-xl">Storage</h1>
-                                        <h1 class="text-gray-200 text-xl"><%= format(node.allocated_resources.disk / 1024) %> <span class="text-gray-300">of </span> <%= format(node.disk / 1024) %>GB</h1>
+                                        <h1 class="text-gray-200 text-xl"><%= format(data.allocated_resources.disk / 1024) %> <span class="text-gray-300">of </span> <%= format(data.disk / 1024) %>GB</h1>
                                     </div>
                                     <div class="w-full flex items-center text-base space-x-1 justify-between">
                                         <div class="progress mt-3 h-1.5 bg-zinc-800">
-                                          <div class="is-active relative w-[<%= format((node.allocated_resources.disk / node.disk) * 100) %>%] overflow-hidden rounded-full <%= color(format((node.allocated_resources.disk / node.disk) * 100)) %>"></div>
+                                          <div class="is-active relative w-[<%= format((data.allocated_resources.disk / data.disk) * 100) %>%] overflow-hidden rounded-full <%= color(format((data.allocated_resources.disk / data.disk) * 100)) %>"></div>
                                         </div>
-                                        <h1 class="text-gray-300 text-xl"><%= format((node.allocated_resources.disk / node.disk) * 100) %>%</h1>
+                                        <h1 class="text-gray-300 text-xl"><%= format((data.allocated_resources.disk / data.disk) * 100) %>%</h1>
                                       </div>
                                 </div>
                                 <div class="bg-gradient-to-r from-transparent via-zinc-700 to-transparent w-full h-0.5"></div>
@@ -170,13 +171,13 @@
                                 <div class="p-2 overflow-hidden z-40">
                                     <div class="flex justify-between w-full">
                                         <h1 class="text-gray-200 text-xl">CPU</h1>
-                                        <h1 class="text-gray-200 text-xl"><%= format(cpuUsage) %> <span class="text-gray-300">of </span> <%= (node.cpu?.system.cpu_threads) %> threads</h1>
+                                        <h1 class="text-gray-200 text-xl"><%= format(cpuUsage) %> <span class="text-gray-300">of </span> <%= (data.cpu?.system.cpu_threads) %> threads</h1>
                                     </div>
                                     <div class="w-full flex items-center text-base space-x-1 justify-between">
                                         <div class="progress mt-3 h-1.5 bg-zinc-800">
-                                          <div class="is-active relative w-[<%= format((cpuUsage / node.cpu?.system.cpu_threads) * 100) %>%] overflow-hidden rounded-full <%= color(format((cpuUsage / node.cpu?.system.cpu_threads) * 100)) %>"></div>
+                                          <div class="is-active relative w-[<%= format((cpuUsage / data?.system?.system.cpu_threads) * 100) %>%] overflow-hidden rounded-full <%= color(format((cpuUsage / data?.system?.system.cpu_threads) * 100)) %>"></div>
                                         </div>
-                                        <h1 class="text-gray-300 text-xl"><%= format((cpuUsage / node.cpu?.system.cpu_threads) * 100) %>%</h1>
+                                        <h1 class="text-gray-300 text-xl"><%= format((cpuUsage / data?.system?.system.cpu_threads) * 100) %>%</h1>
                                       </div>
                                 </div>
                                 <div class="bg-gradient-to-r from-transparent via-zinc-700 to-transparent w-full h-0.5"></div>
@@ -185,13 +186,13 @@
                                 <div class="p-2 overflow-hidden z-40">
                                     <div class="flex justify-between w-full">
                                         <h1 class="text-gray-200 text-xl">Instances</h1>
-                                        <h1 class="text-gray-200 text-xl"><%= node?.cpu?.docker?.containers?.running %> <span class="text-gray-300">of </span> <%= node?.cpu?.docker?.containers?.total %></h1>
+                                        <h1 class="text-gray-200 text-xl"><%= data?.system?.docker?.containers?.running %> <span class="text-gray-300">of </span> <%= data?.system?.docker?.containers?.total %></h1>
                                     </div>
                                     <div class="w-full flex items-center text-base space-x-1 justify-between">
                                         <div class="progress mt-3 h-1.5 bg-zinc-800">
-                                          <div class="is-active relative w-[<%= format((node?.cpu?.docker?.containers?.running / node?.cpu?.docker?.containers?.total) * 100) %>%] overflow-hidden rounded-full <%= color(format((node?.cpu?.docker?.containers?.running / node?.cpu?.docker?.containers?.total) * 100)) %>"></div>
+                                          <div class="is-active relative w-[<%= format((data?.system?.docker?.containers?.running / data?.system?.docker?.containers?.total) * 100) %>%] overflow-hidden rounded-full <%= color(format((data?.system?.docker?.containers?.running / data?.system?.docker?.containers?.total) * 100)) %>"></div>
                                         </div>
-                                        <h1 class="text-gray-300 text-xl"><%= format((node?.cpu?.docker?.containers?.running / node?.cpu?.docker?.containers?.total) * 100) %>%</h1>
+                                        <h1 class="text-gray-300 text-xl"><%= format((data?.system?.docker?.containers?.running / data?.system?.docker?.containers?.total) * 100) %>%</h1>
                                       </div>
                                 </div>
                                 <div class="bg-gradient-to-r from-transparent via-zinc-700 to-transparent w-full h-0.5"></div>

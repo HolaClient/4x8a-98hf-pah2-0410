@@ -108,12 +108,12 @@ module.exports.decrypt = function (a, b) {
         g.update(a.hash);
         const h = g.digest('hex');
         if (h !== a.hmac) {
-            console.error(`HMAC mismatch. Possible tampering detected! ${JSON.stringify(a)}`);
+            System.err.println(`HMAC mismatch. Possible tampering detected! ${JSON.stringify(a)}`);
             return '';
         }
         return e;
     } catch (error) {
-        console.error(error)
+        System.err.println(error)
         return ""
     }
 };

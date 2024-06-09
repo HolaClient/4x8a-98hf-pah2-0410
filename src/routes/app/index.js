@@ -51,7 +51,7 @@ module.exports = async function () {
             }
             return core.json(req, res, true, "SUCCESS", data)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     });

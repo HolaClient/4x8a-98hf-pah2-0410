@@ -64,7 +64,7 @@ module.exports = async function () {
                 d.data.forEach(i => download(i));
             }
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     };
@@ -80,7 +80,7 @@ module.exports = async function () {
             await fs.promises.writeFile(d + `/${a}.jar`, c);
             update(a)
         } catch (error) {
-            console.error(error)
+            System.err.println(error)
             return
         }
     };
@@ -123,7 +123,7 @@ module.exports = async function () {
                 }
             });
         } catch (error) {
-            console.error(error);
+            System.err.println(error);
             return
         };
     };

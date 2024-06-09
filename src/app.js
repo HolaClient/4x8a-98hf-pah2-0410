@@ -73,7 +73,7 @@ if (process.env.APP_ENV == "production") { c('APP_CODE', crypt.gen88(12)) };
  *--------------------------------------------------------------------------
  * Loading sessions
  *--------------------------------------------------------------------------
- * Middlewares to register express-session.
+ * Middleware to register express-session.
  *--------------------------------------------------------------------------
 */
 app.use(require('express-session')({
@@ -88,71 +88,41 @@ app.use(require('express-session')({
 }));
 /**
  *--------------------------------------------------------------------------
- * Checking installation status
- *--------------------------------------------------------------------------
- * Middleware to check if the application is setup'd successfully, if not
- * it will redirect all users to /setup with a status code of 302.
- *--------------------------------------------------------------------------
-*/
-app.use((req, res, next) => {
-    const a = (require('../app/config/setup.json')).whitelist;
-    const b = path.join(__dirname, '..', 'storage', 'installed.txt');
-    if (a.includes(req.originalUrl)) {
-        next();
-    } else {
-        fs.access(b, fs.constants.F_OK, (err) => {
-            if (err) {
-                return res.redirect('/setup');
-            } else {
-                next();
-            }
-        });
-    }
-});
-/**
- *--------------------------------------------------------------------------
  * Loading other router files
  *--------------------------------------------------------------------------
- * I am using the load function to load the routes directory by directory
- * instead of iterating over the routes directory as it might first load the
- * router file. If the router file gets loaded first, it will throw 404 page
- * for all endpoints even if a route exists.
+ * Loading all router files to serve requests and frontend templates along
+ * with static assets.
  *--------------------------------------------------------------------------
 */
 (async () => {
-    const routes = [
-        '/servers',
-        '/app',
-        '/api',
-        '/admin',
-        '/client',
-        '/security'
-    ];
     async function load(route) {
         try {
             return new Promise((resolve, reject) => {
-                const a = path.join(__dirname, 'routes', route);
-                fs.readdir(a, (err, b) => {
+                const a = path.join(path.join(__dirname, 'routes'), route);
+                fs.readdir(a, async (err, files) => {
                     if (err) {
-                        console.error(err);
-                    } else {
-                        const c = b.filter(i => i.endsWith('.js'));
-                        c.forEach(i => {
-                            const d = require(path.join(a, i));
-                            if (typeof d === 'function') {
-                                d();
-                            }
-                        });
-                        resolve();
+                        System.err.println(err);
+                        return reject(err);
                     }
+                    for (const i of files) {
+                        const b = path.join(a, i);
+                        if (fs.statSync(b).isDirectory()) {
+                            await load(path.join(route, i));
+                        } else if (i.endsWith('.js')) {
+                            const c = require(b);
+                            if (typeof c === 'function') {
+                                c();
+                            }
+                        }
+                    }
+                    resolve();
                 });
             });
         } catch (error) {
-            console.error(error)
-            return
+            System.err.println(error);
+            return;
         }
     }
-    Promise.all(routes.map(load));
     await load('');
 })();
 /**
@@ -161,27 +131,30 @@ app.use((req, res, next) => {
  *--------------------------------------------------------------------------
 */
 app.listen(process.env.APP_PORT, async function (err) {
-    console.log(chalk.gray("  "));
-    console.log(" _    _       _        _____ _ _            _  __   __");
-    console.log("| |  | |     | |      / ____| (_)          | | \\ \\ / /");
-    console.log("| |__| | ___ | | __ _| |    | |_  ___ _ __ | |_ \\ V / ");
-    console.log("|  __  |/ _ \\| |/ _` | |    | | |/ _ \\ '_ \\| __| > <  ");
-    console.log("| |  | | (_) | | (_| | |____| | |  __/ | | | |_ / . \\ ");
-    console.log("|_|  |_|\\___/|_|\\__,_|\\_____|_|_|\\___|_| |_|\\__/_/ \\_\\");
-    console.log(chalk.white(" "))
-    console.log(chalk.white("========================SOCIAL========================="));
-    console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Author ")}${chalk.white("]")}${chalk.white(" https://crazymath072.tech             ")}${chalk.gray("[+]")}`);
-    console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Console")}${chalk.white("]")}${chalk.white(" https://console.holaclientx.tech      ")}${chalk.gray("[+]")}`);
-    console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Discord")}${chalk.white("]")}${chalk.white(" https://discord.gg/CvqRH9TrYK         ")}${chalk.gray("[+]")}`);
-    console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Github ")}${chalk.white("]")}${chalk.white(" https://github.com/HolaClient/X       ")}${chalk.gray("[+]")}`);
-    console.log(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Website")}${chalk.white("]")}${chalk.white(" https://holaclientx.tech              ")}${chalk.gray("[+]")}`);
-    console.log(chalk.white("======================================================="));
-    console.log(" ");
-    console.log(chalk.gray("{/} 🔗") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded HolaClient at ") + chalk.cyan(process.env.APP_URL + "/"));
-    console.log("");
-    console.log(chalk.gray("{/} 🗝️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Authentication code for this session is ") + chalk.cyan(process.env.APP_CODE));
-    console.log("");
-    console.log(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
+    if (err) {
+        System.err.println(`An error occured: ${err}`)
+    }
+    System.out.println(chalk.gray("  "));
+    System.out.println(" _    _       _        _____ _ _            _  __   __");
+    System.out.println("| |  | |     | |      / ____| (_)          | | \\ \\ / /");
+    System.out.println("| |__| | ___ | | __ _| |    | |_  ___ _ __ | |_ \\ V / ");
+    System.out.println("|  __  |/ _ \\| |/ _` | |    | | |/ _ \\ '_ \\| __| > <  ");
+    System.out.println("| |  | | (_) | | (_| | |____| | |  __/ | | | |_ / . \\ ");
+    System.out.println("|_|  |_|\\___/|_|\\__,_|\\_____|_|_|\\___|_| |_|\\__/_/ \\_\\");
+    System.out.println(chalk.white(" "))
+    System.out.println(chalk.white("========================SOCIAL========================="));
+    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Author ")}${chalk.white("]")}${chalk.white(" https://crazymath072.tech             ")}${chalk.gray("[+]")}`);
+    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Console")}${chalk.white("]")}${chalk.white(" https://console.holaclientx.tech      ")}${chalk.gray("[+]")}`);
+    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Discord")}${chalk.white("]")}${chalk.white(" https://discord.gg/CvqRH9TrYK         ")}${chalk.gray("[+]")}`);
+    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Github ")}${chalk.white("]")}${chalk.white(" https://github.com/HolaClient/X       ")}${chalk.gray("[+]")}`);
+    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Website")}${chalk.white("]")}${chalk.white(" https://holaclientx.tech              ")}${chalk.gray("[+]")}`);
+    System.out.println(chalk.white("======================================================="));
+    System.out.println(" ");
+    System.out.println(chalk.gray("{/} 🔗") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded HolaClient at ") + chalk.cyan(process.env.APP_URL + "/"));
+    System.out.println("");
+    System.out.println(chalk.gray("{/} 🗝️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Authentication code for this session is ") + chalk.cyan(process.env.APP_CODE));
+    System.out.println("");
+    System.out.println(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
     require('./utils/users')
     let a = await db.get("pterodactyl", "settings")
     if (a && a.domain && a.app && a.acc) {
