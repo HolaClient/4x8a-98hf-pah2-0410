@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-{
-    "whitelist": [
-        "/assets/setup/default/app.js",
-        "/assets/setup/default/app.css",
-        "/assets/setup/default/app.dev.js",
-        "/assets/setup/default/app.dev.css",
-        "/assets/common/tailwind.css",
-        "/setup",
-        "/setup/basic",
-        "/setup/import",
-        "/setup/finish",
-        "/api/setup"
-    ]
-=======
 {
     "whitelist": [
         "/assets/setup/default/app.js",
@@ -26,5 +11,4 @@
         "/setup/finish",
         "/api/setup"
     ]
->>>>>>> 4473be3 (29-05)
 }
