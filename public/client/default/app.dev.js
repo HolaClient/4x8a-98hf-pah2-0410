@@ -1769,7 +1769,6 @@ async function connectAFKWS(a, b) {
     if (data.redirect) {
       window.location.href = '/';
     } else {
-<<<<<<< HEAD
       st("sessionCoins", `${data.session ?? 0} coins`);
       st("totalCoins", `${data.total ?? 0} coins`);
       st("coinsIn", `${data.coinsIn ?? 0} s`);
@@ -1782,20 +1781,6 @@ async function connectAFKWS(a, b) {
         duration++;
         st("afkDuration", `${duration} s`);
       }, 1000);
-=======
-      st("sessionCoins", `${data.session ?? 0} coins`);
-      st("totalCoins", `${data.total ?? 0} coins`);
-      st("coinsIn", `${data.coinsIn ?? 0} s`);
-      st("afkStatus", 'Earning');
-      document.getElementById("coins").innerText = `${data.total} coins`;
-      clearExistingInterval();
-      let duration = parseInt(data.duration);
-      st("afkDuration", `${duration} s`);
-      int = setInterval(() => {
-        duration++;
-        st("afkDuration", `${duration} s`);
-      }, 1000);
->>>>>>> fcca946e7275e61e6d12aa2ad9d20c4613d14d93
     }
   };
   afkWS.onclose = function () {
@@ -1989,21 +1974,12 @@ async function loadRequests() {
           </div>
       </div>
   </div>`)
-<<<<<<< HEAD
       });
       c["incoming"] = d
       document.getElementById("panel-incoming").innerHTML = d.join("")
     } else {
       document.getElementById("panel-incoming").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">No new incoming requests.</div>`
     }
-=======
-      });
-      c["incoming"] = d
-      document.getElementById("panel-incoming").textContent = d.join("")
-    } else {
-      document.getElementById("panel-incoming").textContent = `<div class="w-full mt-16 text-center text-zinc-300">No new incoming requests.</div>`
-    }
->>>>>>> fcca946e7275e61e6d12aa2ad9d20c4613d14d93
     d = []
     if (Object.values(b.data.sent).length !== 0) {
       Object.values(b.data.sent).forEach(i => {
@@ -2020,21 +1996,12 @@ async function loadRequests() {
           </div>
       </div>
   </div>`)
-<<<<<<< HEAD
       });
       document.getElementById("panel-sent").innerHTML = d.join("")
     } else {
       document.getElementById("panel-sent").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
     }
     d = []
-=======
-      });
-      document.getElementById("panel-sent").textContent = d.join("")
-    } else {
-      document.getElementById("panel-sent").textContent = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
-    }
-    d = []
->>>>>>> fcca946e7275e61e6d12aa2ad9d20c4613d14d93
     if (Object.values(b.data.rejected).length !== 0) {
       Object.values(b.data.rejected).forEach(i => {
         d.push(`<div class="w-full px-4 py-2 rounded-xl bg-zinc-900/50">
@@ -2045,19 +2012,11 @@ async function loadRequests() {
           </div>
       </div>
   </div>`)
-<<<<<<< HEAD
       });
       document.getElementById("panel-rejected").innerHTML = d.join("")
     } else {
       document.getElementById("panel-rejected").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
     }
-=======
-      });
-      document.getElementById("panel-rejected").textContent = d.join("")
-    } else {
-      document.getElementById("panel-rejected").textContent = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
-    }
->>>>>>> fcca946e7275e61e6d12aa2ad9d20c4613d14d93
   } else {
     toastr.error(b.message, "Error!")
   }
