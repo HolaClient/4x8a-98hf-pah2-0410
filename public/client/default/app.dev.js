@@ -989,7 +989,7 @@ async function showTicket(data) {
     g.className = "grow px-4 py-2";
     let h = document.createElement("p");
     h.className = "text-gray-100";
-    h.textContent = a.message;
+    h.innerHTML = a.message;
     g.appendChild(h);
     f.appendChild(g);
     c.appendChild(f);
@@ -1195,7 +1195,7 @@ function showStats(a) {
   }
 }
 function setValue(e, v) {
-  document.getElementById(`server${e}`).innerText = v
+  document.getElementById(`server${e}`).textContent = v
 }
 function formatUptime(a) {
   let b = a / 1000;
@@ -1544,12 +1544,15 @@ async function serverCreate() {
     for (let i of b.data.nodes) {
       d.push(`
       <div id="node${i.id}" onclick="selectNode(${i.id})" class="w-full relative flex flex-col cursor-pointer hover:bg-zinc-900 hover:duration-300 duration-300 items-start shadow-md justify-left p-2 bg-zinc-900/30 border border-zinc-800/80 rounded-xl">
-        <span class="text-gray-300">${i.relationships.location.attributes.short}: ${i.name}</span>
+        <div class="w-full flex items-center justify-between">
+          <span class="text-gray-300">${i.location.short}: ${i.name}</span>
+          <span class="text-gray-300">${await ping(i.url)}ms</span>
+        </div>
         <div class="flex w-full space-x-2 items-baseline">
           <div class="progress mt-3 h-1.5 bg-zinc-800">
-              <div class="is-active relative w-[${(i.allocated_resources.memory / i.memory) * 100}%] overflow-hidden rounded-full ${color((i.allocated_resources.memory / i.memory) * 100)}"></div>
+              <div class="is-active relative w-[${i.memory}%] overflow-hidden rounded-full ${color(i.memory)}"></div>
           </div>
-          <span class="text-gray-400">${(i.allocated_resources.memory / i.memory) * 100}%</span>
+          <span class="text-gray-400">${i.memory}%</span>
         </div>
         <div id="nodeMark${i.id}" class="absolute opacity-0 duration-300 -top-3 -right-3 text-emerald-500 p-1 border border-emerald-800/80 bg-emerald-900/50 rounded-full">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -1578,6 +1581,16 @@ async function serverCreate() {
     e.textContent = f.join('')
   } else {
     toastr.error(b.message, "Error!")
+  }
+}
+async function ping(a) {
+  try {
+    let b = Date.now()
+    await fetch(a)
+    let d = Date.now()
+    return parseInt(d - b)
+  } catch (error) {
+    return 0
   }
 }
 function selectNode(a) {
@@ -1633,14 +1646,14 @@ function selectEgg(a) {
 function fee() {
   let a = fees.egg + fees.node
   let b = document.getElementById("srvFees")
-  let c = parseInt(b.innerText)
+  let c = parseInt(b.textContent)
   let d = document.getElementById("srvAlert")
   if (c == 0 && a == 0) {
-    d.innerText = ``;
+    d.textContent = ``;
   } else if (c == 0 && a !== 0) {
-    d.innerText = `You'll have to pay ${a} coins for the node & software.`;
+    d.textContent = `You'll have to pay ${a} coins for the node & software.`;
   } else {
-    d.innerText = `You'll have to pay ${a} coins for the node & software, ${c} coins for deploying a server.`;
+    d.textContent = `You'll have to pay ${a} coins for the node & software, ${c} coins for deploying a server.`;
   }
 }
 function gv(a) {
@@ -1756,6 +1769,20 @@ async function connectAFKWS(a, b) {
     if (data.redirect) {
       window.location.href = '/';
     } else {
+<<<<<<< HEAD
+      st("sessionCoins", `${data.session ?? 0} coins`);
+      st("totalCoins", `${data.total ?? 0} coins`);
+      st("coinsIn", `${data.coinsIn ?? 0} s`);
+      st("afkStatus", 'Earning');
+      document.getElementById("coins").textContent = `${data.total} coins`;
+      clearExistingInterval();
+      let duration = parseInt(data.duration);
+      st("afkDuration", `${duration} s`);
+      int = setInterval(() => {
+        duration++;
+        st("afkDuration", `${duration} s`);
+      }, 1000);
+=======
       st("sessionCoins", `${data.session ?? 0} coins`);
       st("totalCoins", `${data.total ?? 0} coins`);
       st("coinsIn", `${data.coinsIn ?? 0} s`);
@@ -1768,6 +1795,7 @@ async function connectAFKWS(a, b) {
         duration++;
         st("afkDuration", `${duration} s`);
       }, 1000);
+>>>>>>> fcca946e7275e61e6d12aa2ad9d20c4613d14d93
     }
   };
   afkWS.onclose = function () {
@@ -1786,7 +1814,7 @@ async function connectAFKWS(a, b) {
   };
 }
 function st(a, b) {
-  return document.getElementById(a).innerText = b
+  return document.getElementById(a).textContent = b
 }
 async function loadLeaderboard() {
   let a = await fetch('/api/economy/leaderboard')
@@ -1844,7 +1872,7 @@ async function buyResource(a) {
   let d = await c.json()
   if (d.success) {
     toastr.success(d.message, "Success!")
-    document.getElementById("coins").innerText = `${d.data} coins`
+    document.getElementById("coins").textContent = `${d.data} coins`
   } else {
     toastr.error(d.message, "Error!")
   }
@@ -1961,12 +1989,21 @@ async function loadRequests() {
           </div>
       </div>
   </div>`)
+<<<<<<< HEAD
+      });
+      c["incoming"] = d
+      document.getElementById("panel-incoming").innerHTML = d.join("")
+    } else {
+      document.getElementById("panel-incoming").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">No new incoming requests.</div>`
+    }
+=======
       });
       c["incoming"] = d
       document.getElementById("panel-incoming").textContent = d.join("")
     } else {
       document.getElementById("panel-incoming").textContent = `<div class="w-full mt-16 text-center text-zinc-300">No new incoming requests.</div>`
     }
+>>>>>>> fcca946e7275e61e6d12aa2ad9d20c4613d14d93
     d = []
     if (Object.values(b.data.sent).length !== 0) {
       Object.values(b.data.sent).forEach(i => {
@@ -1983,12 +2020,21 @@ async function loadRequests() {
           </div>
       </div>
   </div>`)
+<<<<<<< HEAD
+      });
+      document.getElementById("panel-sent").innerHTML = d.join("")
+    } else {
+      document.getElementById("panel-sent").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
+    }
+    d = []
+=======
       });
       document.getElementById("panel-sent").textContent = d.join("")
     } else {
       document.getElementById("panel-sent").textContent = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
     }
     d = []
+>>>>>>> fcca946e7275e61e6d12aa2ad9d20c4613d14d93
     if (Object.values(b.data.rejected).length !== 0) {
       Object.values(b.data.rejected).forEach(i => {
         d.push(`<div class="w-full px-4 py-2 rounded-xl bg-zinc-900/50">
@@ -1999,11 +2045,19 @@ async function loadRequests() {
           </div>
       </div>
   </div>`)
+<<<<<<< HEAD
+      });
+      document.getElementById("panel-rejected").innerHTML = d.join("")
+    } else {
+      document.getElementById("panel-rejected").innerHTML = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
+    }
+=======
       });
       document.getElementById("panel-rejected").textContent = d.join("")
     } else {
       document.getElementById("panel-rejected").textContent = `<div class="w-full mt-16 text-center text-zinc-300">You don't have any pending sent requests.</div>`
     }
+>>>>>>> fcca946e7275e61e6d12aa2ad9d20c4613d14d93
   } else {
     toastr.error(b.message, "Error!")
   }
