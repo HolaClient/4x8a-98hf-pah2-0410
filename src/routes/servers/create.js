@@ -37,11 +37,30 @@ module.exports = async function () {
                     let e = await ptero.nodes.getAll()
                     let f = e.find(j => j.attributes.id == i.id)
                     if (f) {
-                        f.attributes["deployments"] = i.deployments
-                        g.push(f.attributes);
+                        f = f.attributes
+                        let h = {
+                            id: f.id,
+                            name: f.name,
+                            url: `${f.scheme}://${f.fqdn}:${f.daemon_listen}/api/system`,
+                            memory: (f.allocated_resources.memory / i.memory) * 100,
+                            location: {
+                                short: f.relationships.location.attributes.short
+                            },
+                            deployments: i.deployments
+                        }
+                        g.push(h);
                     }
                 };
-                let [c, d] = await Promise.all([check(g), check(b)]);
+                let j = []
+                for (let i of b) {
+                    if (i.id) {
+                        j.push({
+                            id: i.id,
+                            deployments: i.deployments
+                        })
+                    }
+                }
+                let [c, d] = await Promise.all([check(g), check(j)]);
                 return { nodes: c, eggs: d };
             };
             let h = await db.get("permissions", req.session.userinfo.id)

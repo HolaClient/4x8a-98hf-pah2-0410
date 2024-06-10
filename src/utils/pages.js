@@ -21,6 +21,7 @@
  *--------------------------------------------------------------------------
 */
 const ejs = require("ejs")
+
 async function data(req) {
     let user = req.session.userinfo
     let servers = []
@@ -55,7 +56,7 @@ async function render(req, res, a, b) {
                 System.err.println(error);
                 return res.html(fallback.error500(error));
             }
-            return res.html(str);
+            return res.end(str);
         });
     } catch (error) {
         System.err.println(error);

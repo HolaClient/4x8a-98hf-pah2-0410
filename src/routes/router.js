@@ -21,9 +21,6 @@
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    const appearance = await db.get("settings", "appearance") || {};
-    const permissions = await db.get("settings", "permissions") || {};
-    const blacklist = await db.get("punishments", "blacklist") || {};
     /**
      *--------------------------------------------------------------------------
      * Loading static endpoints
@@ -33,8 +30,10 @@ module.exports = async function () {
     app.static('/cdn', path.join(__dirname, '..', '..', 'storage', 'cdn'));
     app.use('/robots.txt', (req, res, next) => { fs.readFile(path.join(__dirname, '..', '..', 'public', 'robots.txt'), 'utf8', (err, data) => { if (err) { res.end(err); } else { res.end(data); } }); });
     app.use('/manifest.json', (req, res, next) => { fs.readFile(path.join(__dirname, '..', '..', 'public', 'manifest.json'), 'utf8', (err, data) => { if (err) { res.end(err); } else { res.end(data); } }); });
-    app.use((req, res, next) => {
+    app.use(async (req, res, next) => {
         try {
+            const blacklist = await db.get("punishments", "blacklist") || {};
+            if (blacklist && blacklist.ip && blacklist.ip.includes(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.headers['x-client-ip'] || req.headers['x-forwarded'] || req.ip || req.socket.remoteAddress)) return page.error("blacklisted", req, res)
             if (blacklist.countries && blacklist.countries.length > 0 && blacklist.countries.includes(geoip.lookup(req.ip)?.country)) {
                 res.status(403)
                 return res.end(fallback.errorBlacklisted());
@@ -52,8 +51,9 @@ module.exports = async function () {
     */
     app.all("*", async (req, res) => {
         try {
+            const appearance = await db.get("settings", "appearance") || {};
+            const permissions = await db.get("settings", "permissions") || {};
             if (process.env.APP_MAINTENANCE == "true") return page.error("maintenance", req, res);
-            if (blacklist && blacklist.ip && blacklist.ip.includes(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.headers['x-client-ip'] || req.headers['x-forwarded'] || req.ip || req.socket.remoteAddress)) return page.error("blacklisted", req, res)
             if (!req.session.userinfo && hcx.core.cookies.get(req, "hc.sk")) {
                 let a = JSON.parse(hcx.core.cookies.get(req, "hc.sk"))
                 let b = await db.get("users", a.user)
@@ -89,7 +89,7 @@ module.exports = async function () {
             async function r(f, i) {
                 if (i.requireAuth === true && !req.session.userinfo) return res.redirect('/login')
                 let s;
-                if (req.session.userinfo) s = await db.get("permissions", req.session?.userinfo?.id ?? 0);
+                if (req.session.userinfo) s = await db.get("permissions", req.session?.userinfo?.id);
                 if (s && i && parseInt(i.permission) > parseInt(s.level)) return res.html(fallback.error403());
                 if (!s && i && parseInt(i.permission) !== 0) return res.html(fallback.error401());
                 return await pages.render(req, res, `./resources/views/${f}/${appearance.themes && appearance.themes[f] || "default"}/${i.path}`);

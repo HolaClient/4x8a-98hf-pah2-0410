@@ -957,7 +957,7 @@ function gv(a) {
   return document.getElementById(a).value
 }
 function st(a, b) {
-  return document.getElementById(a).innerText = b
+  return document.getElementById(a).textContent = b
 }
 async function productsLoad() {
   let x = document.getElementById("productType")
