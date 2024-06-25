@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%- include('../partials/head') %>
 
 <body class="bg-zinc-950 relative items-center h-full">
@@ -86,4 +87,93 @@
     </div>
     </div>
 </body>
+=======
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex justify-between items-center">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clip-rule="evenodd" />
+                                <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
+                              </svg>                              
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl"><%= lang.admin.users.title %></h1>
+                            <span class="text-gray-300 text-md"><%= lang.admin.users.titleText %></span>
+                        </div>
+                    </div>
+                    <button onclick="render('admin/users/create')" class="rounded-full flex items-center hover:duration-300 duration-300 hover:bg-zinc-800/50 bg-zinc-900/50 border border-zinc-800/80 text-gray-300 px-5 py-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                          </svg>
+                          <span class="ml-2"><%= lang.admin.users.create %></span>
+                    </button>
+                </div>
+                <img src="https://cdn.holaclientx.tech/logo.png" onload="users()" class="w-0 h-0">
+                <div class="flex flex-col bg-zinc-900/50 border border-zinc-800/80 text-white rounded-xl mt-4">
+                    <div class="flex flex-wrap items-center rounded-xl justify-between overflow-auto gap-4">
+                        <table class="w-full table-fixed overflow-x-scroll rounded-xl max-md:min-w-[70rem]">
+                            <thead class="border-b text-gray-200 border-zinc-800 rounded-xl overflow-hidden bg-zinc-950">
+                                <th class="p-4 font-normal text-left">
+                                    <%= lang.admin.users.avatar %>
+                                </th>
+                                <th class="p-4 font-normal text-left">
+                                    <%= lang.admin.users.name %>
+                                </th>
+                                <th class="p-4 font-normal text-left">
+                                    <%= lang.admin.users.username %>
+                                </th>
+                                <th class="p-4 font-normal text-center">
+                                    <%= lang.admin.users.email %>
+                                </th>
+                                <th class="p-4 font-normal text-right">
+                                    <%= lang.admin.users.id %>
+                                </th>
+                                <th class="p-4 font-normal text-right">
+                                    <%= lang.admin.users.role %>
+                                </th>
+                                <th class="p-4 font-normal text-right">
+                                    <%= lang.admin.users.permission %>
+                                </th>
+                            </thead>
+                            <tbody class="w-full" id="usersHolder">
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="flex flex-wrap border-t border-zinc-800/80 items-center pt-4 justify-between gap-4">
+                        <div class="flex items-center justify-between gap-4 px-4 pb-4 w-full">
+                            <div class="flex flex-wrap items-center gap-4">
+                                <select id="d"
+                                    class="w-full appearance-none outline-none text-gray-300 bg-zinc-900 px-3 py-1.5 rounded-xl">
+                                    <option value="5"><%= lang.admin.users.show %> 05</option>
+                                    <option value="10"><%= lang.admin.users.show %> 10</option>
+                                    <option value="20"><%= lang.admin.users.show %> 20</option>
+                                    <option value="30"><%= lang.admin.users.show %> 30</option>
+                                    <option value="40"><%= lang.admin.users.show %> 40</option>
+                                    <option value="1000000000"><%= lang.admin.users.showAll %></option>
+                                </select>
+                            </div>
+                            <div id="e"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+>>>>>>> 15c6370 (25-06.resources)
 </html>

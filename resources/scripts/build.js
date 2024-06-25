@@ -24,11 +24,11 @@ const fs = require('fs-extra');
 const path = require('path');
 const AdmZip = require('adm-zip');
 
-const exclude = ['node_modules', '.vscode', 'storage/installed.txt', 'package-lock.json', 'yarn.lock', 'build', 'todo.txt', '.env', 'storage/database/*', 'storage/cache/*', 'storage/backups/*', 'storage/logs/dashboard/*', 'storage/logs/api/*'];
+const exclude = ['node_modules', '.vscode', 'storage/installed.txt', 'package-lock.json', 'yarn.lock', 'production', 'todo.txt', '.env', 'storage/database/*', 'storage/cache/*', 'storage/backups/*', 'storage/logs/dashboard/*', 'storage/logs/api/*'];
 const a = exclude.map(e => path.resolve(__dirname, '../../', e));
 
 async function mkdir() {
-    const b = path.resolve(__dirname, '../../build');
+    const b = path.resolve(__dirname, '../../production');
     await fs.remove(b);
     await fs.mkdir(b, { recursive: true });
     return b;

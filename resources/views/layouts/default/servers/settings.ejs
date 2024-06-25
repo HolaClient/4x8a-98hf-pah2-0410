@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <%- include('../partials/head') %>
 
 <body class="bg-zinc-950 relative items-center h-full">
@@ -369,4 +370,123 @@
     </div>
 </body>
 >>>>>>> 08cb23d (04-06)
+=======
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main
+                class="p-4 md:ml-64 z-20 -mt-[64px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+                <div id="content">
+                    <%- include('../partials/links') %>
+                    <% function getRes(a) { let b = parseInt(resources[a].total) - parseInt(resources[a].used); let c = servers.find(i => i.identifier === (req.url).split('/servers/')[1]?.split('/')[0]); b = b + c.limits[a] || c.feature_limits[a]; if (b <=0) { return 0 }else { return b } } %>
+                    <div id="page" class="relative">
+                        <img src="https://cdn.holaclientx.tech/logo.png" alt="lol" onload="serverModify('<%= data.attributes.node %>', '<%= data.attributes.egg %>'), getTransferUsers()" class="w-0 h-0">
+                        <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">
+                            <div id="resourcesHolder" class="w-full col-span-3 relative bg-zinc-900/50 border border-zinc-800/80 rounded-xl p-4">
+                                <h1 class="text-gray-100 text-xl">Allocate resources:</h1>
+                                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full mt-1">
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Memory:</span>
+                                        <input id="srvModifyMemory" type="number" value="<%= getRes('memory') %>" placeholder="1024" min="64" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Storage:</span>
+                                        <input id="srvModifyDisk" type="number" value="<%= getRes('disk') %>" placeholder="2048" min="64" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">CPU:</span>
+                                        <input id="srvModifyCPU" type="number" value="<%= getRes('cpu') %>" placeholder="100" min="25" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Allocations:</span>
+                                        <input id="srvModifyAllocations" type="number" value="<%= getRes('allocations') %>" placeholder="1" min="0" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Databases:</span>
+                                        <input id="srvModifyDatabases" type="number" value="<%= getRes('databases') %>" placeholder="1" min="0" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-400">Backups:</span>
+                                        <input id="srvModifyBackups" type="number" value="<%= getRes('backups') %>" placeholder="1" min="0" class="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2 outline-none text-gray-300 focus:pl-3 focus:duration-300 duration-300">
+                                    </div>
+                                </div>
+                                <button onclick="modifyServer()" class="p-2 bg-zinc-950 mt-2 w-full border border-zinc-800/80 rounded-xl text-gray-300">
+                                    Save
+                                </button>
+                            </div>
+                            <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
+                                <h1 class="text-gray-100 text-xl">Change software</h1>
+                                <p class="text-gray-400">Warning, taking a backup is always recommended!</p>
+                                <div class="mt-2">
+                                    <h1 class="text-gray-300">Select the server software:</h1>
+                                    <div class="relative">
+                                        <select id="eggsList" class="w-full appearance-none capitalize bg-zinc-950 border border-zinc-800/80 rounded-xl outline-none p-2 focus:pl-4 focus:duration-300 duration-300 text-gray-300"></select>
+                                        <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <button onclick="changeEgg('<%= data.attributes.node %>', '<%= data.attributes.egg %>')" class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
+                                    Update
+                                </button>
+                            </div>
+                            <!--<div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
+                                <h1 class="text-gray-100 text-xl">Change Node</h1>
+                                <p class="text-gray-400">Warning, taking a backup is always recommended!</p>
+                                <div class="mt-2">
+                                    <h1 class="text-gray-300">Select the server node:</h1>
+                                    <div class="relative">
+                                        <select id="nodesList" class="w-full appearance-none capitalize bg-zinc-950 border border-zinc-800/80 rounded-xl outline-none p-2 focus:pl-4 focus:duration-300 duration-300 text-gray-300"></select>
+                                        <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <button onclick="changeNode()" class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
+                                    Update
+                                </button>
+                            </div>-->
+                        <div class="bg-zinc-900/50 h-max relative border border-zinc-800/80 rounded-xl p-2 w-full">
+                                <h1 class="text-gray-100 text-xl">Transfer ownership</h1>
+                                <p class="text-gray-400">Change owner of this server.</p>
+                                <div class="mt-2">
+                                    <h1 class="text-gray-300">Select the new owner:</h1>
+                                    <div class="relative">
+                                        <select id="usersList" class="w-full appearance-none capitalize bg-zinc-950 border border-zinc-800/80 rounded-xl outline-none p-2 focus:pl-4 focus:duration-300 duration-300 text-gray-300"></select>
+                                        <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <button onclick="transferOwnership('<%= data.attributes.identifier %>')" class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
+                                    Transfer
+                                </button>
+                            </div>
+                            <div class="bg-zinc-900/50 h-max justify-between border items-center border-zinc-800/80 rounded-xl p-2 w-full">
+                                <h1 class="text-gray-100 text-xl">Delete server</h1>
+                                <p class="text-gray-400">Warning, this is a permanent action and cannot be reverted!</p>
+                                <button onclick="display('delete')" class="p-2 bg-rose-700/50 mt-2 w-full border border-rose-700 rounded-xl text-rose-400">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+>>>>>>> 15c6370 (25-06.resources)
 </html>

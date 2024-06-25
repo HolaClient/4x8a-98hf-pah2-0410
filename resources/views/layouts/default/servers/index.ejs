@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%- include('../partials/head') %>
 
 <body class="bg-zinc-950 relative items-center h-full">
@@ -88,4 +89,96 @@
     </div>
     </div>
 </body>
+=======
+<%- include('../partials/head') %>
+
+<body class="bg-zinc-950 relative items-center h-full">
+    <div class="w-screen overflow-hidden">
+        <div class="antialiased">
+            <%- include('../partials/nav') %>
+            <%- include('../partials/aside') %>
+            <main 
+            class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
+            <div id="content">
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex space-x-4 items-center">
+                        <div
+                            class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path d="M5.507 4.048A3 3 0 0 1 7.785 3h8.43a3 3 0 0 1 2.278 1.048l1.722 2.008A4.533 4.533 0 0 0 19.5 6h-15c-.243 0-.482.02-.715.056l1.722-2.008Z" />
+                                <path fill-rule="evenodd" d="M1.5 10.5a3 3 0 0 1 3-3h15a3 3 0 1 1 0 6h-15a3 3 0 0 1-3-3Zm15 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2.25.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM4.5 15a3 3 0 1 0 0 6h15a3 3 0 1 0 0-6h-15Zm11.25 3.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM19.5 18a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" clip-rule="evenodd" />
+                            </svg>                              
+                        </div>
+                        <div class="flex flex-col justify-between w-full">
+                            <h1 class="text-gray-200 font-semibold text-xl">Servers</h1>
+                            <span class="text-gray-300 text-md">Links of all servers related pages.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <div class="w-full col-span-2 grid grid-cols-1 gap-4 h-full">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                            <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-bottom bg-no-repeat bg-[url('http://localhost:2000/cdn/mc-bg.1.gif')]">
+                                <div class="absolute w-full h-full bg-zinc-950/50"></div>
+                                <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                    <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Your servers</h1>
+                                    <span class="text-gray-300 text-xl">List of your owned servers.</span>
+                                </div>
+                                <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                    <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                    <button onclick="render('servers/self')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('http://localhost:2000/cdn/mc-bg.2.jpg')]">
+                                <div class="absolute w-full h-full bg-zinc-950/50"></div>
+                                <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                    <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Subdomains</h1>
+                                    <span class="text-gray-300 text-xl">View your subdomains statuses</span>
+                                </div>
+                                <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                    <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                    <button onclick="//render('servers/subdomains')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                        Comming soon
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden relative w-full h-[300px] border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('http://localhost:2000/cdn/mc-bg.3.jpg')]">
+                            <div class="absolute w-full h-full bg-zinc-950/50"></div>
+                            <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                                <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Servers directory</h1>
+                                <span class="text-gray-300 text-xl">Checkout all discoverable community servers.</span>
+                            </div>
+                            <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                                <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                                <button onclick="//render('servers/directory')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                    Coming soon
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-xl overflow-hidden relative w-full h-full border border-zinc-800/80 bg-cover bg-center bg-no-repeat bg-[url('http://localhost:2000/cdn/mc-bg.4.webp')]">
+                        <div class="absolute w-full h-full bg-zinc-950/50"></div>
+                        <div class="relative px-5 top-5 w-full flex flex-col justify-start">
+                            <h1 class="text-gray-200 font-bold font-rajdhani text-4xl">Events</h1>
+                            <span class="text-gray-300 text-xl">List of servers with running active events.</span>
+                        </div>
+                        <div class="absolute bottom-5 w-full group flex items-center justify-center px-5">
+                            <div class="absolute bg-white/20 duration-300 opacity-0 group-hover:opacity-100 group-hover:duration-500 blur-lg p-2 w-full"></div>
+                            <button onclick="//render('servers/events')" class="bg-zinc-900/50 cursor-pointer text-gray-300 border border-zinc-900/80 backdrop-blur-xl rounded-xl w-full p-2">
+                                Comming soon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+    </div>
+</body>
+>>>>>>> 15c6370 (25-06.resources)
 </html>
