@@ -1,21 +1,20 @@
 {
     "name": "holaclientx",
-    "version": "X1",
+    "version": "X0",
     "author": "CR072",
     "github": "https://github.com/HolaClient/X",
     "discord": "https://discord.gg/CvqRH9TrYK",
-    "license": "MIT",
     "bin": {
         "hcx": "./app/bin/index.js"
     },
     "scripts": {
-        "start": "node src/app.js",
-        "dev": "nodemon src/app --verbose",
+        "start": "node --expose-gc src/app.js",
+        "dev": "nodemon --exec node --expose-gc src/app.js",
         "build:tw": "npx tailwindcss -i ./public/common/tailwind.conf -o ./public/common/tailwind.css",
         "build:assets": "node resources/scripts/build-assets.js",
         "build:prod": "node resources/scripts/build.js",
         "test:db": "node resources/scripts/test-db.js",
-        "codebase:lines": "node resources/scripts/lines.js"
+        "cb:lines": "node resources/scripts/lines.js"
     },
     "engines": {
         "node": ">=20.7"

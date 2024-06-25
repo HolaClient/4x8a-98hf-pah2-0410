@@ -137,7 +137,7 @@ module.exports = async function () {
             if (!a.runtime || !b) return res.end(fallback.error404());
             const appearance = await db.get("settings", "appearance") || {};
             const template = appearance.themes && appearance.themes.admin || "default";
-            return core.html(req, res, `./resources/views/admin/${template}/addons/[id].ejs`, e)
+            return pages.render(req, res, `./resources/views/admin/${template}/addons/[id].ejs`, e)
         } catch (error) {
             handle(error, "Minor", 42)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));

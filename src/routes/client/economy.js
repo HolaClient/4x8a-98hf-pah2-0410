@@ -64,7 +64,7 @@ module.exports = async function () {
                 if (totalUsers[b] === true) return ws.close();
                 totalUsers[b] = true;
                 let c = await db.get("settings", "afk") || {};
-                let k = c.every ?? 5;
+                let k = c.every ?? 30;
                 let e = 0;
                 let f = await db.get("economy", b) || { coins: 0 };
                 let g = Date.now();
@@ -113,16 +113,15 @@ module.exports = async function () {
             let a = await users.getAll() || {};
             let b = [];
             let d = [];
-            for (let i in a) {
-                let e = a[i];
-                let c = await db.get("economy", i);
+            for (let i of a) {
+                let c = await db.get("economy", i.hcx.id);
                 if (c && c.coins) {
                     b.push(parseInt(c.coins));
                     d.push({
-                        id: i,
-                        avatar: e.avatar,
-                        nickname: e.nickname,
-                        username: e.username,
+                        id: i.hcx.id,
+                        avatar: i.hcx.avatar,
+                        nickname: i.hcx.nickname,
+                        username: i.hcx.username,
                         coins: c.coins
                     });
                 }

@@ -107,6 +107,43 @@ module.exports = async function () {
         }
     });
 
+    app.put("/api/servers/modify/:id", core.auth, async (req, res) => {
+        try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
+            let a = req.params.id;
+            await core.server(req, res, a);
+            let b = req.body;
+            let c = await ptero.eggs.get(b.id)
+            if (!c) return core.json(req, res, false, "404")
+            c = c.attributes
+            let d = {}
+            for (let i of c.relationships.variables.data) {
+                d[i.attributes.env_variable] = i.attributes.default_value
+            }
+            let e = await ptero.servers.get(a)
+            let m = await fetch(`${pterodactyl.domain}/api/application/servers/${e.attributes.id}/startup`, {
+                method: "PATCH",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${pterodactyl.app}`,
+                },
+                body: JSON.stringify({
+                    "startup": c.startup,
+                    "environment": d,
+                    "egg": b.id,
+                    "image": c.docker_image,
+                    "skip_scripts": false
+                })
+            });
+            let n = await m.json()
+            return core.json(req, res, true, "SUCCESS")
+        } catch (error) {
+            handle(error, "Minor", 39)
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+
     async function handle(error, a, b) {
         System.err.println(error)
         admins.push({

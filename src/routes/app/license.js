@@ -26,52 +26,54 @@
  *--------------------------------------------------------------------------
 */
 module.exports = async function () {
-    app.get('/api/app/sysinfo', core.admin, async (req, res) => {
+    app.get('/api/app/license', core.admin, async (req, res) => {
         try {
-            const a = process.memoryUsage();
-            const b = os.cpus();
-
-            let data = {
-                memory: {
-                    app: (a.heapUsed / 1024 / 1024),
-                    total: (os.totalmem() / 1024 / 1024),
-                    free: (os.freemem() / 1024 / 1024),
-                },
-                cpu: {
-                    model: b[0].model,
-                    threads: b.length,
-                    speed: (b[0].speed / 1000)
-                },
-                machine: {
-                    uptime: os.uptime(), //in secs
-                    platform: os.platform(),
-                    arch: os.arch(),
-                    release: os.release()
+            let a = await db.get("app", "console")
+            let b = await fetch(`${a.domain}/api/application/license/${a.license}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Secret ${a.secret}`
                 }
+            });
+            let c = await b.json()
+            let d = {
+                "license": a.license,
+                "status": c.data.status,
+                "expires": c.data.expires,
+                "type": c.data.type,
+                "price": c.data.price,
+                "hosts": c.data.hosts,
+                "servers": c.data.servers
             }
-            return core.json(req, res, true, "SUCCESS", data)
+            return core.json(req, res, true, "SUCCESS", d)
         } catch (error) {
             System.err.println(error)
             return
         }
     });
 
-    app.get("/admin/app/about", core.admin, async (req, res) => {
+    app.post('/api/app/license', core.admin, async (req, res) => {
         try {
-            let a = await db.get("core", "about")
-            let b = {}
-            b["about"] = a
-            const appearance = await db.get("settings", "appearance") || {};
-            const template = appearance.themes && appearance.themes.admin || "default";
-            return pages.render(req, res, `./resources/views/admin/${template}/app/about.ejs`, b)
+            let a = await db.get("app", "console")
+            return core.json(req, res, true, "SUCCESS", a.license)
         } catch (error) {
-            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+            System.err.println(error)
+            return
         }
     });
 
-    setInterval(() => {
-        if (global.gc) global.gc();
-    }, 60000 * 7);
+    app.put('/api/app/license', core.admin, async (req, res) => {
+        try {
+            let a = await db.get("app", "console")
+            a["license"] = req.body.key
+            await db.set("app", "console", a)
+            return core.json(req, res, true, "SUCCESS", a.license)
+        } catch (error) {
+            System.err.println(error)
+            return
+        }
+    });
 }
 /**
  *--------------------------------------------------------------------------

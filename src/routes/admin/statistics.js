@@ -67,7 +67,7 @@ module.exports = async function () {
                 resources.memory["used"] = (parseInt(resources.memory["used"] ?? 0) + parseInt(i.attributes.allocated_resources.memory));
                 resources.disk["total"] = (parseInt(resources.disk["total"] ?? 0) + parseInt(i.attributes.disk));
                 resources.disk["used"] = (parseInt(resources.disk["used"] ?? 0) + parseInt(i.attributes.allocated_resources.disk));
-                resources.cpu["total"] = (parseInt(resources.cpu["total"] ?? 0) + parseInt(i.attributes.cpu.system.cpu_threads * 100));
+                resources.cpu["total"] = (parseInt(resources.cpu["total"] ?? 0) + parseInt(i.attributes.system.system.cpu_threads * 100));
                 let e = 0;
                 i.attributes.relationships.servers.data.forEach(j => { e = parseInt(e) + parseInt(j.attributes.limits.cpu); });
                 resources.cpu["used"] = (parseInt(resources.cpu["used"] ?? 0) + parseInt(e));

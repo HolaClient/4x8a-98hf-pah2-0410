@@ -98,7 +98,7 @@ module.exports = async function () {
 
     app.post("/api/admin/pterodactyl/eggs", core.admin, async (req, res) => {
         try {
-            let a = await ptero.eggs.getAll();
+            let a = await ptero.nests.getAll();
             let b = await db.get("pterodactyl", "eggs") || [];
             if (b.length !== 0) {
                 for (let i of a) {
@@ -118,7 +118,7 @@ module.exports = async function () {
 
     app.put("/api/admin/pterodactyl/eggs", core.admin, async (req, res) => {
         try {
-            let a = await ptero.eggs.getAll()
+            let a = await ptero.nests.getAll()
             let b = await db.get("pterodactyl", "eggs") || []
             if (b.find(i => i.id == req.body.id) !== undefined) return res.end(JSON.stringify({ success: false, message: alert("EXISTS", req, res) }));
             let c = (a.find(c => c.attributes.id == req.body.nest)).attributes.relationships.eggs.data

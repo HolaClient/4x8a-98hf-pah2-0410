@@ -41,7 +41,7 @@ module.exports = async function () {
                         let h = {
                             id: f.id,
                             name: f.name,
-                            url: `${f.scheme}://${f.fqdn}:${f.daemon_listen}/api/system`,
+                            url: `${f.scheme}://${f.fqdn}:${f.daemon_listen}`,
                             memory: (f.allocated_resources.memory / i.memory) * 100,
                             location: {
                                 short: f.relationships.location.attributes.short

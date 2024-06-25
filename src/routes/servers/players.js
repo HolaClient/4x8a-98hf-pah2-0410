@@ -32,6 +32,7 @@ module.exports = async function () {
     app.get("/api/servers/players/:id", core.auth, async (req, res) => {
         try {
             let a = req.params.id
+            await core.server(req, res, a)
             let pterodactyl = await db.get("pterodactyl", "settings") || {}
             if (pterodactyl && pterodactyl.domain && pterodactyl.acc) {
                 let b = new hcx.pterodactyl.servers.console(a);
@@ -53,7 +54,7 @@ module.exports = async function () {
                             if (d) {
                                 h.total = parseInt(d[2]);
                                 h.online = parseInt(d[1]);
-                                h.players = d[3].split(", ").map(i => i.trim());
+                                h.players = d[3].split(", ").map(i => i.trim()).filter(i => i !== "");
                             }
                             clearTimeout(f);
                             resolve();
@@ -92,7 +93,7 @@ module.exports = async function () {
                 }
             }
             );
-            let c = await b.json()
+            let c = await b.json();
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: c }));
         } catch (error) {
             handle(error, "Minor", 40)
@@ -112,7 +113,27 @@ module.exports = async function () {
                 }
             }
             );
-            let c = await b.json()
+            let c = await b.json();
+            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: c }));
+        } catch (error) {
+            handle(error, "Minor", 64);
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+
+    app.get("/api/servers/players/whitelist/:id", core.auth, async (req, res) => {
+        try {
+            let pterodactyl = await db.get("pterodactyl", "settings") || {}
+            await core.server(req, res, req.params.id)
+            let b = await fetch(`${pterodactyl.domain}/api/client/servers/${req.params.id}/files/contents?file=%2Fwhitelist.json`, {
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${pterodactyl.acc}`,
+                }
+            }
+            );
+            let c = await b.json();
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: c }));
         } catch (error) {
             handle(error, "Minor", 64);
@@ -158,7 +179,63 @@ module.exports = async function () {
                 }
             }
             );
-            let f = await e.json();
+            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
+        } catch (error) {
+            handle(error, "Minor", 40)
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+
+    app.post("/api/servers/players/ops/:id", core.auth, async (req, res) => {
+        try {
+            let a = req.params.id
+            await core.server(req, res, a)
+            let b = new hcx.pterodactyl.servers.console(a);
+            await b.init()
+            setTimeout(() => {
+                b.sendCommand(`op ${req.body.player}`);
+                setTimeout(() => {
+                    b.close()
+                }, 50);
+            }, 100);
+            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
+        } catch (error) {
+            handle(error, "Minor", 40)
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+
+    app.delete("/api/servers/players/ops/:id", core.auth, async (req, res) => {
+        try {
+            let a = req.params.id
+            await core.server(req, res, a)
+            let b = new hcx.pterodactyl.servers.console(a);
+            await b.init()
+            setTimeout(() => {
+                b.sendCommand(`deop ${req.body.player}`);
+                setTimeout(() => {
+                    b.close()
+                }, 50);
+            }, 100);
+            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
+        } catch (error) {
+            handle(error, "Minor", 40)
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+
+    app.post("/api/servers/players/whitelist/:id", core.auth, async (req, res) => {
+        try {
+            let a = req.params.id
+            await core.server(req, res, a)
+            let b = new hcx.pterodactyl.servers.console(a);
+            await b.init()
+            setTimeout(() => {
+                b.sendCommand(`whitelist add ${req.body.player}`);
+                setTimeout(() => {
+                    b.close()
+                }, 50);
+            }, 100);
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 40)

@@ -52,16 +52,17 @@ module.exports = async function () {
         try {
             let f = await fs.readdirSync(path.join(__dirname, "../../../storage/updates"));
             if (f.length !== 0) { f.forEach(i => { if (i.endsWith('.jar')) { update(i) } }) };
-            let b = { "Content-Type": "application/json" };
-            let c = await db.get("core", "license")
-            if (c) b["Authorization"] = `Bearer ${c}`
-            let a = await fetch('https://console.holacorp.org/api/X1/updates', {
+            let b = { "Content-Type": "application/json", "x-auth-type": "holaclient/secret" };
+            let c = await db.get("app", "console")
+            if (c) b["Authorization"] = `Secret ${c.secret}`
+            let a = await fetch(`${c.domain}/api/X0/updates`, {
                 method: "GET",
                 headers: b
             });
             let d = await a.json();
+            console.log(d)
             if (d.success == true) {
-                d.data.forEach(i => download(i));
+                d.data.forEach(i => download(i.identifier));
             }
         } catch (error) {
             System.err.println(error)
@@ -70,9 +71,10 @@ module.exports = async function () {
     };
     async function download(a) {
         try {
-            let b = await fetch(`https://console.holacorp.org/storage/X1/updates/${a}.jar`, {
+            let e = await db.get("app", "console")
+            let b = await fetch(`${e.domain}/storage/X0/updates/${a}.jar`, {
                 method: "GET",
-                headers: {"Authorization": `Bearer ${await db.get("core", "license")}`}
+                headers: {"Authorization": `Secret ${e.secret}`}
             });
             let c = await b.buffer()
             let d = path.join(__dirname, `../../../storage/updates`);
@@ -93,7 +95,12 @@ module.exports = async function () {
             let e = require('adm-zip');
             let f = new e(c);
             f.extractAllTo(d, true);
-            let g = fs.readdirSync(d).filter(i => i !== 'manifest.json');
+            let g = fs.readdirSync(d).filter(i => i !== 'manifest.json' && i !== "migrate.js");
+            let l = fs.readdirSync(d).find(i => i == 'migrate.js');
+            if (l) {
+                let m = path.join(d, l);
+                require(m)()
+            }
             g.forEach(i => {
                 let h = path.join(d, i);
                 let j = path.join(__dirname, '..', '..', '..', i);
@@ -109,17 +116,13 @@ module.exports = async function () {
             fse.remove(c);
             fse.remove(d);
             for ([i] of Object.entries(app.routes)) { delete app.routes[i] };
-            Promise.all([
-                load(path.join(__dirname, '..', '..', '..', 'src', 'routes', 'admin')),
-                load(path.join(__dirname, '..', '..', '..', 'src', 'routes', 'app')),
-                load(path.join(__dirname, '..', '..', '..', 'src', 'routes', 'servers')),
-                load(path.join(__dirname, '..', '..', '..', 'src', 'routes')),
-            ]);
-            await fetch(`https://console.holacorp.org/api/X1/updates/${a}`, {
+            await load('');
+            let k = await db.get("app", "console")
+            await fetch(`${k.domain}/api/X1/updates/${a}`, {
                 method: "PATCH",
                 headers: { 
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${await db.get("core", "license")}`
+                    "Authorization": `Bearer ${k.secret}`
                 }
             });
         } catch (error) {
@@ -127,14 +130,34 @@ module.exports = async function () {
             return
         };
     };
-    function load(a) {
-        const b = fs.readdirSync(a).filter(i => i.endsWith('.js'));
-        b.forEach(i => {
-            const c = require(path.join(a, i));
-            if (typeof c === 'function') { c() };
-        });
-        return true
-    };
+    async function load(route) {
+        try {
+            return new Promise((resolve, reject) => {
+                const a = path.join(path.join(__dirname, '..', '..', '..', 'src', 'routes'), route);
+                fs.readdir(a, async (err, files) => {
+                    if (err) {
+                        System.err.println(err);
+                        return reject(err);
+                    }
+                    for (const i of files) {
+                        const b = path.join(a, i);
+                        if (fs.statSync(b).isDirectory()) {
+                            await load(path.join(route, i));
+                        } else if (i.endsWith('.js')) {
+                            const c = require(b);
+                            if (typeof c === 'function') {
+                                c();
+                            }
+                        }
+                    }
+                    resolve();
+                });
+            });
+        } catch (error) {
+            System.err.println(error);
+            return;
+        }
+    }
     cache()
     setInterval(() => { cache() }, 60000 * 5);
 }

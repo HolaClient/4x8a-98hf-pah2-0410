@@ -46,7 +46,7 @@ module.exports = async function () {
                 const e = d.map(f => getUserData(f));
                 return Promise.all(e);
             };
-            core.log(`${req.session.userinfo.username} viewed the economy of all users.`)
+            core.log.admin(`${req.session.userinfo.username} viewed the economy of all users.`)
             return await getUsers().then(g => res.end(JSON.stringify({ success: true, data: g })));
         } catch (error) {
             handle(error, "Minor", 38)
@@ -66,7 +66,7 @@ module.exports = async function () {
             if (!b) return res.end(JSON.stringify({ success: false, message: alert("INVALIDUSER", req, res) }));
             if (!req.query.payload) res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: c }));
             await db.set('economy', a, d);
-            core.log(`${req.session.userinfo.username} changed the economy of ${b.username}.`);
+            core.log.admin(`${req.session.userinfo.username} changed the economy of ${b.username}.`);
             res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 65)
@@ -112,7 +112,7 @@ module.exports = async function () {
                 },
             };
             await db.set('resources', c, d);
-            core.log(`${req.session.userinfo.username} changed the resources of ${a.username}.`);
+            core.log.admin(`${req.session.userinfo.username} changed the resources of ${a.username}.`);
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 85)
@@ -122,8 +122,9 @@ module.exports = async function () {
 
     app.get("/api/admin/users", core.admin, async (req, res) => {
         try {
-            core.log(`${req.session.userinfo.username} viewed user list.`);
-            return core.json(req, res, true, "SUCCESS", await users.getAll());
+            let a = await users.getAll();
+            core.log.admin(`${req.session.userinfo.username} viewed user list.`);
+            return core.json(req, res, true, "SUCCESS", a.sort((a, b) => a.hcx.id - b.hcx.id));
         } catch (error) {
             handle(error, "Minor", 133)
             return core.json(req, res, false, "ERROR", error);
@@ -150,7 +151,7 @@ module.exports = async function () {
             j["resources"] = e
             j["economy"] = f
             j["invoices"] = h
-            return core.html(req, res, `./resources/views/admin/${c}/users/[id].ejs`, j);
+            return pages.render(req, res, `./resources/views/admin/${c}/users/[id].ejs`, j);
         } catch (error) {
             handle(error, "Minor", 42)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
@@ -171,7 +172,7 @@ module.exports = async function () {
                     economy: f
                 });
             };
-            core.log(`${req.session.userinfo.username} viewed user list.`);
+            core.log.admin(`${req.session.userinfo.username} viewed user list.`);
             return res.end(JSON.stringify({ success: false, message: alert("SUCCESS", req, res), data: b }));
         } catch (error) {
             handle(error, "Minor", 143)
@@ -179,7 +180,7 @@ module.exports = async function () {
         }
     });
 
-    app.get("/api/admin/package/:user", core.admin, async (req, res) => {
+    /*app.get("/api/admin/package/:user", core.admin, async (req, res) => {
         try {
             const a = req.params.user
             if (!a) return res.end(JSON.stringify({ "success": false, "message": alerts("MISSINGUSER", req, res) }));
@@ -188,13 +189,13 @@ module.exports = async function () {
                 return res.end({ "success": false, "message": alerts.a("COULDNOTFINDTHATPACKAGE", req, res) });
             await db.set("package", a, req.query.package);
             const b = await db.get("users", a);
-            core.log(`${req.session.userinfo.username} changed the package of ${b.username} to ${req.query.package}.`);
+            core.log.admin(`${req.session.userinfo.username} changed the package of ${b.username} to ${req.query.package}.`);
             return res.end(JSON.stringify({ "success": true, "message": alerts.a("CHANGEDPLAN", req, res) }));
         } catch (error) {
             handle(error, "Minor", 165);
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
         }
-    });//unfinished
+    });//unfinished*/
 
     app.get("/api/admin/users/remove", core.admin, async (req, res) => {
         try {
@@ -233,7 +234,7 @@ module.exports = async function () {
                 db.delete("resources", a),
                 db.delete("package", a)
             ]);
-            core.log(`${req.session.userinfo.username} deleted the user ${userinfo.username}.`);
+            core.log.admin(`${req.session.userinfo.username} deleted the user ${userinfo.username}.`);
             return res.end({ success: true, message: alert("SUCCESS", req, res) });
         } catch (error) {
             handle(error, "Minor", 181)

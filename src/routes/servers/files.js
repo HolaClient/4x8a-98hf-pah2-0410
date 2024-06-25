@@ -20,7 +20,7 @@
  * files.js - Files handler.
  *--------------------------------------------------------------------------
 */
-const page = modules.page;
+const ejs = require('ejs')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
@@ -78,7 +78,7 @@ module.exports = async function () {
             }
             let cc = await ptero.servers.getAll()
             let dd = cc.find(i => i.attributes.identifier == a);
-            const dat = await page.data(req);
+            const dat = await pages.data(req);
             return ejs.renderFile(`./resources/views/layouts/${template}/servers/editor.ejs`, { ...dat, data: dd, text: d },
                 function (error, str) {
                     if (error) {
@@ -89,7 +89,7 @@ module.exports = async function () {
                 }
             );
         } catch (error) {
-            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+            return core.json(req, res, false, "ERROR", error);
         }
     });
 

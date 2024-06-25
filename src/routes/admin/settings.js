@@ -25,7 +25,7 @@
  * Loading modules
  *--------------------------------------------------------------------------
 */
-module.exports = async function() {
+module.exports = async function () {
     app.put("/api/admin/settings", core.admin, async (req, res) => {
         try {
             let a = await db.get('settings', 'appearance') || {}
@@ -40,12 +40,12 @@ module.exports = async function() {
             a["seo"].image = b('seoImage') || a.seo.image
             a["seo"].description = b('seoDes') || a.seo.description
             a["seo"].keywords = b('seoKeys') || a.seo.keywords
- 
+
             function b(c) {
                 return req.body[c]
             };
             await db.set('settings', 'appearance', a);
-            core.log(`${req.session.userinfo.username} modified the settings.`);
+            core.log.admin(`${req.session.userinfo.username} modified the settings.`);
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 194);
@@ -54,9 +54,30 @@ module.exports = async function() {
     });
     app.put("/api/admin/settings/:a", core.admin, async (req, res) => {
         try {
-            await db.set('settings', req.params.a, req.body);
-            core.log(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
+            if (req.query && req.query?.type == "full") {
+                await db.set(req.params.a, 'settings', req.body);
+                core.log.admin(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
+            } else {
+                await db.set('settings', req.params.a, req.body);
+                core.log.admin(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
+            }
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
+        } catch (error) {
+            handle(error, "Minor", 194);
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+        }
+    });
+    app.get("/api/admin/settings/:a", core.admin, async (req, res) => {
+        try {
+            let a;
+            if (req.query && req.query?.type == "full") {
+                a = await db.get(req.params.a, 'settings');
+                core.log.admin(`${req.session.userinfo.username} viewed the ${req.params.a} settings.`);
+            } else {
+                a = await db.get('settings', req.params.a);
+                core.log.admin(`${req.session.userinfo.username} viewed the ${req.params.a} settings.`);
+            }
+            return core.json(req, res, true, "SUCCESS", a)
         } catch (error) {
             handle(error, "Minor", 194);
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));

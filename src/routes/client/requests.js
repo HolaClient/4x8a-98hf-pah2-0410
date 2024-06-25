@@ -80,7 +80,7 @@ module.exports = async function () {
             return core.json(req, res, false, "ERROR", error.message);
         }
     });
-   
+
     app.patch("/api/requests/:id", core.auth, async (req, res) => {
         try {
             let a = req.params.id;

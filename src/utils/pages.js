@@ -38,7 +38,8 @@ async function data(req) {
         roles: await db.get("permissions", "roles") || [],
         appearance: await db.get('settings', 'appearance') || {},
         links: await db.get('settings', 'links') || {},
-        tickets: await db.get('tickets', user && user.id || "") || [],
+        //tickets: await db.get('tickets', user && user.id || "") || [],
+        permission: await db.get("permissions", user && user.id || "") || {},
         resources: await db.get('resources', user && user.id || "") || [],
         economy: await db.get('economy', user && user.id || "") || [],
         userinfo: user,
@@ -54,6 +55,7 @@ async function render(req, res, a, b) {
         return ejs.renderFile(a, {...c, data: b || {}}, function (error, str) {
             if (error) {
                 System.err.println(error);
+                res.setHeader('Content-Type', 'text/html');
                 return res.html(fallback.error500(error));
             }
             return res.end(str);
