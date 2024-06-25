@@ -31,7 +31,7 @@ module.exports = async function () {
             let a = await db.get("settings", "market")
             const appearance = await db.get("settings", "appearance") || {};
             const template = appearance.themes && appearance.themes.layouts || "default";
-            return core.html(req, res, `./resources/views/layouts/${template}/market/resources.ejs`, a.resources)
+            return pages.render(req, res, `./resources/views/layouts/${template}/market/resources.ejs`, a.resources)
         } catch (error) {
             System.err.println(error)
             return fallback.error500(error)
@@ -44,7 +44,7 @@ module.exports = async function () {
             let b = await db.get("products", "categories") || []
             const appearance = await db.get("settings", "appearance") || {};
             const template = appearance.themes && appearance.themes.layouts || "default";
-            return core.html(req, res, `./resources/views/layouts/${template}/market/packages/index.ejs`, {categories: b, packages: a})
+            return pages.render(req, res, `./resources/views/layouts/${template}/market/packages/index.ejs`, {categories: b, packages: a})
         } catch (error) {
             System.err.println(error)
             return fallback.error500(error)
@@ -58,7 +58,7 @@ module.exports = async function () {
             let c = a.filter(i => parseInt(i.category) === parseInt(req.params.id))
             const appearance = await db.get("settings", "appearance") || {};
             const template = appearance.themes && appearance.themes.layouts || "default";
-            return core.html(req, res, `./resources/views/layouts/${template}/market/packages/[id].ejs`, c)
+            return pages.render(req, res, `./resources/views/layouts/${template}/market/packages/[id].ejs`, c)
         } catch (error) {
             System.err.println(error)
             return fallback.error500(error)
@@ -71,7 +71,7 @@ module.exports = async function () {
             let b = a.find(i => parseInt(i.id) === parseInt(req.params.id))
             const appearance = await db.get("settings", "appearance") || {};
             const template = appearance.themes && appearance.themes.layouts || "default";
-            return core.html(req, res, `./resources/views/layouts/${template}/market/packages/checkout.ejs`, b)
+            return pages.render(req, res, `./resources/views/layouts/${template}/market/packages/checkout.ejs`, b)
         } catch (error) {
             System.err.println(error)
             return fallback.error500(error)

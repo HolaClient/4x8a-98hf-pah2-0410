@@ -35,7 +35,7 @@ module.exports = async function () {
             let b = await db.get("app", "lastsync") ?? 0
             if (!b || (Date.now() - parseInt(b)) / (3600000) > 24) {
                 let e = Buffer.from(crypt.gen62(1024), 'utf-8').toString('base64')
-                let c = await fetch(`https://console.holacorp.org/api/authenticate/sync`, {
+                let c = await fetch(`${a.domain}/api/authenticate/sync`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -64,12 +64,12 @@ module.exports = async function () {
     async function authenticate() {
         try {
             let c = await db.get("app", "console") || {}
-            let a = await fetch(`https://console.holacorp.org/api/authenticate`, {
+            let a = await fetch(`${c.domain}/api/authenticate`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "x-auth-type": "holaclient/license",
-                    "x-app-version": "X1",
+                    "x-app-version": "X0",
                     "Authorization": `License ${c.license}`
                 }
             });
