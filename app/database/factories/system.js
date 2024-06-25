@@ -93,9 +93,9 @@ module.exports = async function (db) {
     };
     let c = await db.get("core", "about")
     if (!c) await db.set("core", "about", {
-        version: "X1",
+        version: "X0",
         codename: "Hydrogen",
-        build: "HCX1042401",
+        build: "HCX00062400",
         security: "January 2024",
         updater: 0,
         marketplace: 0,
@@ -104,7 +104,8 @@ module.exports = async function (db) {
             admin: 0,
             client: 0
         },
-        warranty: "Active"
+        warranty: "Active",
+        eol: "August 2024"
     });
     let d = await db.get("core", "authenticators")
     if (!d) await db.set("core", "authenticators", []);

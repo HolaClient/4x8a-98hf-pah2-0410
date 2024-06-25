@@ -24,8 +24,8 @@ const routes = [
   { "name": "create", "href": false, "url": "create", "svg": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" /></svg>` },
   { "name": "servers", "href": false, "url": "servers", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" /></svg>` },
   { "name": "economy", "href": false, "url": "economy", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" /></svg>` },
-  { "name": "tickets", "href": false, "url": "tickets", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" /></svg>` },
-  { "name": "chat", "href": false, "url": "chat", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>` },
+//  { "name": "tickets", "href": false, "url": "tickets", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" /></svg>` },
+//  { "name": "chat", "href": false, "url": "chat", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>` },
   { "name": "market", "href": false, "url": "market", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z" /></svg>` },
   { "name": "account", "href": false, "url": "account", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg>` },
   { "name": "admin", "href": true, "url": "/admin", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>` }
@@ -43,11 +43,11 @@ const links = [
   { "name": "mods", "href": false, "url": "mods", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>` },
   { "name": "subdomains", "href": false, "url": "subdomains", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" /></svg>` },
   { "name": "players", "href": false, "url": "players", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" /></svg>` },
-  { "name": "databases", "href": false, "url": "databases", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" /></svg>` },
-  { "name": "schedules", "href": false, "url": "schedules", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>` },
-  { "name": "backups", "href": false, "url": "backups", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" /></svg>` },
-  { "name": "network", "href": false, "url": "network", "svg": ` <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" /></svg>` },
-  { "name": "startup", "href": false, "url": "startup", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg>` },
+//  { "name": "databases", "href": false, "url": "databases", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" /></svg>` },
+//  { "name": "schedules", "href": false, "url": "schedules", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>` },
+//  { "name": "backups", "href": false, "url": "backups", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" /></svg>` },
+//  { "name": "network", "href": false, "url": "network", "svg": ` <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" /></svg>` },
+//  { "name": "startup", "href": false, "url": "startup", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg>` },
   { "name": "settings", "href": false, "url": "settings", "svg": `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>` }
 ]
 const error500 = `
@@ -74,7 +74,7 @@ const error500 = `
 </body>`
 function reload(a, b) {
   if (a && b) {
-    document.getElementById(a).textContent = b
+    document.getElementById(a).innerHTML = b
   }
 }
 async function getPage(page) {
@@ -111,26 +111,26 @@ async function render(page = page || "/") {
   </div>`);
   let d = await getPage(page);
   let e = document.createElement('div');
-  e.textContent = d;
+  e.innerHTML = d;
   let f = e.querySelector('#content');
   b.style.transition = 'opacity 0.5s ease, transform 0.2s ease';
   b.style.opacity = 0;
   b.style.transform = 'translateY(20px)';
   try {
     if (b && f) {
-      b.textContent = ``;
-      b.textContent = f.textContent;
+      b.innerHTML = ``;
+      b.innerHTML = f.innerHTML;
       document.getElementById('loadOverlay').remove();
     } else {
       console.error(`Page ${page} not found"`, 404);
       //let g = await fetch(`obviously-a-404-page`);
       //let h = await g.text();
-      b.textContent = "";
-      b.textContent = b;
+      b.innerHTML = "";
+      b.innerHTML = b;
       document.getElementById('loadOverlay').remove();
     }
   } catch (i) {
-    b.textContent = error500;
+    b.innerHTML = error500;
     document.getElementById('loadOverlay').remove();
   }
   const j = document.getElementById(`nav-${page.startsWith("/") ? page.slice(1) : page}`);
@@ -216,7 +216,7 @@ async function load() {
 
   for (let c of routes) {
     const d = document.createElement("li");
-    d.textContent = `
+    d.innerHTML = `
     <button onclick="render('${c.url}')" id="nav-${c.url}" aria-label="navlink"
         class="flex w-full items-center mx-auto cursor-pointer font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 backdrop-blur-3xl hover:duration-300 duration-300 hover:bg-zinc-900/80">
         <div id="nav-display-${c.url}" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
@@ -259,7 +259,7 @@ async function loadUserDropdown() {
 
     for (let e of userRoutes) {
       const f = document.createElement("li");
-      f.textContent = `
+      f.innerHTML = `
     <a onclick="render('${e.url}')" id="nav-${e.url}"
         class="flex items-center mx-auto font-medium text-gray-300 hover:text-gray-100 rounded-xl border-zinc-800 from-zinc-900 to-zinc-800/80 backdrop-blur-3xl hover:duration-300 duration-300 hover:bg-zinc-900/80">
         <div id="nav-display-${e.url}" class="w-1 hidden h-6 bottom-0 pl-0.5 rounded-xl bg-amber-300"></div>
@@ -290,15 +290,15 @@ async function loadUserDropdown() {
     b.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
     b.style.transform = 'translateY(0)';
     b.style.opacity = 0;
-    c.textContent = '';
+    c.innerHTML = '';
   }
 }
-window.onload = () => {
+document.addEventListener("DOMContentLoaded", function() {
   load();
   highlight();
   updateLinks();
   setTimeout(() => { cachePages(); }, 2000);
-}
+});
 async function cachePages() {
   for (let i of routes) {
     let c;
@@ -326,11 +326,11 @@ function updateLinks() {
   const a = document.getElementById("serverLinks");
   if (a) {
     const b = document.createDocumentFragment();
-    a.textContent = '';
+    a.innerHTML = '';
 
     for (let c of links) {
       const d = document.createElement("li");
-      d.textContent = `
+      d.innerHTML = `
         <a onclick="display('${c.url}')" id="page-${c.url}" class="text-gray-400 justify-center text-center hover:text-white hover:duration-300 duration-300 cursor-pointer flex flex-col items-center text-lg">
           <div class="flex items-center space-x-2">
               ${c.svg}
@@ -357,7 +357,7 @@ function updateLinks() {
 }
 async function display(page = page || "/") {
   const a = document.getElementById('page');
-  a.textContent = "";
+  a.innerHTML = "";
   a.style.transition = 'opacity 0.5s ease, transform 0.2s ease';
   a.style.opacity = 0;
   a.style.transform = 'translateY(20px)';
@@ -371,19 +371,19 @@ async function display(page = page || "/") {
   }
   let c = await b.text();
   let d = document.createElement('div');
-  d.textContent = c;
+  d.innerHTML = c;
   let e = d.querySelector('#page');
   try {
     if (a && e) {
-      a.textContent = e.textContent;
+      a.innerHTML = e.innerHTML;
     } else {
       console.error(`Page ${page} not found"`, 404);
       let f = await fetch(`../../errors/404.html`);
       let g = await f.text();
-      a.textContent = g;
+      a.innerHTML = g;
     }
   } catch (h) {
-    a.textContent = error500;
+    a.innerHTML = error500;
   }
   const i = document.getElementById(`page-${page}`);
   const j = document.getElementById(`page-display-${page}`);
@@ -460,7 +460,7 @@ async function mods() {
   let c = await b.json()
   if (c.success == false) return toastr.error("Error", c.message)
   let d = document.createDocumentFragment();
-  a.textContent = '';
+  a.innerHTML = '';
   c.data.push({
     "id": "Mvc3WDLr",
     "author": "CR072",
@@ -476,7 +476,7 @@ async function mods() {
   });
   for (let i of c.data) {
     const e = document.createElement("div")
-    e.textContent = `
+    e.innerHTML = `
     <div id="${i.project_id}" class="bg-zinc-900/50 border flex flex-col items-center border-zinc-800/80 rounded-xl p-2 w-full">
     <div class="w-full relative flex items-center">
     <img src="${i.icon_url}" class="w-24 h-24 rounded-xl">
@@ -531,10 +531,10 @@ async function modsSearch(q) {
   let c = await b.json()
   if (c.success == false) return toastr.error("Error", c.message)
   let d = document.createDocumentFragment();
-  a.textContent = '';
+  a.innerHTML = '';
   for (let i of c.data) {
     const e = document.createElement("div")
-    e.textContent = `
+    e.innerHTML = `
     <div id="${i.project_id}" class="bg-zinc-900/50 border flex flex-col items-center border-zinc-800/80 rounded-xl p-2 w-full">
     <div class="w-full relative flex items-center">
     <img src="${i.icon_url}" class="w-24 h-24 rounded-xl">
@@ -585,7 +585,7 @@ async function modsSearch(q) {
 }
 async function modsInstall(a) {
   let d = document.getElementById(`mod-${a}`)
-  d.textContent = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+  d.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
   <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
 </svg>
 `
@@ -600,14 +600,14 @@ async function modsInstall(a) {
   let c = await b.json()
   if (c.success) {
     d.classList.remove("animate-spin")
-    d.textContent = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+    d.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
   </svg>
   `
     return toastr.success(c.message, "Success")
   } else {
     d.classList.remove("animate-spin")
-    d.textContent = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+    d.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
   </svg>
   `
@@ -620,7 +620,7 @@ async function pluginss() {
   let c = await b.json()
   if (c.success == false) return toastr.error("Error", c.message)
   let d = document.createDocumentFragment();
-  a.textContent = '';
+  a.innerHTML = '';
   c.data.push({
     "id": "Mvc3WDLr",
     "author": "CR072",
@@ -638,7 +638,7 @@ async function pluginss() {
   })
   for (let i of c.data) {
     const e = document.createElement("div")
-    e.textContent = `
+    e.innerHTML = `
     <div id="${i.project_id}" class="bg-zinc-900/50 border flex flex-col items-center border-zinc-800/80 rounded-xl p-2 w-full">
     <div class="w-full relative flex items-center">
     <img src="${i.icon_url}" class="w-24 h-24 rounded-xl">
@@ -697,10 +697,10 @@ async function pluginsSearch(q) {
   let c = await b.json()
   if (c.success == false) return toastr.error("Error", c.message)
   let d = document.createDocumentFragment();
-  a.textContent = '';
+  a.innerHTML = '';
   for (let i of c.data) {
     const e = document.createElement("div")
-    e.textContent = `
+    e.innerHTML = `
     <div id="${i.project_id}" class="bg-zinc-900/50 border flex flex-col items-center border-zinc-800/80 rounded-xl p-2 w-full">
     <div class="w-full relative flex items-center">
     <img src="${i.icon_url}" class="w-24 h-24 rounded-xl">
@@ -751,7 +751,7 @@ async function pluginsSearch(q) {
 }
 async function pluginsInstall(a, n) {
   let d = document.getElementById(`plugin-${a}`)
-  d.textContent = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+  d.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
   <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
 </svg>
 `
@@ -766,14 +766,14 @@ async function pluginsInstall(a, n) {
   let c = await b.json()
   if (c.success) {
     d.classList.remove("animate-spin")
-    d.textContent = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+    d.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
   </svg>
   `
     return toastr.success(c.message, "Success")
   } else {
     d.classList.remove("animate-spin")
-    d.textContent = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+    d.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
   </svg>
   `
@@ -781,91 +781,98 @@ async function pluginsInstall(a, n) {
   }
 }
 async function players() {
-  let a = await fetch(`/api/servers/players/bans/${(window.location.href).split('/servers/')[1]?.split('/')[0]}?type=ip`)
-  let b = await fetch(`/api/servers/players/bans/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`)
-  let j = await fetch(`/api/servers/players/ops/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`)
-  let c = await a.json();
-  let e = await b.json();
-  let k = await k.json();
-  if (c.success == false) return toastr.error("Error", c.message);
-  if (e.success == false) return toastr.error("Error", e.message);
-  if (k.success == false) return toastr.error("Error", k.message);
-  let f = document.getElementById('playersBans');
-  let l = document.getElementById('playersAdmins');
-  let g = document.getElementById('playersBansIPs');
-  let d = document.createDocumentFragment();
-  let h = document.createDocumentFragment();
-  let m = document.createDocumentFragment();
-  f.textContent = '';
-  g.textContent = '';
-  l.textContent = '';
-  if (c.data.length == 0) f.textContent = '<h1 class="text-gray-200 py-10 text-center">List is empty</h1>';
-  if (e.data.length == 0) g.textContent = '<h1 class="text-gray-200 py-10 text-center">List is empty</h1>';
-  if (j.data.length == 0) l.textContent = '<h1 class="text-gray-200 py-10 text-center">List is empty</h1>';
-  for (let i of c.data) {
-    const e = document.createElement("div")
-    e.textContent = `
-    <div id="${i.id}" class="bg-zinc-900/80 rounded-xl hover:bg-zinc-900 cursor-pointer duration-300 hover:duration-300 relative flex justify-between p-2 w-full">
-    <h1 class="text-gray-200">${i.name}</h1>
-    </div>
-  `
-    e.style.opacity = 0;
-    e.style.transform = 'translateY(40px)';
-
-    d.appendChild(e);
+  try {
+    let a = (window.location.href).split('/servers/')[1]?.split('/')[0];
+    if (!a) return toastr.error("Error", "Invalid server ID");
+    let [b, c, d, e, r] = await Promise.all([
+      fetch(`/api/servers/players/bans/${a}?type=ip`),
+      fetch(`/api/servers/players/bans/${a}`),
+      fetch(`/api/servers/players/ops/${a}`),
+      fetch(`/api/servers/players/whitelist/${a}`),
+      fetch(`/api/servers/players/${a}`)
+    ]);
+    let [f, g, h, i, s] = await Promise.all([b.json(), c.json(), d.json(), e.json(), r.json()]);
+    if (!f.success) return toastr.error("Error", f.message);
+    if (!g.success) return toastr.error("Error", g.message);
+    if (!h.success) return toastr.error("Error", h.message);
+    if (!i.success) return toastr.error("Error", i.message);
+    if (!s.success) return toastr.error("Error", s.message);
+    let j = document.getElementById('playersBans');
+    let k = document.getElementById('playersAdmins');
+    let l = document.getElementById('playersBansIPs');
+    let m = document.getElementById('playersWhitelist');
+    let t = document.getElementById('playersOnline');
+    let n = document.createDocumentFragment();
+    let o = document.createDocumentFragment();
+    let p = document.createDocumentFragment();
+    let q = document.createDocumentFragment();
+    let u = document.createDocumentFragment();
+    j.innerHTML = '';
+    l.innerHTML = '';
+    k.innerHTML = '';
+    m.innerHTML = '';
+    t.innerHTML = '';
+    if (f.data.length === 0) j.innerHTML = '<h1 class="text-gray-200 py-6 text-center">List is empty</h1>';
+    if (g.data.length === 0) l.innerHTML = '<h1 class="text-gray-200 py-6 text-center">List is empty</h1>';
+    if (h.data.length === 0) k.innerHTML = '<h1 class="text-gray-200 py-6 text-center">List is empty</h1>';
+    if (i.data.length === 0) m.innerHTML = '<h1 class="text-gray-200 py-6 text-center">List is empty</h1>';
+    if (s.data.players.length === 0) m.innerHTML = '<h1 class="text-gray-200 py-6 text-center">List is empty</h1>';
+    for (let r of f.data) {
+      let s = document.createElement("div");
+      s.innerHTML = `
+        <div class="bg-zinc-900/80 rounded-xl hover:bg-zinc-900 cursor-pointer duration-300 hover:duration-300 relative flex justify-between p-2 px-4 w-full">
+          <h1 class="text-gray-200">${r.name}</h1>
+        </div>
+      `;
+      n.appendChild(s);
+    }
+    j.appendChild(n);
+    for (let t of g.data) {
+      let u = document.createElement("div");
+      u.innerHTML = `
+        <div id="${t.id}" class="bg-zinc-900/80 rounded-xl hover:bg-zinc-900 cursor-pointer duration-300 hover:duration-300 relative flex justify-between p-2 px-4 w-full">
+          <h1 class="text-gray-200">${t.ip}</h1>
+        </div>
+      `;
+      o.appendChild(u);
+    }
+    l.appendChild(o);
+    for (let v of h.data) {
+      let w = document.createElement("div");
+      w.innerHTML = `
+        <div id="${v.id}" class="bg-zinc-900/80 rounded-xl hover:bg-zinc-900 cursor-pointer duration-300 hover:duration-300 relative flex justify-between p-2 px-4 w-full">
+          <h1 class="text-gray-200">${v.name}</h1>
+        </div>
+      `;
+      p.appendChild(w);
+    }
+    k.appendChild(p);
+    for (let x of i.data) {
+      let y = document.createElement("div");
+      y.innerHTML = `
+        <div class="bg-zinc-900/80 rounded-xl hover:bg-zinc-900 cursor-pointer duration-300 hover:duration-300 relative flex justify-between p-2 px-4 w-full">
+          <h1 class="text-gray-200">${x.name}</h1>
+        </div>
+      `;
+      q.appendChild(y);
+    }
+    m.appendChild(q);
+    for (let y of s.data.players) {
+      let z = document.createElement("div");
+      z.innerHTML = `
+        <div class="bg-zinc-900/80 rounded-xl hover:bg-zinc-900 cursor-pointer duration-300 hover:duration-300 relative flex justify-between p-2 px-4 w-full">
+          <h1 class="text-gray-200">${y.name}</h1>
+        </div>
+      `;
+      u.appendChild(z);
+    }
+    t.appendChild(u);
+    document.getElementById('playersStats').innerHTML = `${s.data.online}/${s.data.total}`
+  } catch (z) {
+    console.error('Error fetching player data:', z);
+    toastr.error("Error", "Failed to fetch player data");
   }
-  f.appendChild(d);
-  for (let i of e.data) {
-    const j = document.createElement("div")
-    j.textContent = `
-    <div id="${i.id}" class="bg-zinc-900/80 rounded-xl hover:bg-zinc-900 cursor-pointer duration-300 hover:duration-300 relative flex justify-between p-2 w-full">
-    <h1 class="text-gray-200">${i.ip}</h1>
-    </div>
-  `
-    j.style.opacity = 0;
-    j.style.transform = 'translateY(40px)';
-
-    h.appendChild(j);
-  }
-  g.appendChild(h);
-  for (let i of j.data) {
-    const j = document.createElement("div");
-    j.textContent = `
-    <div id="${i.id}" class="bg-zinc-900/80 rounded-xl hover:bg-zinc-900 cursor-pointer duration-300 hover:duration-300 relative flex justify-between p-2 w-full">
-    <h1 class="text-gray-200">${i.name}</h1>
-    </div>
-  `
-    j.style.opacity = 0;
-    j.style.transform = 'translateY(40px)';
-
-    m.appendChild(j);
-  }
-  l.appendChild(m);
-  setTimeout(() => {
-    const h = document.querySelectorAll("#playersBans div");
-    h.forEach((f, g) => {
-      f.style.transition = `opacity 0.5s ease ${g * 0.05}s, transform 0.5s ease ${g * 0.05}s`;
-      f.style.opacity = 1;
-      f.style.transform = 'translateY(0px)';
-    });
-  }, 100);
-  setTimeout(() => {
-    const h = document.querySelectorAll("#playersBansIPs div");
-    h.forEach((f, g) => {
-      f.style.transition = `opacity 0.5s ease ${g * 0.05}s, transform 0.5s ease ${g * 0.05}s`;
-      f.style.opacity = 1;
-      f.style.transform = 'translateY(0px)';
-    });
-  }, 100);
-  setTimeout(() => {
-    const h = document.querySelectorAll("#playersAdmins div");
-    h.forEach((f, g) => {
-      f.style.transition = `opacity 0.5s ease ${g * 0.05}s, transform 0.5s ease ${g * 0.05}s`;
-      f.style.opacity = 1;
-      f.style.transform = 'translateY(0px)';
-    });
-  }, 100);
-};
+}
 let ws
 let msg = { last: {} }
 async function messages() {
@@ -886,23 +893,23 @@ async function show(data, b) {
   const a = document.getElementById("messages");
   if (!a) return;
   if (b === true) {
-    document.getElementById("messages").textContent = ""
+    document.getElementById("messages").innerHTML = ""
   }
   for (let i of data) {
     if (msg.last.id > i.id) {
       msg.last = {}
     }
     if (!msg.last || !msg.last.user || msg.last.user !== i.user) {
-      a.textContent += messageHeader(i);
+      a.innerHTML += messageHeader(i);
     } else if (msg.last.user === i.user && parseInt((parseInt(i.time) - parseInt(msg.last?.time)) / 60000) < 15) {
-      a.textContent += `
+      a.innerHTML += `
         <div id="message${i.id}" class="flex ml-14 flex-col bg-zinc-900 w-max rounded-xl">
           <div class="grow px-4 py-2">
             <p class="text-gray-100">${i.message}</p>
           </div>
         </div>`;
     } else {
-      a.textContent += messageHeader(i);
+      a.innerHTML += messageHeader(i);
     }
     msg["last"] = i;
   }
@@ -958,7 +965,7 @@ async function ticket(id) {
   let aa = await fetch(`/api/tickets/${id}`);
   let bb = await aa.json();
   let cc = document.getElementById("messages")
-  cc.textContent = ''
+  cc.innerHTML = ''
   showTicket(bb.data);
 }
 async function showTicket(data) {
@@ -1038,7 +1045,7 @@ async function consoleWS() {
     if (data.event == 'console output') {
       let b = data.args[0]
       let c = consoleDiv.scrollHeight - consoleDiv.clientHeight <= consoleDiv.scrollTop + 1;
-      if (b != ' ') { consoleDiv.textContent += `<p>${ANSI(b)}</p>`; }
+      if (b != ' ') { consoleDiv.innerHTML += `<p>${ANSI(b)}</p>`; }
       if (c) consoleDiv.lastElementChild.scrollIntoView({ behavior: 'smooth' });
     } else if (data.event == 'stats') {
       let a = (JSON.parse(data.args[0]).state)
@@ -1230,7 +1237,7 @@ async function files() {
   let a = await fetch(`/api/servers/files/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`);
   let b = await a.json();
   let c = document.getElementById("filesHolder");
-  c.textContent = ""
+  c.innerHTML = ""
   let d = [];
   let e = b.data.data;
   for (let i in e) {
@@ -1264,7 +1271,7 @@ async function files() {
           </div>
       `);
   }
-  c.textContent += d.join('');
+  c.innerHTML += d.join('');
 }
 async function showDir(dir) {
   let u = new URL(window.location.href);
@@ -1283,7 +1290,7 @@ async function showDir(dir) {
   let c = document.getElementById("filesHolder");
   let m = document.getElementById("filesManager");
   let n = u.search
-  m.textContent = `${n.replace('?dir=', '').replace(/%2F/g, '<span class="text-gray-400 mx-1">/</span>')}`;
+  m.innerHTML = `${n.replace('?dir=', '').replace(/%2F/g, '<span class="text-gray-400 mx-1">/</span>')}`;
   let e = d.data.data
   let f = []
   for (let i in e) {
@@ -1316,7 +1323,7 @@ async function showDir(dir) {
     </div>
 </div>`)
   }
-  c.textContent = f.join('');
+  c.innerHTML = f.join('');
 }
 function showMenu(a) {
   event.stopPropagation();
@@ -1496,7 +1503,7 @@ function toggle(a) {
         b.classList.toggle("hidden");
       }, 200);
     }, 100);
-    document.getElementById(`${a}SVG`).textContent = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    document.getElementById(`${a}SVG`).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
   </svg>`
   } else {
@@ -1512,7 +1519,7 @@ function toggle(a) {
         b.style.transition = 'transform 0.3s ease, max-height 0.3s ease, opacity 0.3s ease';
       }, 100);
     }, 100);
-    document.getElementById(`${a}SVG`).textContent = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    document.getElementById(`${a}SVG`).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" />
   </svg>`
   }
@@ -1535,18 +1542,18 @@ let srvCache = {}
 let serverConfig = {}
 let fees = { node: 0, egg: 0 }
 async function serverCreate() {
-  let a = await fetch('/api/servers/create')
-  let b = await a.json()
+  let a = await fetch('/api/servers/create');
+  let b = await a.json();
   if (b.success == true) {
-    let c = document.getElementById('nodesList')
-    let d = []
-    srvCache = b.data
+    let c = document.getElementById('nodesList');
+    let d = [];
+    srvCache = b.data;
     for (let i of b.data.nodes) {
       d.push(`
       <div id="node${i.id}" onclick="selectNode(${i.id})" class="w-full relative flex flex-col cursor-pointer hover:bg-zinc-900 hover:duration-300 duration-300 items-start shadow-md justify-left p-2 bg-zinc-900/30 border border-zinc-800/80 rounded-xl">
         <div class="w-full flex items-center justify-between">
           <span class="text-gray-300">${i.location.short}: ${i.name}</span>
-          <span class="text-gray-300">${await ping(i.url)}ms</span>
+          <span id="ping${i.id}" class="text-gray-300">Loading...</span>
         </div>
         <div class="flex w-full space-x-2 items-baseline">
           <div class="progress mt-3 h-1.5 bg-zinc-800">
@@ -1560,11 +1567,11 @@ async function serverCreate() {
           </svg>                                          
         </div>
       </div>
-      `)
+      `);
     }
-    c.textContent = d.join("")
-    let e = document.getElementById('eggsList')
-    let f = []
+    c.innerHTML = d.join("");
+    let e = document.getElementById('eggsList');
+    let f = [];
     for (let i of b.data.eggs) {
       f.push(`
       <div id="egg${i.id}" onclick="selectEgg(${i.id})" class="w-full relative flex space-x-2 cursor-pointer hover:bg-zinc-900 hover:duration-300 duration-300 items-center shadow-md justify-left p-2 bg-zinc-900/30 border border-zinc-800/80 rounded-xl">
@@ -1576,21 +1583,25 @@ async function serverCreate() {
           </svg>
         </div>
       </div>
-      `)
+      `);
     }
-    e.textContent = f.join('')
+    e.innerHTML = f.join('');
+    for (let i of b.data.nodes) {
+      let pingTime = await ping(i.url);
+      document.getElementById(`ping${i.id}`).textContent = pingTime;
+    }
   } else {
-    toastr.error(b.message, "Error!")
+    toastr.error(b.message, "Error!");
   }
 }
 async function ping(a) {
   try {
-    let b = Date.now()
-    await fetch(a)
-    let d = Date.now()
-    return parseInt(d - b)
+    let b = Date.now();
+    await fetch(a);
+    let d = Date.now();
+    return `${parseInt(d - b)}ms`;
   } catch (error) {
-    return 0
+    return 'Offline';
   }
 }
 function selectNode(a) {
@@ -1701,7 +1712,7 @@ async function modifyServer() {
     toastr.error(d.message, "Error!")
   }
 }
-async function serverModify(node) {
+async function serverModify(node, egg) {
   let a = await fetch('/api/servers/create')
   let b = await a.json()
   if (b.success == true) {
@@ -1709,14 +1720,18 @@ async function serverModify(node) {
     let e = []
     for (let i of b.data.nodes) {
       if (parseInt(node) !== parseInt(i.id)) {
-        d.push(`<option value="${i.id}">${i.name} - ${(i.allocated_resources.memory / i.memory) * 100}% full</option>`)
+        d.push(`<option value="${i.id}">${i.name} - ${i.memory}% full</option>`)
       }
     }
     for (let i of b.data.eggs) {
-      e.push(`<option value="${i.id}">${i.name}</option>`)
+      if (parseInt(egg) !== parseInt(i.id)) {
+        e.push(`<option value="${i.id}">${i.deployments.name} (${i.deployments.fees} coins)</option>`)
+      } else {
+        e.push(`<option value="${i.id}">${i.deployments.name} (${i.deployments.fees} coins) (current)</option>`)
+      }
     }
-    document.getElementById('nodesList').textContent = d.join('')
-    document.getElementById('eggsList').textContent = e.join('')
+   // document.getElementById('nodesList').innerHTML = d.join('')
+    document.getElementById('eggsList').innerHTML = e.join('')
   }
 }
 async function changeNode() {
@@ -1732,6 +1747,25 @@ async function changeNode() {
   });
   let c = await b.json()
   if (c.success == true) {
+    toastr.success(c.message, "Success!")
+  } else {
+    toastr.error(c.message, "Error!")
+  }
+}
+async function changeEgg(node, egg) {
+  let a = document.getElementById("eggsList").value
+  let b = await fetch(`/api/servers/modify/${(window.location.href).split('/servers/')[1]?.split('/')[0]}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id: a
+    })
+  });
+  let c = await b.json()
+  if (c.success == true) {
+    serverModify(node, egg)
     toastr.success(c.message, "Success!")
   } else {
     toastr.error(c.message, "Error!")
@@ -1781,6 +1815,17 @@ async function connectAFKWS(a, b) {
         duration++;
         st("afkDuration", `${duration} s`);
       }, 1000);
+      let c = []
+      for (let i of data.party) {
+        c.push(`<div class="w-full rounded-xl bg-zinc-900/50 p-2 flex items-center space-x-2">
+                                    <img src="${i.avatar}" alt="user" class="size-10 rounded-lg">
+                                    <div class="flex flex-col">
+                                        <h1 class="text-zinc-300">${i.nickname}</h1>
+                                        <span class="text-zinc-400 text-sm"><span class="text-zinc-300">${i.coins}</span> coins</span>
+                                    </div>
+                                </div>`)
+      }
+      document.getElementById("afkPartyUsers").innerHTML = c.join('')
     }
   };
   afkWS.onclose = function () {
@@ -1807,18 +1852,17 @@ async function loadLeaderboard() {
   if (b.success == true) {
     let c = []
     let d = b.data.leaderboard
-    for (let i in d) {
+    for (let i of d) {
       c.push(`
-      <div class="flex flex-col items-center justify-center relative">
-        <div class="relative w-36 rounded-xl">
-          <img src="${d[i].avatar}" alt="user" class="w-full rounded-xl h-auto">
-          <div class="absolute z-30 top-0 right-0 text-center items-center bg-zinc-900/50 flex justify-center -mt-4 -mr-4 text-gray-300 backdrop-blur-xl w-12 h-12 rounded-full">${pos(i)}</div>
-        </div>
-        <h1 class="text-gray-300 text-xl">${d[i].nickname}</h1>
-        <span class="text-gray-400">${d[i].coins} coins</span>
-      </div>`)
+      <div class="w-full rounded-xl bg-zinc-900/50 p-2 flex items-center space-x-2">
+                                    <img src="${i.avatar}" alt="user" class="size-10 rounded-lg">
+                                    <div class="flex flex-col">
+                                        <h1 class="text-zinc-300">${i.nickname || i.username}</h1>
+                                        <span class="text-zinc-400 text-sm"><span class="text-zinc-300">${i.coins}</span> coins</span>
+                                    </div>
+                                </div>`)
     }
-    document.getElementById("coinsLeaderboard").textContent = c.join('')
+    document.getElementById("coinsLeaderboard").innerHTML = c.join('')
   } else {
     toastr.error(b.message, "Error!")
   }
@@ -1875,7 +1919,7 @@ async function countries() {
       }
     }
   }
-  document.getElementById("countriesList").textContent = b.join('')
+  document.getElementById("countriesList").innerHTML = b.join('')
   let c = await fetch('/api/payments/gateways')
   let d = await c.json()
   if (d.success == true) {
@@ -1892,7 +1936,7 @@ async function countries() {
       <span>${i.display}</span>
   </div>`)
     });
-    document.getElementById("paymentGateways").textContent = e.join('')
+    document.getElementById("paymentGateways").innerHTML = e.join('')
   }
 }
 let gatewayConfig = ""
@@ -2071,7 +2115,7 @@ async function regenPassword() {
   let b = await a.json()
   if (b.success == true) {
     document.getElementById("passwordBox").classList.remove("hidden")
-    document.getElementById("passwordBox").textContent = `Your password has been changed to: ${b.data}`
+    document.getElementById("passwordBox").innerHTML = `Your password has been changed to: ${b.data}`
     toastr.success(b.message, "Success!")
   } else {
     toastr.error(b.message, "Error!")
@@ -2103,7 +2147,7 @@ async function getTransferUsers() {
     for (let i of b.data) {
       d.push(`<option value="${i.id}">${i.nickname}, (${i.id})</option>`)
     }
-    c.textContent = d.join('')
+    c.innerHTML = d.join('')
   } else {
     toastr.error(c.message, "Error!")
   }
@@ -2126,12 +2170,68 @@ async function transferOwnership(a) {
     toastr.error(c.message, "Error!")
   }
 }
-async function getSubdomains(a) {
-  let b = await fetch(`/api/subdomains/${a}`)
-  let c = await b.json()
-  if (c.success == true) {
-
+async function getSubdomains() {
+  let a = await fetch(`/api/servers/subdomains`)
+  let b = await a.json()
+  if (b.success === true) {
+    document.getElementById("usedSubdomains").textContent = b.data.used;
+    document.getElementById("totalSubdomains").textContent = `of ${b.data.total}`;
+    let c = []
+    for (let i of b.data.list) {
+      c.push(`<div class="w-full p-2 px-4 flex items-center justify-between rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                <div class="flex flex-col">
+                                    <h1 class="text-zinc-300 text-lg">
+                                        ${i.result.data.name.replace(`.${i.result.zone_name}`, "")}<span class="text-zinc-400">.${i.result.zone_name}</span>
+                                    </h1>
+                                    <span class="text-zinc-400 text-sm">Listens at <span class="text-zinc-300">${i.result.data.target}</span> on port <span class="text-zinc-300">${i.result.data.port}</span>.</span>
+                                </div>
+                                <button onclick="deleteSubdomain('${i.result.id}')" class="rounded-2xl p-2 bg-zinc-900 text-rose-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                        <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>`)
+    }
+    document.getElementById("subdomainsList").innerHTML = c.join("");
+    let d = []
+    for (let i of b.data.zones) {
+      d.push(`<option value="${i}">${i}</option>`)
+    }
+    document.getElementById("subdomainsDomainsAvailableListForServerSubdomainDeployments").innerHTML = d.join('')
   } else {
-    toastr.error(c.message, "Error!")
+    toastr.error("Error!", b.message)
+  }
+}
+async function createSubdomain() {
+  let a = document.getElementById("subdomain").value;
+  let b = document.getElementById("subdomainsDomainsAvailableListForServerSubdomainDeployments").value
+  let c = await fetch(`/api/servers/${(window.location.href).split('/servers/')[1]?.split('/')[0]}/subdomains`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      subdomain: a,
+      domain: b
+    })
+  });
+  let d = await c.json()
+  if (d.success === true) {
+    toastr.success(d.message, "Success!")
+    document.getElementById("subdomain").value = ""
+    getSubdomains()
+  } else {
+    toastr.error(d.message, "Error!")
+  }
+}
+async function deleteSubdomain(a) {
+  let b = await fetch(`/api/servers/${(window.location.href).split('/servers/')[1]?.split('/')[0]}/subdomains/${a}`, {
+    method: "DELETE"
+  });
+  let c = await b.json()
+  if (c.success === true) {
+    toastr.success(c.message)
+  } else {
+    toastr.error(c.message)
   }
 }

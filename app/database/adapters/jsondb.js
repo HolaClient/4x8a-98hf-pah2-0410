@@ -1,8 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
 
-//let cache = []
-
 async function set(a, b, c) {
     const d = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     let e;
@@ -152,7 +150,6 @@ async function load() {
         for (let i of b) {
             if (i.endsWith(".json")) {
                 let c = await fs.readFile(path.join(a, i), 'utf-8')
-                //cache[i] = JSON.parse(c)
             }
         }
         return
