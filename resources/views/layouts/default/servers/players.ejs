@@ -11,61 +11,48 @@
                     <%- include('../partials/links') %>
                     <div id="page" class="relative">
                         <img onload="players()" src="https://cdn.holaclientx.tech/logo.png" class="w-0 h-0">
-                        <div class="mt-4 gap-4 grid grid-cols-1 md:grid-cols-2 space-y-0.5 w-full">
+                        <div class="grid grid-cols-1 md:grid-cols-2 w-full gap-4 mt-4">
                             <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
-                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-4 px-4 justify-between">
-                                    <h1 class="text-gray-200 text-xl">Ban Players</h1>
-                                    <button class="bg-zinc-800/50 flex text-gray-300 items-center justify-center rounded-full border border-zinc-800/80 p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                          </svg>
-                                          Read-only
-                                    </button>
+                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-2 items-center px-4 justify-between">
+                                    <h1 class="text-gray-200 text-xl">Online Players</h1>
+                                    <h1 id="playersStats" class="text-gray-200 text-xl">---</h1>
                                 </div>
-                                <div id="playersBans" class="flex flex-col relative p-2 space-y-1 w-full">
-                                    <h1 class="text-gray-200 py-10 text-center">List is empty</h1>
+                                <div id="playersOnline" class="flex flex-col relative p-2 justify-center space-y-1 w-full h-full overflow-y-auto">
+                                    <h1 class="text-gray-200 py-6 text-center">Loading...</h1>
                                 </div>
                             </div>
-                            <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
-                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-4 px-4 justify-between">
-                                    <h1 class="text-gray-200 text-xl">Ban IPs</h1>
-                                    <button class="bg-zinc-800/50 flex text-gray-300 items-center justify-center rounded-full border border-zinc-800/80 p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                          </svg>
-                                          Readonly
-                                    </button>
+                            <div class="gap-4 grid grid-cols-1 space-y-0.5 w-full">
+                                <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                    <div class="w-full flex bg-zinc-950 rounded-t-xl py-2 items-center px-4 justify-between">
+                                        <h1 class="text-gray-200 text-xl">Ban Players</h1>
+                                    </div>
+                                    <div id="playersBans" class="flex flex-col relative p-2 space-y-1 w-full">
+                                        <h1 class="text-gray-200 py-6 text-center">Loading...</h1>
+                                    </div>
                                 </div>
-                                <div id="playersBansIPs" class="flex flex-col space-y-1 w-full p-2">
-                                    <h1 class="text-gray-200 py-10 text-center">List is empty</h1>
+                                <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                    <div class="w-full flex bg-zinc-950 rounded-t-xl py-2 items-center px-4 justify-between">
+                                        <h1 class="text-gray-200 text-xl">Ban IPs</h1>
+                                    </div>
+                                    <div id="playersBansIPs" class="flex flex-col space-y-1 w-full p-2">
+                                        <h1 class="text-gray-200 py-6 text-center">Loading...</h1>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--<div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
-                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-4 px-4 justify-between">
-                                    <h1 class="text-gray-200 text-xl">Blacklist</h1>
-                                    <button class="bg-zinc-800/50 flex text-gray-300 items-center justify-center rounded-full border border-zinc-800/80 p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                          </svg>
-                                          Readonly
-                                    </button>
+                                <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                    <div class="w-full flex bg-zinc-950 rounded-t-xl py-2 items-center px-4 justify-between">
+                                        <h1 class="text-gray-200 text-xl">Whitelist</h1>
+                                    </div>
+                                    <div id="playersWhitelist" class="flex flex-col space-x-1 w-full">
+                                        <h1 class="text-gray-200 py-6 text-center">Loading...</h1>
+                                    </div>
                                 </div>
-                                <div id="playersBlacklist" class="flex flex-col space-x-1 w-full mt-2">
-                                    <h1 class="text-gray-200 py-10 text-center">Coming Soon!</h1>
-                                </div>
-                            </div>-->
-                            <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
-                                <div class="w-full flex bg-zinc-950 rounded-t-xl py-4 px-4 justify-between">
-                                    <h1 class="text-gray-200 text-xl">Administrators (OPs)</h1>
-                                    <button class="bg-zinc-800/50 flex text-gray-300 items-center justify-center rounded-full border border-zinc-800/80 p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                          </svg>
-                                          Readonly
-                                    </button>
-                                </div>
-                                <div id="playersAdmins" class="flex flex-col space-x-1 w-full mt-2">
-                                    <h1 class="text-gray-200 py-10 text-center">List is empty</h1>
+                                <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80">
+                                    <div class="w-full flex bg-zinc-950 rounded-t-xl py-2 items-center px-4 justify-between">
+                                        <h1 class="text-gray-200 text-xl">Administrators (OPs)</h1>
+                                    </div>
+                                    <div id="playersAdmins" class="flex flex-col space-x-1 w-full">
+                                        <h1 class="text-gray-200 py-6 text-center">Loading...</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>

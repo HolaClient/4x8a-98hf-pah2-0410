@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self';"> 
     <meta name="description" content="<%= appearance.description %> | Powered by HolaClient.">
     <meta name="keywords" content="HClient, HolaClient, Hosting, HolaLLC, Freemium Minecraft Hosting, <%= appearance.name %>, Cloud, Minecraft, Servers, Free Servers, Hostings that uses HolaClient">
     <meta name="author" content="HolaClient">
@@ -23,23 +22,15 @@
     <meta name="theme-color" content="#18181b">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&family=Urbanist&family=Quicksand&family=Karla&family=Raleway&family=Inspiration&family=Rajdhani&family=Poppins&display=swap">
-    <script type="speculationrules">
-        {
-          "prerender": [
-            {
-              "urls": ["login", "register"]
-            }
-          ]
-        }
-        </script>
+    <script type="speculationrules" nonce="hcxscript">{"prerender": [{"urls": ["login", "register"]}]}</script>
     <% if (process.env.APP_ENV !== "production") { %>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" nonce="hcxscript"></script>
     <link rel="stylesheet" href="/assets/client/default/app.dev.css">
     <% } else { %>
     <link href="/assets/common/tailwind.css" rel="stylesheet" rel="preload">
     <link rel="stylesheet" href="/assets/client/default/app.css" defer>
     <% } %>
-    <script>
+    <script nonce="hcxscript">
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
                 navigator.serviceWorker.register('/assets/common/worker.js');
@@ -127,7 +118,7 @@
         opacity: 0;
     }
 </style>
-<script>
+<script nonce="hcxscript">
     const a = document.querySelectorAll('.section');
     const b = document.getElementById('holder');
 

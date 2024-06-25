@@ -8,7 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
-                <img src="https://cdn.holaclientx.tech/logo.png" alt="lo" onload="connectAFKWS('<%= req.session.userinfo.sessions.secret %>', '<%= req.session.userinfo.id %>')" class="w-0 h-0">
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="lo" onload="connectAFKWS('<%= req.session.userinfo.sessions.secret %>', '<%= req.session.userinfo.id %>'), loadLeaderboard()" class="w-0 h-0">
                 <div class="flex space-x-4 items-center">
                     <div
                         class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
@@ -53,6 +53,10 @@
                                 <span class="text-gray-300" id="afkStatus">---</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="w-full rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-2 space-y-1 overflow-y-auto overflow-x-hidden" id="afkPartyUsers"></div>
+                        <div class="w-full rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-2 space-y-1 overflow-y-auto overflow-x-hidden" id="coinsLeaderboard"></div>
                     </div>
                 </div>
             </div>

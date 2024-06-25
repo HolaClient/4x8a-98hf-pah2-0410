@@ -8,7 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
-                <img src="https://cdn.holaclientx.tech/logo.png" alt="l" onload="sysInfo()" class="w-0 h-0">
+                <img src="https://cdn.holaclientx.tech/logo.png" alt="l" onload="appLicense()" class="w-0 h-0">
                 <div class="flex space-x-4 items-center">
                     <div
                         class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 shadow text-gray-400 rounded-xl p-3">
@@ -18,64 +18,22 @@
                             </svg>                            
                     </div>
                     <div class="flex flex-col justify-between w-full">
-                        <h1 class="text-gray-200 font-semibold text-xl">HolaClient-X</h1>
-                        <span class="text-gray-300 text-md">Know more about this software.</span>
-                    </div>
-                </div>
-                <div class="mt-4 grid grid-cols-1 md:grid-cols-5 gap-4">
-                    <div class="w-full col-span-3 bg-zinc-900/50 rounded-xl border border-zinc-800/80">
-                        <h1 class="text-xl p-2 pl-4 text-gray-200">System</h1>
-                        <div class="w-full bg-zinc-800/80 h-0.5 rounded-full"></div>
-                        <div class="w-full p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="flex flex-col">
-                                <h1 class="text-gray-400">Architecture</h1>
-                                <span class="text-gray-300" id="sysArch"></span>
-                            </div>
-                            <div class="flex flex-col">
-                                <h1 class="text-gray-400">CPU</h1>
-                                <span class="text-gray-300" id="sysCPU"></span>
-                            </div>
-                            <div class="flex flex-col">
-                                <h1 class="text-gray-400">CPU clock speed</h1>
-                                <span class="text-gray-300" id="sysCPUSpeed"></span>
-                            </div>
-                            <div class="flex flex-col">
-                                <h1 class="text-gray-400">CPU threads</h1>
-                                <span class="text-gray-300" id="sysCPUThreads"></span>
-                            </div>
-                            <div class="flex flex-col">
-                                <h1 class="text-gray-400">Platform</h1>
-                                <span class="text-gray-300" id="sysPlatform"></span>
-                            </div>
-                            <div class="flex flex-col">
-                                <h1 class="text-gray-400">Uptime</h1>
-                                <span class="text-gray-300" id="sysUptime"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full col-span-2 bg-zinc-900/50 rounded-xl border border-zinc-800/80 h-max">
-                        <h1 class="text-xl p-2 pl-4 text-gray-200">Resources</h1>
-                        <div class="w-full bg-zinc-800/80 h-0.5 rounded-full"></div>
-                        <div class="w-full p-4 grid grid-cols-1 gap-4">
-                            <div class="flex items-center justify-between">
-                                <h1 class="text-gray-400">Total memory</h1>
-                                <span class="text-gray-300" id="sysMemTotal"></span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <h1 class="text-gray-400">Free memory</h1>
-                                <span class="text-gray-300" id="sysMemFree"></span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <h1 class="text-gray-400">Memory used by HolaClient</h1>
-                                <span class="text-gray-300" id="sysMemApp"></span>
-                            </div>
-                            
-                        </div>
+                        <h1 class="text-gray-200 font-semibold text-xl">License</h1>
+                        <span class="text-gray-300 text-md">Manage your HolaClient-X license.</span>
                     </div>
                 </div>
                 <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="w-full rounded-xl bg-zinc-900/50 border border-zinc-800/80 p-4">
-                        
+                        <div class="flex flex-col">
+                            <span class="text-zinc-400 text-sm">License:</span>
+                            <input type="text" id="licenseKey" class="w-full p-2 rounded-xl bg-zinc-950 text-zinc-300 border-zinc-800/10 border-b-zinc-800 outline-none">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-zinc-400 text-sm">Save:</span>
+                            <button onclick="submitLicense()" class="w-full p-2 rounded-xl bg-zinc-950 text-zinc-300 border-zinc-800/10 border-b-zinc-800 outline-none">
+                                Submit
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

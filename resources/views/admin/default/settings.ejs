@@ -8,6 +8,7 @@
             <main
             class="p-4 md:ml-64 z-20 -mt-[58px] max-w-full pt-40 md:pt-20 max-h-full min-h-screen shadow-2xl shadow-black backdrop-blur-sm">
             <div id="content">
+              <img src="https://cdn.holaclientx.tech/logo.png" alt="logo" onload="loadSettings()" class="size-0">
                 <div class="flex space-x-4 items-center">
                     <div
                         class="bg-zinc-800/50 h-max w-max group-hover:bg-zinc-900/50 group-hover:border-zinc-700 border border-zinc-800/80 backdrop-blur-3xl shadow text-gray-400 rounded-xl p-3">
@@ -27,11 +28,8 @@
                         <li class="w-full" role="presentation"  id="tab-general" onclick="showTab2('general')">
                           <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300 rounded-l-xl">General</button>
                         </li>
-                        <li class="w-full" role="presentation"  id="tab-landing" onclick="showTab2('landing')">
-                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300">Landing</button>
-                        </li>
-                        <li class="w-full" role="presentation" id="tab-href" onclick="showTab2('href')">
-                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300" data-tabs-target="#href" type="button" role="tab" aria-controls="href" aria-selected="false">Redirects</button>
+                        <li class="w-full" role="presentation" id="tab-subdomains" onclick="showTab2('subdomains')">
+                          <button class="inline-block w-full p-4 bg-zinc-900/50 hover:bg-zinc-900 hover:duration-300 duration-300">Subdomains</button>
                         </li>
                       </ul>
                     </div>
@@ -175,6 +173,46 @@
                           </div>
                         </div>
                       </div>
+                      <div class="hidden rounded-xl mb-4" id="subdomains" role="tabpanel">
+                        <div class="flex bg-zinc-900/50 text-gray-300 rounded-xl border border-zinc-800/80 flex-wrap content-start">
+                          <h1 class="text-2xl text-gray-100 p-4">Subdomains Settings</h1>
+                          <hr class="w-full border-b border-zinc-800/80">
+                          <div class="grid grid-cols-1 md:grid-cols-3 w-full">
+                            <div class="w-full mt-4 grid-cols-1 col-span-2 grid md:grid-cols-2 gap-4 px-4 py-2 pb-4">
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-200">Default subdomains</label>
+                                <input id="subdomainsDefault" type="number" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="1">
+                              </div>
+                              <div class="w-full pr-2">
+                                <label class="block text-gray-200">Status</label>
+                                <select id="subdomainsStatus" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2">
+                                  <option value="true">Enabled</option>
+                                  <option value="false">Disabled</option>
+                                  </select>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mt-4 flex bg-zinc-900/50 text-gray-300 rounded-xl border border-zinc-800/80 flex-wrap content-start">
+                        <h1 class="text-2xl text-gray-100 p-4">Cloudflare Settings</h1>
+                        <hr class="w-full border-b border-zinc-800/80">
+                        <div class="grid grid-cols-1 md:grid-cols-3 w-full">
+                          <div class="w-full mt-4 grid-cols-1 col-span-2 gap-4 px-4 py-2 pb-4">
+                            <div class="w-full pr-2">
+                              <label class="block text-gray-200">Email</label>
+                              <input id="CFEmail" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="">
+                            </div>
+                            <div class="w-full pr-2 col-span-2">
+                              <label class="block text-gray-200">API Key</label>
+                              <input id="CFKey" class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="">
+                            </div>
+                            <div class="w-full pr-2 col-span-2">
+                              <label class="block text-gray-200">Zones</label>
+                              <input id="CFZones" placeholder="Separate zones with ," class="w-full bg-zinc-950 focus:pl-4 focus:duration-500 duration-500 border border-zinc-800/80 outline-none mt-1 rounded-xl p-2" value="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -184,79 +222,10 @@
           <a class="text-white text-md pl-4">
               Careful - You've unsaved changes.
           </a>
-          <a onclick="submit()" class="cursor-pointer group flex gap-3 m-2 rounded-xl p-[1px] shadow-inner shadow-zinc-950 w-max h-max border border-yellow-900/30 bg-gradient-to-br from-zinc-800/80 to-transparent">
+          <a onclick="submitSettings()" class="cursor-pointer group flex gap-3 m-2 rounded-xl p-[1px] shadow-inner shadow-zinc-950 w-max h-max border border-yellow-900/30 bg-gradient-to-br from-zinc-800/80 to-transparent">
               <span class="text-sm w-full h-full group-hover:px-5 group-hover:duration-300 duration-300 px-3 bg-zinc-900 rounded-xl p-3 tracking-wide text-white">Save Changes</span>
           </a>
       </div>
-        <script>
-          const es = ["appname", "applogo", "appbanner", "appdescription", "logorotate", "rotatespeed", "seotitle", "seoimage", "seodescription", "seokeys"];
-          const originalValues = {};
-          function ge(e) {
-            return document.getElementById(e);
-          }
-          ge("applogo").addEventListener("input", function () {
-            ge("logoHolder").src = ge("applogo").value
-          });
-          ge("seoimage").addEventListener("input", function () {
-            ge("seoimg").src = ge("seoimage").value
-          });
-          ge("seodescription").addEventListener("input", function () {
-            ge("seodes").innerText = ge("seodescription").value
-          });
-          ge("seotitle").addEventListener("input", function () {
-            ge("seoTitle").innerText = ge("seotitle").value
-          });
-          document.addEventListener("DOMContentLoaded", function () { check() });
-          function check() {
-            for (const e of es) {
-              const element = ge(e);
-              originalValues[e] = element.value || element.checked;
-              element.addEventListener("input", function () {
-                ge("savealert").style.transition = "opacity 0.5s";
-                ge("savealert").style.opacity = "1";
-                if (element.value === originalValues[e]) {
-                  ge("savealert").style.transition = "opacity 0.5s";
-                  ge("savealert").style.opacity = "0";
-                }
-              });
-              element.addEventListener("change", function () {
-                ge("savealert").style.transition = "opacity 0.5s";
-                ge("savealert").style.opacity = "1";
-                if (element.value === originalValues[e]) {
-                  ge("savealert").style.transition = "opacity 0.5s";
-                  ge("savealert").style.opacity = "0";
-                }
-              });
-            }
-          }
-          async function submit() {
-            let a = await fetch(`/api/admin/settings`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                name: ge("appname").value,
-                logo: ge("applogo").value,
-                speed: ge("rotatespeed").value,
-                rotate: ge("logorotate").value,
-                banner: ge("appbanner").value,
-                description: ge("appdescription").value,
-                seoImage: ge("seoimage").value,
-                seoDes: ge("seodescription").value,
-                seoTitle: ge("seotitle").value,
-                seoKeys: ge("seokeys").value,
-              })
-            });
-            let b = await a.json()
-            if (b.success == true) {
-              check()
-              ge("savealert").style.transition = "opacity 0.5s";
-              ge("savealert").style.opacity = "0";
-              toastr.success(b.message, "Success")
-            }
-          }
-        </script>
             <%- include('./partials/footer') %>
         </div>
     </div>

@@ -47,7 +47,6 @@
                         <span class="text-gray-300 text-md">Get a detailed view of <%= data.name %> from <%= data.relationships.location.attributes.short %>-<%= data.relationships.location.attributes.long %></span>
                     </div>
                 </div>
-                <% console.log(data) %>
                 <img src="https://cdn.holaclientx.tech/logo.png" alt="fun" class="w-0 h-0" onload="version('<%= data?.system?.version %>')">
                 <div id="nodeVersion"></div>
                 <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -185,7 +184,7 @@
                             <div class="rounded-xl overflow-hidden relative border border-zinc-800/80">
                                 <div class="p-2 overflow-hidden z-40">
                                     <div class="flex justify-between w-full">
-                                        <h1 class="text-gray-200 text-xl">Instances</h1>
+                                        <h1 class="text-gray-200 text-xl">Servers Online</h1>
                                         <h1 class="text-gray-200 text-xl"><%= data?.system?.docker?.containers?.running %> <span class="text-gray-300">of </span> <%= data?.system?.docker?.containers?.total %></h1>
                                     </div>
                                     <div class="w-full flex items-center text-base space-x-1 justify-between">

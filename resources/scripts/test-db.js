@@ -61,7 +61,7 @@ async function b() {
                 let a;
                 if (n.file.endsWith('.mjs')) {
                     a = import('../../app/database/adapters/' + n.file);
-                } else {
+                } else if (n.file.endsWith('.js')) {
                     a = require('../../app/database/adapters/' + n.file);
                 }
                 const o = performance.now();
