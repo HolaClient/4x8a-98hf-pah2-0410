@@ -38,8 +38,6 @@ module.exports = async function () {
     const tasks = [
         { type: 'JS', input: '../../public/admin/default/app.dev.js', output: '../../public/admin/default/app.js' },
         { type: 'JS', input: '../../public/client/default/app.dev.js', output: '../../public/client/default/app.js' },
-        { type: 'JS', input: '../../public/setup/default/app.dev.js', output: '../../public/setup/default/app.js' },
-        { type: 'CSS', input: '../../public/setup/default/app.dev.css', output: '../../public/setup/default/app.css' },
         { type: 'CSS', input: '../../public/admin/default/app.dev.css', output: '../../public/admin/default/app.css' },
         { type: 'CSS', input: '../../public/client/default/app.dev.css', output: '../../public/client/default/app.css' }
     ];
