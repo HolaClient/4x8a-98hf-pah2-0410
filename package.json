@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
     "name": "holaclientx",
     "version": "X1",
@@ -94,3 +95,52 @@
     }
 }
 >>>>>>> 22ba84e (25-06.src)
+=======
+{
+    "name": "holaclientx",
+    "version": "X0",
+    "author": "CR072",
+    "github": "https://github.com/HolaClient/X",
+    "discord": "https://discord.gg/CvqRH9TrYK",
+    "bin": {
+        "hcx": "./app/bin/index.js"
+    },
+    "scripts": {
+        "start": "node --expose-gc src/app.js",
+        "dev": "nodemon --exec node --expose-gc src/app.js",
+        "build:tw": "npx tailwindcss -i ./public/common/tailwind.conf -o ./public/common/tailwind.css",
+        "build:assets": "node resources/scripts/build-assets.js",
+        "build:prod": "node resources/scripts/build.js",
+        "test:db": "node resources/scripts/test-db.js",
+        "cb:lines": "node resources/scripts/lines.js"
+    },
+    "engines": {
+        "node": ">=20.7"
+    },
+    "dependencies": {
+        "@keyv/sqlite": "^3.6.7",
+        "adm-zip": "^0.5.10",
+        "body-parser": "^1.20.2",
+        "chalk": "^4.1.0",
+        "cli-progress": "^3.12.0",
+        "commander": "^11.1.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "ejs": "^3.1.6",
+        "express-session": "^1.17.2",
+        "fs-extra": "^11.2.0",
+        "geoip-lite": "^1.4.10",
+        "holaclient-corex": "^0.2.0",
+        "jsonwebtoken": "^9.0.2",
+        "keyv": "^4.5.4",
+        "mailparser": "^3.6.5",
+        "nodemailer": "^6.9.7",
+        "sequelize": "^6.35.2",
+        "uglify-js": "^3.17.4",
+        "uglifycss": "^0.0.29"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.3.3"
+    }
+}
+>>>>>>> 71ad213 (Fix: URlEndoded parser)
