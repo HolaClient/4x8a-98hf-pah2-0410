@@ -86,7 +86,7 @@ module.exports = async function () {
     app.post("/api/admin/settings/pterodactyl", core.admin, async (req, res) => {
         try {
             await db.set('pterodactyl', "settings", req.body);
-            core.log(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
+            core.log.admin(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 194);
