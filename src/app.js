@@ -43,6 +43,7 @@
  *--------------------------------------------------------------------------
 */
 global.modules = require('./utils/modules');
+const bodyParser = require('body-parser');
 process.loadEnvFile('.env')
 require('../app/database/index')(app, db);
 require('./clusters/core')()
@@ -76,6 +77,8 @@ if (process.env.APP_ENV == "production") { c('APP_CODE', crypt.gen88(12)) };
  * Middleware to register express-session.
  *--------------------------------------------------------------------------
 */
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(require('express-session')({
     secret: process.env.APP_SECRET,
     resave: false,
