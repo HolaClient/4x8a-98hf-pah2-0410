@@ -17,12 +17,15 @@ HolaClient-X is the new series of HolaClient, designed to support game panels li
 
 * Please refer `FEATURES.md`.
 
-## 📄 Documentation
+## 🔗 Resources
 
-* [Main documentation](https://holaclientx.tech/docs)<br>
-* [Usage guide](https://holaclientx.tech/guide)<br>
-* [Console](https://console.holacorp.org)<br>
-* Or get additional help via [Discord](https://discord.gg/CvqRH9TrYK)
+* [Website](https://holaclient.dev)<br>
+* [Documentation](https://docs.holaclient.dev)<br>
+* [Usage guide](https://docs.holaclient.dev/guide)<br>
+* [API Docs](https://docs.holaclient.dev/api)<br>
+* [Console](https://console.holaclient.dev)<br>
+* [Community](https://community.holaclient.dev)<br>
+* [Discord](https://discord.gg/CvqRH9TrYK)
 
 
 ## 📝 Authors
