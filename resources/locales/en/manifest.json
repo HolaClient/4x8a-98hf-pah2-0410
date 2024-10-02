@@ -1,0 +1,8 @@
+{
+    "code": "en",
+    "name": "English (Global)",
+    "lang": [
+        {"file": "alerts", "path": "/locales/en/alerts.json"},
+        {"file": "admin", "path": "/locales/en/admin.json"}
+    ]
+}

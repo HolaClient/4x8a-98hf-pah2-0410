@@ -1,0 +1,122 @@
+{
+    "_": "DO NOT MODIFY: FILE GENERATED AUTOMATICALLY BY HOLACLIENT",
+    "name": "config.appearance",
+    "properties": {
+        "name": {
+            "type": "string",
+            "pointer": "appearance.name",
+            "default": "HolaClient-X1",
+            "minLength": 1,
+            "maxLength": 20,
+            "pattern": "^[a-zA-Z0-9!@#$%^&*()\\-_+=~`]+$",
+            "description": "The name of the application.",
+            "required": true
+        },
+        "logo": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "pointer": "appearance.logo.url",
+                    "format": "uri",
+                    "default": "https://cdn.holaclientx.tech/logo.png",
+                    "description": "The logo URL of the application.",
+                    "required": true
+                },
+                "rotate": {
+                    "type": "boolean",
+                    "pointer": "appearance.logo.rotate",
+                    "default": false,
+                    "description": "Whether to rotate the logo or not.",
+                    "required": false
+                },
+                "speed": {
+                    "type": "string",
+                    "pointer": "appearance.logo.speed",
+                    "default": "5s",
+                    "pattern": "^\\d+(s|ms)$",
+                    "description": "Rotate speed of the logo.",
+                    "required": false
+                }
+            }
+        },
+        "banner": {
+            "type": "string",
+            "pointer": "appearance.banner",
+            "format": "uri",
+            "default": "https://cdn.holaclientx.tech/production/X1/banners/index.png",
+            "description": "The URL of the banner image.",
+            "required": true
+        },
+        "description": {
+            "type": "string",
+            "pointer": "appearance.description",
+            "default": "Your description here, change this in settings > appearance.",
+            "minLength": 1,
+            "maxLength": 400,
+            "pattern": "^[a-zA-Z0-9!@#$%^&*()\\-_+=~`]+$",
+            "description": "The description of the application.",
+            "required": false
+        },
+        "theme": {
+            "type": "object",
+            "properties": {
+                "layouts": {
+                    "type": "string",
+                    "pointer": "appearance.theme.layouts",
+                    "default": "default",
+                    "description": "Layout theme.",
+                    "required": true
+                },
+                "admin": {
+                    "type": "string",
+                    "pointer": "appearance.theme.admin",
+                    "default": "default",
+                    "description": "Admin theme.",
+                    "required": true
+                },
+                "landing": {
+                    "type": "string",
+                    "pointer": "appearance.theme.landing",
+                    "default": "default",
+                    "description": "Landing page theme.",
+                    "required": true
+                },
+                "errors": {
+                    "type": "string",
+                    "pointer": "appearance.theme.errors",
+                    "default": "default",
+                    "description": "Error pages theme.",
+                    "required": true
+                }
+            }
+        },
+        "seo": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "pointer": "appearance.seo.title",
+                    "default": "HolaClient-X1",
+                    "description": "SEO title.",
+                    "required": false
+                },
+                "description": {
+                    "type": "string",
+                    "pointer": "appearance.seo.description",
+                    "default": "The all new X series of HolaClient is now live!",
+                    "description": "SEO description.",
+                    "required": false
+                },
+                "keywords": {
+                    "type": "string",
+                    "pointer": "appearance.seo.keywords",
+                    "default": "holaclient, X, holaclient-x, holaclientx, HC-X1",
+                    "description": "SEO keywords, comma separated.",
+                    "required": false
+                }
+            }
+        }
+    },
+    "extend": []
+}

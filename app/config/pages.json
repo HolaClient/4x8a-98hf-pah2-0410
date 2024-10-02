@@ -1,0 +1,20 @@
+{
+    "categories": [
+        "layouts",
+        "landing",
+        "admin",
+        "auth"
+    ],
+    "landing": [
+        "/", "/blank"
+    ],
+    "layouts": [
+        "/home", "/dashboard", "/servers", "/deploy", "/economy", "/market", "/account"
+    ],
+    "auth": [
+        "/login", "/register"
+    ],
+    "admin": [
+        "/admin", "/admin/servers", "/admin/users", "/admin/addons", "/admin/settings", "/admin/app", "/admin/permissions"
+    ]
+}

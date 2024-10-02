@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 {
     "ignore": ["node_modules", "app", "public", "storage", "resources", "corex"]
 }
   
+=======
+{
+    "ignore": ["node_modules", "app", "public", "storage", "resources"]
+}
+>>>>>>> 24dbde8 (merge X1 files)

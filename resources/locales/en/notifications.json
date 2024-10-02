@@ -1,0 +1,18 @@
+{
+    "SERVER_CREATION_INVALID": {
+        "head": "Error with server creation!",
+        "body": "The software or node could have been removed by an admin before deploying your server. Please create another server, the resources has been refunded!"
+    },
+    "SERVER_CREATION_ERROR": {
+        "head": "Error with server creation!",
+        "body": "An error has occured while creating your server, your resources has been refunded. Please try creating another server."
+    },
+    "SERVER_CREATION_SUCCESS": {
+        "head": "Server has been deployed.",
+        "body": "Time to enjoy, your server has been deployed successfully with the defined configurations."
+    },
+    "UNABLE_TO_CREATE_PANEL_ACCOUNT": {
+        "head": "Unable to link to a service",
+        "body": "An error occured while linking your account to a service, you may try again later or try contacting an admin."
+    }
+}
