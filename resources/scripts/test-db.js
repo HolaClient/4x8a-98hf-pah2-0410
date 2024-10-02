@@ -8,12 +8,12 @@
  * |_|  |_|\___/|_|\__,_|\_____|_|_|\___|_| |_|\__/_/ \_\
  *--------------------------------------------------------------------------
  *
- * https://holaclientx.tech
+ * https://holaclient.dev/X
  * https://github.com/HolaClient/X
  * https://discord.gg/CvqRH9TrYK
  * 
  * @author CR072 <crazymath072.tech>
- * @copyright 2022-2024 HolaClient
+ * @copyright Copyright (c) 2020 - Present CR072
  * @version 1
  *
  *--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ async function b() {
         }
         return e;
     }
-    const l = c('./app/database/adapters') || {};
+    const l = c('./app/plugins') || {};
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
@@ -60,9 +60,9 @@ async function b() {
             try {
                 let a;
                 if (n.file.endsWith('.mjs')) {
-                    a = import('../../app/database/adapters/' + n.file);
+                    a = import('../../app/plugins/' + n.file);
                 } else if (n.file.endsWith('.js')) {
-                    a = require('../../app/database/adapters/' + n.file);
+                    a = require('../../app/plugins/' + n.file);
                 }
                 const o = performance.now();
                 await Promise.all(Array.from({ length: m }, (_, r) => 

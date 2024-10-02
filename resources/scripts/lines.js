@@ -8,12 +8,12 @@
  * |_|  |_|\___/|_|\__,_|\_____|_|_|\___|_| |_|\__/_/ \_\
  *--------------------------------------------------------------------------
  *
- * https://holaclientx.tech
+ * https://holaclient.dev/X
  * https://github.com/HolaClient/X
  * https://discord.gg/CvqRH9TrYK
  * 
  * @author CR072 <crazymath072.tech>
- * @copyright 2022-2024 HolaClient
+ * @copyright Copyright (c) 2020 - Present CR072
  * @version 1
  *
  *--------------------------------------------------------------------------
@@ -22,8 +22,8 @@
 */
 const fs = require('fs').promises;
 const path = require('path');
-const chalk = require('chalk')
-const extensions = ['.js', '.html', '.css', '.ejs', '.json'];
+const chalk = require('chalk');
+const extensions = ['.js', '.html', '.css', '.json'];
 const exclude = ['node_modules', 'storage'];
 
 async function getAllFiles(dir) {

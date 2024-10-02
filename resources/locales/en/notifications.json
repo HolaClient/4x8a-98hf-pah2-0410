@@ -10,5 +10,9 @@
     "SERVER_CREATION_SUCCESS": {
         "head": "Server has been deployed.",
         "body": "Time to enjoy, your server has been deployed successfully with the defined configurations."
+    },
+    "UNABLE_TO_CREATE_PANEL_ACCOUNT": {
+        "head": "Unable to link to a service",
+        "body": "An error occured while linking your account to a service, you may try again later or try contacting an admin."
     }
 }

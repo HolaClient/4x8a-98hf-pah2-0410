@@ -1,0 +1,32 @@
+{
+  "name": "holaclientx",
+  "version": "X0",
+  "author": "CR072",
+  "github": "https://github.com/HolaClient/X",
+  "discord": "https://discord.gg/CvqRH9TrYK",
+  "bin": {
+    "hcx": "./app/bin/index.js"
+  },
+  "scripts": {
+    "start": "node --expose-gc index.js --prod",
+    "dev": "nodemon --exec node --trace-warnings --expose-gc index.js --dev",
+    "build:tw": "npx tailwindcss -i ./public/tailwind.conf -o ./public/common/tailwind.css",
+    "build:assets": "node resources/scripts/build-assets.js",
+    "build:prod": "node resources/scripts/build.js",
+    "cb:stats": "node resources/scripts/lines.js",
+    "cb:test": "node resources/scripts/tests.js"
+  },
+  "engines": {
+    "node": ">=20.7"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "chalk": "^4.1.2",
+    "chokidar": "^3.6.0",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.44.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.10"
+  }
+}

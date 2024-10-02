@@ -20,7 +20,9 @@
  * database.js - Application database handler file.
  *--------------------------------------------------------------------------
 */
-process.loadEnvFile('.env')
+process.loadEnvFile('.env');
+const fs = require('fs');
+const path = require('path');
 /**
  *--------------------------------------------------------------------------
  * Actual code
@@ -29,26 +31,34 @@ process.loadEnvFile('.env')
 async function database() {
   function scanDir(a) {
     let b = {};
-    const c = fs.readdirSync(a);
+    let c = fs.readdirSync(a);
     for (let d in c) {
       let e = c[d];
       let f = path.join(a, e);
       var g = fs.statSync(f);
       if (g && g.isFile()) {
-        const h = e.replace(/\.(js|mjs)$/, '');
-        b[h] = { path: f, file: e, name: h };
+        let h = e.replace(/\.(js|mjs)$/, '');
+        let i = require(`../../${f}`).info()
+        i["file"] = e; i["path"] = f
+        b[i.name] = i;
       } else if (g.isDirectory()) {
         b = b.concat(scanDir(f));
       }
     }
     return b;
   }
-  const i = scanDir("app/database/adapters") || {};
+  let i = scanDir("app/plugins") || {};
   if (process.env.DB_CONNECTION && i[process.env.DB_CONNECTION] && i[process.env.DB_CONNECTION].path.endsWith('.mjs')) {
     const j = await import("../../" + i[process.env.DB_CONNECTION].path);
+    if (j.info().functions.includes("load")) {
+      j.load()
+    }
     module.exports = j;
   } else {
     const k = require("../../" + i[process.env.DB_CONNECTION].path);
+    if (k.info().functions.includes("load")) {
+      k.load()
+    }
     module.exports = k;
   }
 }

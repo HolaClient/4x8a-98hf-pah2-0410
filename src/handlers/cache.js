@@ -20,60 +20,21 @@
  * cache.js - Application cache handler file.
  *--------------------------------------------------------------------------
 */
-/**
- *--------------------------------------------------------------------------
- * Actual code
- *--------------------------------------------------------------------------
-*/
-const fs = require('fs').promises;
-
-function set(a, b) {
-    const c = path.join(__dirname, '../../storage/cache/', `${a}.json`);
-    return fs.writeFile(c, JSON.stringify(b, null, 2))
-        .catch(e => {
-            if (e.code === 'ENOENT') {
-                return fs.writeFile(c, JSON.stringify(b, null, 2));
-            } else {
-                console.error('Error in set:', e);
-                throw e;
-            }
-        });
+require('../utils/modules')
+module.exports = async function () {
+    await hcx.config.cache()
+    let files = ['./src/modules/permissions/index']
+    for (let i of files) {
+        let a = hcx.loadModule(i)
+        a.cache()
+    }
+    let a = await db.get("users", "users") || []
+    let b = await db.get("servers", "list") || []
+    let c = await db.get("nodes", "list") || []
+    hcx.temp.set("totalUsers", a.length)
+    hcx.temp.set("totalServers", b.length ?? 0)
+    hcx.temp.set("totalNodes", c.length)
 }
-
-function get(a) {
-    const c = path.join(__dirname, '../../storage/cache/', `${a}.json`);
-    return fs.readFile(c, 'utf-8')
-        .then(d => JSON.parse(d || '{}'))
-        .catch(f => {
-            if (f.code === 'ENOENT') {
-                return fs.writeFile(c, JSON.stringify({}, null, 2)).then(() => undefined);
-            } else {
-                console.error('Error in get:', f);
-                throw f;
-            }
-        });
-}
-
-function remove(a) {
-    const c = path.join(__dirname, '../../storage/cache/', `${a}.json`);
-    return fs.readFile(c, 'utf-8')
-        .then(d => {
-            const e = JSON.parse(d || '{}');
-            if (e !== undefined) {
-                delete e;
-                return fs.writeFile(c, JSON.stringify(e, null, 2)).then(() => true);
-            } else {
-                return false;
-            }
-        })
-        .catch(f => {
-            console.error('Error in remove:', f);
-            throw f;
-        });
-}
-
-module.exports = { get, set, delete: remove };
-
 /**
  *--------------------------------------------------------------------------
  * End of file

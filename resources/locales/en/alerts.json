@@ -6,7 +6,7 @@
         "500": "Internal server error. Something went wrong on our end.",
         "ERROR": "An error has occurred:",
         "SUCCESS": "Operation completed successfully!",
-        "ALTACC": "You can't create alternative accounts, please delete your existing accounts first!",
+        "ALT_ACCOUNTS_PROHIBITED": "You can't create alternative accounts, please delete your existing accounts first!",
         "INVALID": "Invalid request. Please check your input.",
         "INVALIDSTRING": "Some fields contain invalid word formatting.",
         "INVALIDINTEGER": "One or more required number fields are not integers.",
