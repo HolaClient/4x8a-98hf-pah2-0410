@@ -79,8 +79,10 @@ app.use(hcx.wares.bodyParser);
         }
     }
     await hcx.panel.init();
-    hcx.temp.set("ptlNodes", await hcx.panel.getMain().nodes.getAll());
-    hcx.temp.set("ptlEggs", await hcx.panel.getMain().eggs.getAll());
+    try {
+        hcx.temp.set("ptlNodes", await hcx?.panel?.getMain()?.nodes?.getAll());
+        hcx.temp.set("ptlEggs", await hcx?.panel?.getMain()?.eggs?.getAll());
+    } catch {}
     await load('');
     require('./modules/router')();
 })();
