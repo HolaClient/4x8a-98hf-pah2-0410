@@ -1,0 +1,35 @@
+{
+  "0": {
+    "nickname": "System",
+    "name": {
+      "first": "System",
+      "last": ""
+    },
+    "id": 0,
+    "username": "system",
+    "avatar": "https://cdn.holaclientx.tech/logo.png",
+    "password": {
+      "iv": "001e17a92d32d4975073bd80a7dca568",
+      "hash": "a88c5c64f9d047797fb2b136e5cc4780bd42ceff2ad011f094791e8de6fd839236f1b166046947ef64059032fd2396be",
+      "hmac": "05920fa9d6c924d29c40f89bc7bd64a91ade884ea15cd4d696fbbbec9b7ea703"
+    },
+    "email": "system@holaclientx.tech",
+    "permissions": {
+      "roles": [
+        "system"
+      ],
+      "level": 10000,
+      "intents": [
+        "*"
+      ]
+    },
+    "date": {
+      "created": 1730006114643,
+      "modified": 1730006114643
+    },
+    "sessions": {
+      "status": true,
+      "secret": "hc.ss_%jQ,>mT6B]MHHeliactylSucksYblsGnthKP<P"
+    }
+  }
+}

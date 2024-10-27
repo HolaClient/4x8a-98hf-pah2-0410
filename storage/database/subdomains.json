@@ -1,0 +1,12 @@
+{
+  "settings": {
+    "enabled": false,
+    "available": [],
+    "default": 1,
+    "cloudflare": {
+      "email": "",
+      "key": "",
+      "zones": []
+    }
+  }
+}

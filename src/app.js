@@ -45,7 +45,7 @@
 global.modules = require('./utils/modules');
 const bodyParser = require('body-parser');
 process.loadEnvFile('.env')
-require('../app/database/index').default(app, db);
+require('../app/database/index')(app, db);
 require('./clusters/core')()
 import('./handlers/logs.mjs')
 /**

@@ -1,0 +1,67 @@
+{
+  "0": {
+    "roles": [
+      "system"
+    ],
+    "level": 10000,
+    "intents": [
+      "*"
+    ]
+  },
+  "roles": [
+    "guest",
+    "user",
+    "mod",
+    "admin",
+    "board",
+    "owner"
+  ],
+  "guest": {
+    "display": "Guest",
+    "intents": [
+      "intents.guest"
+    ],
+    "users": [],
+    "permission": 0
+  },
+  "user": {
+    "display": "User",
+    "intents": [
+      "intents.user"
+    ],
+    "users": [],
+    "permission": 1
+  },
+  "mod": {
+    "display": "Mod",
+    "intents": [
+      "intents.mod"
+    ],
+    "users": [],
+    "permission": 100
+  },
+  "admin": {
+    "display": "Admin",
+    "intents": [
+      "intents.admin"
+    ],
+    "users": [],
+    "permission": 200
+  },
+  "board": {
+    "display": "Board",
+    "intents": [
+      "intents.board"
+    ],
+    "users": [],
+    "permission": 300
+  },
+  "owner": {
+    "display": "Owner",
+    "intents": [
+      "intents.owner"
+    ],
+    "users": [],
+    "permission": 400
+  }
+}
