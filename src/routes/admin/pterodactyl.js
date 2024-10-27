@@ -166,7 +166,7 @@ module.exports = async function () {
             const admins = await db.get("notifications", "admins") || [];
             const errors = await db.get("logs", "errors") || [];
             System.err.println(error)
-            if (typeof admins == "array" && typeof errors == "array") {
+            if (Array.isArray(admins) && Array.isArray(errors)) {
                 admins.push({
                     title: `${a} Error`,
                     message: `${error}`,

@@ -4,22 +4,25 @@ const path = require('path');
 let cache = {};
 let queue = [];
 
+// Function to process the queue
 async function processQueue() {
     while (true) {
         if (queue.length > 0) {
-            const { a, b, c, d } = queue.shift();
-            const e = path.join(__dirname, '../../../storage/database/', `${b}.json`);
+            const { type, a, b, c } = queue.shift();
+            const filePath = path.join(__dirname, '../../../storage/database/', `${a}.json`);
             try {
-                let f = await fs.readFile(e, 'utf-8');
-                let g = JSON.parse(f);
-                if (a === 'set') {
-                    g[c] = d;
-                } else if (a === 'delete') {
-                    delete g[c];
+                let fileContent = await fs.readFile(filePath, 'utf-8');
+                let jsonData = JSON.parse(fileContent);
+                if (type === 'set') {
+                    jsonData[b] = c;
+                } else if (type === 'delete') {
+                    delete jsonData[b];
+                } else if (type === 'reset') {
+                    jsonData = {};
                 }
-                await fs.writeFile(e, JSON.stringify(g, null, 2));
+                await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2));
             } catch (error) {
-                console.error(`Error processing queue for table ${b}:`, error);
+                console.error(`Error processing queue for table ${a}:`, error);
             }
         } else {
             await new Promise(resolve => setTimeout(resolve, 100));
@@ -27,61 +30,98 @@ async function processQueue() {
     }
 }
 
+// Function to load cache from files
 async function loadCache() {
-    const a = path.join(__dirname, '../../../storage/database/');
-    const b = await fs.readdir(a);
-    for (const i of b) {
-        if (i.endsWith('.json')) {
-            const c = await fs.readFile(path.join(a, i), 'utf-8');
-            cache[i.replace('.json', '')] = JSON.parse(c);
+    const dirPath = path.join(__dirname, '../../../storage/database/');
+    const files = await fs.readdir(dirPath);
+    for (const file of files) {
+        if (file.endsWith('.json')) {
+            const fileContent = await fs.readFile(path.join(dirPath, file), 'utf-8');
+            cache[file.replace('.json', '')] = JSON.parse(fileContent);
         }
     }
 }
 
+// Function to set a value in the cache and queue
 async function set(a, b, c) {
-    if (!cache[a]) cache[a] = {};
-    cache[a][b] = c;
-    queue.push({ type: 'set', a, b, c });
+    try {
+        if (!cache[a]) cache[a] = {};
+        cache[a][b] = c;
+        queue.push({ type: 'set', a, b, c });
+    } catch (error) {
+        console.error('Error in set:', error);
+    }
 }
 
+// Function to get a value from the cache
 async function get(a, b) {
-    if (cache[a] && cache[a][b] !== undefined) {
-        return cache[a][b];
-    } else {
+    try {
+        if (cache[a] && cache[a][b] !== undefined) {
+            return cache[a][b];
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error('Error in get:', error);
         return null;
     }
 }
 
+// Function to remove a value from the cache and queue
 async function remove(a, b) {
-    if (cache[a] && cache[a][b] !== undefined) {
-        delete cache[a][b];
-        queue.push({ type: 'delete', a, b });
-        return true;
-    }
-    return false;
-}
-
-async function reset(a) {
-    cache[a] = {};
-    queue.push({ type: 'reset', a });
-    return true;
-}
-
-async function scan(a, b) {
-    const c = {};
-    const d = cache[a] || {};
-    for (const i in d) {
-        if (d[i].includes(b)) {
-            c[i] = d[i];
+    try {
+        if (cache[a] && cache[a][b] !== undefined) {
+            delete cache[a][b];
+            queue.push({ type: 'delete', a, b });
+            return true;
         }
+        return false;
+    } catch (error) {
+        console.error('Error in remove:', error);
+        return false;
     }
-    return result;
 }
 
+// Function to reset a table in the cache and queue
+async function reset(a) {
+    try {
+        cache[a] = {};
+        queue.push({ type: 'reset', a });
+        return true;
+    } catch (error) {
+        console.error('Error in reset:', error);
+        return false;
+    }
+}
+
+// Function to scan the cache for values containing a substring
+async function scan(a, b) {
+    try {
+        const result = {};
+        const table = cache[a] || {};
+        for (const key in table) {
+            if (table[key].includes(b)) {
+                result[key] = table[key];
+            }
+        }
+        return result;
+    } catch (error) {
+        console.error('Error in scan:', error);
+        return {};
+    }
+}
+
+// Function to check if a value exists in the cache
 async function exists(a, b) {
-    return cache[a] && cache[a][b] !== undefined;
+    try {
+        return cache[a] && cache[a][b] !== undefined;
+    } catch (error) {
+        console.error('Error in exists:', error);
+        return false;
+    }
 }
 
+// Function to return information about the database
 function info() {
     return {
         display: "JSON DB",
@@ -93,6 +133,7 @@ function info() {
     };
 }
 
+// Function to load the cache and start processing the queue
 async function load() {
     try {
         await loadCache();

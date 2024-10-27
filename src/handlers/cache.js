@@ -26,50 +26,80 @@
  *--------------------------------------------------------------------------
 */
 const fs = require('fs').promises;
+const path = require('path');
 
-function set(a, b) {
+/**
+ * Function to set a value in the cache
+ * @param {string} a - The key for the cache
+ * @param {object} b - The value to be cached
+ * @returns {Promise<void>}
+ */
+async function set(a, b) {
     const c = path.join(__dirname, '../../storage/cache/', `${a}.json`);
-    return fs.writeFile(c, JSON.stringify(b, null, 2))
-        .catch(e => {
-            if (e.code === 'ENOENT') {
-                return fs.writeFile(c, JSON.stringify(b, null, 2));
-            } else {
-                console.error('Error in set:', e);
-                throw e;
+    try {
+        await fs.writeFile(c, JSON.stringify(b, null, 2));
+    } catch (e) {
+        if (e.code === 'ENOENT') {
+            try {
+                await fs.writeFile(c, JSON.stringify(b, null, 2));
+            } catch (err) {
+                console.error('Error in set:', err);
+                throw err;
             }
-        });
+        } else {
+            console.error('Error in set:', e);
+            throw e;
+        }
+    }
 }
 
-function get(a) {
+/**
+ * Function to get a value from the cache
+ * @param {string} a - The key for the cache
+ * @returns {Promise<object>}
+ */
+async function get(a) {
     const c = path.join(__dirname, '../../storage/cache/', `${a}.json`);
-    return fs.readFile(c, 'utf-8')
-        .then(d => JSON.parse(d || '{}'))
-        .catch(f => {
-            if (f.code === 'ENOENT') {
-                return fs.writeFile(c, JSON.stringify({}, null, 2)).then(() => undefined);
-            } else {
-                console.error('Error in get:', f);
-                throw f;
+    try {
+        const d = await fs.readFile(c, 'utf-8');
+        return JSON.parse(d || '{}');
+    } catch (f) {
+        if (f.code === 'ENOENT') {
+            try {
+                await fs.writeFile(c, JSON.stringify({}, null, 2));
+                return {};
+            } catch (err) {
+                console.error('Error in get:', err);
+                throw err;
             }
-        });
-}
-
-function remove(a) {
-    const c = path.join(__dirname, '../../storage/cache/', `${a}.json`);
-    return fs.readFile(c, 'utf-8')
-        .then(d => {
-            const e = JSON.parse(d || '{}');
-            if (e !== undefined) {
-                delete e;
-                return fs.writeFile(c, JSON.stringify(e, null, 2)).then(() => true);
-            } else {
-                return false;
-            }
-        })
-        .catch(f => {
-            console.error('Error in remove:', f);
+        } else {
+            console.error('Error in get:', f);
             throw f;
-        });
+        }
+    }
+}
+
+/**
+ * Function to remove a value from the cache
+ * @param {string} a - The key for the cache
+ * @returns {Promise<boolean>}
+ */
+async function remove(a) {
+    const c = path.join(__dirname, '../../storage/cache/', `${a}.json`);
+    try {
+        const d = await fs.readFile(c, 'utf-8');
+        const e = JSON.parse(d || '{}');
+        if (e !== undefined) {
+            delete e;
+            await fs.writeFile(c, JSON.stringify(e, null, 2));
+            return true;
+        } else {
+            return false;
+        }
+    } catch (f) {
+        console.error('Error in remove:', f);
+        throw f;
+    }
 }
 
 module.exports = { get, set, delete: remove };

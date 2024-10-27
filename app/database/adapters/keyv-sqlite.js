@@ -1,9 +1,11 @@
 const Keyv = require('keyv');
 
+// Function to create a new Keyv instance for a specific table
 const SELECT = (b) => {
     return new Keyv(`sqlite://storage/database/database.sqlite`, { table: b });
 };
 
+// Function to get a value from the database
 const get = async (a, b) => {
     try {
         return await a.get(b);
@@ -13,6 +15,7 @@ const get = async (a, b) => {
     }
 };
 
+// Function to set a value in the database
 const set = async (a, b, c) => {
     try {
         return await a.set(b, c);
@@ -22,21 +25,17 @@ const set = async (a, b, c) => {
     }
 };
 
+// Function to delete a value from the database
 const del = async (a, b) => {
     try {
-        const c = await a.get(a.opts.table);
-        if (c && c.hasOwnProperty(b)) {
-            delete c[b];
-            return await a.set(a.opts.table, c);
-        } else {
-            return Promise.resolve();
-        }
+        return await a.delete(b);
     } catch (error) {
         console.error(`Error deleting ${b} from ${a.opts.table}: ${error.message}`);
         throw error;
     }
 };
 
+// Function to return information about the database
 function info() {
     return {
         display: "SQLite (Keyv)",
@@ -48,6 +47,7 @@ function info() {
     }
 }
 
+// Exporting the functions
 module.exports = {
     get: (a, b) => get(SELECT(a), b),
     set: (a, b, c) => set(SELECT(a), b, c),

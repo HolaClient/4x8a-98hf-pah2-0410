@@ -26,6 +26,8 @@
  *--------------------------------------------------------------------------
 */
 const { Worker, isMainThread } = require('worker_threads');
+const os = require('os');
+
 module.exports = () => {
     if (isMainThread) {
         let a = os.cpus();
@@ -35,6 +37,7 @@ module.exports = () => {
         });
     }
 };
+
 function addWorker() {
     try {
         const a = new Worker(__filename);

@@ -64,24 +64,31 @@ module.exports = async function() {
     });
 
     async function handle(error, a, b) {
-        const admins = await db.get("notifications", "admins") || [];
-        const errors = await db.get("logs", "errors") || [];
-        System.err.println(error)
-        admins.push({
-            title: `${a} Error`,
-            message: `${error}`,
-            type: "error",
-            place: "admin-tickets",
-            date: Date.now()
-        });
-        errors.push({ date: Date.now(), error: error, file: "routes/admin/tickets.js", line: b });
-        await db.set("notifications", "admins", admins)
-        await db.set("logs", "errors", errors)
-        return
+        try {
+            const admins = await db.get("notifications", "admins") || [];
+            const errors = await db.get("logs", "errors") || [];
+            System.err.println(error)
+            if (Array.isArray(admins) && Array.isArray(errors)) {
+                admins.push({
+                    title: `${a} Error`,
+                    message: `${error}`,
+                    type: "error",
+                    place: "admin-tickets",
+                    date: Date.now()
+                });
+                errors.push({ date: Date.now(), error: error, file: "routes/admin/tickets.js", line: b });
+                await db.set("notifications", "admins", admins);
+                await db.set("logs", "errors", errors);
+            }
+            return
+        } catch (error) {
+            System.err.println(error)
+            return
+        }
     }
 }
 /**
-*--------------------------------------------------------------------------
+*-------------------------------------------------------------------------- 
 * End of the file
-*--------------------------------------------------------------------------
+*-------------------------------------------------------------------------- 
 */

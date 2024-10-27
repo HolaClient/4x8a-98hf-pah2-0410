@@ -47,7 +47,7 @@ module.exports = async function () {
     /**
     *--------------------------------------------------------------------------
     * Handleing the root route
-    *--------------------------------------------------------------------------
+    *-------------------------------------------------------------------------- 
     */
     app.all("*", async (req, res) => {
         try {
@@ -92,7 +92,12 @@ module.exports = async function () {
                 if (req.session.userinfo) s = await db.get("permissions", req.session?.userinfo?.id);
                 if (s && i && parseInt(i.permission) > parseInt(s.level)) return res.html(fallback.error403());
                 if (!s && i && parseInt(i.permission) !== 0) return res.html(fallback.error401());
-                return await pages.render(req, res, `./resources/views/${f}/${appearance.themes && appearance.themes[f] || "default"}/${i.path}`);
+                try {
+                    return await pages.render(req, res, `./resources/views/${f}/${appearance.themes && appearance.themes[f] || "default"}/${i.path}`);
+                } catch (error) {
+                    System.err.println(error);
+                    return res.html(fallback.error500(error));
+                }
             }
             return pages.render(req, res, `./resources/views/errors/404.ejs`);
         } catch (e) {
@@ -102,7 +107,7 @@ module.exports = async function () {
     });
 }
 /**
-*--------------------------------------------------------------------------
+*-------------------------------------------------------------------------- 
 * End of the file
-*--------------------------------------------------------------------------
+*-------------------------------------------------------------------------- 
 */
