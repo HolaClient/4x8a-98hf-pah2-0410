@@ -1,0 +1,21 @@
+{
+  "lastbackup": 1730006062651,
+  "lastuser": 0,
+  "about": {
+    "version": "X0",
+    "codename": "Hydrogen",
+    "build": "HCX00062400",
+    "security": "January 2024",
+    "updater": 0,
+    "marketplace": 0,
+    "ui": {
+      "type": "HCX UI 0",
+      "admin": 0,
+      "client": 0
+    },
+    "warranty": "Active",
+    "eol": "August 2024"
+  },
+  "authenticators": [],
+  "billers": []
+}

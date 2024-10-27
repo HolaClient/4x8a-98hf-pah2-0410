@@ -1,0 +1,74 @@
+{
+  "appearance": {
+    "name": "HolaClient-X1",
+    "logo": {
+      "url": "https://cdn.holaclientx.tech/logo.png",
+      "rotate": false,
+      "speed": "6s"
+    },
+    "banner": "https://cdn.holaclientx.tech/production/X1/banners/index.png",
+    "description": "Your description here, change this in settings > appearance.",
+    "theme": {
+      "layouts": "default",
+      "admin": "default",
+      "landing": "default"
+    },
+    "seo": {
+      "title": "HolaClient-X1",
+      "description": "The all new X series of HolaClient is now live!",
+      "keywords": "holaclient, X, holaclient-x, holaclientx"
+    }
+  },
+  "links": {
+    "github": "https://github.com/HolaClient/X",
+    "website": "https://holaclientx.tech"
+  },
+  "packages": {
+    "default": "default",
+    "list": {
+      "default": {
+        "display": "Default",
+        "price": 0,
+        "store": false,
+        "resources": {
+          "memory": 3072,
+          "disk": 5120,
+          "cpu": 150,
+          "servers": 1,
+          "databases": 1,
+          "allocations": 1,
+          "backups": 1
+        }
+      }
+    }
+  },
+  "smtp": {
+    "enabled": false,
+    "host": "",
+    "port": 487,
+    "user": "",
+    "pass": "",
+    "mail": ""
+  },
+  "security": {
+    "antidiskfill": {
+      "enabled": false
+    },
+    "antiantivm": {
+      "enabled": false
+    },
+    "antinezha": {
+      "enabled": false
+    },
+    "antiexecuteables": {
+      "enabled": false
+    }
+  },
+  "authentication": {
+    "enabled": true,
+    "antialt": {
+      "cookies": false,
+      "ip": false
+    }
+  }
+}

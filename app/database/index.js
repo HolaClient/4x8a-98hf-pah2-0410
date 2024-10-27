@@ -32,7 +32,7 @@ module.exports = async function () {
         for (const i of b) {
             const c = path.join(a, i);
             try {
-                require(c).default(db)
+                require(c)(db)
             } catch (error) {
                 console.error(`Error executing seed ${i}:`, error);
             }
