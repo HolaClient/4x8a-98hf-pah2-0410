@@ -19,7 +19,7 @@
  *--------------------------------------------------------------------------
  * app.js - Application startup file.
  *--------------------------------------------------------------------------
-*/
+ */
 
 /**
  *--------------------------------------------------------------------------
@@ -35,24 +35,36 @@
  * 
  * Thanks for using HolaClient-X1
  *--------------------------------------------------------------------------
-*/
+ */
 
 /**
  *--------------------------------------------------------------------------
  * Loading modules
  *--------------------------------------------------------------------------
-*/
+ */
 global.modules = require('./utils/modules');
 const bodyParser = require('body-parser');
 process.loadEnvFile('.env')
-require('../app/database/index')(app, db);
-require('./clusters/core')()
-import('./handlers/logs.mjs')
+try {
+    require('../app/database/index')(app, db);
+} catch (error) {
+    console.error(`Error loading database index:`, error);
+}
+try {
+    require('./clusters/core')()
+} catch (error) {
+    console.error(`Error loading clusters core:`, error);
+}
+try {
+    import('./handlers/logs.mjs')
+} catch (error) {
+    console.error(`Error loading logs handler:`, error);
+}
 /**
  *--------------------------------------------------------------------------
  * Generating secrets
  *--------------------------------------------------------------------------
-*/
+ */
 const a = path.resolve(__dirname, "../.env");
 const b = () => fs.readFileSync(a, "utf-8").split(os.EOL);
 const c = (key, value) => {
@@ -76,7 +88,7 @@ if (process.env.APP_ENV == "production") { c('APP_CODE', crypt.gen88(12)) };
  *--------------------------------------------------------------------------
  * Middleware to register express-session.
  *--------------------------------------------------------------------------
-*/
+ */
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(require('express-session')({
@@ -96,7 +108,7 @@ app.use(require('express-session')({
  * Loading all router files to serve requests and frontend templates along
  * with static assets.
  *--------------------------------------------------------------------------
-*/
+ */
 (async () => {
     async function load(route) {
         try {
@@ -132,40 +144,44 @@ app.use(require('express-session')({
  *--------------------------------------------------------------------------
  * Indicating startup
  *--------------------------------------------------------------------------
-*/
+ */
 app.listen(process.env.APP_PORT, async function (err) {
-    if (err) {
-        System.err.println(`An error occured: ${err}`)
-    }
-    System.out.println(chalk.gray("  "));
-    System.out.println(" _    _       _        _____ _ _            _  __   __");
-    System.out.println("| |  | |     | |      / ____| (_)          | | \\ \\ / /");
-    System.out.println("| |__| | ___ | | __ _| |    | |_  ___ _ __ | |_ \\ V / ");
-    System.out.println("|  __  |/ _ \\| |/ _` | |    | | |/ _ \\ '_ \\| __| > <  ");
-    System.out.println("| |  | | (_) | | (_| | |____| | |  __/ | | | |_ / . \\ ");
-    System.out.println("|_|  |_|\\___/|_|\\__,_|\\_____|_|_|\\___|_| |_|\\__/_/ \\_\\");
-    System.out.println(chalk.white(" "))
-    System.out.println(chalk.white("========================SOCIAL========================="));
-    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Author ")}${chalk.white("]")}${chalk.white(" https://crazymath072.tech             ")}${chalk.gray("[+]")}`);
-    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Console")}${chalk.white("]")}${chalk.white(" https://console.holaclientx.tech      ")}${chalk.gray("[+]")}`);
-    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Discord")}${chalk.white("]")}${chalk.white(" https://discord.gg/CvqRH9TrYK         ")}${chalk.gray("[+]")}`);
-    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Github ")}${chalk.white("]")}${chalk.white(" https://github.com/HolaClient/X       ")}${chalk.gray("[+]")}`);
-    System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Website")}${chalk.white("]")}${chalk.white(" https://holaclientx.tech              ")}${chalk.gray("[+]")}`);
-    System.out.println(chalk.white("======================================================="));
-    System.out.println(" ");
-    System.out.println(chalk.gray("{/} 🔗") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded HolaClient at ") + chalk.cyan(process.env.APP_URL + "/"));
-    System.out.println("");
-    System.out.println(chalk.gray("{/} 🗝️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Authentication code for this session is ") + chalk.cyan(process.env.APP_CODE));
-    System.out.println("");
-    System.out.println(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
-    require('./utils/users')
-    let a = await db.get("pterodactyl", "settings")
-    if (a && a.domain && a.app && a.acc) {
-        hcx.configure(a.domain, a.app, a.acc)
+    try {
+        if (err) {
+            System.err.println(`An error occured: ${err}`)
+        }
+        System.out.println(chalk.gray("  "));
+        System.out.println(" _    _       _        _____ _ _            _  __   __");
+        System.out.println("| |  | |     | |      / ____| (_)          | | \\ \\ / /");
+        System.out.println("| |__| | ___ | | __ _| |    | |_  ___ _ __ | |_ \\ V / ");
+        System.out.println("|  __  |/ _ \\| |/ _` | |    | | |/ _ \\ '_ \\| __| > <  ");
+        System.out.println("| |  | | (_) | | (_| | |____| | |  __/ | | | |_ / . \\ ");
+        System.out.println("|_|  |_|\\___/|_|\\__,_|\\_____|_|_|\\___|_| |_|\\__/_/ \\_\\");
+        System.out.println(chalk.white(" "))
+        System.out.println(chalk.white("========================SOCIAL========================="));
+        System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Author ")}${chalk.white("]")}${chalk.white(" https://crazymath072.tech             ")}${chalk.gray("[+]")}`);
+        System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Console")}${chalk.white("]")}${chalk.white(" https://console.holaclientx.tech      ")}${chalk.gray("[+]")}`);
+        System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Discord")}${chalk.white("]")}${chalk.white(" https://discord.gg/CvqRH9TrYK         ")}${chalk.gray("[+]")}`);
+        System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Github ")}${chalk.white("]")}${chalk.white(" https://github.com/HolaClient/X       ")}${chalk.gray("[+]")}`);
+        System.out.println(`${chalk.gray("[+]")} ${chalk.white("[")}${chalk.cyan("Website")}${chalk.white("]")}${chalk.white(" https://holaclientx.tech              ")}${chalk.gray("[+]")}`);
+        System.out.println(chalk.white("======================================================="));
+        System.out.println(" ");
+        System.out.println(chalk.gray("{/} 🔗") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Successfully loaded HolaClient at ") + chalk.cyan(process.env.APP_URL + "/"));
+        System.out.println("");
+        System.out.println(chalk.gray("{/} 🗝️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Authentication code for this session is ") + chalk.cyan(process.env.APP_CODE));
+        System.out.println("");
+        System.out.println(chalk.gray("{/} ⚙️") + chalk.cyan(" [") + chalk.white("HolaClient") + chalk.cyan("]") + chalk.white(" Connected to ") + chalk.cyan(process.env.DB_CONNECTION));
+        require('./utils/users')
+        let a = await db.get("pterodactyl", "settings")
+        if (a && a.domain && a.app && a.acc) {
+            hcx.configure(a.domain, a.app, a.acc)
+        }
+    } catch (error) {
+        System.err.println(`Error during startup:`, error);
     }
 });
 /**
-*--------------------------------------------------------------------------
-* End of the file
-*--------------------------------------------------------------------------
-*/
+ *--------------------------------------------------------------------------
+ * End of the file
+ *--------------------------------------------------------------------------
+ */

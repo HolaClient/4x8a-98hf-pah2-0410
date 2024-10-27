@@ -19,13 +19,13 @@
  *--------------------------------------------------------------------------
  * router.js - Endpoints handler.
  *--------------------------------------------------------------------------
-*/
+ */
 const users = require('../../utils/users')
 /**
  *--------------------------------------------------------------------------
  * Bunch of codes...
  *--------------------------------------------------------------------------
-*/
+ */
 module.exports = async function () {
     app.get("/api/auth/gateways", async (req, res) => {
         try {
@@ -124,6 +124,7 @@ module.exports = async function () {
                     if (h.success !== true && h.code === 200) return core.json(req, res, false, "INVALIDEMAIL");
                 } catch (error) {
                     System.err.println(error)
+                    return core.json(req, res, false, "ERROR", error)
                 }
             }
             let d = await users.create(req, res, a.email, a.username, "https://png.pngtree.com/png-vector/20230822/ourmid/pngtree-person-icon-in-a-gradient-on-a-flat-blue-and-pastel-vector-png-image_6834039.png", a.username, a.username, 1, a.password);
@@ -144,4 +145,4 @@ module.exports = async function () {
  *--------------------------------------------------------------------------
  * End of file.
  *--------------------------------------------------------------------------
-*/
+ */

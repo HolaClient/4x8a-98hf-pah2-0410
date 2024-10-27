@@ -36,45 +36,43 @@ async function set(a, b, c) {
 
 async function get(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
-    return fs.readFile(c, 'utf-8')
-        .then(d => {
-            const e = JSON.parse(d || '{}');
+    try {
+        const d = await fs.readFile(c, 'utf-8');
+        const e = JSON.parse(d || '{}');
 
-            if (e && e[b] !== undefined) {
-                return e[b];
-            } else {
-                return null;
-            }
-        })
-        .catch(f => {
-            if (f.code === 'ENOENT') {
-                const g = {};
-                return fs.writeFile(c, JSON.stringify(g, null, 2))
-                    .then(() => undefined);
-            } else {
-                console.error('Error in get:', f);
-                return
-            }
-        });
+        if (e && e[b] !== undefined) {
+            return e[b];
+        } else {
+            return null;
+        }
+    } catch (f) {
+        if (f.code === 'ENOENT') {
+            const g = {};
+            await fs.writeFile(c, JSON.stringify(g, null, 2));
+            return undefined;
+        } else {
+            console.error('Error in get:', f);
+            return
+        }
+    }
 }
 
 async function remove(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
-    return fs.readFile(c, 'utf-8')
-        .then(d => {
-            const e = JSON.parse(d);
-            if (e && e[b] !== undefined) {
-                delete e[b];
-                return fs.writeFile(c, JSON.stringify(e, null, 2))
-                    .then(() => true);
-            } else {
-                return false;
-            }
-        })
-        .catch(f => {
-            console.error('Error in remove:', f);
-            return
-        });
+    try {
+        const d = await fs.readFile(c, 'utf-8');
+        const e = JSON.parse(d);
+        if (e && e[b] !== undefined) {
+            delete e[b];
+            await fs.writeFile(c, JSON.stringify(e, null, 2));
+            return true;
+        } else {
+            return false;
+        }
+    } catch (f) {
+        console.error('Error in remove:', f);
+        return
+    }
 }
 
 async function reset(a) {
