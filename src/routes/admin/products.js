@@ -25,6 +25,8 @@
  * Bunch of codes...
  *--------------------------------------------------------------------------
 */
+const { body, validationResult } = require('express-validator');
+
 module.exports = async function () {
     app.get("/api/admin/products", core.admin, async (req, res) => {
         try {
@@ -41,12 +43,22 @@ module.exports = async function () {
         }
     });
 
-    app.post("/api/admin/products", core.admin, async (req, res) => {
+    app.post("/api/admin/products", core.admin, [
+        body('name').notEmpty().withMessage('Name is required'),
+        body('type').notEmpty().withMessage('Type is required'),
+        body('coins').isInt({ min: 0 }).withMessage('Coins must be a non-negative integer'),
+        body('credits').isInt({ min: 0 }).withMessage('Credits must be a non-negative integer'),
+        body('icon').notEmpty().withMessage('Icon is required')
+    ], async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return core.json(req, res, false, "VALIDATION_ERROR", errors.array());
+        }
+
         try {
             let a = await db.get("products", "list") || []
             let b = await db.get("core", "lastproduct") ?? 0
             let c = req.body
-            if (!c.name || !c.type || !c.coins || !c.credits || !c.icon) return core.json(req, res, false, "MISSING")
             c["id"] = parseInt(b) + 1
             let d = a.find(i => i.id == c.id)
             if (d !== undefined) c.id = a.length + 1
@@ -60,13 +72,24 @@ module.exports = async function () {
         }
     });
 
-    app.patch("/api/admin/products", core.admin, async (req, res) => {
+    app.patch("/api/admin/products", core.admin, [
+        body('id').isInt().withMessage('ID must be an integer'),
+        body('name').notEmpty().withMessage('Name is required'),
+        body('type').notEmpty().withMessage('Type is required'),
+        body('coins').isInt({ min: 0 }).withMessage('Coins must be a non-negative integer'),
+        body('credits').isInt({ min: 0 }).withMessage('Credits must be a non-negative integer'),
+        body('icon').notEmpty().withMessage('Icon is required')
+    ], async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return core.json(req, res, false, "VALIDATION_ERROR", errors.array());
+        }
+
         try {
             let a = await db.get("products", "list") || []
             let c = req.body
             let b = a.findIndex(i => i.id == c.id)
             if (b === -1) return core.json(req, res, false, "INVALID")
-            if (!c.name || !c.type || !c.coins || !c.credits || !c.icon) return core.json(req, res, false, "MISSING")
             a[b] = c
             await db.set("products", "list", a);
             return core.json(req, res, true, "SUCCESS");
@@ -76,7 +99,14 @@ module.exports = async function () {
         }
     });
 
-    app.delete("/api/admin/products", core.admin, async (req, res) => {
+    app.delete("/api/admin/products", core.admin, [
+        body('id').isInt().withMessage('ID must be an integer')
+    ], async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return core.json(req, res, false, "VALIDATION_ERROR", errors.array());
+        }
+
         try {
             let a = await db.get("products", "list") || []
             let c = req.body
