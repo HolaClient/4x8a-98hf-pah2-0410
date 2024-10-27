@@ -19,12 +19,12 @@
  *--------------------------------------------------------------------------
  * index.js - Database factory file executor.
  *--------------------------------------------------------------------------
-*/
+ */
 /**
  *--------------------------------------------------------------------------
  * Loading modules
  *--------------------------------------------------------------------------
-*/
+ */
 module.exports = async function () {
     try {
         const a = '../../app/database/factories';
@@ -32,7 +32,7 @@ module.exports = async function () {
         for (const i of b) {
             const c = path.join(a, i);
             try {
-                require(c)(db)
+                require(c).default(db)
             } catch (error) {
                 console.error(`Error executing seed ${i}:`, error);
             }
@@ -46,4 +46,4 @@ module.exports = async function () {
  *--------------------------------------------------------------------------
  * End of file
  *--------------------------------------------------------------------------
-**/
+ **/

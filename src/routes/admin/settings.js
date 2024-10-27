@@ -19,12 +19,12 @@
  *--------------------------------------------------------------------------
  * settings.js - UI settings editor handler.
  *--------------------------------------------------------------------------
-*/
+ */
 /**
  *--------------------------------------------------------------------------
  * Loading modules
  *--------------------------------------------------------------------------
-*/
+ */
 module.exports = async function () {
     app.put("/api/admin/settings", core.admin, async (req, res) => {
         try {
@@ -56,7 +56,7 @@ module.exports = async function () {
         try {
             if (req.query && req.query?.type == "full") {
                 await db.set(req.params.a, 'settings', req.body);
-                core.log.admin(`${req.session.userinfo.username) modified the ${req.params.a} settings.`);
+                core.log.admin(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
             } else {
                 await db.set('settings', req.params.a, req.body);
                 core.log.admin(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
