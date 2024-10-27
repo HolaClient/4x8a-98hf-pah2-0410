@@ -44,8 +44,13 @@ module.exports = async function () {
 
     app.post('/api/admin/subdomains', core.admin, async (req, res) => {
         try {
-
-            return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: records }));
+            const subdomains = await db.get("subdomains", "settings")
+            if (subdomains && subdomains.enabled == "true") {
+                const records = await db.get("subdomains", "records")
+                return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res), data: records }));
+            } else {
+                return res.end(JSON.stringify({ success: false, message: alert("INACTIVE", req, res) }));
+            }
         } catch (error) {
             handle(error, "Minor", 33)
             return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
@@ -145,19 +150,22 @@ module.exports = async function () {
         }
     }
     async function handle(error, a, subdomains) {
-        const admins = await db.get("notifications", "admins") || [];
-        const errors = await db.get("logs", "errors") || [];
-        System.err.println(error)
-        admins.push({
-            title: `${a} Error`,
-            message: `${error}`,
-            type: "error",
-            place: "admin-subdomains",
-            date: Date.now()
-        });
-        errors.push({ date: Date.now(), error: error, file: "routes/admin/subdomains.js", line: subdomains });
-        await db.set("notifications", "admins", admins);
-        await db.set("logs", "errors", errors);
-        return
+        try {
+            const admins = await db.get("notifications", "admins") || [];
+            const errors = await db.get("logs", "errors") || [];
+            System.err.println(error)
+            admins.push({
+                title: `${a} Error`,
+                message: `${error}`,
+                type: "error",
+                place: "admin-subdomains",
+                date: Date.now()
+            });
+            errors.push({ date: Date.now(), error: error, file: "routes/admin/subdomains.js", line: subdomains });
+            await db.set("notifications", "admins", admins);
+            await db.set("logs", "errors", errors);
+        } catch (err) {
+            System.err.println(err)
+        }
     }
 }

@@ -38,8 +38,8 @@ module.exports = async function () {
             }
         }
     } catch (error) {
-        console.error(error)
-        return
+        console.error('Error loading database factories:', error);
+        return;
     }
 };
 /**

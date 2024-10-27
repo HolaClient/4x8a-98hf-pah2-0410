@@ -247,16 +247,18 @@ module.exports = async function () {
             const admins = await db.get("notifications", "admins") || [];
             const errors = await db.get("logs", "errors") || [];
             System.err.println(error)
-            admins.push({
-                title: `${a} Error`,
-                message: `${error}`,
-                type: "error",
-                place: "admin-users",
-                date: Date.now()
-            });
-            errors.push({ date: Date.now(), error: error, file: "routes/admin/users.js", line: b });
-            await db.set("notifications", "admins", admins)
-            await db.set("logs", "errors", errors)
+            if (Array.isArray(admins) && Array.isArray(errors)) {
+                admins.push({
+                    title: `${a} Error`,
+                    message: `${error}`,
+                    type: "error",
+                    place: "admin-users",
+                    date: Date.now()
+                });
+                errors.push({ date: Date.now(), error: error, file: "routes/admin/users.js", line: b });
+                await db.set("notifications", "admins", admins);
+                await db.set("logs", "errors", errors);
+            }
             return
         } catch (error) {
             System.err.println(error)

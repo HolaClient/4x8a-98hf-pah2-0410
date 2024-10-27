@@ -1,6 +1,7 @@
 const fs = require('fs/promises');
 const path = require('path');
 
+// Function to set a value in the JSON file
 async function set(a, b, c) {
     const d = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     let e;
@@ -34,6 +35,7 @@ async function set(a, b, c) {
     return
 }
 
+// Function to get a value from the JSON file
 async function get(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     return fs.readFile(c, 'utf-8')
@@ -58,6 +60,7 @@ async function get(a, b) {
         });
 }
 
+// Function to remove a value from the JSON file
 async function remove(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     return fs.readFile(c, 'utf-8')
@@ -77,6 +80,7 @@ async function remove(a, b) {
         });
 }
 
+// Function to reset the JSON file
 async function reset(a) {
     const b = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     const c = {};
@@ -88,6 +92,7 @@ async function reset(a) {
         });
 }
 
+// Function to scan the JSON file for values containing a substring
 async function scan(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     return fs.readFile(c, 'utf-8')
@@ -115,6 +120,7 @@ async function scan(a, b) {
         });
 }
 
+// Function to check if a value exists in the JSON file
 async function exists(a, b) {
     const c = path.join(__dirname, '../../../storage/database/', `${a}.json`);
     return fs.readFile(c, 'utf-8')
@@ -132,6 +138,7 @@ async function exists(a, b) {
         });
 }
 
+// Function to return information about the database
 function info() {
     return {
         display: "JSON DB",
@@ -143,6 +150,7 @@ function info() {
     };
 }
 
+// Function to load the cache and start processing the queue
 async function load() {
     try {
         let a = path.join(__dirname, '../../../storage/database/')

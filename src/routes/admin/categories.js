@@ -97,15 +97,15 @@ module.exports = async function () {
             const admins = await db.get("notifications", "admins") || [];
             const errors = await db.get("logs", "errors") || [];
             System.err.println(error)
-            if (typeof admins == "array" && typeof errors == "array") {
+            if (Array.isArray(admins) && Array.isArray(errors)) {
                 admins.push({
                     title: `${a} Error`,
                     message: `${error}`,
                     type: "error",
-                    place: "admin-pterodactyl",
+                    place: "admin-categories",
                     date: Date.now()
                 });
-                errors.push({ date: Date.now(), error: error, file: "routes/admin/pterodactyl.js", line: b });
+                errors.push({ date: Date.now(), error: error, file: "routes/admin/categories.js", line: b });
                 await db.set("notifications", "admins", admins);
                 await db.set("logs", "errors", errors);
             }

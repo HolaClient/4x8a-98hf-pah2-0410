@@ -26,11 +26,15 @@
  *--------------------------------------------------------------------------
 */
 import { Console } from 'console';
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
+
 /**
  *--------------------------------------------------------------------------
  * The actual handler code.
- *--------------------------------------------------------------------------
-*/
+ *-------------------------------------------------------------------------- 
+ */
 const a = './storage/logs/dashboard';
 if (process.env.APP_ENV !== "production") {
   const b = `log_${formatDate(new Date(), true).replace(" ", "_").replace(":", "-")}.txt`;
@@ -42,8 +46,12 @@ if (process.env.APP_ENV !== "production") {
   };
   const e = console.log;
   console.log = (...f) => {
-    e(chalk.gray(`[${formatTime()}]`), ...f);
-    c.write(f.join(' ') + '\n');
+    try {
+      e(chalk.gray(`[${formatTime()}]`), ...f);
+      c.write(f.join(' ') + '\n');
+    } catch (error) {
+      e(chalk.red(`[${formatTime()}] Error logging message: ${error.message}`));
+    }
   };
   global.console = d;
 } else {
@@ -57,10 +65,20 @@ if (process.env.APP_ENV !== "production") {
   global.console = d;
   const e = console.log;
   console.log = (...f) => {
-    e(chalk.gray(`[${formatTime()}]`), ...f);
-    c.write(f.join(' ') + '\n');
+    try {
+      e(chalk.gray(`[${formatTime()}]`), ...f);
+      c.write(f.join(' ') + '\n');
+    } catch (error) {
+      e(chalk.red(`[${formatTime()}] Error logging message: ${error.message}`));
+    }
   };
 }
+
+/**
+ *--------------------------------------------------------------------------
+ * Helper functions
+ *--------------------------------------------------------------------------
+ */
 function formatDate(a, b) {
   const c = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   if (!b || b !== true) {
@@ -69,6 +87,7 @@ function formatDate(a, b) {
     return `${a.getDate().toString().padStart(2, '0')}-${c[a.getMonth()]}-${a.getFullYear()} ${a.getHours().toString().padStart(2, '0')}:${a.getMinutes().toString().padStart(2, '0')}`;
   }
 }
+
 function formatTime() {
   const a = new Date()
   return `${a.getDate().toString().padStart(2, '0')}/${[a.getMonth() + 1]} ${a.getHours().toString().padStart(2, '0')}:${a.getMinutes().toString().padStart(2, '0')}`;
