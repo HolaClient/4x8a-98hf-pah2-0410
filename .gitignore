@@ -3,3 +3,7 @@ yarn.lock
 node_modules/
 .vs/
 app/config/backup-settings.json
+.env
+HolaClient-X1.build_27-10.zip
+storage/backups/27 October 2024.zip
+storage/logs/dashboard/

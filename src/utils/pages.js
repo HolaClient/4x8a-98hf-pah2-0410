@@ -58,6 +58,7 @@ async function render(req, res, a, b) {
                 res.setHeader('Content-Type', 'text/html');
                 return res.html(fallback.error500(error));
             }
+            res.setHeader('Content-Type', 'text/html');
             return res.end(str);
         });
     } catch (error) {
