@@ -19,12 +19,12 @@
  *--------------------------------------------------------------------------
  * update.js - Application updater.
  *--------------------------------------------------------------------------
-*/
+ */
 /**
  *--------------------------------------------------------------------------
  * Loading modules
  *--------------------------------------------------------------------------
-*/
+ */
 module.exports = async function () {
     app.get('/api/app/updates/history', core.admin, async (req, res) => {
         try {
@@ -55,6 +55,10 @@ module.exports = async function () {
             let b = { "Content-Type": "application/json", "x-auth-type": "holaclient/secret" };
             let c = await db.get("app", "console")
             if (c) b["Authorization"] = `Secret ${c.secret}`
+            if (!c || !c.domain) {
+                console.error("Error: 'c' or 'c.domain' is undefined");
+                return;
+            }
             let a = await fetch(`${c.domain}/api/X0/updates`, {
                 method: "GET",
                 headers: b

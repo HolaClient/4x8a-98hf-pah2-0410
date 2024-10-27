@@ -19,7 +19,7 @@
  *--------------------------------------------------------------------------
  * app.js - Application startup file.
  *--------------------------------------------------------------------------
-*/
+ */
 
 /**
  *--------------------------------------------------------------------------
@@ -35,24 +35,24 @@
  * 
  * Thanks for using HolaClient-X1
  *--------------------------------------------------------------------------
-*/
+ */
 
 /**
  *--------------------------------------------------------------------------
  * Loading modules
  *--------------------------------------------------------------------------
-*/
+ */
 global.modules = require('./utils/modules');
 const bodyParser = require('body-parser');
 process.loadEnvFile('.env')
-require('../app/database/index')(app, db);
+require('../app/database/index').default(app, db);
 require('./clusters/core')()
 import('./handlers/logs.mjs')
 /**
  *--------------------------------------------------------------------------
  * Generating secrets
  *--------------------------------------------------------------------------
-*/
+ */
 const a = path.resolve(__dirname, "../.env");
 const b = () => fs.readFileSync(a, "utf-8").split(os.EOL);
 const c = (key, value) => {
@@ -76,7 +76,7 @@ if (process.env.APP_ENV == "production") { c('APP_CODE', crypt.gen88(12)) };
  *--------------------------------------------------------------------------
  * Middleware to register express-session.
  *--------------------------------------------------------------------------
-*/
+ */
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(require('express-session')({
@@ -96,7 +96,7 @@ app.use(require('express-session')({
  * Loading all router files to serve requests and frontend templates along
  * with static assets.
  *--------------------------------------------------------------------------
-*/
+ */
 (async () => {
     async function load(route) {
         try {
@@ -132,7 +132,7 @@ app.use(require('express-session')({
  *--------------------------------------------------------------------------
  * Indicating startup
  *--------------------------------------------------------------------------
-*/
+ */
 app.listen(process.env.APP_PORT, async function (err) {
     if (err) {
         System.err.println(`An error occured: ${err}`)
@@ -168,4 +168,4 @@ app.listen(process.env.APP_PORT, async function (err) {
  *--------------------------------------------------------------------------
  * End of the file
  *--------------------------------------------------------------------------
-*/
+ */
