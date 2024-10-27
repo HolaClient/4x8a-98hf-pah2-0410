@@ -25,6 +25,8 @@
  * Bunch of codes...
  *--------------------------------------------------------------------------
 */
+const { body, validationResult } = require('express-validator');
+
 module.exports = async function () {
 
     app.get("/api/admin/permissions/roles", core.admin, async (req, res) => {
@@ -37,7 +39,15 @@ module.exports = async function () {
         }
     });
 
-    app.post("/api/admin/permissions/roles", core.admin, async (req, res) => {
+    app.post("/api/admin/permissions/roles", core.admin, [
+        body('name').notEmpty().withMessage('Name is required'),
+        body('level').isInt().withMessage('Level must be an integer')
+    ], async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ success: false, errors: errors.array() });
+        }
+
         try {
             let a = await db.get("permissions", "roles") || []
             let b = req.body
@@ -53,7 +63,15 @@ module.exports = async function () {
         }
     });
 
-    app.patch("/api/admin/permissions/roles", core.admin, async (req, res) => {
+    app.patch("/api/admin/permissions/roles", core.admin, [
+        body('name').notEmpty().withMessage('Name is required'),
+        body('level').isInt().withMessage('Level must be an integer')
+    ], async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ success: false, errors: errors.array() });
+        }
+
         try {
             let a = await db.get("permissions", "roles") || []
             let b = req.body
@@ -69,7 +87,14 @@ module.exports = async function () {
         }
     });
 
-    app.delete("/api/admin/permissions/roles", core.admin, async (req, res) => {
+    app.delete("/api/admin/permissions/roles", core.admin, [
+        body('name').notEmpty().withMessage('Name is required')
+    ], async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ success: false, errors: errors.array() });
+        }
+
         try {
             let a = await db.get("permissions", "roles") || []
             let b = req.body

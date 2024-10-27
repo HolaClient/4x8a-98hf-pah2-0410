@@ -34,9 +34,11 @@ module.exports = async function() {
 
     app.post("/api/admin/tickets", core.admin, async (req, res) => {
         try {
-            const a = await db.get("tickets", req.body)
-            if (!a) return res.end({ success: false, message: alert("INVALID", req, res) });
-            core.log(`${req.session.userinfo.username} has been assigned to the ticket: ${a}.`);
+            const a = req.body;
+            if (!a || !a.id || !a.user) return res.end({ success: false, message: alert("INVALID", req, res) });
+            const ticket = await db.get("tickets", a.id);
+            if (!ticket) return res.end({ success: false, message: alert("INVALID", req, res) });
+            core.log(`${req.session.userinfo.username} has been assigned to the ticket: ${a.id}.`);
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 43)
@@ -46,16 +48,18 @@ module.exports = async function() {
 
     app.delete("/api/admin/tickets", core.admin, async (req, res) => {
         try {
-            const a = await db.get("tickets", req.body)
-            if (!a) return res.end({ success: false, message: alert("INVALID", req, res) });
-            const b = await db.get("tickets", a.user) || []
-            const d = await db.get("tickets", "total") || []
-            d = d.filter((e) => e.id !== a);
-            e = b.filter((e) => e.id !== a);
-            await db.delete("tickets", a);
+            const a = req.body;
+            if (!a || !a.id || !a.user) return res.end({ success: false, message: alert("INVALID", req, res) });
+            const ticket = await db.get("tickets", a.id);
+            if (!ticket) return res.end({ success: false, message: alert("INVALID", req, res) });
+            let b = await db.get("tickets", a.user) || []
+            let d = await db.get("tickets", "total") || []
+            d = d.filter((e) => e.id !== a.id);
+            b = b.filter((e) => e.id !== a.id);
+            await db.delete("tickets", a.id);
             await db.set("tickets", "total", d);
-            await db.set("tickets", a.user, e);
-            core.log(`${req.session.userinfo.username} has deleted the ticket: ${a}.`);
+            await db.set("tickets", a.user, b);
+            core.log(`${req.session.userinfo.username} has deleted the ticket: ${a.id}.`);
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 55)
