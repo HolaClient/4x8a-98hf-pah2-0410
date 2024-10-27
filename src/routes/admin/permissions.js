@@ -37,12 +37,59 @@ module.exports = async function () {
         }
     });
 
+    app.post("/api/admin/permissions/roles", core.admin, async (req, res) => {
+        try {
+            let a = await db.get("permissions", "roles") || []
+            let b = req.body
+            if (!b.name || !b.level) return core.json(req, res, false, "MISSING")
+            let c = a.find(i => i.name == b.name)
+            if (c !== undefined) return core.json(req, res, false, "EXISTS")
+            a.push(b)
+            await db.set("permissions", "roles", a)
+            return core.json(req, res, true, "SUCCESS")
+        } catch (error) {
+            handle(error, "Minor", 30)
+            return core.json(req, res, false, "ERROR", error)
+        }
+    });
+
+    app.patch("/api/admin/permissions/roles", core.admin, async (req, res) => {
+        try {
+            let a = await db.get("permissions", "roles") || []
+            let b = req.body
+            let c = a.findIndex(i => i.name == b.name)
+            if (c === -1) return core.json(req, res, false, "INVALID")
+            if (!b.name || !b.level) return core.json(req, res, false, "MISSING")
+            a[c] = b
+            await db.set("permissions", "roles", a)
+            return core.json(req, res, true, "SUCCESS")
+        } catch (error) {
+            handle(error, "Minor", 30)
+            return core.json(req, res, false, "ERROR", error)
+        }
+    });
+
+    app.delete("/api/admin/permissions/roles", core.admin, async (req, res) => {
+        try {
+            let a = await db.get("permissions", "roles") || []
+            let b = req.body
+            let c = a.findIndex(i => i.name == b.name)
+            if (c === -1) return core.json(req, res, false, "INVALID")
+            a = a.filter(i => i.name !== b.name)
+            await db.set("permissions", "roles", a)
+            return core.json(req, res, true, "SUCCESS")
+        } catch (error) {
+            handle(error, "Minor", 30)
+            return core.json(req, res, false, "ERROR", error)
+        }
+    });
+
     async function handle(error, a, b) {
         try {
             const admins = await db.get("notifications", "admins") || [];
             const errors = await db.get("logs", "errors") || [];
             System.err.println(error)
-            if (typeof admins == "array" && typeof errors == "array") {
+            if (Array.isArray(admins) && Array.isArray(errors)) {
                 admins.push({
                     title: `${a} Error`,
                     message: `${error}`,

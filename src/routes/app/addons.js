@@ -42,7 +42,7 @@ module.exports = async function () {
             return core.json(req, res, true, "SUCCESS", { total: c, active: d, inactive: e });
         } catch (error) {
             handle(error, "Minor", 28);
-            return core.json(req, res, true, "ERROR", error);
+            return core.json(req, res, false, "ERROR", error);
         }
     });
 
@@ -98,7 +98,7 @@ module.exports = async function () {
             return core.json(req, res, true, "SUCCESS", e);
         } catch (error) {
             handle(error, "Minor", 28);
-            return core.json(req, res, true, "ERROR", error);
+            return core.json(req, res, false, "ERROR", error);
         }
     });
 
@@ -145,33 +145,36 @@ module.exports = async function () {
     });
 
     (await db.get("addons", "active") || []).forEach(i => {if (i.routes == true){load(path.join(__dirname, '..', '..', 'addons', i.name, 'routes'))}});
+
     function load(a) {
-        const b = fs.readdirSync(a).filter(i => i.endsWith('.js'));
-        b.forEach(i => {
-            const c = require(path.join(a, i));
-            if (typeof c === 'function') { c() };
-        });
+        try {
+            const b = fs.readdirSync(a).filter(i => i.endsWith('.js'));
+            b.forEach(i => {
+                const c = require(path.join(a, i));
+                if (typeof c === 'function') { c() };
+            });
+        } catch (error) {
+            console.error('Error loading addon routes:', error);
+        }
     }
 
     async function handle(error, a, b) {
-        const admins = await db.get("notifications", "admins") || [];
-        const errors = await db.get("logs", "errors") || [];
-        System.err.println(error)
-        admins.push({
-            title: `${a} Error`,
-            message: `${error}`,
-            type: "error",
-            place: "app-addons",
-            date: Date.now()
-        });
-        errors.push({ date: Date.now(), error: error, file: "routes/app/addons.js", line: b });
-        await db.set("notifications", "admins", admins);
-        await db.set("logs", "errors", errors);
-        return
+        try {
+            const admins = await db.get("notifications", "admins") || [];
+            const errors = await db.get("logs", "errors") || [];
+            System.err.println(error)
+            admins.push({
+                title: `${a} Error`,
+                message: `${error}`,
+                type: "error",
+                place: "app-addons",
+                date: Date.now()
+            });
+            errors.push({ date: Date.now(), error: error, file: "routes/app/addons.js", line: b });
+            await db.set("notifications", "admins", admins);
+            await db.set("logs", "errors", errors);
+        } catch (err) {
+            console.error('Error handling error:', err);
+        }
     }
 }
-/**
-*--------------------------------------------------------------------------
-* End of the file
-*--------------------------------------------------------------------------
-*/

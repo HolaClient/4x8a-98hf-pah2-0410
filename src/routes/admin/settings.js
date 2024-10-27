@@ -56,7 +56,7 @@ module.exports = async function () {
         try {
             if (req.query && req.query?.type == "full") {
                 await db.set(req.params.a, 'settings', req.body);
-                core.log.admin(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
+                core.log.admin(`${req.session.userinfo.username) modified the ${req.params.a} settings.`);
             } else {
                 await db.set('settings', req.params.a, req.body);
                 core.log.admin(`${req.session.userinfo.username} modified the ${req.params.a} settings.`);
@@ -64,7 +64,7 @@ module.exports = async function () {
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 194);
-            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error })); // P73f5
         }
     });
     app.get("/api/admin/settings/:a", core.admin, async (req, res) => {
@@ -80,7 +80,7 @@ module.exports = async function () {
             return core.json(req, res, true, "SUCCESS", a)
         } catch (error) {
             handle(error, "Minor", 194);
-            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error })); // P73f5
         }
     });
     app.post("/api/admin/settings/pterodactyl", core.admin, async (req, res) => {
@@ -90,29 +90,36 @@ module.exports = async function () {
             return res.end(JSON.stringify({ success: true, message: alert("SUCCESS", req, res) }));
         } catch (error) {
             handle(error, "Minor", 194);
-            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error }));
+            return res.end(JSON.stringify({ success: false, message: alert("ERROR", req, res) + error })); // P73f5
         }
     });
 
     async function handle(error, a, b) {
-        const admins = await db.get("notifications", "admins") || [];
-        const errors = await db.get("logs", "errors") || [];
-        System.err.println(error)
-        admins.push({
-            title: `${a} Error`,
-            message: `${error}`,
-            type: "error",
-            place: "admin-settings",
-            date: Date.now()
-        });
-        errors.push({ date: Date.now(), error: error, file: "routes/admin/settings.js", line: b });
-        await db.set("notifications", "admins", admins);
-        await db.set("logs", "errors", errors);
-        return
-    }
+        try {
+            const admins = await db.get("notifications", "admins") || [];
+            const errors = await db.get("logs", "errors") || [];
+            System.err.println(error)
+            if (Array.isArray(admins) && Array.isArray(errors)) {
+                admins.push({
+                    title: `${a} Error`,
+                    message: `${error}`,
+                    type: "error",
+                    place: "admin-settings",
+                    date: Date.now()
+                });
+                errors.push({ date: Date.now(), error: error, file: "routes/admin/settings.js", line: b });
+                await db.set("notifications", "admins", admins);
+                await db.set("logs", "errors", errors);
+            }
+            return
+        } catch (error) {
+            System.err.println(error)
+            return
+        }
+    };
 }
 /**
-*--------------------------------------------------------------------------
+*-------------------------------------------------------------------------- 
 * End of the file
-*--------------------------------------------------------------------------
+*-------------------------------------------------------------------------- 
 */
